@@ -12,11 +12,11 @@ use Novalnet\Helper\PaymentHelper;
 use Plenty\Modules\Payment\Method\Contracts\PaymentMethodRepositoryContract;
 
 /**
- * Class CreateNovalnetPaymentMethods0001
+ * Class CreateNovalnetPaymentMethods0011
  *
  * @package Novalnet\Migrations
  */
-class CreateNovalnetPaymentMethods0001
+class CreateNovalnetPaymentMethods0011
 {
     /**
      * @var PaymentMethodRepositoryContract
