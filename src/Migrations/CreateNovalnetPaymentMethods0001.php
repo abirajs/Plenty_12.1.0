@@ -12,11 +12,11 @@ use Novalnet\Helper\PaymentHelper;
 use Plenty\Modules\Payment\Method\Contracts\PaymentMethodRepositoryContract;
 
 /**
- * Class CreateNovalnetPaymentMethods0000
+ * Class CreateNovalnetPaymentMethods0001
  *
  * @package Novalnet\Migrations
  */
-class CreateNovalnetPaymentMethods0000
+class CreateNovalnetPaymentMethods0001
 {
     /**
      * @var PaymentMethodRepositoryContract
@@ -72,9 +72,9 @@ class CreateNovalnetPaymentMethods0000
             'NOVALNET_ALIPAY'                   => 'Novalnet Alipay',
             'NOVALNET_WECHAT_PAY'               => 'Novalnet WeChat Pay',
             'NOVALNET_TRUSTLY'                  => 'Novalnet Trustly',
-            'NOVALNET_BLIK'                  	=> 'Novalnet Blik',
             'NOVALNET_PAYCONIQ'                 => 'Novalnet Payconiq',
-            'NOVALNET_MBWAY'                 	=> 'Novalnet MBway',
+            'NOVALNET_MBWAY'                   	=> 'Novalnet MBway',
+            'NOVALNET_BLIK'                  	  => 'Novalnet Blik',
             
         ];
 
