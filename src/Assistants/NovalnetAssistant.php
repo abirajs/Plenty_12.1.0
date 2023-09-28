@@ -521,7 +521,7 @@ class NovalnetAssistant extends WizardProvider
     */
     public function createOnHoldConfiguration($config)
     {
-         $onHoldSupportedPayments = ['novalnetSepa', 'novalnetCc', 'novalnetInvoice', 'novalnetGuaranteedInvoice', 'novalnetGuaranteedSepa', 'novalnetPaypal', 'novalnetApplepay', 'novalnetGooglepay'];
+         $onHoldSupportedPayments = ['novalnetSepa', 'novalnetCc', 'novalnetInvoice', 'novalnetGuaranteedInvoice', 'novalnetGuaranteedSepa', 'novalnetPaypal', 'novalnetApplepay', 'novalnetGooglepay','novalnetACH'];
          foreach($onHoldSupportedPayments as $onHoldSupportedPayment) {
             $config['steps'][$onHoldSupportedPayment]['sections'][]['form'] =
             [
