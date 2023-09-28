@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{plugin_path('Novalnet')}}/css/novalnetUi.css">
 <script type="text/javascript" src="https://cdn.novalnet.de/js/v2/NovalnetUtility.js"></script>
 <script src="{{ plugin_path('Novalnet') }}/js/novalnetSepa.js"></script>
-{% if paymentMopKey == 'NOVALNET_GUARANTEED_SEPA' and showBirthday == true %}
+{% if paymentMopKey == 'NOVALNET_INSTALMENT_SEPA' and showBirthday == true %}
    <script src="{{plugin_path('Novalnet')}}/js/novalnetGuaranteedPayment.js"></script>
 {% endif %}
 
@@ -53,7 +53,7 @@
         </div>
 
         {# Date of Birth Form #}
-        {% if paymentMopKey == 'NOVALNET_GUARANTEED_SEPA' and showBirthday == true %}
+        {% if paymentMopKey == 'NOVALNET_INSTALMENT_SEPA' and showBirthday == true %}
             {# Set the post data #}
             <input type="hidden" id="nn_show_dob" name="nn_show_dob" value="1">
             <input type="hidden" id="nn_dob_empty" name="nn_dob_empty" value="{{trans("Novalnet::Customize.template_dob_empty")}}">
