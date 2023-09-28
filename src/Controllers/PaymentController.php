@@ -215,8 +215,8 @@ class PaymentController extends Controller
         }
         // Setting up the wallet token for the Google pay payment
         if($paymentRequestPostData['nn_payment_key'] == 'NOVALNET_MBWAY') {
-		   $this->sessionStorage->getPlugin()->setValue('nnMBwayDoRedirect', 'true');
-           return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/payment/novalnet/redirectPayment');
+	   $this->sessionStorage->getPlugin()->setValue('nnMBwayDoRedirect', 'true');
+           $paymentRequestData['paymentRequestData']['transaction']['return_url'] = $this->paymentService->getReturnPageUrl();
         }
         
         // Set the payment requests in the session for the further processings
