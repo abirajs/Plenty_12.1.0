@@ -545,7 +545,7 @@ class PaymentHelper
             'TRUSTLY'                       => 'NOVALNET_TRUSTLY',
             'BLIK'                       	=> 'NOVALNET_BLIK',
             'PAYCONIQ'                      => 'NOVALNET_PAYCONIQ',
-            'MBWAY'                      	=> 'NOVALNET_MBWAY'
+            'MBWAY'                      	=> 'NOVALNET_MBWAY',
             'DIRECT_DEBIT_ACH'           	=> 'NOVALNET_ACH'
         ];
         return $paymentMethodKey[$paymentType];
