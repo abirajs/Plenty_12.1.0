@@ -66,9 +66,9 @@
                     <div class="col col-12">
                         <div class="form-group" role="group">
                             <select id="nn_instalment_cycle" name="nn_instalment_cycle" class="form-control">
-                                    {% foreach key,value in instalmentCyclesAmount %}                                   
+                                    {% for key,value in instalmentCyclesAmount %}                                   
                                         <option value="{{key}}" data-amount="{{value}} {{currency}}" data-cycle-amount="{{cycleAmount/100}}">{{key}} x {{value}} {{currency}} {{trans("Novalnet::Customize.template_per_month_text")}}</option>   
-                                    {% endforeach %}
+                                    {% endfor %}
                             </select>
                             <label for="nn_instalment_cycle">{{languageTexts.jtl_novalnet_instalment_cycles}}</label>
                         </div>                                   
