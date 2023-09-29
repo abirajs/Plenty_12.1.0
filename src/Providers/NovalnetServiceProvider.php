@@ -207,7 +207,7 @@ class NovalnetServiceProvider extends ServiceProvider
                         $contentType = 'htmlContent';
                     } elseif($paymentKey == 'NOVALNET_INSTALMENT_INVOICE' && $showBirthday == true) {
 						$instalmentCyclesAmount = [];
-						$instalmentCyclesAmount[$cycle] = 2;
+						$instalmentCyclesAmount[4] = 2;
                         $content = $twig->render('Novalnet::PaymentForm.NovalnetInstalmentInvoice',
                         [
                             'nnPaymentProcessUrl'   			=> $paymentService->getProcessPaymentUrl(),
