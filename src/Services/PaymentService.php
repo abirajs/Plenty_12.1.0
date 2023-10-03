@@ -1124,14 +1124,14 @@ class PaymentService
        $InstalmentComments  = '';
 	   if(isset($transactionData['pending_cycles'])) {
 			$nextCycleDate    = (!empty($transactionData['next_cycle_date'])) ? 'The next cycle date is : ' . $transactionData['next_cycle_date'] : '';
-			$formattedCycleAmount = $this->paymentHelper->convertAmountToSmallerUnit($basket->basketAmount) . '' . $transactionData['currency'];	
+			$formattedCycleAmount = $this->paymentHelper->convertAmountToSmallerUnit($transactionData['cycle_amount']) . '' . $transactionData['currency'];	
 			$InstalmentComments .=  'Instalment Information : ' .  PHP_EOL ;
 			$InstalmentComments .= 'Executed_cycles : ' . $transactionData['cycles_executed'] . PHP_EOL;
 			$InstalmentComments .= 'Pending_cycles : ' . $transactionData['pending_cycles'] . PHP_EOL;
 			if(!empty($nextCycleDate)) {
 			$InstalmentComments .= $nextCycleDate . PHP_EOL ;
 			}
-			$InstalmentComments .= 'instalment_cycle_amount : ' . $transactionData['cycle_amount'] . PHP_EOL ;
+			$InstalmentComments .= 'instalment_cycle_amount : ' . $formattedCycleAmount . PHP_EOL ;
 		}
         return $InstalmentComments;
     }
