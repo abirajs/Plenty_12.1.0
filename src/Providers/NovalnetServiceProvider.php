@@ -206,8 +206,8 @@ class NovalnetServiceProvider extends ServiceProvider
                         ]);
                         $contentType = 'htmlContent';
                     } elseif($paymentKey == 'NOVALNET_INSTALMENT_INVOICE' && $showBirthday == true) {
-						$instalmentCycles = $settingsService->getPaymentSettingsValue('instament_cycles');
-			    			$allowB2BCustomer = $settingsService->getPaymentSettingsValue('allow_B2B_customer');
+						$instalmentCycles = $settingsService->getPaymentSettingsValue('instament_cycles', strtolower($paymentKey));
+			    			$allowB2BCustomer = $settingsService->getPaymentSettingsValue('allow_B2B_customer', strtolower($paymentKey));
 						$this->getLogger(__METHOD__)->error('InstalmentCycles', $instalmentCycles);
 			   		        $this->getLogger(__METHOD__)->error('allowB2BCustomer', $allowB2BCustomer);
 						$instalmentCyclesAmount = [];
