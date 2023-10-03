@@ -205,7 +205,7 @@ class NovalnetServiceProvider extends ServiceProvider
 							$cycleAmount = $paymentHelper->convertAmountToSmallerUnit($basketRepository->load()->basketAmount);
 							// Assign the cycle amount if th cycle amount greater than
 							if ($cycleAmount > 999) {
-								$instalmentCyclesAmount[$cycle] = truncate_number(((($paymentHelper->convertAmountToSmallerUnit($basketRepository->load()->basketAmount) / $cycle )) / 100));
+								$instalmentCyclesAmount[$cycle] = sprintf('%0.2f', (($paymentHelper->convertAmountToSmallerUnit($basketRepository->load()->basketAmount) / $cycle ) / 100));
 							}
 						}  
                         $content = $twig->render('Novalnet::PaymentForm.NovalnetInstalmentSepa',
@@ -214,8 +214,8 @@ class NovalnetServiceProvider extends ServiceProvider
                             'paymentMopKey'         			=> $paymentKey,
                             'paymentName'           			=> $paymentHelper->getCustomizedTranslatedText('template_' . strtolower($paymentKey)),
                             'showBirthday'          			=> $showBirthday,
-                            'instalmentCyclesAmount'          	=> $instalmentCyclesAmount,
-                            'currency'							=> $currency
+                            'instalmentCyclesAmount'          		=> $instalmentCyclesAmount,
+                            'currency'					=> $currency
                         ]);
                         $contentType = 'htmlContent';
                     } elseif($paymentKey == 'NOVALNET_INSTALMENT_INVOICE' && $showBirthday == true) {
@@ -227,7 +227,7 @@ class NovalnetServiceProvider extends ServiceProvider
 							$cycleAmount = $paymentHelper->convertAmountToSmallerUnit($basketRepository->load()->basketAmount);
 							// Assign the cycle amount if th cycle amount greater than
 							if ($cycleAmount > 999) {
-								$instalmentCyclesAmount[$cycle] = (($paymentHelper->convertAmountToSmallerUnit($basketRepository->load()->basketAmount) / $cycle )) / 100;
+								$instalmentCyclesAmount[$cycle] = ($paymentHelper->convertAmountToSmallerUnit($basketRepository->load()->basketAmount) / $cycle ) / 100;
 							}
 						}  
                         $content = $twig->render('Novalnet::PaymentForm.NovalnetInstalmentInvoice',
@@ -236,7 +236,7 @@ class NovalnetServiceProvider extends ServiceProvider
                             'paymentMopKey'         			=> $paymentKey,
                             'paymentName'           			=> $paymentHelper->getCustomizedTranslatedText('template_' . strtolower($paymentKey)),
                             'instalmentCyclesAmount' 			=> $instalmentCyclesAmount,
-                            'currency'							=> $currency
+                            'currency'					=> $currency
                         ]);
                         $contentType = 'htmlContent';
                     }
