@@ -207,7 +207,9 @@ class NovalnetServiceProvider extends ServiceProvider
                         $contentType = 'htmlContent';
                     } elseif($paymentKey == 'NOVALNET_INSTALMENT_INVOICE' && $showBirthday == true) {
 						$instalmentCycles = $settingsService->getPaymentSettingsValue('instament_cycles');
+			    			$allowB2BCustomer = $settingsService->getPaymentSettingsValue('allow_B2B_customer');
 						$this->getLogger(__METHOD__)->error('InstalmentCycles', $instalmentCycles);
+			   		        $this->getLogger(__METHOD__)->error('allowB2BCustomer', $allowB2BCustomer);
 						$instalmentCyclesAmount = [];
 						$instalmentCyclesAmount[2] = 2;
                         $content = $twig->render('Novalnet::PaymentForm.NovalnetInstalmentInvoice',
@@ -215,7 +217,7 @@ class NovalnetServiceProvider extends ServiceProvider
                             'nnPaymentProcessUrl'   			=> $paymentService->getProcessPaymentUrl(),
                             'paymentMopKey'         			=> $paymentKey,
                             'paymentName'           			=> $paymentHelper->getCustomizedTranslatedText('template_' . strtolower($paymentKey)),
-                            'instalmentCyclesAmount'          	=> $instalmentCyclesAmount,
+                            'instalmentCyclesAmount'          		=> $instalmentCyclesAmount,
                         ]);
                         $contentType = 'htmlContent';
                     }
