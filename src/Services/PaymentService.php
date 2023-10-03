@@ -1114,7 +1114,7 @@ class PaymentService
      */
     public function getInstalmentInformation($transactionData)
     {
-       $InstalmentComments  = '';
+       $InstalmentComments  = 'Instalment Information';
 	   if(isset($transactionData['instalment']['pending_cycles'])) {
 			$nextCycleDate    = (!empty($transactionData['instalment']['next_cycle_date'])) ? $transactionData['instalment']['next_cycle_date'] : '';
 			$formattedCycleAmount = $this->paymentHelper->convertAmountToSmallerUnit($basket->basketAmount) . '' . $transactionData['transaction']['currency'];	
