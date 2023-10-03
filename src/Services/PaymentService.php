@@ -1121,17 +1121,17 @@ class PaymentService
      */
     public function getInstalmentInformation($transactionData)
     {
-       $InstalmentComments  = 'Instalment Information';
-	   if(isset($transactionData['instalment']['pending_cycles'])) {
-			$nextCycleDate    = (!empty($transactionData['instalment']['next_cycle_date'])) ? $transactionData['instalment']['next_cycle_date'] : '';
-			$formattedCycleAmount = $this->paymentHelper->convertAmountToSmallerUnit($basket->basketAmount) . '' . $transactionData['transaction']['currency'];	
-			$InstalmentComments .= PHP_EOL . 'instalment_title' .  PHP_EOL ;
-			$InstalmentComments .= $transactionData['instalment']['cycles_executed'] . PHP_EOL;
-			$InstalmentComments .= $transactionData['instalment']['pending_cycles'] . PHP_EOL;
+       $InstalmentComments  = '';
+	   if(isset($transactionData['pending_cycles'])) {
+			$nextCycleDate    = (!empty($transactionData['next_cycle_date'])) ? 'The next cycle date is : ' . $transactionData['next_cycle_date'] : '';
+			$formattedCycleAmount = $this->paymentHelper->convertAmountToSmallerUnit($basket->basketAmount) . '' . $transactionData['currency'];	
+			$InstalmentComments .= PHP_EOL . 'Instalment Information' .  PHP_EOL ;
+			$InstalmentComments .= 'Executed_cycles' . $transactionData['cycles_executed'] . PHP_EOL;
+			$InstalmentComments .= 'Pending_cycles' . $transactionData['pending_cycles'] . PHP_EOL;
 			if(!empty($nextCycleDate)) {
-			$InstalmentComments .= 'instalment_note'. PHP_EOL ;
+			$InstalmentComments .= $nextCycleDate . PHP_EOL ;
 			}
-			$InstalmentComments .= 'instalment_cycle_amount' . PHP_EOL ;
+			$InstalmentComments .= 'instalment_cycle_amount' . $transactionData['cycle_amount'] . PHP_EOL ;
 		}
         return $InstalmentComments;
     }
