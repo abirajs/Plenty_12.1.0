@@ -99,6 +99,19 @@
 
 
 <script>
+function formatMoney(amount, decimalCount = 2, decimal = ",", thousands = ".") {
+  try {
+    decimalCount = Math.abs(decimalCount);
+    decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
+    const negativeSign = amount < 0 ? "-" : "";
+    let i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString();
+    let j = (i.length > 3) ? i.length % 3 : 0;
+    return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, "jQuery1" + thousands) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : "");
+  } catch (e) {
+    console.log(e)
+  }
+}
+
     if (jQuery('#nn_instalment_cycle').length > 0) {
         jQuery('#nn_instalment_cycle').on('change',function() {             
             var cycleInformation = '';              
@@ -109,7 +122,7 @@
                 } else {
                     var lastCycleAmount = (jQuery('#nn_order_amount').val() - (jQuery(this).find(':selected').attr('data-cycle-amount') * (jQuery(this).val() - 1)));
                     
-                    cycleInformation += '<tr><td>' + instalmentCycle + '</td><td>'+   (lastCycleAmount) + ' '+ jQuery('#nn_order_currency').val()+'</td></tr>';
+                    cycleInformation += '<tr><td>' + instalmentCycle + '</td><td>'+   formatMoney(lastCycleAmount) + ' '+ jQuery('#nn_order_currency').val()+'</td></tr>';
                 }
             }                           
             jQuery('#nn_instalment_cycle_information').html(cycleInformation);
