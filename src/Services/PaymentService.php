@@ -1004,11 +1004,11 @@ class PaymentService
         if((in_array($transactionData['paymentName'], ['novalnet_invoice', 'novalnet_prepayment']) && !in_array($transactionData['tx_status'], ['DEACTIVATED', 'FAILURE'])) || (in_array($transactionData['paymentName'], ['novalnet_guaranteed_invoice', 'novalnet_instalment_invoice']) && !in_array($transactionData['tx_status'], ['PENDING', 'DEACTIVATED', 'FAILURE']))) {
             $transactionComments .= PHP_EOL . $this->getBankDetailsInformation($transactionData);
         }
-        $this->getLogger(__METHOD__)->error('Novalnet::doCaptureVoid outtt ' . $paymentRequestData['order_no'], $e);
+        $this->getLogger(__METHOD__)->error('Novalnet::doCaptureVoid outtt ' , $transactionData);
         // Form the instalment details for instalment payments
         if((in_array($transactionData['paymentName'], ['novalnet_instalment_sepa', 'novalnet_instalment_invoice']) && !in_array($transactionData['tx_status'], ['PENDING', 'DEACTIVATED', 'FAILURE']))) {
             $transactionComments .= PHP_EOL . $this->getInstalmentInformation($transactionData);
-            $this->getLogger(__METHOD__)->error('Novalnet::doCaptureVoid innn ' . $paymentRequestData['order_no'], $e);
+            $this->getLogger(__METHOD__)->error('Novalnet::doCaptureVoid innn ' , $transactionData);
         }
         
         // Form the cashpayment comments
