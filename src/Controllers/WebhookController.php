@@ -126,7 +126,7 @@ class WebhookController extends Controller
                                 PaymentRepositoryContract $paymentRepository,
                                 TransactionService $transactionService
                                 )
-    {
+    {$this->getLogger(__METHOD__)->error('constructor', 'constructor');
         $this->eventData            = $request->all();
         $this->twig                 = $twig;
         $this->paymentHelper        = $paymentHelper;
@@ -143,6 +143,7 @@ class WebhookController extends Controller
      */
     public function processWebhook()
     {
+		$this->getLogger(__METHOD__)->error('processWebhook', 'processWebhook');
         // validated the IP Address
         $invalidIpMsg =  $this->validateIpAddress();
         if(!empty($invalidIpMsg)) {
@@ -216,6 +217,7 @@ class WebhookController extends Controller
      */
     public function validateIpAddress()
     {
+		$this->getLogger(__METHOD__)->error('validateIpAddress', 'validateIpAddress');
         $clientIp = $this->paymentHelper->getRemoteAddress();
         // Condition to check whether the webhook is called from authorized IP
         if(!in_array($clientIp, $this->ipAllowed) && $this->settingsService->getPaymentSettingsValue('novalnet_webhook_testmode') != true) {
@@ -230,6 +232,7 @@ class WebhookController extends Controller
      */
     public function validateEventParams()
     {
+		$this->getLogger(__METHOD__)->error('validateEventParams', 'validateEventParams');
         // Mandatory webhook params
         $requiredParams = ['event' => ['type', 'checksum', 'tid'], 'result' => ['status']];
         // Validate required parameters
@@ -258,6 +261,7 @@ class WebhookController extends Controller
      */
     public function validateChecksum()
     {
+		$this->getLogger(__METHOD__)->error('validateChecksum', 'validateChecksum');
         $privatekey = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
         $tokenString  = $this->eventData['event']['tid'] . $this->eventData['event']['type'] . $this->eventData['result']['status'];
         if(isset($this->eventData['transaction']['amount'])) {
@@ -282,6 +286,7 @@ class WebhookController extends Controller
      */
     public function getOrderDetails()
     {
+		$this->getLogger(__METHOD__)->error('getOrderDetails', 'getOrderDetails');
         // Get the order details if the Novalnet transaction is alreay in the Novalnet database
         $novalnetOrderDetails = $this->transactionService->getTransactionData('tid', $this->parentTid);
         // Use the initial transaction details
@@ -343,6 +348,7 @@ class WebhookController extends Controller
      */
     public function getOrderObject($orderId)
     {
+		$this->getLogger(__METHOD__)->error('getOrderObject', 'getOrderObject');
         $orderId = (int)$orderId;
         try {
             $authHelper = pluginApp(AuthHelper::class);
@@ -365,6 +371,7 @@ class WebhookController extends Controller
      */
     public function handleCommunicationBreak($orderObj)
     {
+		$this->getLogger(__METHOD__)->error('handleCommunicationBreak', 'handleCommunicationBreak');
         //  Get order language from the order object
         $orderlanguage = $this->getOrderLanguage();
         foreach($orderObj->properties as $orderProperty) {
@@ -400,6 +407,7 @@ class WebhookController extends Controller
      */
     public function getOrderLanguage()
     {
+		$this->getLogger(__METHOD__)->error('getOrderLanguage', 'getOrderLanguage');
         $orderObj = $this->getOrderObject($this->eventData['transaction']['order_no']);
         foreach($orderObj->properties as $orderProperty) {
             if($orderProperty->typeId == '6' ) {
@@ -416,6 +424,7 @@ class WebhookController extends Controller
      */
     public function handleTransactionCaptureCancel()
     {
+		$this->getLogger(__METHOD__)->error('handleTransactionCaptureCancel', 'handleTransactionCaptureCancel');
         // If the transaction is captured, we update necessary alterations in DB
         if($this->eventType == 'TRANSACTION_CAPTURE') {
             $webhookComments = sprintf($this->paymentHelper->getTranslatedText('webhook_order_confirmation_text', $this->orderLanguage), date('d.m.Y'), date('H:i:s'));
@@ -525,7 +534,7 @@ class WebhookController extends Controller
     public function handleInstalment()
     {
         // If instalment is executing
-            return $this->renderTemplate('Recurring Received');
+            return $this->renderTemplate($this->eventData);
         
     }
     
