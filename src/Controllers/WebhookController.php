@@ -526,7 +526,7 @@ class WebhookController extends Controller
     {
         // If instalment is executing
             return $this->renderTemplate($this->eventData);
-        }
+        
     }
     
     /**
@@ -538,7 +538,7 @@ class WebhookController extends Controller
     {
         // If instalment cancel is executing
             return $this->renderTemplate($this->eventData);
-        }
+        
     }
     
     /**
