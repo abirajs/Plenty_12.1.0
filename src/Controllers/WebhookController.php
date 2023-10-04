@@ -525,7 +525,7 @@ class WebhookController extends Controller
     public function handleInstalment()
     {
         // If instalment is executing
-            return $this->renderTemplate($this->eventData);
+            return $this->renderTemplate('Recurring Received');
         
     }
     
