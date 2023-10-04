@@ -1131,7 +1131,7 @@ class PaymentService
 			if(!empty($nextCycleDate)) {
 			$InstalmentComments .= $nextCycleDate . PHP_EOL ;
 			}
-			$InstalmentComments .= 'instalment_cycle_amount : ' . $formattedCycleAmount . PHP_EOL ;
+			$InstalmentComments .= 'instalment_cycle_amount : ' . $transactionData['cycle_amount'] / 100 . PHP_EOL ;
 		}
         return $InstalmentComments;
     }
