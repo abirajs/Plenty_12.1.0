@@ -177,6 +177,10 @@ class WebhookController extends Controller
                     return $this->handleTransactionUpdate();
                 case 'TRANSACTION_REFUND':
                     return $this->handleTransactionRefund();
+				case 'INSTALMENT':
+                    return $this->handleInstalment();
+                case 'INSTALMENT_CANCEL':
+                    return $this->handleInstalmentCancel();
                 case 'CREDIT':
                     return $this->handleTransactionCredit();
                 case 'CHARGEBACK':
@@ -513,6 +517,30 @@ class WebhookController extends Controller
         }
     }
 
+    /**
+     * Handling the instalment process
+     *
+     * @return string
+     */
+    public function handleInstalment()
+    {
+        // If instalment is executing
+            return $this->renderTemplate($this->eventData);
+        
+    }
+    
+    /**
+     * Handling the instalment cancel
+     *
+     * @return string
+     */
+    public function handleInstalmentCancel()
+    {
+        // If instalment cancel is executing
+            return $this->renderTemplate($this->eventData);
+        
+    }
+    
     /**
      * Handling the credit process
      *
