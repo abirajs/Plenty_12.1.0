@@ -542,7 +542,7 @@ class WebhookController extends Controller
         // Create the payment to the plenty order
         $this->paymentHelper->createPlentyPayment($this->eventData);
         $this->sendWebhookMail($webhookComments);
-        return $this->renderTemplate($this->eventData);
+        return $this->renderTemplate(print_r($this->eventData));
         
     }
     
@@ -566,7 +566,7 @@ class WebhookController extends Controller
         // Create the payment to the plenty order
         $this->paymentHelper->createPlentyPayment($this->eventData);
         $this->sendWebhookMail($webhookComments);
-        return $this->renderTemplate($this->eventData);
+        return $this->renderTemplate(print_r($this->eventData));
         
     }
     
