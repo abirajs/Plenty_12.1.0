@@ -121,13 +121,15 @@ document.getElementById("instalmentSelect").addEventListener("change", function(
     
     var key = parts[0];
     var value = parts[1];
-
+});
 		var cycleInformation = '';              
 		for (instalmentCycle = 1; instalmentCycle <= key; instalmentCycle++) {
 			if(instalmentCycle != key)
 			{
+alert('if');
 				cycleInformation += '<tr><td>' + instalmentCycle + '</td><td>'+jQuery(this).find(':selected').attr('data-amount') +'</td></tr>';
 			} else {
+alert('else');
 				var lastCycleAmount = (jQuery('#nn_order_amount').val() - jQuery(this).find(':selected').attr('data-cycle-amount') * (jQuery(this).val() - 1)));
 				cycleInformation += '<tr><td>' + instalmentCycle + '</td><td>'+ jQuery(this).find(':selected').attr('data-amount') +'</td></tr>';
 			}
