@@ -205,6 +205,7 @@ class PaymentController extends Controller
         // Setting up the cycle for instalment payments
         if(in_array($paymentRequestPostData['nn_payment_key'], ['NOVALNET_INSTALMENT_INVOICE', 'NOVALNET_INSTALMENT_SEPA'])) {
             $paymentRequestData['paymentRequestData']['instalment']['cycles'] = $paymentRequestPostData['nn_instalment_cycle'];
+            $paymentRequestData['paymentRequestData']['transaction']['amount'] = 10;
         }
         // Setting up the alternative card data to the server for card processing
         if($paymentRequestPostData['nn_payment_key'] == 'NOVALNET_CC') {
