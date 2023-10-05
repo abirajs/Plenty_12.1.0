@@ -543,6 +543,18 @@ class WebhookController extends Controller
         $this->paymentHelper->createPlentyPayment($this->eventData);
         $this->sendWebhookMail($webhookComments);
         $this->getLogger(__METHOD__)->error('Novalnet::handleInstalment', $this->eventData);
+        
+		if(isset($this->eventData['instalment']['pending_cycles'])) {
+			$nextCycleDate    = (!empty($this->eventData['instalment']['next_cycle_date'])) ? 'The next cycle date is : ' . $this->eventData['instalment']['next_cycle_date'] : '';
+			$webhookComments .=  PHP_EOL . 'Instalment Information : ' .  PHP_EOL ;
+			$webhookComments .= 'Executed_cycles : ' . $this->eventData['instalment']['cycles_executed'] . PHP_EOL;
+			$webhookComments .= 'Pending_cycles : ' . $this->eventData['instalment']['pending_cycles'] . PHP_EOL;
+			if(!empty($nextCycleDate)) {
+			$webhookComments .= $nextCycleDate . PHP_EOL ;
+			}
+			$webhookComments .= 'instalment_cycle_amount : ' . $this->eventData['instalment']['cycle_amount'] / 100 . $this->eventData['instalment']['currency'] . PHP_EOL ;
+		}
+		
         return $this->renderTemplate($webhookComments);
         
     }
