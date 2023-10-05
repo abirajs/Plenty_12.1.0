@@ -195,7 +195,7 @@ class PaymentService
      *
      * @return array
      */
-    public function generatePaymentParams(Basket $basket, $paymentKey = '', $orderAmount = 0)
+    public function generatePaymentParams(Basket $basket, $paymentKey = '', $orderAmount = 0, $instalmentCycleAmount)
     {
         // Get the customer billing and shipping details
         $billingAddressId = $basket->customerInvoiceAddressId;
@@ -289,7 +289,7 @@ class PaymentService
             'system_ip'         => $_SERVER['SERVER_ADDR']
         ];
         if(in_array($paymentKey, ['NOVALNET_INSTALMENT_INVOICE', 'NOVALNET_INSTALMENT_SEPA'])) { // check if birthday field is given in the billing address
-            $paymentRequestData['transaction']['amount']  = 9990;
+            $paymentRequestData['transaction']['amount']  = $instalmentCycleAmount;
         }
         // Build the custom parameters
         $paymentRequestData['custom'] = ['lang'  => strtoupper($this->sessionStorage->getLocaleSettings()->language)];
