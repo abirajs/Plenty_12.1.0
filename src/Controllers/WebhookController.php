@@ -542,8 +542,8 @@ class WebhookController extends Controller
         // Create the payment to the plenty order
         $this->paymentHelper->createPlentyPayment($this->eventData);
         $this->sendWebhookMail($webhookComments);
-	$evenData = json_encode($this->evenData);    
-        return $this->renderTemplate($eventData);
+        $this->getLogger(__METHOD__)->error('Novalnet::handleInstalment', $this->eventData);
+        return $this->renderTemplate($webhookComments);
         
     }
     
@@ -566,8 +566,9 @@ class WebhookController extends Controller
         $this->eventData['bookingText'] = $webhookComments;
         // Create the payment to the plenty order
         $this->paymentHelper->createPlentyPayment($this->eventData);
-	$evenData = json_encode($this->evenData);    
-        return $this->renderTemplate($eventData);
+        $this->sendWebhookMail($webhookComments);
+        $this->getLogger(__METHOD__)->error('Novalnet::handleInstalmentCancel', $this->eventData);
+        return $this->renderTemplate($webhookComments);
         
     }
     
