@@ -171,6 +171,11 @@ class PaymentController extends Controller
         $this->getLogger(__METHOD__)->error('Novalnet::$paymentRequestPostData', $paymentRequestPostData);
         // Get the order amount
         $orderAmount = !empty($paymentRequestPostData['nn_order_amount']) ? $paymentRequestPostData['nn_order_amount'] : 0;
+		// Get instalment selected option key value
+        $selectedOption = $paymentRequestPostData['nn_instalment_cycle'];
+        list($key, $value) = explode("-", $selectedOption);
+        $this->getLogger(__METHOD__)->error('Novalnet::$instalmemntkeeyy', $key);
+        $this->getLogger(__METHOD__)->error('Novalnet::$instalmentvaluee', $value);
         // Get the payment request params
         $paymentRequestData = $this->paymentService->generatePaymentParams($this->basketRepository->load(), $paymentRequestPostData['nn_payment_key'], $orderAmount);
         // Setting up the account data to the server for SEPA processing
