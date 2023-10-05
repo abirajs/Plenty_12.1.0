@@ -122,7 +122,7 @@ document.getElementById("nn_instalment_cycle").addEventListener("change", functi
     
     var key = parts[0];
     var value = parts[1];
-});
+
 		var cycleInformation = '';              
 		for (instalmentCycle = 1; instalmentCycle <= key; instalmentCycle++) {
 alert('forloop');
@@ -137,6 +137,7 @@ alert('else');
 			}
 		}                           
 		jQuery('#nn_instalment_cycle_information').html(cycleInformation);
+});
 	}).change();
 
 </script>
