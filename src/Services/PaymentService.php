@@ -281,16 +281,17 @@ class PaymentService
         // Building the transaction Data
         $paymentRequestData['transaction'] = [
             'test_mode'         => ($this->settingsService->getPaymentSettingsValue('test_mode', $paymentKeyLower) == true) ? 1 : 0,
-            'amount'            => !empty($orderAmount) ? $orderAmount : $this->paymentHelper->convertAmountToSmallerUnit($basket->basketAmount),
             'currency'          => $basket->currency,
             'system_name'       => 'Plentymarkets',
             'system_version'    => NovalnetConstants::PLUGIN_VERSION,
             'system_url'        => $this->webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl,
             'system_ip'         => $_SERVER['SERVER_ADDR']
         ];
-        if(in_array($paymentKey, ['NOVALNET_INSTALMENT_INVOICE', 'NOVALNET_INSTALMENT_SEPA'])) { // check if birthday field is given in the billing address
+        if(in_array($paymentKey, ['NOVALNET_INSTALMENT_INVOICE', 'NOVALNET_INSTALMENT_SEPA'])) { 
             $paymentRequestData['transaction']['amount']  = 9990;
-        }
+        } else {
+	    $paymentRequestData['transaction']['amount']  =  !empty($orderAmount) ? $orderAmount : $this->paymentHelper->convertAmountToSmallerUnit($basket->basketAmount);
+	}
         // Build the custom parameters
         $paymentRequestData['custom'] = ['lang'  => strtoupper($this->sessionStorage->getLocaleSettings()->language)];
         // Build additional specific payment method request parameters
