@@ -174,9 +174,9 @@ class PaymentController extends Controller
 		// Get instalment selected option key value
         $selectedOption = $paymentRequestPostData['nn_instalment_cycle'];
         list($key, $value) = explode("-", $selectedOption);
-	$instalmentCycleAmount = !empty($value) ? $value : 0;
+		$instalmentCycleAmount = !empty($value) ? $value : 0;
         // Get the payment request params
-        $paymentRequestData = $this->paymentService->generatePaymentParams($this->basketRepository->load(), $paymentRequestPostData['nn_payment_key'], $orderAmount);
+        $paymentRequestData = $this->paymentService->generatePaymentParams($this->basketRepository->load(), $paymentRequestPostData['nn_payment_key'], $orderAmount, $instalmentCycleAmount);
         // Setting up the account data to the server for SEPA processing
         if(in_array($paymentRequestPostData['nn_payment_key'], ['NOVALNET_SEPA', 'NOVALNET_GUARANTEED_SEPA', 'NOVALNET_INSTALMENT_SEPA'])) {
             $paymentRequestData['paymentRequestData']['transaction']['payment_data'] = ['iban'  => $paymentRequestPostData['nn_sepa_iban']];
