@@ -542,7 +542,8 @@ class WebhookController extends Controller
         // Create the payment to the plenty order
         $this->paymentHelper->createPlentyPayment($this->eventData);
         $this->sendWebhookMail($webhookComments);
-        return $this->renderTemplate(print_r($this->eventData));
+	$evenData = json_encode($this->evenData);    
+        return $this->renderTemplate($eventData);
         
     }
     
@@ -565,8 +566,8 @@ class WebhookController extends Controller
         $this->eventData['bookingText'] = $webhookComments;
         // Create the payment to the plenty order
         $this->paymentHelper->createPlentyPayment($this->eventData);
-        $this->sendWebhookMail($webhookComments);
-        return $this->renderTemplate(print_r($this->eventData));
+	$evenData = json_encode($this->evenData);    
+        return $this->renderTemplate($eventData);
         
     }
     
