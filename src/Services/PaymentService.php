@@ -270,7 +270,7 @@ class PaymentService
         if(!empty($shippingAddress->state)) { // Check if state field is given in the shipping address
             $paymentRequestData['customer']['shipping']['state']    = $shippingAddress->state;
         }
-        if(empty($billingAddress->companyName) && !empty($billingAddress->birthday) && in_array($paymentKey, ['NOVALNET_GUARANTEED_INVOICE', 'NOVALNET_GUARANTEED_SEPA', 'NOVALNET_GUARANTEED_INVOICE', 'NOVALNET_GUARANTEED_SEPA'])) { // check if birthday field is given in the billing address
+        if(empty($billingAddress->companyName) && !empty($billingAddress->birthday) && in_array($paymentKey, ['NOVALNET_GUARANTEED_INVOICE', 'NOVALNET_GUARANTEED_SEPA', 'NOVALNET_INSTALMENT_INVOICE', 'NOVALNET_INSTALMENT_SEPA'])) { // check if birthday field is given in the billing address
             $paymentRequestData['customer']['birth_date']           = $billingAddress->birthday;
         }
         // Unset the shipping details if the billing and shipping details are same
@@ -288,6 +288,9 @@ class PaymentService
             'system_url'        => $this->webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl,
             'system_ip'         => $_SERVER['SERVER_ADDR']
         ];
+        if(in_array($paymentKey, ['NOVALNET_INSTALMENT_INVOICE', 'NOVALNET_INSTALMENT_SEPA'])) { // check if birthday field is given in the billing address
+            $paymentRequestData['transaction']['amount']  = 9990;
+        }
         // Build the custom parameters
         $paymentRequestData['custom'] = ['lang'  => strtoupper($this->sessionStorage->getLocaleSettings()->language)];
         // Build additional specific payment method request parameters
@@ -1130,7 +1133,7 @@ class PaymentService
 			if(!empty($nextCycleDate)) {
 			$InstalmentComments .= $nextCycleDate . PHP_EOL ;
 			}
-			$InstalmentComments .= 'instalment_cycle_amount : ' . $transactionData['cycle_amount'] / 100 . $transactionData['currency'] . PHP_EOL ;
+			$InstalmentComments .= 'instalment_cycle_amount : ' . $transactionData['cycle_amount'] / 100 . '' . $transactionData['currency'] . PHP_EOL ;
 		}
         return $InstalmentComments;
     }
