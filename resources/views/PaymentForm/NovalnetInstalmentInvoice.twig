@@ -112,7 +112,7 @@ function formatMoney(amount, decimalCount = 2, decimal = ",", thousands = ".") {
   }
 }
 
-if (jQuery('#nn_instalment_cycle').length > 0) {
+
 	jQuery('#nn_instalment_cycle').on('change',function() {             
 		var cycleInformation = '';              
 		for (instalmentCycle = 1; instalmentCycle <= jQuery(this).val(); instalmentCycle++) {
@@ -126,7 +126,7 @@ if (jQuery('#nn_instalment_cycle').length > 0) {
 		}                           
 		jQuery('#nn_instalment_cycle_information').html(cycleInformation);
 	}).change();
-} 
+
 </script>
 
 
