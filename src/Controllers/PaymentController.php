@@ -175,6 +175,8 @@ class PaymentController extends Controller
         $selectedOption = $paymentRequestPostData['nn_instalment_cycle'];
         list($key, $value) = explode("-", $selectedOption);
 		$instalmentCycleAmount = !empty($value) ? $value : 0;
+		$this->getLogger(__METHOD__)->error('Controllerkeyyy', $key);
+		$this->getLogger(__METHOD__)->error('Controllervalueee', $value);
         // Get the payment request params
         $paymentRequestData = $this->paymentService->generatePaymentParams($this->basketRepository->load(), $paymentRequestPostData['nn_payment_key'], $orderAmount, $instalmentCycleAmount);
         // Setting up the account data to the server for SEPA processing
