@@ -292,6 +292,7 @@ class PaymentService
         if(in_array($paymentKey, ['NOVALNET_INSTALMENT_INVOICE', 'NOVALNET_INSTALMENT_SEPA'])) { // check if birthday field is given in the billing address
             $paymentRequestData['transaction']['amount']  = $this->paymentHelper->convertAmountToSmallerUnit($instalmentCycleAmount);
         }
+        this->getLogger(__METHOD__)->error('$paymentRequestData[transaction]amount]' , $paymentRequestData['transaction']['amount']);
         // Build the custom parameters
         $paymentRequestData['custom'] = ['lang'  => strtoupper($this->sessionStorage->getLocaleSettings()->language)];
         // Build additional specific payment method request parameters
