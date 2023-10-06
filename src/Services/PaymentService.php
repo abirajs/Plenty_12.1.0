@@ -195,7 +195,7 @@ class PaymentService
      *
      * @return array
      */
-    public function generatePaymentParams(Basket $basket, $paymentKey = '', $orderAmount = 0, $instalmentCycleAmount)
+    public function generatePaymentParams(Basket $basket, $paymentKey = '', $orderAmount = 0, $instalmentCycleAmount = 0)
     {
         // Get the customer billing and shipping details
         $billingAddressId = $basket->customerInvoiceAddressId;
