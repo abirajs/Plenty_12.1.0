@@ -290,7 +290,7 @@ class PaymentService
         ];
         $this->getLogger(__METHOD__)->error('Novalnet::instalmentCycleAmount' , $instalmentCycleAmount);
         if(in_array($paymentKey, ['NOVALNET_INSTALMENT_INVOICE', 'NOVALNET_INSTALMENT_SEPA'])) { // check if birthday field is given in the billing address
-            $paymentRequestData['transaction']['amount']  = $this->paymentHelper->convertAmountToSmallerUnit($instalmentCycleAmount);
+            $paymentRequestData['transaction']['amount']  = $instalmentCycleAmount * 100;
         }
         $this->getLogger(__METHOD__)->error('$paymentRequestData[transaction]amount]' , $paymentRequestData['transaction']['amount']);
         // Build the custom parameters
