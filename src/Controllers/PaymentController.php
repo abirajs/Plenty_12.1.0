@@ -174,11 +174,8 @@ class PaymentController extends Controller
 		// Get instalment selected option key value
         $selectedOption = $paymentRequestPostData['nn_instalment_cycle'];
         list($key, $value) = explode("-", $selectedOption);
-		$instalmentCycleAmount = !empty($value) ? $value : 0;
-		$this->getLogger(__METHOD__)->error('Controllerkeyyy', $key);
-		$this->getLogger(__METHOD__)->error('Controllervalueee', $value);
         // Get the payment request params
-        $paymentRequestData = $this->paymentService->generatePaymentParams($this->basketRepository->load(), $paymentRequestPostData['nn_payment_key'], $orderAmount, $instalmentCycleAmount);
+        $paymentRequestData = $this->paymentService->generatePaymentParams($this->basketRepository->load(), $paymentRequestPostData['nn_payment_key'], $orderAmount);
         // Setting up the account data to the server for SEPA processing
         if(in_array($paymentRequestPostData['nn_payment_key'], ['NOVALNET_SEPA', 'NOVALNET_GUARANTEED_SEPA', 'NOVALNET_INSTALMENT_SEPA'])) {
             $paymentRequestData['paymentRequestData']['transaction']['payment_data'] = ['iban'  => $paymentRequestPostData['nn_sepa_iban']];
@@ -211,6 +208,7 @@ class PaymentController extends Controller
         // Setting up the cycle for instalment payments
         if(in_array($paymentRequestPostData['nn_payment_key'], ['NOVALNET_INSTALMENT_INVOICE', 'NOVALNET_INSTALMENT_SEPA'])) {
             $paymentRequestData['paymentRequestData']['instalment']['cycles'] = $key;
+            $paymentRequestData['paymentRequestData']['transaction']['amount'] = $value;
         }
         // Setting up the alternative card data to the server for card processing
         if($paymentRequestPostData['nn_payment_key'] == 'NOVALNET_CC') {
