@@ -195,7 +195,7 @@ class PaymentService
      *
      * @return array
      */
-    public function generatePaymentParams(Basket $basket, $paymentKey = '', $orderAmount = 0, $instalmentCycleAmount)
+    public function generatePaymentParams(Basket $basket, $paymentKey = '', $orderAmount = 0, $instalmentCycleAmount = 0)
     {
         // Get the customer billing and shipping details
         $billingAddressId = $basket->customerInvoiceAddressId;
@@ -288,7 +288,7 @@ class PaymentService
             'system_url'        => $this->webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl,
             'system_ip'         => $_SERVER['SERVER_ADDR']
         ];
-         $this->getLogger(__METHOD__)->error('Novalnet::instalmentCycleAmount' , $instalmentCycleAmount);
+        $this->getLogger(__METHOD__)->error('Novalnet::instalmentCycleAmount' , $instalmentCycleAmount);
         if(in_array($paymentKey, ['NOVALNET_INSTALMENT_INVOICE', 'NOVALNET_INSTALMENT_SEPA'])) { // check if birthday field is given in the billing address
             $paymentRequestData['transaction']['amount']  = $this->paymentHelper->convertAmountToSmallerUnit($instalmentCycleAmount);
         }
