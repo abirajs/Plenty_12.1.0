@@ -1369,6 +1369,7 @@ class PaymentService
     {
         try {
             // Novalnet access key
+            $this->getLogger(__METHOD__)->error('doInstalmentVoid ', $transactionData);
             $privateKey = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
             $paymentRequestData = [];
             $paymentRequestData['transaction']['tid'] = $transactionData['tid'];
