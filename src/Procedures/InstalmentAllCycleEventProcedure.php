@@ -18,7 +18,7 @@ use Novalnet\Constants\NovalnetConstants;
  *
  * @package Novalnet\Procedures
  */
-class VoidEventProcedure
+class InstalmentAllCycleEventProcedure
 {
      /**
      *
