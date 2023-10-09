@@ -1378,6 +1378,7 @@ class PaymentService
             // Send the payment capture/void call to Novalnet server
             $this->getLogger(__METHOD__)->error('doInstalmentVpaymentUrl', $paymentUrl);
             $this->getLogger(__METHOD__)->error('doInstalmentVprivateKey', $privateKey);
+            $this->getLogger(__METHOD__)->error('doInstalmentpaymentRequestData', $paymentRequestData);
             $paymentResponseData = $this->paymentHelper->executeCurl($paymentRequestData, $paymentUrl, $privateKey);
             $this->getLogger(__METHOD__)->error('doInstapaymentResponseData', $paymentResponseData);
             $paymentResponseData = array_merge($paymentRequestData, $paymentResponseData);
