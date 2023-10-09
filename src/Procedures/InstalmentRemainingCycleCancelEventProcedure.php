@@ -12,13 +12,14 @@ use Plenty\Modules\EventProcedures\Events\EventProceduresTriggered;
 use Plenty\Modules\Order\Models\Order;
 use Novalnet\Services\PaymentService;
 use Novalnet\Constants\NovalnetConstants;
+use Plenty\Plugin\Log\Loggable;
 
 /**
  * Class VoidEventProcedure
  *
  * @package Novalnet\Procedures
  */
-class VoidEventProcedure
+class InstalmentRemainingCycleCancelEventProcedure
 {
      /**
      *
@@ -43,6 +44,7 @@ class VoidEventProcedure
      */
     public function run(EventProceduresTriggered $eventTriggered)
     {
+		$this->getLogger(__METHOD__)->alert('RemainingCycleEventProcedure', 'trail');
         /* @var $order Order */
         $order = $eventTriggered->getOrder();
         // Load the order language
@@ -56,6 +58,7 @@ class VoidEventProcedure
         $transactionDetails['lang'] = $orderLanguage;
         $transactionDetails['cancel_type'] = 'REMAINING_CYCLES';
         // Call the Void process for the On-Hold payments
+        $this->getLogger(__METHOD__)->alert('RemainingCycletransactionDetails', $transactionDetails);
         $this->paymentService->doInstalmentVoid($transactionDetails, NovalnetConstants::INSTALMENT_VOID_URL);
     }
 }
