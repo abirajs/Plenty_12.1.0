@@ -57,7 +57,7 @@ class InstalmentRemainingCycleCancelEventProcedure
         // Get necessary information for the capture process
         $transactionDetails = $this->paymentService->getDetailsFromPaymentProperty($order->id);
         $transactionDetails['lang'] = $orderLanguage;
-        $transactionDetails['cancel_type'] = 'REMAINING_CYCLES';
+        $transactionDetails['cancel_type'] = 'CANCEL_REMAINING_CYCLES';
         // Call the Void process for the On-Hold payments
         $this->getLogger(__METHOD__)->alert('RemainingCycletransactionDetails', $transactionDetails);
         $this->paymentService->doInstalmentVoid($transactionDetails, NovalnetConstants::INSTALMENT_VOID_URL);
