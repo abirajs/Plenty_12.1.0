@@ -21,7 +21,7 @@ use Plenty\Plugin\Log\Loggable;
  */
 class InstalmentAllCycleEventProcedure
 {
-	use Loggable;
+    use Loggable;
      /**
      *
      * @var PaymentService
@@ -45,7 +45,7 @@ class InstalmentAllCycleEventProcedure
      */
     public function run(EventProceduresTriggered $eventTriggered)
     {
-		$this->getLogger(__METHOD__)->alert('InstalmentAllCycleEventProcedure', 'trail');
+	$this->getLogger(__METHOD__)->alert('InstalmentAllCycleEventProcedure', 'trail');
         /* @var $order Order */
         $order = $eventTriggered->getOrder();
         // Load the order language
