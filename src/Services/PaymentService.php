@@ -1379,8 +1379,9 @@ class PaymentService
             $this->getLogger(__METHOD__)->error('doInstalmentVpaymentUrl', $paymentUrl);
             $this->getLogger(__METHOD__)->error('doInstalmentVprivateKey', $privateKey);
             $paymentResponseData = $this->paymentHelper->executeCurl($paymentRequestData, $paymentUrl, $privateKey);
-            $paymentResponseData = array_merge($paymentRequestData, $paymentResponseData);
             $this->getLogger(__METHOD__)->error('doInstapaymentResponseData', $paymentResponseData);
+            $paymentResponseData = array_merge($paymentRequestData, $paymentResponseData);
+            $this->getLogger(__METHOD__)->error('doInstapaymentResponseData2', $paymentResponseData);
             // Booking Message
             if(in_array($paymentResponseData['transaction']['status'], ['CONFIRMED'])) {
                 $paymentResponseData['bookingText'] = sprintf($this->paymentHelper->getTranslatedText('webhook_instalment', $transactionData['lang']), date('d.m.Y'), date('H:i:s'));
@@ -1391,6 +1392,7 @@ class PaymentService
             if(($paymentResponseData['instalment']['cancel_type'] == 'REMAINING_CYCLES')) {
                 $paymentResponseData['bookingText'] = sprintf($this->paymentHelper->getTranslatedText('webhook_instalment_remaining_cycle_cancel', $transactionData['lang']), date('d.m.Y'), date('H:i:s'));
             }
+            $paymentResponseData['transaction']['currency'] = $transactionData['currency'];
             // Insert the updated transaction details into Novalnet DB
             $this->insertPaymentResponse($paymentResponseData);
             // Create the payment to the plenty order
