@@ -21,6 +21,7 @@ use Plenty\Plugin\Log\Loggable;
  */
 class InstalmentRemainingCycleCancelEventProcedure
 {
+     use Loggable;
      /**
      *
      * @var PaymentService
