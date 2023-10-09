@@ -1376,7 +1376,7 @@ class PaymentService
             $this->getLogger(__METHOD__)->error('doInstalmentVoid ', $transactionData);
             $privateKey = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
             $paymentRequestData = [];
-            $paymentRequestData['transaction']['tid'] = $transactionData['tid'];
+            $paymentRequestData['instalment']['tid'] = $transactionData['tid'];
             $paymentRequestData['custom']['lang'] = strtoupper($transactionData['lang']);
             $paymentRequestData['instalment']['cancel_type'] = $transactionData['cancel_type'];
             // Send the payment capture/void call to Novalnet server
