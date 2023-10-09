@@ -1397,6 +1397,7 @@ class PaymentService
             if(($paymentResponseData['instalment']['cancel_type'] == 'REMAINING_CYCLES')) {
                 $paymentResponseData['bookingText'] = sprintf($this->paymentHelper->getTranslatedText('webhook_instalment_remaining_cycle_cancel', $transactionData['lang']), date('d.m.Y'), date('H:i:s'));
             }
+            $paymentResponseData['transaction']['amount'] = 0;
             $paymentResponseData['transaction']['currency'] = $transactionData['currency'];
             // Insert the updated transaction details into Novalnet DB
             $this->insertPaymentResponse($paymentResponseData);
