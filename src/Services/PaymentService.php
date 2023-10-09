@@ -468,9 +468,9 @@ class PaymentService
         $nnMBwayDoRedirect = $this->sessionStorage->getPlugin()->getValue('nnMBwayDoRedirect');
         $nnOrderCreator = $this->sessionStorage->getPlugin()->getValue('nnOrderCreator');
         $nnGooglePayDoRedirect = $this->sessionStorage->getPlugin()->getValue('nnGooglePayDoRedirect');
-	$nnReinitiatePayment   = $this->sessionStorage->getPlugin()->getValue('nnReinitiatePayment');
-	$this->sessionStorage->getPlugin()->setValue('nnOrderCreator', null);
-	$this->sessionStorage->getPlugin()->setValue('nnReinitiatePayment', null);
+		$nnReinitiatePayment   = $this->sessionStorage->getPlugin()->getValue('nnReinitiatePayment');
+		$this->sessionStorage->getPlugin()->setValue('nnOrderCreator', null);
+		$this->sessionStorage->getPlugin()->setValue('nnReinitiatePayment', null);
         // Send the order no to Novalnet server if order is created initially
        if($this->settingsService->getPaymentSettingsValue('novalnet_order_creation') == true || !empty($nnOrderCreator) || ($nnReinitiatePayment == 1)) {
             $paymentRequestData['paymentRequestData']['transaction']['order_no'] = $this->sessionStorage->getPlugin()->getValue('nnOrderNo');
@@ -1385,10 +1385,10 @@ class PaymentService
             if(in_array($paymentResponseData['transaction']['status'], ['CONFIRMED'])) {
                 $paymentResponseData['bookingText'] = sprintf($this->paymentHelper->getTranslatedText('webhook_instalment', $transactionData['lang']), date('d.m.Y'), date('H:i:s'));
             } 
-            if(in_array($paymentResponseData['instalment']['cancel_type'] == 'ALL_CYCLES')) {
+            if(($paymentResponseData['instalment']['cancel_type'] == 'ALL_CYCLES')) {
                 $paymentResponseData['bookingText'] = sprintf($this->paymentHelper->getTranslatedText('webhook_instalment_all_cycle_cancel', $transactionData['lang']), date('d.m.Y'), date('H:i:s'));
             }
-            if(in_array($paymentResponseData['instalment']['cancel_type'] == 'REMAINING_CYCLES')) {
+            if(($paymentResponseData['instalment']['cancel_type'] == 'REMAINING_CYCLES')) {
                 $paymentResponseData['bookingText'] = sprintf($this->paymentHelper->getTranslatedText('webhook_instalment_remaining_cycle_cancel', $transactionData['lang']), date('d.m.Y'), date('H:i:s'));
             }
             // Insert the updated transaction details into Novalnet DB
