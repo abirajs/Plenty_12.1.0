@@ -1169,8 +1169,12 @@ class PaymentService
             $paymentRequestData['transaction']['tid'] = $transactionData['tid'];
             $paymentRequestData['custom']['lang'] = strtoupper($transactionData['lang']);
             // Send the payment capture/void call to Novalnet server
+                        $this->getLogger(__METHOD__)->error('doCaptureVpaymentUrl', $paymentUrl);
+            $this->getLogger(__METHOD__)->error('doCaptureVprivateKey', $privateKey);
+            $this->getLogger(__METHOD__)->error('doCapturepaymentRequestData', $paymentRequestData);
             $paymentResponseData = $this->paymentHelper->executeCurl($paymentRequestData, $paymentUrl, $privateKey);
             $paymentResponseData = array_merge($paymentRequestData, $paymentResponseData);
+            $this->getLogger(__METHOD__)->error('doCapturepaymentResponseData', $paymentResponseData);
             // Booking Message
             if(in_array($paymentResponseData['transaction']['status'], ['PENDING', 'CONFIRMED'])) {
                 $paymentResponseData['bookingText'] = sprintf($this->paymentHelper->getTranslatedText('webhook_order_confirmation_text', $transactionData['lang']), date('d.m.Y'), date('H:i:s'));
