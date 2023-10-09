@@ -1377,8 +1377,8 @@ class PaymentService
             $privateKey = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
             $paymentRequestData = [];
             $paymentRequestData['instalment']['tid'] = $transactionData['tid'];
-            $paymentRequestData['custom']['lang'] = strtoupper($transactionData['lang']);
             $paymentRequestData['instalment']['cancel_type'] = $transactionData['cancel_type'];
+            $paymentRequestData['custom']['lang'] = strtoupper($transactionData['lang']);
             // Send the payment capture/void call to Novalnet server
             $this->getLogger(__METHOD__)->error('doInstalmentVpaymentUrl', $paymentUrl);
             $this->getLogger(__METHOD__)->error('doInstalmentVprivateKey', $privateKey);
@@ -1388,9 +1388,9 @@ class PaymentService
             $paymentResponseData = array_merge($paymentRequestData, $paymentResponseData);
             $this->getLogger(__METHOD__)->error('doInstapaymentResponseData2', $paymentResponseData);
             // Booking Message
-            if(in_array($paymentResponseData['transaction']['status'], ['CONFIRMED'])) {
-                $paymentResponseData['bookingText'] = sprintf($this->paymentHelper->getTranslatedText('webhook_instalment', $transactionData['lang']), date('d.m.Y'), date('H:i:s'));
-            } 
+            //~ if(in_array($paymentResponseData['transaction']['status'], ['CONFIRMED'])) {
+                //~ $paymentResponseData['bookingText'] = sprintf($this->paymentHelper->getTranslatedText('webhook_instalment', $transactionData['lang']), date('d.m.Y'), date('H:i:s'));
+            //~ } 
             if(($paymentResponseData['instalment']['cancel_type'] == 'ALL_CYCLES')) {
                 $paymentResponseData['bookingText'] = sprintf($this->paymentHelper->getTranslatedText('webhook_instalment_all_cycle_cancel', $transactionData['lang']), date('d.m.Y'), date('H:i:s'));
             }
