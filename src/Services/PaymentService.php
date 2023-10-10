@@ -1132,7 +1132,7 @@ class PaymentService
 			if(!empty($nextCycleDate)) {
 			$InstalmentComments .= $nextCycleDate . PHP_EOL ;
 			}
-			$InstalmentComments .= 'instalment_cycle_amount : ' .  $this->paymentHelper->convertAmountToSmallerUnit($transactionData['cycle_amount']) / 100  . '  ' . $transactionData['currency'] . PHP_EOL ;
+			$InstalmentComments .= 'instalment_cycle_amount : ' .  $transactionData['cycle_amount'] / 100 . '  ' . $transactionData['currency'] . PHP_EOL ;
 		}
         return $InstalmentComments;
     }
