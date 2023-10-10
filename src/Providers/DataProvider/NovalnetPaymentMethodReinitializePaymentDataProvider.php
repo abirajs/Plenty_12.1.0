@@ -110,7 +110,7 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
                 
 				// Instalment cycle amount information for the payment methods 
 				$currency = $basketRepository->load()->currency;
-				$instalmentCycles = $settingsService->getPaymentSettingsValue('instament_cycles', strtolower($paymentKey));
+				$instalmentCycles = $settingsService->getPaymentSettingsValue('instament_cycles', 'novalnet_instalment_invoice');
 				$instalmentCyclesAmount = [];
 				foreach ($instalmentCycles as $cycle) {
 					$cycleAmount = $paymentHelper->convertAmountToSmallerUnit($basketRepository->load()->basketAmount);
@@ -119,7 +119,7 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
 						$instalmentCyclesAmount[$cycle] = sprintf('%0.2f', (($paymentHelper->convertAmountToSmallerUnit($basketRepository->load()->basketAmount) / $cycle ) / 100));
 					}
 				}  
-		$this->getLogger(__METHOD__)->error('NovalnetPaymentMethodReinitializePaymentDataProvider', $instalmentCyclesAmount);
+				$this->getLogger(__METHOD__)->error('NovalnetPaymentMethodReinitializePaymentDataProvider', $instalmentCyclesAmount);
                 // If the Novalnet payments are rejected do the reinitialize payment
                 if((!empty($transactionDetails['tx_status']) && !in_array($transactionDetails['tx_status'], ['PENDING', 'ON_HOLD', 'CONFIRMED', 'DEACTIVATED'])) || empty($transactionDetails['tx_status'])) {
                     return $twig->render('Novalnet::NovalnetPaymentMethodReinitializePaymentDataProvider',
