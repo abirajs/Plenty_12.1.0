@@ -114,7 +114,9 @@ function formatMoney(amount, decimalCount = 2, decimal = ",", thousands = ".") {
   }
 }
 
-jQuery('#nn_instalment_cycle').on('change',function() {  
+	jQuery('#nn_instalment_cycle').on('change',function() {  
+
+document.getElementById("nn_instalment_cycle").addEventListener("change", function() {
     var selectedOption = this.options[this.selectedIndex];
     var selectedValue = selectedOption.value;
     var parts = selectedValue.split("-"); // Split the value into key and value
@@ -135,7 +137,8 @@ jQuery('#nn_instalment_cycle').on('change',function() {
 		}                           
 		jQuery('#nn_instalment_cycle_information').html(cycleInformation);
 
-}).change();
+});
+	}).change();
 
 </script>
 
