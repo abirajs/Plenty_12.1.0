@@ -68,10 +68,9 @@
                         <div class="form-group" role="group">
 			    <div>
 	                            <select id="nn_instalment_cycle" name="nn_instalment_cycle" class="form-control nn_instalment_cycle_detail">
-	                             <option>5</option>
-<option>6</option>
-<option>5</option>
-<option>5</option>
+       				     {% for  key,value in instalmentCyclesAmount %}                                   
+	                                        <option name="nn_cycle_key"  id="nn_cycle_key" value="{{key}}-{{value}}" cycle-amount = "{{value}}" data-amount="{{value}} {{currency}}" data-cycle-amount="{{cycleAmount/100}}">{{key}} x {{value}} {{currency}} {{trans("Novalnet::Customize.template_per_month_text")}}</option>   
+	                             {% endfor %}
 	                            </select>
 			    </div>
                             <label for="nn_instalment_cycle">{{languageTexts.jtl_novalnet_instalment_cycles}}</label>
@@ -116,8 +115,6 @@ function formatMoney(amount, decimalCount = 2, decimal = ",", thousands = ".") {
 }
 
 	jQuery('#nn_instalment_cycle').on('change',function() {  
-
-document.getElementById("nn_instalment_cycle").addEventListener("change", function() {
 	var selectedOption = this.options[this.selectedIndex];
 	var selectedValue = selectedOption.value;
 	var parts = selectedValue.split("-"); // Split the value into key and value
@@ -136,8 +133,6 @@ document.getElementById("nn_instalment_cycle").addEventListener("change", functi
 	}
 	}                           
 	jQuery('#nn_instalment_cycle_information').html(cycleInformation);
-
-});
 	}).change();
 
 </script>
