@@ -115,11 +115,12 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
 				$this->getLogger(__METHOD__)->error('instalmentCyclestDataProvider', $instalmentCycles);
 				$instalmentCyclesAmount = [];
 				foreach ($instalmentCycles as $cycle) {
-					$cycleAmount = $paymentHelper->convertAmountToSmallerUnit($basketRepository->load()->basketAmount);
+					$cycleAmount = $paymentHelper->convertAmountToSmallerUnit($invoiceAmount);
 					$this->getLogger(__METHOD__)->error('cycleAmountDataProvider', $cycleAmount);
+					$this->getLogger(__METHOD__)->error('$basketRepository->load()', $basketRepository->load());
 					// Assign the cycle amount if th cycle amount greater than
 					if ($cycleAmount > 999) {
-						$instalmentCyclesAmount[$cycle] = sprintf('%0.2f', (($paymentHelper->convertAmountToSmallerUnit($basketRepository->load()->basketAmount) / $cycle ) / 100));
+						$instalmentCyclesAmount[$cycle] = sprintf('%0.2f', (($paymentHelper->convertAmountToSmallerUnit($invoiceAmount) / $cycle ) / 100));
 					}
 				}  
 				$this->getLogger(__METHOD__)->error('NovalnetPaymentMethodReinitializePaymentDataProvider', $instalmentCyclesAmount);
