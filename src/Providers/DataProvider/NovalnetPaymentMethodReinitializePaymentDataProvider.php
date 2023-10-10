@@ -15,6 +15,7 @@ use Plenty\Modules\Frontend\Session\Storage\Contracts\FrontendSessionStorageFact
 use Novalnet\Helper\PaymentHelper;
 use Novalnet\Services\SettingsService;
 use Plenty\Modules\Helper\Services\WebstoreHelper;
+use Plenty\Plugin\Log\Loggable;
 
 /**
  * Class NovalnetPaymentMethodReinitializePaymentDataProvider
@@ -23,6 +24,7 @@ use Plenty\Modules\Helper\Services\WebstoreHelper;
  */
 class NovalnetPaymentMethodReinitializePaymentDataProvider
 {
+	use Loggable;
     /**
      * Display the reinitiate payment button
      *
@@ -117,7 +119,7 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
 						$instalmentCyclesAmount[$cycle] = sprintf('%0.2f', (($paymentHelper->convertAmountToSmallerUnit($basketRepository->load()->basketAmount) / $cycle ) / 100));
 					}
 				}  
-				
+		$this->getLogger(__METHOD__)->error('NovalnetPaymentMethodReinitializePaymentDataProvider', $instalmentCyclesAmount);
                 // If the Novalnet payments are rejected do the reinitialize payment
                 if((!empty($transactionDetails['tx_status']) && !in_array($transactionDetails['tx_status'], ['PENDING', 'ON_HOLD', 'CONFIRMED', 'DEACTIVATED'])) || empty($transactionDetails['tx_status'])) {
                     return $twig->render('Novalnet::NovalnetPaymentMethodReinitializePaymentDataProvider',
