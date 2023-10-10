@@ -204,7 +204,7 @@ class PaymentController extends Controller
         if(in_array($paymentRequestPostData['nn_payment_key'], ['NOVALNET_INSTALMENT_SEPA','NOVALNET_INSTALMENT_INVOICE']) && !empty($paymentRequestPostData['nn_show_instalment_dob'])) {
             $paymentRequestData['paymentRequestData']['customer']['birth_date'] = sprintf('%4d-%02d-%02d', $paymentRequestPostData['nn_instalment_year'], $paymentRequestPostData['nn_instalment_month'], $paymentRequestPostData['nn_instalment_date']);
         }
-        
+
         // Setting up the cycle for instalment payments
         if(in_array($paymentRequestPostData['nn_payment_key'], ['NOVALNET_INSTALMENT_INVOICE', 'NOVALNET_INSTALMENT_SEPA'])) {
             $paymentRequestData['paymentRequestData']['instalment']['cycles'] = $key;
@@ -226,7 +226,7 @@ class PaymentController extends Controller
             $this->sessionStorage->getPlugin()->setValue('nnGooglePayDoRedirect', $paymentRequestPostData['nn_google_pay_do_redirect']);
         }
         // Call the order creation function for the redirection
-        if(!empty($paymentRequestPostData['nn_cc3d_redirect']) || (!empty($paymentRequestPostData['nn_google_pay_do_redirect']) && (string) $paymentRequestPostData['nn_google_pay_do_redirect'] === 'true')) {
+        if(!empty($paymentRequestPostData['nn_cc3d_redirect']) || $paymentRequestPostData['nn_payment_key'] == 'NOVALNET_MBWAY' || (!empty($paymentRequestPostData['nn_google_pay_do_redirect']) && (string) $paymentRequestPostData['nn_google_pay_do_redirect'] === 'true')) {
             $paymentRequestData['paymentRequestData']['transaction']['return_url'] = $this->paymentService->getReturnPageUrl();
             $this->sessionStorage->getPlugin()->setValue('nnPaymentData', $paymentRequestData);
             if(!empty($paymentRequestPostData['nn_reinitializePayment']) || $this->settingsService->getPaymentSettingsValue('novalnet_order_creation') != true) {
