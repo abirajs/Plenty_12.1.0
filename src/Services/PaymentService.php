@@ -1132,7 +1132,7 @@ class PaymentService
 			if(!empty($nextCycleDate)) {
 			$InstalmentComments .= $nextCycleDate . PHP_EOL ;
 			}
-			$InstalmentComments .= 'instalment_cycle_amount : ' .  $this->paymentHelper->convertAmountToSmallerUnit($transactionData['amount']) / 100 . '  ' . $transactionData['currency'] . PHP_EOL ;
+			$InstalmentComments .= 'instalment_cycle_amount : ' .  $this->paymentHelper->convertAmountToSmallerUnit($transactionData['cycle_amount']) / 100 . '  ' . $transactionData['currency'] . PHP_EOL ;
 		}
         return $InstalmentComments;
     }
@@ -1397,7 +1397,7 @@ class PaymentService
             if(($paymentResponseData['instalment']['cancel_type'] == 'REMAINING_CYCLES')) {
                 $paymentResponseData['bookingText'] = sprintf($this->paymentHelper->getTranslatedText('webhook_instalment_remaining_cycle_cancel', $transactionData['lang']), date('d.m.Y'), date('H:i:s'));
             }
-            $paymentResponseData['transaction']['amount'] = 0;
+            //~ $paymentResponseData['transaction']['amount'] = 0;
             $paymentResponseData['transaction']['currency'] = $transactionData['currency'];
             // Insert the updated transaction details into Novalnet DB
             $this->insertPaymentResponse($paymentResponseData);
