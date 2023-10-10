@@ -84,7 +84,6 @@ class NovalnetAssistantSettingsHandler implements WizardSettingsHandler
                     $novalnetSettings[$paymentMethodKey]['allow_B2B_customer']   = $data[$paymentKey . 'allowB2BCustomer'] ?? '';
                     $novalnetSettings[$paymentMethodKey]['instament_cycles']   	 = $data[$paymentKey . 'instamentCycles'] ?? '';
                     $novalnetSettings[$paymentMethodKey]['payment_action']       = $data[$paymentKey . 'PaymentAction'] ?? '';
-                    $novalnetSettings[$paymentMethodKey]['payment_action']       = $data[$paymentKey . 'PaymentAction'] ?? '';
                     break;
                 case 'novalnet_paypal':
                 case 'novalnet_applepay':
