@@ -140,7 +140,7 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
                                     'customData' => !empty($ccCustomFields) ? $ccCustomFields : '',
                                     'showBirthday' => $showBirthday,
                                     'orderAmount' => $invoiceAmount,
-				    'netAmount' =>  $paymentHelper->convertAmountToSmallerUnit($invoiceAmount) / 100,
+				    'netAmount' =>  ($paymentHelper->convertAmountToSmallerUnit($invoiceAmount) / 100) / 100,
                                     'redirectPayment' => $paymentService->isRedirectPayment($paymentKey),
                                     'redirectUrl' => $paymentService->getRedirectPaymentUrl(),
                                     'orderLang'   => $paymentRequestData['paymentRequestData']['custom']['lang'],
