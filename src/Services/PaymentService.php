@@ -294,7 +294,7 @@ class PaymentService
         // Build the custom parameters
         $paymentRequestData['custom'] = ['lang'  => strtoupper($this->sessionStorage->getLocaleSettings()->language)];
         // Build additional specific payment method request parameters
-        $paymentUrl = $this->($paymentRequestData, $paymentKey);
+        $paymentUrl = $this->getPaymentData($paymentRequestData, $paymentKey);
 
         return  [
             'paymentRequestData'    => $paymentRequestData,
@@ -341,7 +341,7 @@ class PaymentService
     {
         $paymentUrl = ($paymentKey == 'NOVALNET_APPLEPAY') ? NovalnetConstants::SEAMLESS_PAYMENT_URL : NovalnetConstants::PAYMENT_URL;
         $this->getLogger(__METHOD__)->error('onholdurllloutoffiff', $paymentKey);
-	$this->getLogger(__METHOD__)->error('actionnnnnnnnnn', $this->settingsService->getPaymentSettingsValue('payment_action', strtolower($paymentKey)));
+        $this->getLogger(__METHOD__)->error('actionnnnnnnnnn', $this->settingsService->getPaymentSettingsValue('payment_action', strtolower($paymentKey)));
         // Sent the payment authorize call to Novalnet server if the authorization is enabled
         if(in_array($paymentKey, ['NOVALNET_SEPA', 'NOVALNET_CC', 'NOVALNET_INVOICE', 'NOVALNET_APPLEPAY', 'NOVALNET_GUARANTEED_INVOICE', 'NOVALNET_GUARANTEED_SEPA', 'NOVALNET_INSTALMENT_SEPA', 'NOVALNET_INSTALMENT_INVOICE', 'NOVALNET_PAYPAL', 'NOVALNET_GOOGLEPAY']) && !empty($this->settingsService->getPaymentSettingsValue('payment_action', strtolower($paymentKey)))) {
             // Limit for the manual on-hold
