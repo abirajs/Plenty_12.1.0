@@ -227,6 +227,7 @@ class NovalnetServiceProvider extends ServiceProvider
                         foreach ($instalmentCycles as $cycle) {
                             $cycleAmount = $paymentHelper->convertAmountToSmallerUnit($basketRepository->load()->basketAmount);
                             // Assign the cycle amount if th cycle amount greater than
+                            $this->getLogger(__METHOD__)->error('Cycle Amounttt', $cycleAmount);
                             if ($cycleAmount > 999) {
                                 $instalmentCyclesAmount[$cycle] = sprintf('%0.2f', (($paymentHelper->convertAmountToSmallerUnit($basketRepository->load()->basketAmount) / $cycle ) / 100));
                             }
