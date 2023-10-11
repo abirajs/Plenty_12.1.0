@@ -60,7 +60,6 @@
             </div>
         </div>
 
-
 		{# Instalment Cycle Amount #}
 		<br>
 		<div>
@@ -72,9 +71,7 @@
                         <div class="form-group" role="group">
                             <select id="nn_instalment_cycle" name="nn_instalment_cycle" class="form-control nn_instalment_cycle_detail">
                                     {% for  key,value in instalmentCyclesAmount %}  
-					{% if value > 999 %}
                                         <option  value="{{key}}-{{value}}" cycle-amount = "{{value}}" data-amount="{{value}} {{currency}}" data-cycle-amount="{{value}}">{{key}} x {{value}} {{currency}} {{trans("Novalnet::Customize.template_per_month_text")}}</option>   
-                                    	{% endif %}
 				    {% endfor %}
                             </select>
                             <label for="nn_instalment_cycle">{{languageTexts.jtl_novalnet_instalment_cycles}}</label>
