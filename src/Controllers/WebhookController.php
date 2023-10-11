@@ -547,7 +547,7 @@ class WebhookController extends Controller
 			if(!empty($nextCycleDate)) {
 			$webhookComments .= $nextCycleDate . PHP_EOL ;
 			}
-			$webhookComments .= 'instalment_cycle_amount : ' . $this->eventData['transaction']['amount'] / 100 . $this->eventData['instalment']['currency'] . PHP_EOL ;
+			$webhookComments .= 'instalment_cycle_amount : ' . $this->eventData['instalment']['cycle_amount'] / 100 . $this->eventData['instalment']['currency'] . PHP_EOL ;
 		}
 		// Booking Message
         $this->eventData['bookingText'] = $webhookComments;
