@@ -65,7 +65,7 @@
             </div>
                 <br>
                 <div class="row nn_instalment_cycle_selection_block">
-                    <div class="col col-12">
+                    <div>
                         <div class="form-group" role="group">
                             <select id="nn_instalment_cycle" name="nn_instalment_cycle" class="form-control nn_instalment_cycle_detail">
                                     {% for  key,value in instalmentCyclesAmount %}                                   
@@ -114,9 +114,7 @@ function formatMoney(amount, decimalCount = 2, decimal = ",", thousands = ".") {
 }
 
 
-	jQuery('#nn_instalment_cycle').on('change',function() {  
-
-document.getElementById("nn_instalment_cycle").addEventListener("change", function() {
+   jQuery('#nn_instalment_cycle').on('change',function() {  
     var selectedOption = this.options[this.selectedIndex];
     var selectedValue = selectedOption.value;
     var parts = selectedValue.split("-"); // Split the value into key and value
@@ -137,7 +135,6 @@ document.getElementById("nn_instalment_cycle").addEventListener("change", functi
 			}
 		}                           
 		jQuery('#nn_instalment_cycle_information').html(cycleInformation);
-});
 	}).change();
 
 </script>
