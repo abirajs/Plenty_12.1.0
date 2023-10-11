@@ -120,7 +120,7 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
 					$this->getLogger(__METHOD__)->error('$basketRepository->load()', $basketRepository->load());
 					// Assign the cycle amount if th cycle amount greater than
 					if ($cycleAmount > 999) {
-						$instalmentCyclesAmount[$cycle] = sprintf('%0.2f', ((($paymentHelper->convertAmountToSmallerUnit($invoiceAmount)/100) / $cycle ) / 100));
+						$instalmentCyclesAmount[$cycle] = sprintf('%0.2f', (($cycleAmount / $cycle ) / 100));
 					}
 				}  
 				$this->getLogger(__METHOD__)->error('NovalnetPaymentMethodReinitializePaymentDataProvider', $instalmentCyclesAmount);
