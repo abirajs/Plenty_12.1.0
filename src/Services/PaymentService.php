@@ -349,6 +349,7 @@ class PaymentService
                $paymentUrl = ($paymentKey == 'NOVALNET_APPLEPAY') ? NovalnetConstants::SEAMLESS_PAYMENT_AUTHORIZE_URL : NovalnetConstants::PAYMENT_AUTHORIZE_URL;
             }
         }
+        $this->getLogger(__METHOD__)->error('onholdurlllllllllll', $paymentUrl);
         // Send the payment type to Novalnet server
         $paymentRequestData['transaction']['payment_type'] = $this->getPaymentType($paymentKey);
         // Send due date to the Novalnet server if it configured
@@ -1134,9 +1135,10 @@ class PaymentService
 			$InstalmentComments .= $nextCycleDate . PHP_EOL ;
 			}
 			$InstalmentComments .= 'instalment_cycle_amount : ' .  $transactionData['cycle_amount'] / 100 . '  ' . $transactionData['currency'] . PHP_EOL ;
-        		return $InstalmentComments;
-    	  }
+		}
+        return $InstalmentComments;
     }
+
     /**
      * Form the Multibanco transaction comments
      *
