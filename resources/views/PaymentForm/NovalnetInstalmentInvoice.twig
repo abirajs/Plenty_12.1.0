@@ -127,7 +127,7 @@ function formatMoney(amount, decimalCount = 2, decimal = ",", thousands = ".") {
 	
 	var cycleInformation = '';              
 	for (instalmentCycle = 1; instalmentCycle <= key; instalmentCycle++) {
-		if(instalmentCycle != key)
+		if(instalmentCycle == key)
 		{
 			cycleInformation += '<tr><td>' + instalmentCycle + '</td><td>'+jQuery(this).find(':selected').attr('data-amount') +'</td></tr>';
 		} else {
