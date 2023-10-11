@@ -115,7 +115,7 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
 				$this->getLogger(__METHOD__)->error('instalmentCyclestDataProvider', $instalmentCycles);
 				$instalmentCyclesAmount = [];
 				foreach ($instalmentCycles as $cycle) {
-					$cycleAmount = $paymentHelper->convertAmountToSmallerUnit($invoiceAmount);
+					$cycleAmount = $paymentHelper->convertAmountToSmallerUnit($invoiceAmount) / 100;
 					$this->getLogger(__METHOD__)->error('cycleAmountDataProvider', $cycleAmount);
 					$this->getLogger(__METHOD__)->error('$basketRepository->load()', $basketRepository->load());
 					// Assign the cycle amount if th cycle amount greater than
