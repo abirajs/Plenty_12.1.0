@@ -258,13 +258,19 @@ class PaymentService
         if($paymentRequestData['customer']['billing'] == $paymentRequestData['customer']['shipping']) {
             $paymentRequestData['customer']['shipping']['same_as_billing'] = '1';
         }
-        if(!empty($billingAddress->companyName) && ($this->settingsService->getPaymentSettingsValue('allow_b2b_customer', $paymentKeyLower) == true)) { // Check if company field is given in the shipping address
+        if(!empty($billingAddress->companyName) && ($this->settingsService->getPaymentSettingsValue('allow_b2b_customer', $paymentKeyLower) == true)) { // Check if company field is given in the shipping address for guarantee payments
+            $paymentRequestData['customer']['billing']['company']  = $billingAddress->companyName;
+        }
+        if(!empty($billingAddress->companyName) && ($this->settingsService->getPaymentSettingsValue('allow_B2B_customer', $paymentKeyLower) == true)) { // Check if company field is given in the shipping address for instalment payments
             $paymentRequestData['customer']['billing']['company']  = $billingAddress->companyName;
         }
         if(!empty($billingAddress->state)) { // Check if state field is given in the billing address
             $paymentRequestData['customer']['billing']['state']     = $billingAddress->state;
         }
-        if(!empty($shippingAddress->companyName) && ($this->settingsService->getPaymentSettingsValue('allow_b2b_customer', $paymentKeyLower) == true)) { // Check if company field is given in the shipping address
+        if(!empty($shippingAddress->companyName) && ($this->settingsService->getPaymentSettingsValue('allow_b2b_customer', $paymentKeyLower) == true)) { // Check if company field is given in the shipping address for guarantee payments
+            $paymentRequestData['customer']['shipping']['company']  = $shippingAddress->companyName;
+        }
+        if(!empty($shippingAddress->companyName) && ($this->settingsService->getPaymentSettingsValue('allow_B2B_customer', $paymentKeyLower) == true)) { // Check if company field is given in the shipping address for instalment payments
             $paymentRequestData['customer']['shipping']['company']  = $shippingAddress->companyName;
         }
         if(!empty($shippingAddress->state)) { // Check if state field is given in the shipping address
