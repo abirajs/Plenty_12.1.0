@@ -223,7 +223,7 @@ class NovalnetServiceProvider extends ServiceProvider
                             'netAmount'                         => $basketRepository->load()->basketAmount
                         ]);
                         $contentType = 'htmlContent';
-                    } elseif($paymentKey == 'NOVALNET_INSTALMENT_INVOICE' && $showBirthdate == true) {
+                    } elseif(($paymentKey == 'NOVALNET_INSTALMENT_INVOICE' && $showBirthdate == true) || ($paymentKey == 'NOVALNET_INSTALMENT_INVOICE' && $showBirthdate == false && isset($paymentRequestData['paymentRequestData']['customer']['billing']['company'])) {
                         $currency = $basketRepository->load()->currency;
                         // Instalment cycle amount information for the payment methods
                         $instalmentCycles = $settingsService->getPaymentSettingsValue('instament_cycles', strtolower($paymentKey));
