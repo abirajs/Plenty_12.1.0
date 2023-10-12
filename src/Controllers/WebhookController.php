@@ -560,6 +560,8 @@ class WebhookController extends Controller
         } elseif($this->eventData['instalment']['cancel_type'] == 'REMAINING_CYCLES') {
             $webhookComments = sprintf($this->paymentHelper->getTranslatedText('webhook_instalment_remaining_cycle_cancel', $this->orderLanguage), date('d.m.Y'), date('H:i:s'));
         }
+        $this->eventData['transaction']['amount'] = 0;
+        $this->eventData['transaction']['currency'] = $this->orderDetails->currency;
         // Insert the updated instalment details into Novalnet DB
         $this->paymentService->insertPaymentResponse($this->eventData);
         // Booking Message
