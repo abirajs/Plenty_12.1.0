@@ -162,10 +162,10 @@ class NovalnetServiceProvider extends ServiceProvider
                             'nnPaymentProcessUrl'   => $paymentService->getProcessPaymentUrl(),
                             'paymentMopKey'         => $paymentKey,
                             'paymentName'           => $paymentHelper->getCustomizedTranslatedText('template_' . strtolower($paymentKey)),
-                            'showBirthday'          => $showBirthdate
+                            'showBirthday'          => $showBirthday
                         ]);
                         $contentType = 'htmlContent';
-                    } elseif($paymentKey == 'NOVALNET_GUARANTEED_INVOICE' && $showBirthdate == true) {
+                    } elseif($paymentKey == 'NOVALNET_GUARANTEED_INVOICE' && $showBirthday == true) {
                         $content = $twig->render('Novalnet::PaymentForm.NovalnetGuaranteedInvoice',
                         [
                             'nnPaymentProcessUrl'   => $paymentService->getProcessPaymentUrl(),
@@ -217,13 +217,13 @@ class NovalnetServiceProvider extends ServiceProvider
                             'nnPaymentProcessUrl'               => $paymentService->getProcessPaymentUrl(),
                             'paymentMopKey'                     => $paymentKey,
                             'paymentName'                       => $paymentHelper->getCustomizedTranslatedText('template_' . strtolower($paymentKey)),
-                            'showBirthday'                      => $showBirthday,
+                            'showBirthday'                      => $showBirthdate,
                             'instalmentCyclesAmount'            => $instalmentCyclesAmount,
                             'currency'                          => $currency,
                             'netAmount'                         => $basketRepository->load()->basketAmount
                         ]);
                         $contentType = 'htmlContent';
-                    } elseif($paymentKey == 'NOVALNET_INSTALMENT_INVOICE' && $showBirthday == true) {
+                    } elseif($paymentKey == 'NOVALNET_INSTALMENT_INVOICE' && $showBirthdate == true) {
                         $currency = $basketRepository->load()->currency;
                         // Instalment cycle amount information for the payment methods
                         $instalmentCycles = $settingsService->getPaymentSettingsValue('instament_cycles', strtolower($paymentKey));
