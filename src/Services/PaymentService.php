@@ -828,21 +828,6 @@ class PaymentService
                         // If the guaranteed conditions are met, display the guaranteed payments
                         return 'instalment';
                     }
-                    if($this->settingsService->getPaymentSettingsValue('payment_active', $paymentKey) == true){
-						$instalmentCycles = $this->settingsService->getPaymentSettingsValue('instament_cycles', $paymentKey);      
-						if (!empty($instalmentCycles)) {
-							// Looping in the configured cycles and checking each of the cycles
-							foreach ($instalmentCycles as $key => $value) {
-								$instalmentCycleAmount = ($basketAmount / $value);
-								if ($instalmentCycleAmount > 999) {
-									return 'instalment';
-								}
-							}
-						}
-							return 'error';
-					} else {
-						return 'error';
-					}
                     // If none matches, error message displayed
                     return 'error';
                 }
