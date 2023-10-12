@@ -226,7 +226,7 @@ class NovalnetServiceProvider extends ServiceProvider
                         $instalmentCyclesAmount = [];
                         foreach ($instalmentCycles as $cycle) {
 							$this->getLogger(__METHOD__)->error('Adding PDF comment failed for order ', $paymentHelper->convertAmountToSmallerUnit($basketRepository->load()->basketAmount));
-                            $cycleAmount = ($paymentHelper->convertAmountToSmallerUnit($basketRepository->load()->basketAmount) / $cycle) * 100;
+                            $cycleAmount = ($paymentHelper->convertAmountToSmallerUnit($basketRepository->load()->basketAmount) / $cycle);
                             $this->getLogger(__METHOD__)->error('Adding PDF2 ', $cycleAmount);
                             // Assign the cycle amount if th cycle amount greater than
                             if ($cycleAmount > 999) {
