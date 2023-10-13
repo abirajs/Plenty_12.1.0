@@ -566,7 +566,7 @@ class NovalnetAssistant extends WizardProvider
     */
     public function createAllowB2BConfiguration($config)
     {
-        $nnPayments = ['novalnetGuaranteedInvoice', 'novalnetGuaranteedSepa'];
+        $nnPayments = ['novalnetGuaranteedInvoice', 'novalnetGuaranteedSepa', 'novalnetInstalmentInvoice', 'novalnetInstalmentSepa'];
         foreach($nnPayments as $nnPayment) {
             $config['steps'][$nnPayment]['sections'][]['form'] =
             [
@@ -592,7 +592,7 @@ class NovalnetAssistant extends WizardProvider
     */
     public function createForceConfiguration($config)
     {
-        $nnGuaranteedPayments = ['novalnetGuaranteedInvoice', 'novalnetGuaranteedSepa', 'novalnetInstalmentInvoice', 'novalnetInstalmentSepa'];
+        $nnGuaranteedPayments = ['novalnetGuaranteedInvoice', 'novalnetGuaranteedSepa'];
         foreach($nnGuaranteedPayments as $nnGuaranteedPayment) {
             $config['steps'][$nnGuaranteedPayment]['sections'][]['form'] =
             [
@@ -621,15 +621,6 @@ class NovalnetAssistant extends WizardProvider
         foreach($nnInstalmentPayments as $nnInstalmentPayment) {
             $config['steps'][$nnInstalmentPayment]['sections'][]['form'] =
             [
-                $nnInstalmentPayment . 'allowB2BCustomer' =>
-                [
-                    'type'         => 'checkbox',
-                    'defaultValue' => true,
-                    'options'      => [
-                                       'name' => 'NovalnetAssistant.novalnetAllowB2BCustomerLabel'
-                                      ]
-                ],
-
                 $nnInstalmentPayment .  'instamentCycles' =>
                 [
                        'type' => 'checkboxGroup',
