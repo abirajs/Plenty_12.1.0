@@ -170,7 +170,8 @@ var parts = selectedValue.split("-"); // Split the value into key and value
 
 var key = parts[0];
 var value = parts[1];
-
+console.log(key);
+console.log(value);
 var cycleInformation = '';              
 for (instalmentCycle = 1; instalmentCycle <= key; instalmentCycle++) {
 	if(instalmentCycle != key)
