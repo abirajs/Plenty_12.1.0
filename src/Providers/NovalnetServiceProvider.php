@@ -238,7 +238,8 @@ class NovalnetServiceProvider extends ServiceProvider
                             'paymentName'                       => $paymentHelper->getCustomizedTranslatedText('template_' . strtolower($paymentKey)),
                             'instalmentCyclesAmount'            => $instalmentCyclesAmount,
                             'currency'                          => $currency,
-                            'netAmount'                         => $basketRepository->load()->basketAmount
+                            'netAmount'                         => $basketRepository->load()->basketAmount,
+                            'showBirthday'                      => $showBirthday
                         ]);
                         $contentType = 'htmlContent';
                     }
