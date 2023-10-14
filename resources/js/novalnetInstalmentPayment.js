@@ -147,8 +147,10 @@ jQuery(document).ready( function() {
         }
         return true;
     }
-    
-    
+});
+
+
+ 
     function formatMoney(amount, decimalCount = 2, decimal = ",", thousands = ".") {
   try {
     decimalCount = Math.abs(decimalCount);
@@ -184,6 +186,3 @@ for (instalmentCycle = 1; instalmentCycle <= key; instalmentCycle++) {
 }                           
 jQuery('#nn_instalment_cycle_information').html(cycleInformation);
 }).change();
-
-});
-
