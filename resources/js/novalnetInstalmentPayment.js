@@ -161,7 +161,7 @@ jQuery(document).ready( function() {
     console.log(e)
   }
 }
-});
+
 
 
 jQuery('#nn_instalment_cycle').on('change',function() {  
