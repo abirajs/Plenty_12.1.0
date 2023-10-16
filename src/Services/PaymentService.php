@@ -1071,7 +1071,7 @@ class PaymentService
      */
     public function getBankDetailsInformation($transactionData)
     {
-	$this->getLogger(__METHOD__)->error('Novalnet::getBankDetailsInformation', $paymentResponseData);    
+	$this->getLogger(__METHOD__)->error('Novalnet::getBankDetailsInformation', $transactionData);    
         $invoiceComments = PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('transfer_amount_duedate_text'), $transactionData['amount'], $transactionData['currency'], date('Y/m/d', (int)strtotime($transactionData['due_date'])));
         // If the transaction is in On-Hold not displaying the due date
         if($transactionData['tx_status'] == 'ON_HOLD') {
