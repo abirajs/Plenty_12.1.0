@@ -615,7 +615,7 @@ class PaymentService
         if(empty($paymentResponseData['payment_method'])) {
             $paymentResponseData['payment_method'] = strtolower($this->paymentHelper->getPaymentKey($paymentResponseData['transaction']['payment_type']));
         }
-        $ = $this->getAdditionalPaymentInfo($paymentResponseData);
+        $additionalInfo = $this->getAdditionalPaymentInfo($paymentResponseData);
         $orderTotalAmount = 0;
         // Set the order total amount for Refund and Credit followups
         if(!empty($refundOrderTotalAmount) || !empty($creditOrderTotalAmount)) {
@@ -628,7 +628,7 @@ class PaymentService
             'tid'              => !empty($parentTid) ? $parentTid : (!empty($paymentResponseData['transaction']['tid']) ? $paymentResponseData['transaction']['tid'] : $paymentResponseData['tid']),
             'ref_tid'          => !empty($paymentResponseData['transaction']['refund']['tid']) ? $paymentResponseData['transaction']['refund']['tid'] : (!empty($paymentResponseData['transaction']['tid']) ? $paymentResponseData['transaction']['tid'] : $paymentResponseData['tid']),
             'payment_name'     => $paymentResponseData['payment_method'],
-            'additional_info'  => !empty($) ? $ : 0,
+            'additional_info'  => !empty($additionalInfo) ? $additionalInfo : 0,
         ];
         if(in_array($transactionData['payment_name'], ['novalnet_invoice', 'novalnet_prepayment', 'novalnet_multibanco']) ||  (in_array($transactionData['payment_name'], ['novalnet_paypal', 'novalnet_przelewy24']) && in_array($paymentResponseData['transaction']['status'], ['PENDING', 'ON_HOLD'])) || $paymentResponseData['result']['status'] != 'SUCCESS') {
             $transactionData['callback_amount'] = 0;
@@ -648,7 +648,7 @@ class PaymentService
 	$this->getLogger(__METHOD__)->error('Novalnet::getAdditionalPaymentInfo ', $paymentResponseData);    
         $lang = !empty($paymentResponseData['custom']['lang']) ? strtolower((string)$paymentResponseData['custom']['lang']) : $paymentResponseData['lang'];
         // Add the extra information for the further processing
-        $ = [
+        $additionalInfo = [
             'currency'          => !empty($paymentResponseData['transaction']['currency']) ? $paymentResponseData['transaction']['currency'] : 0,
             'test_mode'         => !empty($paymentResponseData['transaction']['test_mode']) ? $this->paymentHelper->getTranslatedText('test_order',$lang) : 0,
             'plugin_version'    => !empty($paymentResponseData['transaction']['system_version']) ? $paymentResponseData['transaction']['system_version'] : NovalnetConstants::PLUGIN_VERSION,
@@ -660,7 +660,7 @@ class PaymentService
                 if(empty($paymentResponseData['transaction']['bank_details'])) {
                     $this->getSavedPaymentDetails($paymentResponseData);
                 }              
-                $['invoice_account_holder'] = $paymentResponseData['transaction']['bank_details']['account_holder'];
+                $additionalInfo['invoice_account_holder'] = $paymentResponseData['transaction']['bank_details']['account_holder'];
                 $additionalInfo['invoice_iban']           = $paymentResponseData['transaction']['bank_details']['iban'];
                 $additionalInfo['invoice_bic']            = $paymentResponseData['transaction']['bank_details']['bic'];
                 $additionalInfo['invoice_bankname']       = $paymentResponseData['transaction']['bank_details']['bank_name'];
