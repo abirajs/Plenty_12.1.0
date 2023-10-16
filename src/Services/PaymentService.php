@@ -633,6 +633,7 @@ class PaymentService
         if(in_array($transactionData['payment_name'], ['novalnet_invoice', 'novalnet_prepayment', 'novalnet_multibanco']) ||  (in_array($transactionData['payment_name'], ['novalnet_paypal', 'novalnet_przelewy24']) && in_array($paymentResponseData['transaction']['status'], ['PENDING', 'ON_HOLD'])) || $paymentResponseData['result']['status'] != 'SUCCESS') {
             $transactionData['callback_amount'] = 0;
         }
+	$this->getLogger(__METHOD__)->error('Novalnet::insertPaymentResponse', $transactionData);
         $this->transactionService->saveTransaction($transactionData);
     }
 
