@@ -1005,6 +1005,7 @@ class PaymentService
             $transactionComments .= PHP_EOL . $this->getBankDetailsInformation($transactionData);
         }
         // Form the instalment details for instalment payments
+	    $this->getLogger(__METHOD__)->error('Novalnet::$transactionData22', $transactionData);
         if((in_array($transactionData['paymentName'], ['novalnet_instalment_sepa', 'novalnet_instalment_invoice']) && !in_array($transactionData['tx_status'], ['PENDING', 'DEACTIVATED', 'FAILURE']))) {
            $this->getLogger(__METHOD__)->error('Novalnet::$transactionData', $transactionData);
 	   $transactionComments .= PHP_EOL . $this->getInstalmentInformation($transactionData);
