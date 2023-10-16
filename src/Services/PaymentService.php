@@ -1070,13 +1070,21 @@ class PaymentService
      * @return string
      */
     public function getBankDetailsInformation($transactionData)
-    {
+    {	    
 	$this->getLogger(__METHOD__)->error('Novalnet::getBankDetailsInformation', $transactionData);    
-        $invoiceComments = PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('transfer_amount_duedate_text'), $transactionData['amount'], $transactionData['currency'], date('Y/m/d', (int)strtotime($transactionData['due_date'])));
+	if(in_array($transactionData['paymentName'], ['novalnet_instalment_invoice', 'novalnet_instalment_sepa'])) {
+	$invoiceComments = PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('transfer_amount_duedate_text'), $transactionData['cycle_amount']/100, $transactionData['currency'], date('Y/m/d', (int)strtotime($transactionData['due_date'])));
+        // If the transaction is in On-Hold not displaying the due date
+        if($transactionData['tx_status'] == 'ON_HOLD') {
+            $invoiceComments = PHP_EOL . PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('transfer_amount_text'), $transactionData['cycle_amount']/100, $transactionData['currency']);
+        }
+         } else {
+	$invoiceComments = PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('transfer_amount_duedate_text'), $transactionData['amount'], $transactionData['currency'], date('Y/m/d', (int)strtotime($transactionData['due_date'])));
         // If the transaction is in On-Hold not displaying the due date
         if($transactionData['tx_status'] == 'ON_HOLD') {
             $invoiceComments = PHP_EOL . PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('transfer_amount_text'), $transactionData['amount'], $transactionData['currency']);
         }
+	}
         $invoiceComments .= PHP_EOL . $this->paymentHelper->getTranslatedText('account_holder_novalnet') . $transactionData['invoice_account_holder'];
         $invoiceComments .= PHP_EOL . $this->paymentHelper->getTranslatedText('iban') . $transactionData['invoice_iban'];
         $invoiceComments .= PHP_EOL . $this->paymentHelper->getTranslatedText('bic') . $transactionData['invoice_bic'];
