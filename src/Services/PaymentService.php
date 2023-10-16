@@ -658,10 +658,7 @@ class PaymentService
             if(in_array($paymentResponseData['payment_method'], ['novalnet_invoice', 'novalnet_guaranteed_invoice', 'novalnet_prepayment', 'novalnet_instalment_invoice'])) {
                 if(empty($paymentResponseData['transaction']['bank_details'])) {
                     $this->getSavedPaymentDetails($paymentResponseData);
-                }
-                if(empty($paymentResponseData['instalment']['pending_cycles'])) {
-                    $this->getSavedPaymentDetails($paymentResponseData);
-                }
+                }              
                 $additionalInfo['invoice_account_holder'] = $paymentResponseData['transaction']['bank_details']['account_holder'];
                 $additionalInfo['invoice_iban']           = $paymentResponseData['transaction']['bank_details']['iban'];
                 $additionalInfo['invoice_bic']            = $paymentResponseData['transaction']['bank_details']['bic'];
@@ -674,6 +671,9 @@ class PaymentService
                 $additionalInfo['cycles_executed']        = $paymentResponseData['instalment']['cycles_executed'];
                 $additionalInfo['cycle_amount']           = $paymentResponseData['instalment']['cycle_amount'];
             }
+	   if(empty($paymentResponseData['instalment']['pending_cycles']) || in_array($paymentResponseData['payment_method'], ['novalnet_instalment_invoice', 'novalnet_instalment_sepa'])) {
+		    $this->getSavedPaymentDetails($paymentResponseData);
+	    }
             // Add the store details for the cashpayment
             if($paymentResponseData['payment_method'] == 'novalnet_cashpayment') {
                 if(empty($paymentResponseData['transaction']['nearest_stores'])) {
