@@ -70,6 +70,7 @@ class NovalnetOrderConfirmationDataProvider
                         // Set the cashpayment comments into array
                         $nnDbTxDetails['cashpayment_comments'] = !empty($cashpaymentComments) ? $cashpaymentComments : '';
                         // Form the Novalnet transaction comments
+                        $this->getLogger(__METHOD__)->error('Novalnet::NovalnetOrderConfirmationDataProvider', $nnDbTxDetails);
                         $transactionComments = $paymentService->formTransactionComments($nnDbTxDetails);
                     } else {
                         return '';
