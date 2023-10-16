@@ -659,7 +659,7 @@ class PaymentService
             // Add the Bank details for the invoice payments
             if(in_array($paymentResponseData['payment_method'], ['novalnet_invoice', 'novalnet_guaranteed_invoice', 'novalnet_prepayment', 'novalnet_instalment_invoice'])) {
                 if(empty($paymentResponseData['transaction']['bank_details'])) {
-                    $this->getPaymentDetails($paymentResponseData);
+                    $this->getSavedPaymentDetails($paymentResponseData);
                 }              
                 $additionalInfo['invoice_account_holder'] = $paymentResponseData['transaction']['bank_details']['account_holder'];
                 $additionalInfo['invoice_iban']           = $paymentResponseData['transaction']['bank_details']['iban'];
@@ -674,12 +674,12 @@ class PaymentService
                 $additionalInfo['cycle_amount']           = $paymentResponseData['instalment']['cycle_amount'];
             }
 	   if(in_array($paymentResponseData['payment_method'], ['novalnet_instalment_invoice', 'novalnet_instalment_sepa'])) {
-		    $this->getPaymentDetails($paymentResponseData);
+		    $this->getSavedPaymentDetails($paymentResponseData);
 	    }
             // Add the store details for the cashpayment
             if($paymentResponseData['payment_method'] == 'novalnet_cashpayment') {
                 if(empty($paymentResponseData['transaction']['nearest_stores'])) {
-                    $this->getPaymentDetails($paymentResponseData);
+                    $this->getSavedPaymentDetails($paymentResponseData);
                 }
                 $additionalInfo['store_details'] = $paymentResponseData['transaction']['nearest_stores'];
                 $additionalInfo['cp_due_date']   = !empty($dueData) ? $dueDate : $paymentResponseData['transaction']['due_date'];
@@ -687,7 +687,7 @@ class PaymentService
             // Add the pament reference details for the Multibanco
             if($paymentResponseData['payment_method'] == 'novalnet_multibanco') {
                 if(empty($paymentResponseData['transaction']['partner_payment_reference'])) {
-                    $this->getPaymentDetails($paymentResponseData);
+                    $this->getSavedPaymentDetails($paymentResponseData);
                 }
                 $additionalInfo['partner_payment_reference'] = $paymentResponseData['transaction']['partner_payment_reference'];
                 $additionalInfo['service_supplier_id']       = $paymentResponseData['transaction']['service_supplier_id'];
