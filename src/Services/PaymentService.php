@@ -645,6 +645,7 @@ class PaymentService
      */
     public function getAdditionalPaymentInfo($paymentResponseData)
     {
+	$this->getLogger(__METHOD__)->error('Novalnet::getAdditionalPaymentInfo ', $paymentResponseData);    
         $lang = !empty($paymentResponseData['custom']['lang']) ? strtolower((string)$paymentResponseData['custom']['lang']) : $paymentResponseData['lang'];
         // Add the extra information for the further processing
         $additionalInfo = [
@@ -671,7 +672,7 @@ class PaymentService
                 $additionalInfo['cycles_executed']        = $paymentResponseData['instalment']['cycles_executed'];
                 $additionalInfo['cycle_amount']           = $paymentResponseData['instalment']['cycle_amount'];
             }
-	   if(empty($paymentResponseData['instalment']['pending_cycles']) || in_array($paymentResponseData['payment_method'], ['novalnet_instalment_invoice', 'novalnet_instalment_sepa'])) {
+	   if(in_array($paymentResponseData['payment_method'], ['novalnet_instalment_invoice', 'novalnet_instalment_sepa'])) {
 		    $this->getSavedPaymentDetails($paymentResponseData);
 	    }
             // Add the store details for the cashpayment
