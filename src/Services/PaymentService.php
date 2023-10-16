@@ -1280,6 +1280,7 @@ class PaymentService
                 // Set the cashpayment comments into array
                 $nnDbTxDetails['cashpayment_comments'] = !empty($cashpaymentComments) ? $cashpaymentComments : '';
                 // Form the Novalnet transaction comments
+		this->getLogger(__METHOD__)->error('Novalnet::displayTransactionComments', $nnDbTxDetails);    
                 $transactionComments .= $this->formTransactionComments($nnDbTxDetails);
             }
         }
