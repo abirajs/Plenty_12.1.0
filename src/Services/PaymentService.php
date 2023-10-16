@@ -1006,7 +1006,8 @@ class PaymentService
         }
         // Form the instalment details for instalment payments
         if((in_array($transactionData['paymentName'], ['novalnet_instalment_sepa', 'novalnet_instalment_invoice']) && !in_array($transactionData['tx_status'], ['PENDING', 'DEACTIVATED', 'FAILURE']))) {
-            $transactionComments .= PHP_EOL . $this->getInstalmentInformation($transactionData);
+           $this->getLogger(__METHOD__)->error('Novalnet::$transactionData', $transactionData);
+	   $transactionComments .= PHP_EOL . $this->getInstalmentInformation($transactionData);
         }
 
         // Form the cashpayment comments
