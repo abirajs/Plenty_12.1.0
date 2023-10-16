@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is used to save all data created during
+ * This file is used to save all data created during 
  * the assistant process
  *
  * @author       Novalnet AG
@@ -51,35 +51,52 @@ class NovalnetAssistantSettingsHandler implements WizardSettingsHandler
             $novalnetSettings[$paymentMethodKey]['minimum_order_amount']         = $data[$paymentKey . 'MinimumOrderAmount'] ?? '';
             $novalnetSettings[$paymentMethodKey]['maximum_order_amount']         = $data[$paymentKey . 'MaximumOrderAmount'] ?? '';
             $novalnetSettings[$paymentMethodKey]['allowed_country']              = $data[$paymentKey . 'AllowedCountry'] ?? '';
-            if(in_array($paymentMethodKey, ['novalnet_cc', 'novalnet_invoice', 'novalnet_sepa', 'novalnet_guaranteed_invoice', 'novalnet_guaranteed_sepa', 'novalnet_instalment_invoice', 'novalnet_instalment_sepa', 'novalnet_paypal', 'novalnet_applepay', 'novalnet_googlepay'])) {
-                $novalnetSettings[$paymentMethodKey]['payment_action']       = $data[$paymentKey . 'PaymentAction'] ?? '';
-                $novalnetSettings[$paymentMethodKey]['onhold_amount']        = $data[$paymentKey . 'OnHold'] ?? '';
-                if(in_array($paymentMethodKey, ['novalnet_invoice', 'novalnet_sepa', 'novalnet_prepayment' , 'novalnet_cashpayment'])){
-					$novalnetSettings[$paymentMethodKey]['due_date']             = $data[$paymentKey . 'Duedate'] ?? '';
-				}
-            }
+
             switch ($paymentMethodKey) {
                 case 'novalnet_cc':
                     $novalnetSettings[$paymentMethodKey]['enforce']              = $data[$paymentKey . 'Enforce'] ?? '';
                     $novalnetSettings[$paymentMethodKey]['inline_form']          = $data[$paymentKey . 'InlineForm'] ?? '';
+                    $novalnetSettings[$paymentMethodKey]['payment_action']       = $data[$paymentKey . 'PaymentAction'] ?? '';
+                    $novalnetSettings[$paymentMethodKey]['onhold_amount']        = $data[$paymentKey . 'OnHold'] ?? '';
                     $novalnetSettings[$paymentMethodKey]['standard_style_label'] = $data[$paymentKey . 'StandardStyleLabel'] ?? '';
                     $novalnetSettings[$paymentMethodKey]['standard_style_field'] = $data[$paymentKey . 'StandardStyleField'] ?? '';
                     $novalnetSettings[$paymentMethodKey]['standard_style_css']   = $data[$paymentKey . 'StandardStyleCss'] ?? '';
+                    break;
+                case 'novalnet_invoice':
+                case 'novalnet_sepa':
+                    $novalnetSettings[$paymentMethodKey]['due_date']             = $data[$paymentKey . 'Duedate'] ?? '';
+                    $novalnetSettings[$paymentMethodKey]['payment_action']       = $data[$paymentKey . 'PaymentAction'] ?? '';
+                    $novalnetSettings[$paymentMethodKey]['onhold_amount']        = $data[$paymentKey . 'OnHold'] ?? '';
+                    break;
+                case 'novalnet_prepayment':
+                case 'novalnet_cashpayment':
+                    $novalnetSettings[$paymentMethodKey]['due_date']             = $data[$paymentKey . 'Duedate'] ?? '';
                     break;
                 case 'novalnet_guaranteed_invoice':
                 case 'novalnet_guaranteed_sepa':
                     $novalnetSettings[$paymentMethodKey]['force']                = $data[$paymentKey . 'force'] ?? '';
                     $novalnetSettings[$paymentMethodKey]['allow_b2b_customer']   = $data[$paymentKey . 'allowB2bCustomer'] ?? '';
+                    $novalnetSettings[$paymentMethodKey]['payment_action']       = $data[$paymentKey . 'PaymentAction'] ?? '';
+                    $novalnetSettings[$paymentMethodKey]['onhold_amount']        = $data[$paymentKey . 'OnHold'] ?? '';
                     break;
                 case 'novalnet_instalment_invoice':
                 case 'novalnet_instalment_sepa':
-                    $novalnetSettings[$paymentMethodKey]['allow_b2b_customer']   = $data[$paymentKey . 'allowB2bCustomer'] ?? '';
-                    $novalnetSettings[$paymentMethodKey]['instament_cycles']     = $data[$paymentKey . 'instamentCycles'] ?? '';
+                    $novalnetSettings[$paymentMethodKey]['allow_B2B_customer']   = $data[$paymentKey . 'allowB2BCustomer'] ?? '';
+                    $novalnetSettings[$paymentMethodKey]['instament_cycles']   	 = $data[$paymentKey . 'instamentCycles'] ?? '';
+                    $novalnetSettings[$paymentMethodKey]['payment_action']       = $data[$paymentKey . 'PaymentAction'] ?? '';
+                    $novalnetSettings[$paymentMethodKey]['onhold_amount']        = $data[$paymentKey . 'OnHold'] ?? '';
+                    break;
+                case 'novalnet_paypal':
+                case 'novalnet_applepay':
+                    $novalnetSettings[$paymentMethodKey]['payment_action']       = $data[$paymentKey . 'PaymentAction'] ?? '';
+                    $novalnetSettings[$paymentMethodKey]['onhold_amount']        = $data[$paymentKey . 'OnHold'] ?? '';
                     break;
                 case 'novalnet_googlepay':
                     $novalnetSettings[$paymentMethodKey]['merchant_id']          = $data[$paymentKey . 'MerchantId'] ?? '';
                     $novalnetSettings[$paymentMethodKey]['business_name']        = $data[$paymentKey . 'BusinessName'] ?? '';
                     $novalnetSettings[$paymentMethodKey]['enforce']              = $data[$paymentKey . 'Enforce'] ?? '';
+                    $novalnetSettings[$paymentMethodKey]['payment_action']       = $data[$paymentKey . 'PaymentAction'] ?? '';
+                    $novalnetSettings[$paymentMethodKey]['onhold_amount']        = $data[$paymentKey . 'OnHold'] ?? '';
                     $novalnetSettings[$paymentMethodKey]['button_type']          = $data[$paymentKey . 'ButtonType'] ?? '';
                     $novalnetSettings[$paymentMethodKey]['button_height']        = $data[$paymentKey . 'ButtonHeight'] ?? '';
                     break;
