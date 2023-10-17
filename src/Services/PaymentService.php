@@ -1365,6 +1365,10 @@ class PaymentService
             $paymentRequestData['custom']['lang'] = strtoupper($transactionData['lang']);
             // Send the payment capture/void call to Novalnet server
             $paymentResponseData = $this->paymentHelper->executeCurl($paymentRequestData, $paymentUrl, $privateKey);
+		$this->getLogger(__METHOD__)->error('Novalnet::doInstalmentVoid1', $paymentRequestData);
+		$this->getLogger(__METHOD__)->error('Novalnet::doInstalmentVoid2', $paymentResponseData);
+		$this->getLogger(__METHOD__)->error('Novalnet::$paymentUrl', $paymentUrl);
+		$this->getLogger(__METHOD__)->error('Novalnet::$privateKey', $privateKey);
             $paymentResponseData = array_merge($paymentRequestData, $paymentResponseData);
             $this->getLogger(__METHOD__)->error('Novalnet::doInstalmentVoid', $paymentResponseData);
             // Booking Message
