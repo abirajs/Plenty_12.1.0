@@ -1193,6 +1193,9 @@ class PaymentService
         foreach($paymentDetails as $paymentDetail) {
             $paymentProperties = $paymentDetail->properties;
             foreach($paymentProperties as $paymentProperty) {
+		  if($paymentProperty->typeId == 1) {
+                    $tid = $paymentProperty->value;
+                  }
                   if($paymentProperty->typeId == 30) {
                     $txStatus = $paymentProperty->value;
                   }
