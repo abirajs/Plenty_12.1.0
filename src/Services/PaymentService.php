@@ -633,6 +633,7 @@ class PaymentService
         if(in_array($transactionData['payment_name'], ['novalnet_invoice', 'novalnet_prepayment', 'novalnet_multibanco']) ||  (in_array($transactionData['payment_name'], ['novalnet_paypal', 'novalnet_przelewy24']) && in_array($paymentResponseData['transaction']['status'], ['PENDING', 'ON_HOLD'])) || $paymentResponseData['result']['status'] != 'SUCCESS') {
             $transactionData['callback_amount'] = 0;
         }
+	$this->getLogger(__METHOD__)->error('Novalnet::insertpaymentresponse', $paymentResponseData);
         $this->transactionService->saveTransaction($transactionData);
     }
 
@@ -1362,6 +1363,7 @@ class PaymentService
             // Send the payment capture/void call to Novalnet server
             $paymentResponseData = $this->paymentHelper->executeCurl($paymentRequestData, $paymentUrl, $privateKey);
             $paymentResponseData = array_merge($paymentRequestData, $paymentResponseData);
+            $this->getLogger(__METHOD__)->error('Novalnet::doInstalmentVoid', $paymentResponseData);
             // Booking Message
             $paymentResponseData['bookingText'] = sprintf($this->paymentHelper->getTranslatedText('webhook_instalment_all_cycle_cancel', $transactionData['lang']), date('d.m.Y'), date('H:i:s'));
             if(($paymentResponseData['instalment']['cancel_type'] == 'REMAINING_CYCLES')) {
