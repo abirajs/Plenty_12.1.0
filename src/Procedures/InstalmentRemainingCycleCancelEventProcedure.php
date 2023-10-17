@@ -57,6 +57,7 @@ class InstalmentRemainingCycleCancelEventProcedure
         $transactionDetails['lang'] = $orderLanguage;
         $transactionDetails['cancel_type'] = 'CANCEL_REMAINING_CYCLES';
         // Call the Void process for the On-Hold payments
+        $this->getLogger(__METHOD__)->error('Novalnet::InstalmentRemainingCycleCancelEventProcedure', $transactionDetails);
         $this->paymentService->doInstalmentVoid($transactionDetails, NovalnetConstants::INSTALMENT_VOID_URL);
     }
 }
