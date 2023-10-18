@@ -615,7 +615,7 @@ class PaymentService
         if(empty($paymentResponseData['payment_method'])) {
             $paymentResponseData['payment_method'] = strtolower($this->paymentHelper->getPaymentKey($paymentResponseData['transaction']['payment_type']));
         }
-        $additionalInfo = $this->getmentInfo($paymentResponseData);
+        $additionalInfo = $this->getAdditionalPaymentInfo($paymentResponseData);
         $orderTotalAmount = 0;
         // Set the order total amount for Refund and Credit followups
         if(!empty($refundOrderTotalAmount) || !empty($creditOrderTotalAmount)) {
