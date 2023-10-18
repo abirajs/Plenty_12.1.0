@@ -1170,7 +1170,9 @@ class PaymentService
             $paymentRequestData['transaction']['tid'] = $transactionData['tid'];
             $paymentRequestData['custom']['lang'] = strtoupper($transactionData['lang']);
             // Send the payment capture/void call to Novalnet server
+		$this->getLogger(__METHOD__)->error('Novalnet::doCaptureVoid $paymentRequestData', $paymentRequestData);
             $paymentResponseData = $this->paymentHelper->executeCurl($paymentRequestData, $paymentUrl, $privateKey);
+		$this->getLogger(__METHOD__)->error('Novalnet::doCaptureVoid $paymentResponseData', $paymentResponseData);
             $paymentResponseData = array_merge($paymentRequestData, $paymentResponseData);
             // Booking Message
             if(in_array($paymentResponseData['transaction']['status'], ['PENDING', 'CONFIRMED'])) {
@@ -1372,7 +1374,9 @@ class PaymentService
             $paymentRequestData['instalment']['cancel_type'] = $transactionData['cancel_type'];
             $paymentRequestData['custom']['lang'] = strtoupper($transactionData['lang']);
             // Send the payment capture/void call to Novalnet server
+		$this->getLogger(__METHOD__)->error('Novalnet::doInstalmentVoid $paymentRequestData', $paymentRequestData);
             $paymentResponseData = $this->paymentHelper->executeCurl($paymentRequestData, $paymentUrl, $privateKey);
+		$this->getLogger(__METHOD__)->error('Novalnet::doInstalmentVoid $paymentResponseData', $paymentResponseData);
             $paymentResponseData = array_merge($paymentRequestData, $paymentResponseData);
             // Booking Message
             $paymentResponseData['bookingText'] = sprintf($this->paymentHelper->getTranslatedText('instalment_all_cycle_cancel', $transactionData['lang']), date('d.m.Y'), date('H:i:s'));
