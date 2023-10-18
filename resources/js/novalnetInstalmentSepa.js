@@ -1,25 +1,4 @@
-jQuery('#nn_instalment_cycle').on('change',function() {
-var selectedOption = this.options[this.selectedIndex];
-var selectedValue = selectedOption.value;
-var parts = selectedValue.split("-"); // Split the value into key and value
 
-var key = parts[0];
-var value = parts[1];
-
-var cycleInformation = '';
-for (instalmentCycle = 1; instalmentCycle <= key; instalmentCycle++) {
-	if(instalmentCycle != key)
-	{
-		cycleInformation += '<tr><td>' + instalmentCycle + '</td><td>'+jQuery(this).find(':selected').attr('data-amount') +'</td></tr>';
-	} else {
-		var lastCycleAmount = (jQuery('#nn_net_amount').val() - (jQuery(this).find(':selected').attr('data-cycle-amount') * (key - 1)));
-	var roundedValue = lastCycleAmount;
-	var formatLastCycleAmount = roundedValue.toFixed(2);
-		cycleInformation += '<tr><td>' + instalmentCycle + '</td><td>'+ formatLastCycleAmount + ' '+ jQuery('#nn_order_currency').val()+'</td></tr>';
-	}
-}
-jQuery('#nn_instalment_cycle_information').html(cycleInformation);
-}).change();
 
 
     // Restrict the special characters in the IBAN field
