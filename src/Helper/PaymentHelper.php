@@ -413,6 +413,7 @@ class PaymentHelper
      */
     public function createPlentyPayment($paymentResponseData)
     {
+         $this->getLogger(__METHOD__)->alert('Novalnet::createPlentyPayment001', $paymentResponseData);
         try {
             /** @var Payment $payment */
             $payment = pluginApp(\Plenty\Modules\Payment\Models\Payment::class);
