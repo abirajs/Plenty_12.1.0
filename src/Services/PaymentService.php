@@ -983,6 +983,7 @@ class PaymentService
      */
     public function formTransactionComments($transactionData)
     {
+	    $this->getLogger(__METHOD__)->error('Novalnet::formTransactionComments failed', $transactionData);
         $transactionComments = '';
         // Display the Novalnet transaction Id
         if(!empty($transactionData['tid'])) {
@@ -1113,6 +1114,7 @@ class PaymentService
      */
     public function getInstalmentInformation($transactionData)
     {
+	    $this->getLogger(__METHOD__)->error('Novalnet::getInstalmentInformation', $transactionData);
        $InstalmentComments  = '';
        if(isset($transactionData['pending_cycles'])) {
             $nextCycleDate    = (!empty($transactionData['next_cycle_date'])) ? $this->paymentHelper->getTranslatedText('next_cycle_date') . $transactionData['next_cycle_date'] : '';
