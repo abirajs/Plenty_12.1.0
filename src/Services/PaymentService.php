@@ -1076,11 +1076,7 @@ class PaymentService
         	$invoiceComments = PHP_EOL . PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('transfer_amount_text'), $transactionData['amount'], $transactionData['currency']);
         }
 	}
-        $invoiceComments = PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('transfer_amount_duedate_text'), $transactionData['amount'], $transactionData['currency'], date('Y/m/d', (int)strtotime($transactionData['due_date'])));
-        // If the transaction is in On-Hold not displaying the due date
-        if($transactionData['tx_status'] == 'ON_HOLD') {
-            $invoiceComments = PHP_EOL . PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('transfer_amount_text'), $transactionData['amount'], $transactionData['currency']);
-        }
+
         $invoiceComments .= PHP_EOL . $this->paymentHelper->getTranslatedText('account_holder_novalnet') . $transactionData['invoice_account_holder'];
         $invoiceComments .= PHP_EOL . $this->paymentHelper->getTranslatedText('iban') . $transactionData['invoice_iban'];
         $invoiceComments .= PHP_EOL . $this->paymentHelper->getTranslatedText('bic') . $transactionData['invoice_bic'];
