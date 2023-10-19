@@ -1164,6 +1164,7 @@ class PaymentService
     public function doCaptureVoid($transactionData, $paymentUrl)
     {
         try {
+	     $this->getLogger(__METHOD__)->error('Novalnet::doCaptureVoid', $transactionData);
             // Novalnet access key
             $privateKey = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
             $paymentRequestData = [];
@@ -1367,6 +1368,7 @@ class PaymentService
     public function doInstalmentVoid($transactionData, $paymentUrl)
     {
         try {
+	    $this->getLogger(__METHOD__)->error('Novalnet::doInstalmentVoid', $transactionData);	
             // Novalnet access key
             $privateKey = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
             $paymentRequestData = [];
