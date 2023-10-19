@@ -139,6 +139,7 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
                                     'orderCurrency'  => $basketRepository->load()->currency,
                                     'googlePayData' => !empty($googlePayData) ? $googlePayData : '',
                                     'Currency'  => $currency,
+                                    'AccountHolderName'     => $paymentRequestData['paymentRequestData']['customer']['first_name'] . ' ' . $paymentRequestData['paymentRequestData']['customer']['last_name'],
                                 ]);
                }
             }
