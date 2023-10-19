@@ -193,7 +193,7 @@ class NovalnetServiceProvider extends ServiceProvider
                             'nnPaymentProcessUrl'   => $paymentService->getProcessPaymentUrl(),
                             'paymentMopKey'         => $paymentKey,
                             'paymentName'           => $paymentHelper->getCustomizedTranslatedText('template_' . strtolower($paymentKey)),
-                            'AccountHolderName'     => $paymentRequestData['paymentRequestData']['customer']['first_name'] . '' . $paymentRequestData['paymentRequestData']['customer']['last_name'],
+                            'AccountHolderName'     => $paymentRequestData['paymentRequestData']['customer']['first_name'] . ' ' . $paymentRequestData['paymentRequestData']['customer']['last_name'],
                         ]);
                         $contentType = 'htmlContent';
                     } elseif(in_array($paymentKey, ['NOVALNET_INSTALMENT_SEPA'])) {
