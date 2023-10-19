@@ -460,7 +460,16 @@ class WebhookController extends Controller
             } else {
                 if(in_array($this->eventData['transaction']['status'], ['ON_HOLD', 'CONFIRMED'])) {
                     $webhookComments = sprintf($this->paymentHelper->getTranslatedText('webhook_update_confirmation_text', $this->orderLanguage), $this->parentTid, sprintf('%0.2f', ($this->eventData['transaction']['amount']/100)) , $this->eventData['transaction']['currency'], date('d.m.Y'), date('H:i:s'));
-                    // If the transaction status is On-Hold
+                    if(in_array($this->eventData['transaction']['status'], ['CONFIRMED'])) {
+			if(isset($this->eventData['instalment']['pending_cycles'])) {
+			    $webhookComments .=  PHP_EOL . $this->paymentHelper->getTranslatedText('instalment Information', $this->orderLanguage) .  PHP_EOL ;
+			    $webhookComments .= $this->paymentHelper->getTranslatedText('executed_cycle', $this->orderLanguage) . $this->eventData['instalment']['cycles_executed'] . PHP_EOL;
+			    $webhookComments .= $this->paymentHelper->getTranslatedText('pending_cycle', $this->orderLanguage) . $this->eventData['instalment']['pending_cycles'] . PHP_EOL;
+			    $webhookComments .= (!empty($this->eventData['instalment']['next_cycle_date'])) ? $this->paymentHelper->getTranslatedText('next_cycle_date', $this->orderLanguage) . $this->eventData['instalment']['next_cycle_date'] : '';
+			    $webhookComments .= $this->paymentHelper->getTranslatedText('instalment_cycle_amount', $this->orderLanguage) . $this->eventData['instalment']['cycle_amount'] / 100 . $this->eventData['instalment']['currency'] . PHP_EOL ;
+			}
+		    }
+		    // If the transaction status is On-Hold
                     if($this->eventData['transaction']['status'] == 'ON_HOLD') {
                         $webhookComments = sprintf($this->paymentHelper->getTranslatedText('webhook_pending_to_onhold_status_change', $this->orderLanguage), $this->parentTid, date('d.m.Y'), date('H:i:s'));
                     }
