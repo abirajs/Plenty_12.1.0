@@ -1170,6 +1170,7 @@ class PaymentService
             $paymentRequestData = [];
             $paymentRequestData['transaction']['tid'] = $transactionData['tid'];
             $paymentRequestData['custom']['lang'] = strtoupper($transactionData['lang']);
+	    $paymentRequestData['custom']['shop_invoked'] = 1;
             // Send the payment capture/void call to Novalnet server
 		$this->getLogger(__METHOD__)->error('Novalnet::doCaptureVoid $paymentRequestData', $paymentRequestData);
             $paymentResponseData = $this->paymentHelper->executeCurl($paymentRequestData, $paymentUrl, $privateKey);
@@ -1375,6 +1376,7 @@ class PaymentService
             $paymentRequestData['instalment']['tid'] = $transactionData['tid'];
             $paymentRequestData['instalment']['cancel_type'] = $transactionData['cancel_type'];
             $paymentRequestData['custom']['lang'] = strtoupper($transactionData['lang']);
+	    $paymentRequestData['custom']['shop_invoked'] = 1;
             // Send the payment capture/void call to Novalnet server
 		$this->getLogger(__METHOD__)->error('Novalnet::doInstalmentVoid $paymentRequestData', $paymentRequestData);
             $paymentResponseData = $this->paymentHelper->executeCurl($paymentRequestData, $paymentUrl, $privateKey);
