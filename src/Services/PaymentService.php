@@ -637,7 +637,7 @@ class PaymentService
     }
 
     /**
-     * Form the required payment information for the database entry
+     * Form the required payment getBankDetailsInformation for the database entry
      *
      * @param array $paymentResponseData
      *
@@ -646,7 +646,7 @@ class PaymentService
     public function getAdditionalPaymentInfo($paymentResponseData)
     {
         $lang = !empty($paymentResponseData['custom']['lang']) ? strtolower((string)$paymentResponseData['custom']['lang']) : $paymentResponseData['lang'];
-        // Add the extra information for the further processing
+        // Add the extra getBankDetailsInformation for the further processing
         $additionalInfo = [
             'currency'          => !empty($paymentResponseData['transaction']['currency']) ? $paymentResponseData['transaction']['currency'] : 0,
             'test_mode'         => !empty($paymentResponseData['transaction']['test_mode']) ? $this->paymentHelper->getTranslatedText('test_order',$lang) : 0,
@@ -1001,7 +1001,7 @@ class PaymentService
         }
         // Form the bank details for invoice payments
         if((in_array($transactionData['paymentName'], ['novalnet_invoice', 'novalnet_prepayment']) && !in_array($transactionData['tx_status'], ['DEACTIVATED', 'FAILURE'])) || (in_array($transactionData['paymentName'], ['novalnet_guaranteed_invoice', 'novalnet_instalment_invoice']) && !in_array($transactionData['tx_status'], ['PENDING', 'DEACTIVATED', 'FAILURE']))) {
-            $transactionComments .= PHP_EOL . $this->Information($transactionData);
+            $transactionComments .= PHP_EOL . $this->getBankDetailsInformation($transactionData);
         }
         // Form the instalment details for instalment payments
         if((in_array($transactionData['paymentName'], ['novalnet_instalment_sepa', 'novalnet_instalment_invoice']) && !in_array($transactionData['tx_status'], ['PENDING', 'DEACTIVATED', 'FAILURE']))) {
