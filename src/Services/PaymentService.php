@@ -458,6 +458,7 @@ class PaymentService
     public function performServerCall()
     {
         $paymentRequestData = $this->sessionStorage->getPlugin()->getValue('nnPaymentData');
+	$this->getLogger(__METHOD__)->error('Novalnet::performServerCall', $paymentRequestData);
         $paymentKey = $this->paymentHelper->getPaymentKey($paymentRequestData['paymentRequestData']['transaction']['payment_type']);
         $nnDoRedirect = $this->sessionStorage->getPlugin()->getValue('nnDoRedirect');
         $nnOrderCreator = $this->sessionStorage->getPlugin()->getValue('nnOrderCreator');
