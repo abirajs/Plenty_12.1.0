@@ -47,9 +47,9 @@ class InstalmentAllCycleEventProcedure
     {
         /* @var $order Order */
         $order = $eventTriggered->getOrder();
+         $this->getLogger(__METHOD__)->error('Novalnet::$orderProperty', $order);
         // Load the order language
         foreach($order->properties as $orderProperty) {
-            $this->getLogger(__METHOD__)->error('Novalnet::$orderProperty', $orderProperty);
             if($orderProperty->typeId == '6' ) {
                 $orderLanguage = $orderProperty->value;
             }
