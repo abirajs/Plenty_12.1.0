@@ -573,6 +573,7 @@ class PaymentService
     public function HandlePaymentResponse()
     {
         $nnPaymentData = $this->sessionStorage->getPlugin()->getValue('nnPaymentData');
+	$this->getLogger(__METHOD__)->error('Novalnet::createPlentyPayment', $nnPaymentData);
         $this->sessionStorage->getPlugin()->setValue('nnPaymentData', null);
         $this->sessionStorage->getPlugin()->setValue('nnDoRedirect', null);
         $nnPaymentData['mop']            = $this->sessionStorage->getPlugin()->getValue('mop');
