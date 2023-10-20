@@ -33,6 +33,7 @@
 
         {# Date of Birth Form #}
         {% if paymentMopKey == 'NOVALNET_INSTALMENT_INVOICE' and showBirthday == true %}
+	<input type="hidden" id="nn_validation" name="nn_validation" value="">
         <input type="hidden" id="nn_show_dob" name="nn_show_dob" value="1">
         <div class="row">
             <div class="col-12">
