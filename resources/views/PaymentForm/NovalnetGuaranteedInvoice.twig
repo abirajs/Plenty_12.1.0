@@ -30,6 +30,7 @@
         </div>
 
         {# Date of Birth Form #}
+        {% if paymentMopKey == 'NOVALNET_GUARANTEED_INVOICE' and showBirthday == true %}
         <div class="row">
             <div class="col-12">
                 <b><label for="nn_birthday">{{trans("Novalnet::Customize.template_birthdate_label")}}<span class="text-danger">*</span></label></b>
@@ -54,6 +55,7 @@
                 <input type="text" name="nn_guarantee_year" id="nn_guarantee_year" maxlength="4" placeholder="{{trans("Novalnet::PaymentMethod.year")}}" autocomplete="off" class="form-control">
             </div>
             </div>
+         {% endif %}
     </div>
 
     <div class="modal-footer">
