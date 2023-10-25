@@ -1,4 +1,5 @@
 {# Load the css and Js #}
+{% if paymentMopKey == 'NOVALNET_GUARANTEED_INVOICE' and showBirthday == true %}
 <link rel="stylesheet" href="{{plugin_path('Novalnet')}}/css/novalnetUi.css">
 <script defer src="{{plugin_path('Novalnet')}}/js/novalnetGuaranteedPayment.js"></script>
 
@@ -29,8 +30,7 @@
             </div>
         </div>
 
-        {# Date of Birth Form #}
-        {% if paymentMopKey == 'NOVALNET_GUARANTEED_INVOICE' and showBirthday == true %}
+        {# Date of Birth Form #}    
         <div class="row">
             <div class="col-12">
                 <b><label for="nn_birthday">{{trans("Novalnet::Customize.template_birthdate_label")}}<span class="text-danger">*</span></label></b>
@@ -55,10 +55,11 @@
                 <input type="text" name="nn_guarantee_year" id="nn_guarantee_year" maxlength="4" placeholder="{{trans("Novalnet::PaymentMethod.year")}}" autocomplete="off" class="form-control">
             </div>
             </div>
-         {% endif %}
+         
     </div>
 
     <div class="modal-footer">
         <button type="submit" class="btn btn-primary" id="novalnet_form_btn">{{trans("Novalnet::Customize.template_submit_button_text")}} <i class="fa fa-check"></i></button>
     </div>
 </form>
+{% endif %}
