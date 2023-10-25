@@ -103,8 +103,8 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
                                      ];
                  }
 
-                // Check if the birthday field needs to show for guaranteed payments
-                $showBirthday = ((!isset($paymentRequestData['paymentRequestData']['customer']['billing']['company']) && !isset($paymentRequestData['paymentRequestData']['customer']['birth_date'])) || (isset($paymentRequestData['paymentRequestData']['customer']['birth_date']) && time() < strtotime('+18 years', strtotime($paymentRequestData['paymentRequestData']['customer']['birth_date'])))) ? true : false;
+                // Check if the birthday field needs to show for guaranteed and instalment payments
+                $showBirthday = ($settingsService->getPaymentSettingsValue('allow_b2b_customer', strtolower($paymentKey)) == false || (!isset($paymentRequestData['paymentRequestData']['customer']['billing']['company']) && !isset($paymentRequestData['paymentRequestData']['customer']['birth_date'])) ||  (isset($paymentRequestData['paymentRequestData']['customer']['birth_date']) && time() < strtotime('+18 years', strtotime($paymentRequestData['paymentRequestData']['customer']['birth_date'])))) ? true : false;
                 // Instalment cycle amount information for the payment methods
                 $currency = $basketRepository->load()->currency;
                 $instalmentCycles = $settingsService->getPaymentSettingsValue('instament_cycles', strtolower($paymentKey));
