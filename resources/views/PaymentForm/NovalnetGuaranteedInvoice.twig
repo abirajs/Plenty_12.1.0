@@ -1,5 +1,4 @@
 {# Load the css and Js #}
-{% if paymentMopKey == 'NOVALNET_GUARANTEED_INVOICE' and showBirthday == true %}
 <link rel="stylesheet" href="{{plugin_path('Novalnet')}}/css/novalnetUi.css">
 <script defer src="{{plugin_path('Novalnet')}}/js/novalnetGuaranteedPayment.js"></script>
 
@@ -63,4 +62,4 @@
         <button type="submit" class="btn btn-primary" id="novalnet_form_btn">{{trans("Novalnet::Customize.template_submit_button_text")}} <i class="fa fa-check"></i></button>
     </div>
 </form>
-{% endif %}
+
