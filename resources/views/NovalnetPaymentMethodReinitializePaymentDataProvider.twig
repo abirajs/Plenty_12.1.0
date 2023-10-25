@@ -48,7 +48,7 @@
         <div class="modal-content">
           {% if paymentMopKey in ['NOVALNET_SEPA', 'NOVALNET_GUARANTEED_SEPA'] %}
             {% include "Novalnet::PaymentForm.NovalnetSepa" %}
-          {% elseif paymentMopKey == 'NOVALNET_GUARANTEED_INVOICE' and showBirthday == true %}
+          {% elseif paymentMopKey == 'NOVALNET_GUARANTEED_INVOICE' %}
             {% include "Novalnet::PaymentForm.NovalnetGuaranteedInvoice" %}
           {% elseif paymentMopKey == 'NOVALNET_CC' %}
             {% include "Novalnet::PaymentForm.NovalnetCc" %}
