@@ -110,7 +110,7 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
                 $instalmentCycles = $settingsService->getPaymentSettingsValue('instament_cycles', strtolower($paymentKey));
                 $instalmentCyclesAmount = [];
                 foreach ($instalmentCycles as $cycle) {
-                    $cycleAmount = $paymentHelper->convertAmountToSmallerUnit($invoiceAmount) / 100;
+                    $cycleAmount = $paymentHelper->convertAmountToSmallerUnit($invoiceAmount) / $cycle;
                     // Assign the cycle amount if th cycle amount greater than
                     if ($cycleAmount > 999) {
                         $instalmentCyclesAmount[$cycle] = sprintf('%0.2f', (($cycleAmount / $cycle ) / 100));
