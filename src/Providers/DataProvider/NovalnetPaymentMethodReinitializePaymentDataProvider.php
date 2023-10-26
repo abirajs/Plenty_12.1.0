@@ -116,6 +116,7 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
                    $cycleAmount = ($paymentHelper->convertAmountToSmallerUnit($invoiceAmount) / 100) / $cycle;
                     $this->getLogger(__METHOD__)->error(' $paymentHelper->convertAmountToSmallerUnit($invoiceAmount)',  $paymentHelper->convertAmountToSmallerUnit($invoiceAmount));
                     $this->getLogger(__METHOD__)->error(' $cycle',  $cycle);
+                    $this->getLogger(__METHOD__)->error(' $cycleAmount', $cycleAmount);
                     // Assign the cycle amount if th cycle amount greater than
                     if ($cycleAmount > 999) {
                         $instalmentCyclesAmount[$cycle] = sprintf('%0.2f', (($paymentHelper->convertAmountToSmallerUnit($invoiceAmount) / $cycle ) / 100 ) / 100);
