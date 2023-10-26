@@ -107,7 +107,7 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
                                      ];
                  }
                 $this->getLogger(__METHOD__)->error('Novalnet:: $order',  $order);
-                $this->getLogger(__METHOD__)->error('Novalnet:: $orderAmountcurrency',  $order['amounts']['currency']);
+                $this->getLogger(__METHOD__)->error('Novalnet:: $orderAmountcurrency',  $currency);
                 $this->getLogger(__METHOD__)->error('Novalnet:: $basketRepository->load()',  $basketRepository->load());
                 $this->getLogger(__METHOD__)->error('Novalnet:: $basketRepository->load()currency',  $basketRepository->load()->currency);
                 // Check if the birthday field needs to show for guaranteed and instalment payments
