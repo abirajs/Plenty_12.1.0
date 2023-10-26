@@ -278,7 +278,18 @@ class PaymentService
             unset($paymentRequestData['customer']['shipping']);
             $paymentRequestData['customer']['shipping']['same_as_billing'] = '1';
         }
-	       $dueDate3 = $this->settingsService->getPaymentSettingsValue('due_date', $paymentKeyLower);
+
+        // Building the transaction Data
+        $paymentRequestData['transaction'] = [
+            'test_mode'         => ($this->settingsService->getPaymentSettingsValue('test_mode', $paymentKeyLower) == true) ? 1 : 0,
+            'amount'            => !empty($orderAmount) ? $orderAmount : $this->paymentHelper->convertAmountToSmallerUnit($basket->basketAmount),
+            'currency'          => $basket->currency,
+            'system_name'       => 'Plentymarkets',
+            'system_version'    => NovalnetConstants::PLUGIN_VERSION,
+            'system_url'        => $this->webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl,
+            'system_ip'         => $_SERVER['SERVER_ADDR']
+        ];
+	    $dueDate3 = $this->settingsService->getPaymentSettingsValue('due_date', $paymentKeyLower);
 	    $this->getLogger(__METHOD__)->error('$dueDate3', $dueDate3);
 	// Send due date to the Novalnet server if it configured
         if(in_array($paymentKey, ['NOVALNET_INVOICE', 'NOVALNET_PREPAYMENT', 'NOVALNET_CASHPAYMENT', 'NOVALNET_SEPA'])) {
@@ -294,16 +305,6 @@ class PaymentService
 		}
             }
         }
-        // Building the transaction Data
-        $paymentRequestData['transaction'] = [
-            'test_mode'         => ($this->settingsService->getPaymentSettingsValue('test_mode', $paymentKeyLower) == true) ? 1 : 0,
-            'amount'            => !empty($orderAmount) ? $orderAmount : $this->paymentHelper->convertAmountToSmallerUnit($basket->basketAmount),
-            'currency'          => $basket->currency,
-            'system_name'       => 'Plentymarkets',
-            'system_version'    => NovalnetConstants::PLUGIN_VERSION,
-            'system_url'        => $this->webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl,
-            'system_ip'         => $_SERVER['SERVER_ADDR']
-        ];
         // Build the custom parameters
         $paymentRequestData['custom'] = ['lang'  => strtoupper($this->sessionStorage->getLocaleSettings()->language)];
         // Build additional specific payment method request parameters
