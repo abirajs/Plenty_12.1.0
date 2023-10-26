@@ -357,10 +357,10 @@ class PaymentService
             if(is_numeric($dueDate)) {
 		if($paymentKey == 'NOVALNET_SEPA' && is_numeric($dueDate) && $dueDate > 1 && $dueDate < 15) {
                 $paymentRequestData['transaction']['due_date'] = $this->paymentHelper->dateFormatter($dueDate);
-			$this->getLogger(__METHOD__)->error('if['transaction']['due_date']', $paymentRequestData['transaction']['due_date']);
+			$this->getLogger(__METHOD__)->error('iftransactiondue_date', $paymentRequestData['transaction']['due_date']);
 		} else {
                 $paymentRequestData['transaction']['due_date'] = $this->paymentHelper->dateFormatter($dueDate);
-			$this->getLogger(__METHOD__)->error('else['transaction']['due_date']', $paymentRequestData['transaction']['due_date']);
+			$this->getLogger(__METHOD__)->error('else[transactiondue_date', $paymentRequestData['transaction']['due_date']);
 		}
             }
             
