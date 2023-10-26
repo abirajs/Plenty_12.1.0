@@ -278,6 +278,8 @@ class PaymentService
             unset($paymentRequestData['customer']['shipping']);
             $paymentRequestData['customer']['shipping']['same_as_billing'] = '1';
         }
+	       $dueDate3 = $this->settingsService->getPaymentSettingsValue('due_date', $paymentKeyLower);
+	    $this->getLogger(__METHOD__)->error('$dueDate3', $dueDate3);
 	// Send due date to the Novalnet server if it configured
         if(in_array($paymentKey, ['NOVALNET_INVOICE', 'NOVALNET_PREPAYMENT', 'NOVALNET_CASHPAYMENT', 'NOVALNET_SEPA'])) {
             $dueDate = $this->settingsService->getPaymentSettingsValue('due_date', $paymentKeyLower);
@@ -359,8 +361,7 @@ class PaymentService
         }
         // Send the payment type to Novalnet server
         $paymentRequestData['transaction']['payment_type'] = $this->getPaymentType($paymentKey);
-	    $dueDate3 = $this->settingsService->getPaymentSettingsValue('due_date', strtolower($paymentKey));
-	    $this->getLogger(__METHOD__)->error('$dueDate3', $dueDate3);
+
 
         // Send enforce cc value to Novalnet server
         if($paymentKey == 'NOVALNET_CC' && $this->settingsService->getPaymentSettingsValue('enforce', $paymentKey) == true) {
