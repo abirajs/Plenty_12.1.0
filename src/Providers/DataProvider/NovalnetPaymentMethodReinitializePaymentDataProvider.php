@@ -106,12 +106,13 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
                                      ];
                  }
                 $this->getLogger(__METHOD__)->error('Novalnet:: $order',  $order);
-                $this->getLogger(__METHOD__)->error('Novalnet:: $orderAmount',  $orderAmount);
-                $this->getLogger(__METHOD__)->error('Novalnet:: $orderAmount',  $basketRepository->load());
+                $this->getLogger(__METHOD__)->error('Novalnet:: $orderAmountcurrency',  $orderAmount['currency']);
+                $this->getLogger(__METHOD__)->error('Novalnet:: $basketRepository->load()',  $basketRepository->load());
+                $this->getLogger(__METHOD__)->error('Novalnet:: $basketRepository->load()currency',  $basketRepository->load()->currency);
                 // Check if the birthday field needs to show for guaranteed and instalment payments
                 $showBirthday = ($settingsService->getPaymentSettingsValue('allow_b2b_customer', strtolower($paymentKey)) == false || (!isset($paymentRequestData['paymentRequestData']['customer']['billing']['company']) && !isset($paymentRequestData['paymentRequestData']['customer']['birth_date'])) ||  (isset($paymentRequestData['paymentRequestData']['customer']['birth_date']) && time() < strtotime('+18 years', strtotime($paymentRequestData['paymentRequestData']['customer']['birth_date'])))) ? true : false;
                 // Instalment cycle amount information for the payment methods
-                $currency =  $orderAmount['currency'];
+                $currency =  $basketRepository->load()->currency;
                 $instalmentCycles = $settingsService->getPaymentSettingsValue('instament_cycles', strtolower($paymentKey));
                 $instalmentCyclesAmount = [];
                 foreach ($instalmentCycles as $cycle) {
