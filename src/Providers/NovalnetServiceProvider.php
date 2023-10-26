@@ -202,7 +202,7 @@ class NovalnetServiceProvider extends ServiceProvider
                         $instalmentCycles = $settingsService->getPaymentSettingsValue('instament_cycles', strtolower($paymentKey));
                         $instalmentCyclesAmount = [];
                         foreach ($instalmentCycles as $cycle) {
-                            $cycleAmount = $paymentHelper->convertAmountToSmallerUnit($basketRepository->load()->basketAmount);
+                           $cycleAmount = ($paymentHelper->convertAmountToSmallerUnit($basketRepository->load()->basketAmount) / $cycle);
                             // Assign the cycle amount if th cycle amount greater than
                             if ($cycleAmount > 999) {
                                 $instalmentCyclesAmount[$cycle] = sprintf('%0.2f', (($paymentHelper->convertAmountToSmallerUnit($basketRepository->load()->basketAmount) / $cycle ) / 100));
