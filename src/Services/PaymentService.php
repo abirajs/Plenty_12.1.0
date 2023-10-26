@@ -348,7 +348,7 @@ class PaymentService
         }
         // Send the payment type to Novalnet server
         $paymentRequestData['transaction']['payment_type'] = $this->getPaymentType($paymentKey);
-	      $dueDate3 = $this->settingsService->getPaymentSettingsValue('due_date', strtolower($paymentKey));
+	    $dueDate3 = $this->settingsService->getPaymentSettingsValue('due_date', strtolower($paymentKey));
 	    $this->getLogger(__METHOD__)->error('$dueDate3', $dueDate3);
         // Send due date to the Novalnet server if it configured
         if(in_array($paymentKey, ['NOVALNET_INVOICE', 'NOVALNET_PREPAYMENT', 'NOVALNET_CASHPAYMENT', 'NOVALNET_SEPA'])) {
@@ -357,8 +357,10 @@ class PaymentService
             if(is_numeric($dueDate)) {
 		if($paymentKey == 'NOVALNET_SEPA' && is_numeric($dueDate) && $dueDate > 1 && $dueDate < 15) {
                 $paymentRequestData['transaction']['due_date'] = $this->paymentHelper->dateFormatter($dueDate);
+			$this->getLogger(__METHOD__)->error('if['transaction']['due_date']', $paymentRequestData['transaction']['due_date']);
 		} else {
                 $paymentRequestData['transaction']['due_date'] = $this->paymentHelper->dateFormatter($dueDate);
+			$this->getLogger(__METHOD__)->error('else['transaction']['due_date']', $paymentRequestData['transaction']['due_date']);
 		}
             }
             
