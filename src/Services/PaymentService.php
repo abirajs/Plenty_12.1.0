@@ -583,12 +583,13 @@ class PaymentService
     public function HandlePaymentResponse()
     {
         $nnPaymentData = $this->sessionStorage->getPlugin()->getValue('nnPaymentData');
-	$this->getLogger(__METHOD__)->error('Novalnet::createPlentyPayment', $nnPaymentData);
+	
         $this->sessionStorage->getPlugin()->setValue('nnPaymentData', null);
         $this->sessionStorage->getPlugin()->setValue('nnDoRedirect', null);
         $nnPaymentData['mop']            = $this->sessionStorage->getPlugin()->getValue('mop');
         $nnPaymentData['payment_method'] = strtolower($this->paymentHelper->getPaymentKeyByMop($nnPaymentData['mop']));
         // If Order No is not received from the payment response assign the from the session
+	    $this->getLogger(__METHOD__)->error('Novalnet::handlepaymentresponse::nnOrderNo',$this->sessionStorage->getPlugin()->getValue('nnOrderNo'));
         if(empty($nnPaymentData['transaction']['order_no'])) {
             $nnPaymentData['transaction']['order_no'] = $this->sessionStorage->getPlugin()->getValue('nnOrderNo');
             $this->sessionStorage->getPlugin()->setValue('nnOrderNo', null);
@@ -604,6 +605,8 @@ class PaymentService
             $nnPaymentData['transaction']['order_no'] = $paymentResponseData['transaction']['order_no'];
             $nnPaymentData['transaction']['invoice_ref'] = $paymentResponseData['transaction']['invoice_ref'];
         }
+	    
+	    $this->getLogger(__METHOD__)->error('Novalnet::handlepaymentresponse', $nnPaymentData);
         // Insert payment response into Novalnet table
         $this->insertPaymentResponse($nnPaymentData);
         // Create a plenty payment to the order
