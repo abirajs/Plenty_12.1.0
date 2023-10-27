@@ -48,6 +48,7 @@ use Plenty\Modules\Payment\Models\PaymentProperty;
 use Plenty\Modules\Payment\Contracts\PaymentRepositoryContract;
 use Plenty\Modules\Order\Contracts\OrderRepositoryContract;
 use Plenty\Modules\Payment\Contracts\PaymentOrderRelationRepositoryContract;
+use Plenty\Modules\Frontend\Session\Storage\Contracts\FrontendSessionStorageFactoryContract;
 use Plenty\Plugin\Log\Loggable;
 
 /**
@@ -92,7 +93,12 @@ class PaymentHelper
      * @var PaymentOrderRelationRepositoryContract
      */
     private $paymentOrderRelationRepository;
-
+    
+    /**
+     * @var FrontendSessionStorageFactoryContract
+     */
+    private $sessionStorage;
+    
     /**
      * Constructor.
      *
@@ -101,6 +107,7 @@ class PaymentHelper
      * @param CountryRepositoryContract $countryRepository
      * @param PaymentRepositoryContract $paymentRepository
      * @param OrderRepositoryContract $orderRepository
+     * @param FrontendSessionStorageFactoryContract $sessionStorage
      * @param PaymentOrderRelationRepositoryContract $paymentOrderRelationRepository
      */
     public function __construct(PaymentMethodRepositoryContract $paymentMethodRepository,
@@ -108,6 +115,7 @@ class PaymentHelper
                                 CountryRepositoryContract $countryRepository,
                                 PaymentRepositoryContract $paymentRepository,
                                 OrderRepositoryContract $orderRepository,
+                                FrontendSessionStorageFactoryContract $sessionStorage,
                                 PaymentOrderRelationRepositoryContract $paymentOrderRelationRepository
                                 )
     {
@@ -116,6 +124,7 @@ class PaymentHelper
         $this->countryRepository                = $countryRepository;
         $this->paymentRepository                = $paymentRepository;
         $this->orderRepository                  = $orderRepository;
+        $this->sessionStorage       			= $sessionStorage;
         $this->paymentOrderRelationRepository   = $paymentOrderRelationRepository;
     }
 
@@ -426,7 +435,7 @@ class PaymentHelper
             $payment->mopId           = (int) $paymentResponseData['mop'];
             $payment->transactionType = Payment::TRANSACTION_TYPE_BOOKED_POSTING;
             $payment->status          = ($paymentResponseData['transaction']['status'] == 'ON_HOLD' || ($paymentResponseData['transaction']['status'] == 'PENDING' && !in_array($paymentResponseData['transaction']['payment_type'], ['INVOICE', 'PREPAYMENT', 'CASHPAYMENT', 'MULTIBANCO']))) ? Payment::STATUS_AWAITING_APPROVAL : (($paymentResponseData['result']['status'] == 'FAILURE' || $paymentResponseData['transaction']['status'] == 'DEACTIVATED') ? Payment::STATUS_CANCELED : Payment::STATUS_CAPTURED);
-            $payment->currency        = $paymentResponseData['transaction']['currency'];
+            $payment->currency        = !empty($this->sessionStorage->getPlugin()->getValue('orderCurency')) ? $this->sessionStorage->getPlugin()->getValue('orderCurency') : $paymentResponseData['transaction']['currency'];
             $payment->amount          = ($paymentResponseData['result']['status'] == 'SUCCESS' && empty($paymentResponseData['instalment']['cancel_type'])   && !empty($paymentResponseData['transaction']['refund']['amount'])) ? ($paymentResponseData['transaction']['refund']['amount'] / 100) : (($paymentResponseData['transaction']['status'] != 'ON_HOLD' && $paymentResponseData['result']['status'] == 'SUCCESS' && $paymentResponseData['instalment']['cycle_amount']) ? (($paymentResponseData['instalment']['cycle_amount']) / 100) : ($paymentResponseData['transaction']['status'] == 'CONFIRMED' ? ($paymentResponseData['transaction']['amount'] / 100) : 0));
             // Set the transaction status
             $txnStatus      = !empty($paymentResponseData['transaction']['status']) ? $paymentResponseData['transaction']['status'] : $paymentResponseData['result']['status'];
