@@ -72,6 +72,12 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
                 } else {
                     $invoiceAmount = $paymentHelper->convertAmountToSmallerUnit($order['amounts'][0]['invoiceTotal']);
                 }
+
+                // Get order currency
+                foreach($order['amounts'] as $orderAmount) {
+                $sessionStorage->getPlugin()->setValue('orderCurency', $orderAmount['currency']);    
+                }
+                
                 // Set the required values into session
                 $sessionStorage->getPlugin()->setValue('nnOrderNo', $order['id']);
                 $sessionStorage->getPlugin()->setValue('nnOrderCreator', $order['ownerId']);
