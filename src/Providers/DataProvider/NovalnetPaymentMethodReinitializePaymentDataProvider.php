@@ -88,7 +88,7 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
 
                 // Build the payment request parameters
                 $paymentRequestData = $paymentService->generatePaymentParams($basketRepository->load(), $paymentKey, $invoiceAmount);
-
+                $paymentRequestData['paymentRequestData']['transaction']['currency'] = $sessionStorage->getPlugin()->getValue('orderCurency');
                 // Set the payment request parameters into session
                 $sessionStorage->getPlugin()->setValue('nnPaymentData', $paymentRequestData);
 
@@ -150,7 +150,7 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
                                     'countryCode' => $paymentRequestData['paymentRequestData']['customer']['billing']['country_code'],
                                     'orderCurrency'  =>  $sessionStorage->getPlugin()->getValue('orderCurency'),
                                     'googlePayData' => !empty($googlePayData) ? $googlePayData : '',
-                                    'Currency'  =>$sessionStorage->getPlugin()->getValue('orderCurency'),
+                                    'Currency'  => $sessionStorage->getPlugin()->getValue('orderCurency'),
                                     'AccountHolderName'     => $paymentRequestData['paymentRequestData']['customer']['first_name'] . ' ' . $paymentRequestData['paymentRequestData']['customer']['last_name'],
                                 ]);
                }
