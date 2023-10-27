@@ -283,7 +283,7 @@ class PaymentService
         $paymentRequestData['transaction'] = [
             'test_mode'         => ($this->settingsService->getPaymentSettingsValue('test_mode', $paymentKeyLower) == true) ? 1 : 0,
             'amount'            => !empty($orderAmount) ? $orderAmount : $this->paymentHelper->convertAmountToSmallerUnit($basket->basketAmount),
-            'currency'          => !empty($this->sessionStorage->getPlugin()->getValue('orderCurency')) ? $this->sessionStorage->getPlugin()->getValue('orderCurency') : $basket->currency,
+            'currency'          => $basket->currency,
             'system_name'       => 'Plentymarkets',
             'system_version'    => NovalnetConstants::PLUGIN_VERSION,
             'system_url'        => $this->webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl,
