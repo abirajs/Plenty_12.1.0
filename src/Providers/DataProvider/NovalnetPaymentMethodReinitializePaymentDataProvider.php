@@ -64,7 +64,7 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
                 // Get the proper order amount even the system currency and payment currency are differ
                 if(count($order['amounts']) > 1) {
                      foreach($order['amounts'] as $orderAmount) {
-                         $this->sessionStorage->getPlugin()->setValue('orderCurency', $orderAmount['currency']);
+                         $sessionStorage->getPlugin()->setValue('orderCurency', $orderAmount['currency']);
                         if($basketRepository->load()->currency == $orderAmount['currency']) {
                             $invoiceAmount = $paymentHelper->convertAmountToSmallerUnit($orderAmount['invoiceTotal']);
                         }
@@ -107,7 +107,7 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
                                      ];
                  }
                 $this->getLogger(__METHOD__)->error('Novalnet:: $order',  $order);
-                $this->getLogger(__METHOD__)->error('Novalnet:: $orderAmountcurrency',   $this->sessionStorage->getPlugin()->getValue('orderCurency'));
+                $this->getLogger(__METHOD__)->error('Novalnet:: $orderAmountcurrency',   $sessionStorage->getPlugin()->getValue('orderCurency'));
                 $this->getLogger(__METHOD__)->error('Novalnet:: $basketRepository->load()',  $basketRepository->load());
                 $this->getLogger(__METHOD__)->error('Novalnet:: $basketRepository->load()currency',  $basketRepository->load()->currency);
                 // Check if the birthday field needs to show for guaranteed and instalment payments
@@ -143,7 +143,7 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
                                     'redirectUrl' => $paymentService->getRedirectPaymentUrl(),
                                     'orderLang'   => $paymentRequestData['paymentRequestData']['custom']['lang'],
                                     'countryCode' => $paymentRequestData['paymentRequestData']['customer']['billing']['country_code'],
-                                    'orderCurrency'  =>  $this->sessionStorage->getPlugin()->getValue('orderCurency'),
+                                    'orderCurrency'  =>  $sessionStorage->getPlugin()->getValue('orderCurency'),
                                     'googlePayData' => !empty($googlePayData) ? $googlePayData : '',
                                     'Currency'  => $currency,
                                     'AccountHolderName'     => $paymentRequestData['paymentRequestData']['customer']['first_name'] . ' ' . $paymentRequestData['paymentRequestData']['customer']['last_name'],
