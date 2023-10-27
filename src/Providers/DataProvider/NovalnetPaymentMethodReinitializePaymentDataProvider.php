@@ -150,7 +150,7 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
                                     'countryCode' => $paymentRequestData['paymentRequestData']['customer']['billing']['country_code'],
                                     'orderCurrency'  =>  $sessionStorage->getPlugin()->getValue('orderCurency'),
                                     'googlePayData' => !empty($googlePayData) ? $googlePayData : '',
-                                    'Currency'  => $currency,
+                                    'Currency'  =>$sessionStorage->getPlugin()->getValue('orderCurency'),
                                     'AccountHolderName'     => $paymentRequestData['paymentRequestData']['customer']['first_name'] . ' ' . $paymentRequestData['paymentRequestData']['customer']['last_name'],
                                 ]);
                }
