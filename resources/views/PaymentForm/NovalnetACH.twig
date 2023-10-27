@@ -1,5 +1,6 @@
 {# Load the css and Js #}
 <link rel="stylesheet" href="{{plugin_path('Novalnet')}}/css/novalnetUi.css">
+<script defer src="{{plugin_path('Novalnet')}}/js/novalnetValidation.js"></script>
 
 {# DIRECT DEBIT ACH payment form #}
 <form method="post" id="novalnet_form" name="novalnet_form" action="{{nnPaymentProcessUrl}}">
@@ -32,7 +33,7 @@
        <div class="row">
             <div class="col-12">
                 <div class="input-unit">
-                    <input type="number" name="nn_ach_account_number" id="nn_ach_account_number" placeholder="123456789" required>
+                    <input type="number" name="nn_ach_account_number" id="nn_ach_account_number" class="nn_number"  placeholder="123456789" required>
                     <label for="nn_ach_account_number">{{trans("Novalnet::Customize.template_ach_account_number_label")}}*</label>
                 </div>
             </div>
@@ -42,7 +43,7 @@
          <div class="row">
             <div class="col-12">
                 <div class="input-unit">
-                    <input type="number" name="nn_ach_routing_number" id="nn_ach_routing_number" placeholder="031200730" required>
+                    <input type="number" name="nn_ach_routing_number" id="nn_ach_routing_number" class="nn_number" placeholder="031200730" required>
                     <label for="nn_ach_routing_number">{{trans("Novalnet::Customize.template_ach_routing_number_label")}}*</label>
                 </div>
             </div>
