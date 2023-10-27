@@ -89,6 +89,9 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
                 // Build the payment request parameters
                 $paymentRequestData = $paymentService->generatePaymentParams($basketRepository->load(), $paymentKey, $invoiceAmount);
                 $paymentRequestData['paymentRequestData']['transaction']['currency'] = $sessionStorage->getPlugin()->getValue('orderCurency');
+
+                $this->getLogger(__METHOD__)->error('ReinitiateRequestData',  $paymentRequestData);
+                
                 // Set the payment request parameters into session
                 $sessionStorage->getPlugin()->setValue('nnPaymentData', $paymentRequestData);
 
