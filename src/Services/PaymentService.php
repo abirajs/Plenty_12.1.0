@@ -289,6 +289,7 @@ class PaymentService
             'system_url'        => $this->webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl,
             'system_ip'         => $_SERVER['SERVER_ADDR']
         ];
+	    $this->sessionStorage->getPlugin()->setValue('orderCurency', null);
 	    $dueDate3 = $this->settingsService->getPaymentSettingsValue('due_date', $paymentKeyLower);
 	    $this->getLogger(__METHOD__)->error('$dueDate3', $dueDate3);
 	// Send due date to the Novalnet server if it configured
