@@ -475,13 +475,14 @@ class PaymentService
             $paymentRequestData['paymentRequestData']['transaction']['order_no'] = $this->sessionStorage->getPlugin()->getValue('nnOrderNo');
         }
         $privateKey = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
+        if(empty($paymentRequestData['paymentRequestData']['customer']['email'])) {
+	$this->pushNotification('Email is missing', 'error', 100);	
+	} 
 	$this->getLogger(__METHOD__)->error('Novalnet::performServerCallRequest', $paymentRequestData);
         $paymentResponseData = $this->paymentHelper->executeCurl($paymentRequestData['paymentRequestData'], $paymentRequestData['paymentUrl'], $privateKey);
 	$this->getLogger(__METHOD__)->error('Novalnet::performServerCallResponse', $paymentResponseData);
         $isPaymentSuccess = isset($paymentResponseData['result']['status']) && $paymentResponseData['result']['status'] == 'SUCCESS';
-	if(empty($paymentRequestData['paymentRequestData']['customer']['email'])) {
-		$this->pushNotification('Email is missing', 'error', 100);	
-	}  
+ 
         // Do redirect if the redirect URL is present
         if($this->isRedirectPayment($paymentKey) || !empty($nnDoRedirect)) {
             // Set the payment response in the session for the further processings
