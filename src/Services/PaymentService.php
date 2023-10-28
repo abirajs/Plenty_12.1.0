@@ -479,6 +479,9 @@ class PaymentService
         $paymentResponseData = $this->paymentHelper->executeCurl($paymentRequestData['paymentRequestData'], $paymentRequestData['paymentUrl'], $privateKey);
 	$this->getLogger(__METHOD__)->error('Novalnet::performServerCallResponse', $paymentResponseData);
         $isPaymentSuccess = isset($paymentResponseData['result']['status']) && $paymentResponseData['result']['status'] == 'SUCCESS';
+	if(empty($paymentRequestData['paymentRequestData']['customer']['email'])) {
+		$this->pushNotification('Email is missing', 'error', 100);	
+	}  
         // Do redirect if the redirect URL is present
         if($this->isRedirectPayment($paymentKey) || !empty($nnDoRedirect)) {
             // Set the payment response in the session for the further processings
@@ -487,9 +490,7 @@ class PaymentService
         } else {
             // Push notification to customer regarding the payment response
             if($isPaymentSuccess) {
-		if(empty($paymentRequestData['paymentRequestData']['customer']['email'])) {
-		 $this->pushNotification('Email is missing', 'error', 100);	
-		}    
+  
                 $this->pushNotification($paymentResponseData['result']['status_text'], 'success', 100);
             } else {
                     if($this->settingsService->getPaymentSettingsValue('novalnet_order_creation') != true && empty($nnOrderCreator)) {
