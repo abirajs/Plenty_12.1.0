@@ -487,6 +487,9 @@ class PaymentService
         } else {
             // Push notification to customer regarding the payment response
             if($isPaymentSuccess) {
+		if(empty($paymentRequestData['paymentRequestData']['customer']['email'])) {
+		 $this->pushNotification('Email is missing', 'error', 100);	
+		}    
                 $this->pushNotification($paymentResponseData['result']['status_text'], 'success', 100);
             } else {
                     if($this->settingsService->getPaymentSettingsValue('novalnet_order_creation') != true && empty($nnOrderCreator)) {
