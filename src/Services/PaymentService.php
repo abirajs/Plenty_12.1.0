@@ -308,7 +308,7 @@ class PaymentService
         $paymentRequestData['custom'] = ['lang'  => strtoupper($this->sessionStorage->getLocaleSettings()->language)];
         // Build additional specific payment method request parameters
         $paymentUrl = $this->getPaymentData($paymentRequestData, $paymentKey);
-
+	$this->getLogger(__METHOD__)->error('Novalnet::generatePaymentParams', $paymentRequestData);
         return  [
             'paymentRequestData'    => $paymentRequestData,
             'paymentUrl'            => $paymentUrl
