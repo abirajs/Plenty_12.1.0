@@ -144,6 +144,10 @@ class NovalnetServiceProvider extends ServiceProvider
                 if(empty($paymentRequestData['paymentRequestData']['customer']['first_name']) && empty($paymentRequestData['paymentRequestData']['customer']['last_name'])) {
                     $content = $paymentHelper->getTranslatedText('nn_first_last_name_error');
                     $contentType = 'errorCode';
+                    if(empty($paymentRequestData['paymentRequestData']['customer']['email']){
+                    $content = 'Email is missing';
+                    $contentType = 'errorCode';   
+                    }
                 } else {
                     // Check if the birthday field needs to show for guaranteed payments
                      $showBirthday = ($settingsService->getPaymentSettingsValue('allow_b2b_customer', strtolower($paymentKey)) == false || (!isset($paymentRequestData['paymentRequestData']['customer']['billing']['company']) && !isset($paymentRequestData['paymentRequestData']['customer']['birth_date'])) ||  (isset($paymentRequestData['paymentRequestData']['customer']['birth_date']) && time() < strtotime('+18 years', strtotime($paymentRequestData['paymentRequestData']['customer']['birth_date'])))) ? true : false;
