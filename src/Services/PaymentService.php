@@ -22,6 +22,7 @@ use Plenty\Modules\Helper\Services\WebstoreHelper;
 use Plenty\Modules\Plugin\DataBase\Contracts\DataBase;
 use Plenty\Modules\Plugin\DataBase\Contracts\Query;
 use Plenty\Modules\Payment\Contracts\PaymentRepositoryContract;
+use Plenty\Plugin\Http\Response;
 use Plenty\Plugin\Log\Loggable;
 
 /**
@@ -37,7 +38,12 @@ class PaymentService
      * @var SettingsService
      */
     private $settingsService;
-
+	
+    /**
+     * @var Response
+     */
+    private $response;
+	
     /**
      * @var PaymentHelper
      */
@@ -83,6 +89,7 @@ class PaymentService
      *
      * @param SettingsService $settingsService
      * @param PaymentHelper $paymentHelper
+     * @param Response $response
      * @param WebstoreHelper $webstoreHelper
      * @param AddressRepositoryContract $addressRepository
      * @param CountryRepositoryContract $countryRepository
@@ -92,6 +99,7 @@ class PaymentService
      */
     public function __construct(SettingsService $settingsService,
                                 PaymentHelper $paymentHelper,
+				Response $response,
                                 WebstoreHelper $webstoreHelper,
                                 AddressRepositoryContract $addressRepository,
                                 CountryRepositoryContract $countryRepository,
@@ -107,6 +115,7 @@ class PaymentService
         $this->countryRepository    = $countryRepository;
         $this->sessionStorage       = $sessionStorage;
         $this->transactionService   = $transactionService;
+	$this->response             = $response;
         $this->paymentRepository    = $paymentRepository;
     }
 
@@ -475,7 +484,8 @@ class PaymentService
             $paymentRequestData['paymentRequestData']['transaction']['order_no'] = $this->sessionStorage->getPlugin()->getValue('nnOrderNo');
         }
 	if(empty($paymentRequestData['paymentRequestData']['customer']['email'])) {
-	return $this->pushNotification('Email is missing', 'error', 100);	
+	$this->pushNotification('Email is missing', 'error', 100);
+	return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/confirmation');
 	} 
         $privateKey = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
 	$this->getLogger(__METHOD__)->error('Novalnet::performServerCallRequest', $paymentRequestData);
