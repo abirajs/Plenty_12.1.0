@@ -61,20 +61,10 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
                 $basketRepository->load()->customerInvoiceAddressId = !empty($basketRepository->load()->customerInvoiceAddressId) ? $basketRepository->load()->customerInvoiceAddressId : $order['billingAddress']['id'];
                 $basketRepository->load()->customerShippingAddressId = !empty($basketRepository->load()->customerShippingAddressId) ? $basketRepository->load()->customerShippingAddressId : $order['deliveryAddress']['id'];
 
-                // Get the proper order amount even the system currency and payment currency are differ
-                if(count($order['amounts']) > 1) {
-                     foreach($order['amounts'] as $orderAmount) {
-                        if($basketRepository->load()->currency == $orderAmount['currency']) {
-                            $invoiceAmount = $paymentHelper->convertAmountToSmallerUnit($orderAmount['invoiceTotal']);
-                        }
-                    }
-                } else {
-                    $invoiceAmount = $paymentHelper->convertAmountToSmallerUnit($order['amounts'][0]['invoiceTotal']);
-                }
-
                 // Get order currency
                 foreach($order['amounts'] as $orderAmount) {
-                $sessionStorage->getPlugin()->setValue('orderCurency', $orderAmount['currency']);    
+                $sessionStorage->getPlugin()->setValue('orderCurency', $orderAmount['currency']);  
+                $invoiceAmount = $paymentHelper->convertAmountToSmallerUnit($orderAmount['invoiceTotal']);
                 }
                 
                 // Set the required values into session
