@@ -271,6 +271,11 @@ class PaymentController extends Controller
         if($postData['nnReinitiatePayment']) {
         $this->sessionStorage->getPlugin()->setValue('nnReinitiatePayment', '1');
         }
+	$paymentRequestData = $this->sessionStorage->getPlugin()->getValue('nnPaymentData');
+        if(empty($paymentRequestData['paymentRequestData']['customer']['email'])) {
+		$this->pushNotification('Email is missing', 'error', 100);
+		return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/confirmation');
+	} 
         $paymentResponseData = $this->paymentService->performServerCall();
         $paymentKey = $this->sessionStorage->getPlugin()->getValue('paymentkey');
         $nnDoRedirect = $this->sessionStorage->getPlugin()->getValue('nnDoRedirect');
