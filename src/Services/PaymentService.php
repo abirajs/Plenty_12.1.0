@@ -474,10 +474,10 @@ class PaymentService
        if($this->settingsService->getPaymentSettingsValue('novalnet_order_creation') == true || !empty($nnOrderCreator) || ($nnReinitiatePayment == 1)) {
             $paymentRequestData['paymentRequestData']['transaction']['order_no'] = $this->sessionStorage->getPlugin()->getValue('nnOrderNo');
         }
-        $privateKey = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
-        if(empty($paymentRequestData['paymentRequestData']['customer']['email'])) {
-	$this->pushNotification('Email is missing', 'error', 100);	
+	if(empty($paymentRequestData['paymentRequestData']['customer']['email'])) {
+	return $this->pushNotification('Email is missing', 'error', 100);	
 	} 
+        $privateKey = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
 	$this->getLogger(__METHOD__)->error('Novalnet::performServerCallRequest', $paymentRequestData);
         $paymentResponseData = $this->paymentHelper->executeCurl($paymentRequestData['paymentRequestData'], $paymentRequestData['paymentUrl'], $privateKey);
 	$this->getLogger(__METHOD__)->error('Novalnet::performServerCallResponse', $paymentResponseData);
