@@ -273,7 +273,7 @@ class PaymentController extends Controller
         }
 	$paymentRequestData = $this->sessionStorage->getPlugin()->getValue('nnPaymentData');
         if(empty($paymentRequestData['paymentRequestData']['customer']['email'])) {
-		$this->pushNotification('Email is missing', 'error', 100);
+		$this->paymentService->pushNotification('Email is missing', 'error', 100);
 		return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/confirmation');
 	} 
         $paymentResponseData = $this->paymentService->performServerCall();
