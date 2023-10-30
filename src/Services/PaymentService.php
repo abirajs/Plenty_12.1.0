@@ -221,6 +221,9 @@ class PaymentService
         if(!empty($shippingAddressId)) {
             $shippingAddress = $this->paymentHelper->getCustomerAddress((int) $shippingAddressId);
         }
+	if(!empty($billingAddressId)) {
+            $billingAddress = $this->paymentHelper->getCustomerAddress((int) $billingAddressId);
+        }
         // Get the customer name if the salutation as Person
         $customerName = $this->getCustomerName($billingAddress);
 
