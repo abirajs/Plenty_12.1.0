@@ -146,7 +146,7 @@ class NovalnetServiceProvider extends ServiceProvider
                     $content = $paymentHelper->getTranslatedText('nn_first_last_name_error');
                     $contentType = 'errorCode';
                    if(empty($paymentRequestData['paymentRequestData']['customer']['email'])){
-                    $content = 'Email is missing';
+                    $content = $paymentHelper->getTranslatedText('nn_email_error');
                     $contentType = 'errorCode';   
                     }
                 } else {
