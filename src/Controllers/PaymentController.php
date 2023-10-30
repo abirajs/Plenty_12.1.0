@@ -272,9 +272,15 @@ class PaymentController extends Controller
         $this->sessionStorage->getPlugin()->setValue('nnReinitiatePayment', '1');
         }
 	$paymentRequestData = $this->sessionStorage->getPlugin()->getValue('nnPaymentData');
-        if(empty($paymentRequestData['paymentRequestData']['customer']['email'])) {
-		$this->paymentService->pushNotification('Email is missing', 'error', 100);
+	if((empty($paymentRequestData['paymentRequestData']['customer']['first_name']) && empty($paymentRequestData['paymentRequestData']['customer']['last_name'])) || empty($paymentRequestData['paymentRequestData']['customer']['email'])) {
+		$content = $paymentHelper->getTranslatedText('nn_first_last_name_error');
+		$this->pushNotification($content, 'error', 100);
 		return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/confirmation');
+	   if(empty($paymentRequestData['paymentRequestData']['customer']['email'])){
+		$content = $paymentHelper->getTranslatedText('nn_email_error');
+		$this->pushNotification($content, 'error', 100);
+		return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/confirmation');  
+		}
 	} 
         $paymentResponseData = $this->paymentService->performServerCall();
         $paymentKey = $this->sessionStorage->getPlugin()->getValue('paymentkey');
