@@ -275,12 +275,11 @@ class PaymentController extends Controller
 	if((empty($paymentRequestData['paymentRequestData']['customer']['first_name']) && empty($paymentRequestData['paymentRequestData']['customer']['last_name'])) || empty($paymentRequestData['paymentRequestData']['customer']['email'])) {
 		$content = $this->paymentHelper->getTranslatedText('nn_first_last_name_error');
 		 $this->paymentService->pushNotification($content, 'error', 100);
-		return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/confirmation');
 	   if(empty($paymentRequestData['paymentRequestData']['customer']['email'])){
 		$content = $this->paymentHelper->getTranslatedText('nn_email_error');
 		 $this->paymentService->pushNotification($content, 'error', 100);
-		return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/confirmation');  
 		}
+	   return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/confirmation');  
 	} 
         $paymentResponseData = $this->paymentService->performServerCall();
         $paymentKey = $this->sessionStorage->getPlugin()->getValue('paymentkey');
