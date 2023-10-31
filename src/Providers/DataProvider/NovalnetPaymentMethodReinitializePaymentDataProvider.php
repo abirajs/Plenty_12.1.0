@@ -64,9 +64,7 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
                 // Get the proper order amount even the system currency and payment currency are differ
                 if(count($order['amounts']) > 1) {
                      foreach($order['amounts'] as $orderAmount) {
-                        if($basketRepository->load()->currency == $orderAmount['currency']) {
                             $invoiceAmount = $paymentHelper->convertAmountToSmallerUnit($orderAmount['invoiceTotal']);
-                        }
                     }
                 } else {
                     $invoiceAmount = $paymentHelper->convertAmountToSmallerUnit($order['amounts'][0]['invoiceTotal']);
