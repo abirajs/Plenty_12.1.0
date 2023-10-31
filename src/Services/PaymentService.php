@@ -697,7 +697,7 @@ class PaymentService
                 if(empty($paymentResponseData['transaction']['bank_details'])) {
                     $this->getSavedPaymentDetails($paymentResponseData);
                 }
-                if(empty($paymentResponseData['instalment']['pending_cycles'])) {
+                if(empty($paymentResponseData['instalment'])) {
                     $this->getSavedPaymentDetails($paymentResponseData);
                 }
                 $additionalInfo['invoice_account_holder'] = $paymentResponseData['transaction']['bank_details']['account_holder'];
