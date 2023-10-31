@@ -1,4 +1,4 @@
-
+jQuery(document).ready( function() {
     // Restrict the special characters in the IBAN field
     jQuery('#nn_sepa_iban').on('input',function ( event ) {
         let iban = jQuery(this).val().replace( /[^a-zA-Z0-9]+/g, "" ).replace( /\s+/g, "" );
@@ -18,7 +18,7 @@
             return false;
         }
     });
-
+});
     
       
 
