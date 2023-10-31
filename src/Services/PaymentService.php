@@ -1212,7 +1212,9 @@ class PaymentService
             $paymentRequestData['transaction']['tid'] = $transactionData['tid'];
             $paymentRequestData['custom']['lang'] = strtoupper($transactionData['lang']);
             // Send the payment capture/void call to Novalnet server
+	    $this->getLogger(__METHOD__)->error('Novalnet::docaptureVoid $paymentRequestData', $paymentRequestData);
             $paymentResponseData = $this->paymentHelper->executeCurl($paymentRequestData, $paymentUrl, $privateKey);
+	    $this->getLogger(__METHOD__)->error('Novalnet::docaptureVoid $paymentResponseData', $paymentResponseData);
             $paymentResponseData = array_merge($paymentRequestData, $paymentResponseData);
             // Booking Message
             if(in_array($paymentResponseData['transaction']['status'], ['PENDING', 'CONFIRMED'])) {
