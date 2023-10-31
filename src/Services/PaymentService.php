@@ -206,6 +206,7 @@ class PaymentService
      */
     public function generatePaymentParams(Basket $basket, $paymentKey = '', $orderAmount = 0)
     {
+	  $this->getLogger(__METHOD__)->error('Novalnet::$basket payment params', $basket);   
         // Get the customer billing and shipping details
         $billingAddressId = $basket->customerInvoiceAddressId;
         $shippingAddressId = $basket->customerShippingAddressId;
@@ -217,13 +218,16 @@ class PaymentService
             $shippingAddressId = $this->sessionStorage->getPlugin()->getValue('nnShippingAddressId');
         }
         $billingAddress = $this->paymentHelper->getCustomerAddress((int) $billingAddressId);
+	      $this->getLogger(__METHOD__)->error('Novalnet::$billingAddress payment params', $billingAddress);   
         $shippingAddress = $billingAddress;
         if(!empty($shippingAddressId)) {
             $shippingAddress = $this->paymentHelper->getCustomerAddress((int) $shippingAddressId);
         }
+	      $this->getLogger(__METHOD__)->error('Novalnet::$shippingAddress payment params', $shippingAddress);  
 	if(!empty($billingAddressId)) {
             $billingAddress = $this->paymentHelper->getCustomerAddress((int) $billingAddressId);
         }
+	   $this->getLogger(__METHOD__)->error('Novalnet::$billingAddress2 payment params', $billingAddress2);  
         // Get the customer name if the salutation as Person
         $customerName = $this->getCustomerName($billingAddress);
 
