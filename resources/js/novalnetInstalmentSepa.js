@@ -1,3 +1,4 @@
+jQuery.noConflict();
 jQuery(document).ready( function() {
     // Restrict the special characters in the IBAN field
     jQuery('#nn_sepa_iban').on('input',function ( event ) {
