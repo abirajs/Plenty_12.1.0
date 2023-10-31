@@ -1216,6 +1216,8 @@ class PaymentService
             $paymentResponseData = $this->paymentHelper->executeCurl($paymentRequestData, $paymentUrl, $privateKey);
 	    $this->getLogger(__METHOD__)->error('Novalnet::docaptureVoid $paymentResponseData', $paymentResponseData);
             $paymentResponseData = array_merge($paymentRequestData, $paymentResponseData);
+		            // Insert the updated transaction details into Novalnet DB
+            $this->insertPaymentResponse($paymentResponseData);
             // Booking Message
             if(in_array($paymentResponseData['transaction']['status'], ['PENDING', 'CONFIRMED'])) {
                 $paymentResponseData['bookingText'] = sprintf($this->paymentHelper->getTranslatedText('webhook_order_confirmation_text', $transactionData['lang']), date('d.m.Y'), date('H:i:s'));
@@ -1231,8 +1233,7 @@ class PaymentService
 		$paymentResponseData['bookingText'] .= (!empty($paymentResponseData['instalment']['next_cycle_date'])) ? $this->paymentHelper->getTranslatedText('next_cycle_date', $transactionData['lang']) . $paymentResponseData['instalment']['next_cycle_date'] : '';
 		$paymentResponseData['bookingText'] .= $this->paymentHelper->getTranslatedText('instalment_cycle_amount', $transactionData['lang']) . $paymentResponseData['instalment']['cycle_amount'] / 100 . $paymentResponseData['instalment']['currency'] . PHP_EOL ;
 	    }
-            // Insert the updated transaction details into Novalnet DB
-            $this->insertPaymentResponse($paymentResponseData);
+
             // Create the payment to the plenty order
             $this->paymentHelper->createPlentyPayment($paymentResponseData);
         } catch(\Exception $e) {
