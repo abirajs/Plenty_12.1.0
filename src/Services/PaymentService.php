@@ -1217,18 +1217,18 @@ class PaymentService
             // Booking Message
             if(in_array($paymentResponseData['transaction']['status'], ['PENDING', 'CONFIRMED'])) {
                 $paymentResponseData['bookingText'] = sprintf($this->paymentHelper->getTranslatedText('webhook_order_confirmation_text', $transactionData['lang']), date('d.m.Y'), date('H:i:s'));
-		if(isset($paymentResponseData['instalment']['pending_cycles'])) {
-		$paymentResponseData['bookingText'] .=  PHP_EOL . $this->paymentHelper->getTranslatedText('instalment Information', $transactionData['lang']) .  PHP_EOL ;
-		$paymentResponseData['bookingText'] .= $this->paymentHelper->getTranslatedText('executed_cycle', $transactionData['lang']) . $paymentResponseData['instalment']['cycles_executed'] . PHP_EOL;
-		$paymentResponseData['bookingText'] .= $this->paymentHelper->getTranslatedText('pending_cycle', $transactionData['lang']) . $paymentResponseData['instalment']['pending_cycles'] . PHP_EOL;
-		$paymentResponseData['bookingText'] .= (!empty($paymentResponseData['instalment']['next_cycle_date'])) ? $this->paymentHelper->getTranslatedText('next_cycle_date', $transactionData['lang']) . $paymentResponseData['instalment']['next_cycle_date'] : '';
-		$paymentResponseData['bookingText'] .= $this->paymentHelper->getTranslatedText('instalment_cycle_amount', $transactionData['lang']) . $paymentResponseData['instalment']['cycle_amount'] / 100 . $paymentResponseData['instalment']['currency'] . PHP_EOL ;
-		}
             } else {
                 $paymentResponseData['transaction']['amount'] = 0;
                 $paymentResponseData['transaction']['currency'] = $transactionData['currency'];
                 $paymentResponseData['bookingText'] = sprintf($this->paymentHelper->getTranslatedText('webhook_transaction_cancellation', $transactionData['lang']), date('d.m.Y'), date('H:i:s'));
             }
+	    if(isset($paymentResponseData['instalment']['pending_cycles'])) {
+		$paymentResponseData['bookingText'] .=  PHP_EOL . $this->paymentHelper->getTranslatedText('instalment Information', $transactionData['lang']) .  PHP_EOL ;
+		$paymentResponseData['bookingText'] .= $this->paymentHelper->getTranslatedText('executed_cycle', $transactionData['lang']) . $paymentResponseData['instalment']['cycles_executed'] . PHP_EOL;
+		$paymentResponseData['bookingText'] .= $this->paymentHelper->getTranslatedText('pending_cycle', $transactionData['lang']) . $paymentResponseData['instalment']['pending_cycles'] . PHP_EOL;
+		$paymentResponseData['bookingText'] .= (!empty($paymentResponseData['instalment']['next_cycle_date'])) ? $this->paymentHelper->getTranslatedText('next_cycle_date', $transactionData['lang']) . $paymentResponseData['instalment']['next_cycle_date'] : '';
+		$paymentResponseData['bookingText'] .= $this->paymentHelper->getTranslatedText('instalment_cycle_amount', $transactionData['lang']) . $paymentResponseData['instalment']['cycle_amount'] / 100 . $paymentResponseData['instalment']['currency'] . PHP_EOL ;
+	    }
             // Insert the updated transaction details into Novalnet DB
             $this->insertPaymentResponse($paymentResponseData);
             // Create the payment to the plenty order
