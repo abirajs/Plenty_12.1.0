@@ -319,7 +319,7 @@ class PaymentService
 		}
             }
         }
-	$sessionStorage->getPlugin()->setValue('orderCurency',null);  
+	$this->sessionStorage->getPlugin()->setValue('orderCurency',null);  
         // Build the custom parameters
         $paymentRequestData['custom'] = ['lang'  => strtoupper($this->sessionStorage->getLocaleSettings()->language)];
         // Build additional specific payment method request parameters
