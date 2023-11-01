@@ -699,9 +699,6 @@ class PaymentService
             $dueDate = !empty($paymentResponseData['transaction']['due_date']) ? $paymentResponseData['transaction']['due_date'] : '';
             // Add the Bank details for the invoice payments
             if(in_array($paymentResponseData['payment_method'], ['novalnet_invoice', 'novalnet_guaranteed_invoice', 'novalnet_prepayment', 'novalnet_instalment_invoice'])) {
-		if(empty($paymentResponseData['instalment'])) {
-                    $this->getSavedPaymentDetails($paymentResponseData);
-                }
                 if(empty($paymentResponseData['transaction']['bank_details'])) {
                     $this->getSavedPaymentDetails($paymentResponseData);
                 }
