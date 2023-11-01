@@ -698,24 +698,29 @@ class PaymentService
         if($paymentResponseData['result']['status'] == 'SUCCESS') {
             $dueDate = !empty($paymentResponseData['transaction']['due_date']) ? $paymentResponseData['transaction']['due_date'] : '';
             // Add the Bank details for the invoice payments
+	
             if(in_array($paymentResponseData['payment_method'], ['novalnet_invoice', 'novalnet_guaranteed_invoice', 'novalnet_prepayment', 'novalnet_instalment_invoice'])) {
-        
+            	if(empty($paymentResponseData['transaction']['bank_details']) ) {
+			$this->getSavedPaymentDetails($paymentResponseData);
+            	}
                 $additionalInfo['invoice_account_holder'] = $paymentResponseData['transaction']['bank_details']['account_holder'];
                 $additionalInfo['invoice_iban']           = $paymentResponseData['transaction']['bank_details']['iban'];
                 $additionalInfo['invoice_bic']            = $paymentResponseData['transaction']['bank_details']['bic'];
                 $additionalInfo['invoice_bankname']       = $paymentResponseData['transaction']['bank_details']['bank_name'];
                 $additionalInfo['invoice_bankplace']      = $paymentResponseData['transaction']['bank_details']['bank_place'];
                 $additionalInfo['due_date']               = !empty($dueData) ? $dueDate : $paymentResponseData['transaction']['due_date'];
+		$additionalInfo['invoice_ref']            = $paymentResponseData['transaction']['invoice_ref'];
 		$additionalInfo['pending_cycles']         = $paymentResponseData['instalment']['pending_cycles'];
                 $additionalInfo['next_cycle_date']        = $paymentResponseData['instalment']['next_cycle_date'];
                 $additionalInfo['cycles_executed']        = $paymentResponseData['instalment']['cycles_executed'];
                 $additionalInfo['cycle_amount']           = $paymentResponseData['instalment']['cycle_amount'];
             }
-           if(empty($paymentResponseData['transaction']['bank_details']) ) {
-		$this->getSavedPaymentDetails($paymentResponseData);
-            }
+    
 	    // Add the Bank details for the invoice payments
              if(isset($paymentResponseData['instalment']['pending_cycles'])) {
+		if(empty($paymentResponseData['instalment']['cycles_executed']) ) {
+			$this->getSavedPaymentDetails($paymentResponseData);
+            	}
                 $additionalInfo['pending_cycles']         = $paymentResponseData['instalment']['pending_cycles'];
                 $additionalInfo['next_cycle_date']        = $paymentResponseData['instalment']['next_cycle_date'];
                 $additionalInfo['cycles_executed']        = $paymentResponseData['instalment']['cycles_executed'];
