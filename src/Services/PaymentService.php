@@ -698,21 +698,16 @@ class PaymentService
         if($paymentResponseData['result']['status'] == 'SUCCESS') {
             $dueDate = !empty($paymentResponseData['transaction']['due_date']) ? $paymentResponseData['transaction']['due_date'] : '';
             // Add the Bank details for the invoice payments
+	    if(empty($paymentResponseData['transaction']['bank_details'])) {
+                $this->getSavedPaymentDetails($paymentResponseData);
+             }
             if(isset($paymentResponseData['transaction']['bank_details'])) {
-                if(empty($paymentResponseData['transaction']['bank_details'])) {
-                    $this->getSavedPaymentDetails($paymentResponseData);
-                }
-
                 $additionalInfo['invoice_account_holder'] = $paymentResponseData['transaction']['bank_details']['account_holder'];
                 $additionalInfo['invoice_iban']           = $paymentResponseData['transaction']['bank_details']['iban'];
                 $additionalInfo['invoice_bic']            = $paymentResponseData['transaction']['bank_details']['bic'];
                 $additionalInfo['invoice_bankname']       = $paymentResponseData['transaction']['bank_details']['bank_name'];
                 $additionalInfo['invoice_bankplace']      = $paymentResponseData['transaction']['bank_details']['bank_place'];
                 $additionalInfo['due_date']               = !empty($dueData) ? $dueDate : $paymentResponseData['transaction']['due_date'];
-		$additionalInfo['pending_cycles']         = $paymentResponseData['instalment']['pending_cycles'];
-                $additionalInfo['next_cycle_date']        = $paymentResponseData['instalment']['next_cycle_date'];
-                $additionalInfo['cycles_executed']        = $paymentResponseData['instalment']['cycles_executed'];
-                $additionalInfo['cycle_amount']           = $paymentResponseData['instalment']['cycle_amount'];
             }
 
 	    // Add the Bank details for the invoice payments
