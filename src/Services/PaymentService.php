@@ -1395,6 +1395,10 @@ class PaymentService
            $paymentResponseData['transaction']['due_date']                       = $transactionData['due_date'];
            $paymentResponseData['transaction']['invoice_ref']                    = $transactionData['invoice_ref'];
            $paymentResponseData['payment_method']                                = $transactionData['paymentName'];
+	   $paymentResponseData['instalment']['pending_cycles']         	 = $transactionData['pending_cycles'];
+           $paymentResponseData['instalment']['next_cycle_date']         	 = $transactionData['next_cycle_date'];
+           $paymentResponseData['instalment']['cycles_executed']         	 = $transactionData['cycles_executed'];
+           $paymentResponseData['instalment']['cycle_amount']            	 = $transactionData['cycle_amount'];
        }
        if($transactionData['paymentName'] == 'novalnet_cashpayment') {
            $paymentResponseData['transaction']['nearest_stores'] = $transactionData['store_details'];
