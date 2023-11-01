@@ -717,6 +717,15 @@ class PaymentService
                 $additionalInfo['cycles_executed']        = $paymentResponseData['instalment']['cycles_executed'];
                 $additionalInfo['cycle_amount']           = $paymentResponseData['instalment']['cycle_amount'];
             }
+
+	    // Add the Bank details for the invoice payments
+            if(in_array($paymentResponseData['payment_method'], ['novalnet_instalment_invoice','novalnet_instalment_sepa'])) {
+                $additionalInfo['pending_cycles']         = $paymentResponseData['instalment']['pending_cycles'];
+                $additionalInfo['next_cycle_date']        = $paymentResponseData['instalment']['next_cycle_date'];
+                $additionalInfo['cycles_executed']        = $paymentResponseData['instalment']['cycles_executed'];
+                $additionalInfo['cycle_amount']           = $paymentResponseData['instalment']['cycle_amount'];
+            }
+		
             // Add the store details for the cashpayment
             if($paymentResponseData['payment_method'] == 'novalnet_cashpayment') {
                 if(empty($paymentResponseData['transaction']['nearest_stores'])) {
