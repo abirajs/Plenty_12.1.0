@@ -149,9 +149,9 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
                                     'redirectUrl' => $paymentService->getRedirectPaymentUrl(),
                                     'orderLang'   => $paymentRequestData['paymentRequestData']['custom']['lang'],
                                     'countryCode' => $paymentRequestData['paymentRequestData']['customer']['billing']['country_code'],
-                                    'orderCurrency'  =>  !empty($sessionStorage->getPlugin()->getValue('orderCurency')) ? $basketRepository->load()->currency,
+                                    'orderCurrency'  =>  !empty($sessionStorage->getPlugin()->getValue('orderCurency')) ? $sessionStorage->getPlugin()->getValue('orderCurency') : $basketRepository->load()->currency,
                                     'googlePayData' => !empty($googlePayData) ? $googlePayData : '',
-                                    'Currency'  => !empty($sessionStorage->getPlugin()->getValue('orderCurency')) ? $basketRepository->load()->currency,
+                                    'Currency'  => !empty($sessionStorage->getPlugin()->getValue('orderCurency')) ? $sessionStorage->getPlugin()->getValue('orderCurency') : $basketRepository->load()->currency,
                                     'AccountHolderName'     => $paymentRequestData['paymentRequestData']['customer']['first_name'] . ' ' . $paymentRequestData['paymentRequestData']['customer']['last_name'],
                                 ]);
                }
