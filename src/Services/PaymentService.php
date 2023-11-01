@@ -717,10 +717,7 @@ class PaymentService
             }
     
 	    // Add the Bank details for the invoice payments
-             if(in_array($paymentResponseData['payment_method'], ['novalnet_instalment_invoice', 'novalnet_instalment_sepa'])) {
-		if(empty($paymentResponseData['instalment']['cycles_executed']) ) {
-			$this->getSavedPaymentDetails($paymentResponseData);
-            	}
+             if(isset($paymentResponseData['instalment']['pending_cycles']) ) {
                 $additionalInfo['pending_cycles']         = $paymentResponseData['instalment']['pending_cycles'];
                 $additionalInfo['next_cycle_date']        = $paymentResponseData['instalment']['next_cycle_date'];
                 $additionalInfo['cycles_executed']        = $paymentResponseData['instalment']['cycles_executed'];
@@ -1409,12 +1406,6 @@ class PaymentService
        if($transactionData['paymentName'] == 'novalnet_multibanco') {
            $paymentResponseData['transaction']['partner_payment_reference'] = $transactionData['partner_payment_reference'];
            $paymentResponseData['transaction']['service_supplier_id']       = $transactionData['service_supplier_id'];
-       }
-       if(in_array($transactionData['paymentName'], ['novalnet_instalment_sepa','novalnet_instalment_invoice'])) {
-           $paymentResponseData['instalment']['pending_cycles']         = $transactionData['pending_cycles'];
-           $paymentResponseData['instalment']['next_cycle_date']        = $transactionData['next_cycle_date'];
-           $paymentResponseData['instalment']['cycles_executed']        = $transactionData['cycles_executed'];
-           $paymentResponseData['instalment']['cycle_amount']           = $transactionData['cycle_amount'];
        }
 
    }
