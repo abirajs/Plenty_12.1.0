@@ -698,7 +698,7 @@ class PaymentService
         if($paymentResponseData['result']['status'] == 'SUCCESS') {
             $dueDate = !empty($paymentResponseData['transaction']['due_date']) ? $paymentResponseData['transaction']['due_date'] : '';
             // Add the Bank details for the invoice payments
-            if(in_array($paymentResponseData['payment_method'], ['novalnet_invoice', 'novalnet_guaranteed_invoice', 'novalnet_prepayment', 'novalnet_instalment_invoice'])) {
+            if(isset($paymentResponseData['transaction']['bank_details'])) {
                 if(empty($paymentResponseData['transaction']['bank_details'])) {
                     $this->getSavedPaymentDetails($paymentResponseData);
                 }
@@ -1395,10 +1395,6 @@ class PaymentService
            $paymentResponseData['transaction']['due_date']                       = $transactionData['due_date'];
            $paymentResponseData['transaction']['invoice_ref']                    = $transactionData['invoice_ref'];
            $paymentResponseData['payment_method']                                = $transactionData['paymentName'];
-	   $paymentResponseData['instalment']['pending_cycles']         	 = $transactionData['pending_cycles'];
-           $paymentResponseData['instalment']['next_cycle_date']         	 = $transactionData['next_cycle_date'];
-           $paymentResponseData['instalment']['cycles_executed']         	 = $transactionData['cycles_executed'];
-           $paymentResponseData['instalment']['cycle_amount']            	 = $transactionData['cycle_amount'];
        }
        if($transactionData['paymentName'] == 'novalnet_cashpayment') {
            $paymentResponseData['transaction']['nearest_stores'] = $transactionData['store_details'];
