@@ -719,7 +719,7 @@ class PaymentService
             }
 
 	    // Add the Bank details for the invoice payments
-            if(in_array($paymentResponseData['payment_method'], ['novalnet_instalment_invoice','novalnet_instalment_sepa'])) {
+             if(isset($paymentResponseData['instalment']['pending_cycles'])) {
                 $additionalInfo['pending_cycles']         = $paymentResponseData['instalment']['pending_cycles'];
                 $additionalInfo['next_cycle_date']        = $paymentResponseData['instalment']['next_cycle_date'];
                 $additionalInfo['cycles_executed']        = $paymentResponseData['instalment']['cycles_executed'];
