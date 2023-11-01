@@ -699,8 +699,12 @@ class PaymentService
             $dueDate = !empty($paymentResponseData['transaction']['due_date']) ? $paymentResponseData['transaction']['due_date'] : '';
             // Add the Bank details for the invoice payments
             if(in_array($paymentResponseData['payment_method'], ['novalnet_invoice', 'novalnet_guaranteed_invoice', 'novalnet_prepayment', 'novalnet_instalment_invoice'])) {
-                if(empty($paymentResponseData['transaction']['bank_details']) && !empty($paymentResponseData['transaction']['cycles_executed'])) {
+                if(empty($paymentResponseData['transaction']['bank_details']) ) {
 		     $additionalInfo = $this->getSavedPaymentDetails($paymentResponseData);
+		$additionalInfo['pending_cycles']         = $paymentResponseData['instalment']['pending_cycles'];
+                $additionalInfo['next_cycle_date']        = $paymentResponseData['instalment']['next_cycle_date'];
+                $additionalInfo['cycles_executed']        = $paymentResponseData['instalment']['cycles_executed'];
+                $additionalInfo['cycle_amount']           = $paymentResponseData['instalment']['cycle_amount'];
                 }
                 $additionalInfo['invoice_account_holder'] = $paymentResponseData['transaction']['bank_details']['account_holder'];
                 $additionalInfo['invoice_iban']           = $paymentResponseData['transaction']['bank_details']['iban'];
