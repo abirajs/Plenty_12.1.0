@@ -698,9 +698,6 @@ class PaymentService
         if($paymentResponseData['result']['status'] == 'SUCCESS') {
             $dueDate = !empty($paymentResponseData['transaction']['due_date']) ? $paymentResponseData['transaction']['due_date'] : '';
             // Add the Bank details for the invoice payments
-	    if(empty($paymentResponseData['transaction']['bank_details'])) {
-                $this->getSavedPaymentDetails($paymentResponseData);
-             }
             if(isset($paymentResponseData['transaction']['bank_details'])) {
                 $additionalInfo['invoice_account_holder'] = $paymentResponseData['transaction']['bank_details']['account_holder'];
                 $additionalInfo['invoice_iban']           = $paymentResponseData['transaction']['bank_details']['iban'];
