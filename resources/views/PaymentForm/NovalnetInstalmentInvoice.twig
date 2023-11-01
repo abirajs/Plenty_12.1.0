@@ -86,12 +86,13 @@
                 
 				<br>
                 <div class="container" style="overflow-y:auto;max-height: 300px;">           
-                    <table class="table table-striped nn_instalment_table">
+                    <table class="table nn_instalment_table">
 						{% if instalmentCyclesAmount != '' %}
                         <thead style="text-align:center">
                             <tr>
                                 <th>{{trans("Novalnet::Customize.template_cycle")}}</th>
                                 <th>{{trans("Novalnet::Customize.template_cycle_amount")}}</th>
+				<th></th>
                             </tr>
                         </thead>
                         {% endif %}
