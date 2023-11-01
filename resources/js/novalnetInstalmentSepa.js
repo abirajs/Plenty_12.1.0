@@ -20,6 +20,6 @@ jQuery(document).ready( function() {
         }
     });
 
-    
+});
       
 
