@@ -72,7 +72,9 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
                 
                 // Get order currency
                 foreach($order['amounts'] as $orderAmount) {
+                     if($basketRepository->load()->currency == $orderAmount['currency']) {
                 $sessionStorage->getPlugin()->setValue('orderCurency', $orderAmount['currency']);  
+                     }
                 }
                 
                 // Set the required values into session
@@ -147,9 +149,9 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
                                     'redirectUrl' => $paymentService->getRedirectPaymentUrl(),
                                     'orderLang'   => $paymentRequestData['paymentRequestData']['custom']['lang'],
                                     'countryCode' => $paymentRequestData['paymentRequestData']['customer']['billing']['country_code'],
-                                    'orderCurrency'  =>  $sessionStorage->getPlugin()->getValue('orderCurency'),
+                                    'orderCurrency'  =>  !empty($sessionStorage->getPlugin()->getValue('orderCurency')) ? $basketRepository->load()->currency,
                                     'googlePayData' => !empty($googlePayData) ? $googlePayData : '',
-                                    'Currency'  => $sessionStorage->getPlugin()->getValue('orderCurency'),
+                                    'Currency'  => !empty($sessionStorage->getPlugin()->getValue('orderCurency')) ? $basketRepository->load()->currency,
                                     'AccountHolderName'     => $paymentRequestData['paymentRequestData']['customer']['first_name'] . ' ' . $paymentRequestData['paymentRequestData']['customer']['last_name'],
                                 ]);
                }
