@@ -554,6 +554,7 @@ class WebhookController extends Controller
             $webhookComments .= (!empty($this->eventData['instalment']['next_cycle_date'])) ? $this->paymentHelper->getTranslatedText('next_cycle_date', $this->orderLanguage) . $this->eventData['instalment']['next_cycle_date'] : '';
             $webhookComments .= $this->paymentHelper->getTranslatedText('instalment_cycle_amount', $this->orderLanguage) . $this->eventData['instalment']['cycle_amount'] / 100 . $this->eventData['instalment']['currency'] . PHP_EOL ;
         }
+	     $this->getLogger(__METHOD__)->error('Novalnet::handleInstalment', $this->eventData);
         // Booking Message
         $this->eventData['bookingText'] = $webhookComments;
         // Insert the updated instalment details into Novalnet DB
