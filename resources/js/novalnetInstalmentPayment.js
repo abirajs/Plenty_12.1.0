@@ -15,7 +15,7 @@ for (instalmentCycle = 1; instalmentCycle <= key; instalmentCycle++) {
 	} else {
 		var lastCycleAmount = (jQuery('#nn_net_amount').val() - (jQuery(this).find(':selected').attr('data-cycle-amount') * (key - 1)));
 	var roundedValue = lastCycleAmount;
-	var formatLastCycleAmount = roundedValue.toFixed(2);
+	var formatLastCycleAmount = sprintf('%0.2f', (roundedValue / 100)).replace('.', ',');
 		cycleInformation += '<tr><td>' + instalmentCycle + '</td><td>'+ formatLastCycleAmount + ' '+ jQuery('#nn_order_currency').val()+'</td></tr>';
 	}
 }
