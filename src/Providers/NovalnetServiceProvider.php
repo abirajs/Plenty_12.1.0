@@ -222,7 +222,7 @@ class NovalnetServiceProvider extends ServiceProvider
                             'showBirthday'                      => $showBirthday,
                             'instalmentCyclesAmount'            => $instalmentCyclesAmount,
                             'currency'                          => $currency,
-                            'netAmount'                         => $basketRepository->load()->basketAmount
+                            'netAmount'                         => str_replace('.', ',', sprintf('%0.2f', ($basketRepository->load()->basketAmount)))
                         ]);
                         $contentType = 'htmlContent';
                     } elseif(($paymentKey == 'NOVALNET_INSTALMENT_INVOICE' && $showBirthday == true) || ($paymentKey == 'NOVALNET_INSTALMENT_INVOICE' && $showBirthday == false && isset($paymentRequestData['paymentRequestData']['customer']['billing']['company']))) {
