@@ -211,7 +211,7 @@ class NovalnetServiceProvider extends ServiceProvider
                            $cycleAmount = ($paymentHelper->convertAmountToSmallerUnit($basketRepository->load()->basketAmount) / $cycle);
                             // Assign the cycle amount if th cycle amount greater than
                             if ($cycleAmount > 999) {
-                                $instalmentCyclesAmount[$cycle] = sprintf('%0.2f', (($paymentHelper->convertAmountToSmallerUnit($basketRepository->load()->basketAmount) / $cycle ) / 100));
+                                $instalmentCyclesAmount[$cycle] = sprintf('%0,2.2f', (($paymentHelper->convertAmountToSmallerUnit($basketRepository->load()->basketAmount) / $cycle ) / 100));
                             }
                         }
                         $content = $twig->render('Novalnet::PaymentForm.NovalnetInstalmentSepa',
