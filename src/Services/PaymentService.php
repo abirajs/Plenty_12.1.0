@@ -1157,7 +1157,7 @@ class PaymentService
             if(!empty($nextCycleDate)) {
             $InstalmentComments .= $nextCycleDate . PHP_EOL ;
             }
-            $InstalmentComments .= $this->paymentHelper->getTranslatedText('instalment_cycle_amount') .  $transactionData['cycle_amount'] / 100 . '  ' . $transactionData['currency'] . PHP_EOL ;
+            $InstalmentComments .= $this->paymentHelper->getTranslatedText('instalment_cycle_amount') .  str_replace('.', ',', sprintf('%0.2f',$transactionData['cycle_amount'] / 100)) . '  ' . $transactionData['currency'] . PHP_EOL ;
         }
         return $InstalmentComments;
     }
