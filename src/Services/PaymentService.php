@@ -514,7 +514,7 @@ class PaymentService
 		
 		
 		if(in_array($paymentRequestData['paymentRequestData']['transaction']['payment_type'], ['NOVALNET_GUARANTEED_INVOICE', 'NOVALNET_GUARANTEED_SEPA', 'NOVALNET_INSTALMENT_INVOICE', 'NOVALNET_INSTALMENT_SEPA'])) {
-			if(isset($paymentRequestData['paymentRequestData']['customer']['billing']['same_as_billing'] || $paymentRequestData['paymentRequestData']['transaction']['currency']) {
+			if(!isset($paymentRequestData['paymentRequestData']['customer']['billing']['same_as_billing']) || $paymentRequestData['paymentRequestData']['transaction']['currency'] != 'EUR') {
 				$content = $this->paymentHelper->getTranslatedText('nn_email_error');
 				$this->pushNotification($content, 'error', 100);	
 				return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/confirmation');
