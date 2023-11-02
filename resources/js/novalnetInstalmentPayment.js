@@ -15,7 +15,7 @@ for (instalmentCycle = 1; instalmentCycle <= key; instalmentCycle++) {
 	} else {
 		var lastCycleAmount = (jQuery('#nn_net_amount').val() - (jQuery(this).find(':selected').attr('data-cycle-amount') * (key - 1)));
 		console.log(jQuery('#nn_net_amount').val());
-		console.log((jQuery(this).find(':selected').attr('data-cycle-amount'));
+		console.log((jQuery(this).find(':selected').attr('data-cycle-amount')));
 		console.log(key);
 	var roundedValue = lastCycleAmount;
 		console.log(roundedValue);
