@@ -507,7 +507,7 @@ class PaymentService
 		}
 		}
 		
-		if(in_array($paymentRequestData['paymentRequestData']['transaction']['payment_type'], ['NOVALNET_GUARANTEED_INVOICE', 'NOVALNET_GUARANTEED_SEPA'])) {
+		if(in_array($paymentRequestData['paymentRequestData']['transaction']['payment_type'], ['NOVALNET_INSTALMENT_INVOICE', 'NOVALNET_INSTALMENT_SEPA'])) {
         if($this->isGuaranteePaymentToBeDisplayed( $this->basketRepository->load() , 'novalnet_instalment_invoice') != 'true' || $this->isGuaranteePaymentToBeDisplayed( $this->basketRepository->load() , 'novalnet_instalment_sepa') != 'true'){
 			$content = $this->paymentHelper->getTranslatedText('nn_first_last_name_error');
 			$this->pushNotification($content, 'error', 100);	
