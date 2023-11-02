@@ -496,7 +496,7 @@ class PaymentService
 		return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/confirmation');  
 		}
         $privateKey = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
-        $this->getLogger(__METHOD__)->alert('Novalnet::$this->isGuaranteePaymentToBeDisplayed( $this->basketRepository->load', $this->isGuaranteePaymentToBeDisplayed( $this->basketRepository->load());
+        $this->getLogger(__METHOD__)->alert('Novalnet::$this->isGuaranteePaymentToBeDisplayed( $this->basketRepository->load', $this->isGuaranteePaymentToBeDisplayed( $this->basketRepository->load()));
         $this->getLogger(__METHOD__)->alert('Novalnet::$paymentRequestData', $paymentRequestData['paymentRequestData']);
         if($this->isGuaranteePaymentToBeDisplayed( $this->basketRepository->load() , 'novalnet_guaranteed_invoice') != 'guarantee'){
 			$content = $this->paymentHelper->getTranslatedText('nn_email_error');
