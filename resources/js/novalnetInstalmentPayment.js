@@ -13,7 +13,7 @@ for (instalmentCycle = 1; instalmentCycle <= key; instalmentCycle++) {
 	{
 		cycleInformation += '<tr><td>' + instalmentCycle + '</td><td>'+jQuery(this).find(':selected').attr('data-amount') +'</td></tr>';
 	} else {
-		var lastCycleAmount = ((float)str_replace(',', '.', (jQuery('#nn_net_amount').val()))) - ((float)str_replace(',', '.',  (jQuery(this).find(':selected').attr('data-cycle-amount')) ))* (key - 1)));
+		var lastCycleAmount = (((float)str_replace(',', '.', (jQuery('#nn_net_amount').val()))) - (((float)str_replace(',', '.',  (jQuery(this).find(':selected').attr('data-cycle-amount')) ))* (key - 1)));
 		console.log(jQuery('#nn_net_amount').val());
 		console.log((jQuery(this).find(':selected').attr('data-cycle-amount')));
 		console.log(key);
