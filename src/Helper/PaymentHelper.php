@@ -325,7 +325,7 @@ class PaymentHelper
      */
     public function convertAmountToSmallerUnit($amount)
     {
-        return sprintf('%0.2f', $amount) * 100;
+        return str_replace('.', ',', sprintf('%0.2f', $amount) * 100);
     }
 
     /**
