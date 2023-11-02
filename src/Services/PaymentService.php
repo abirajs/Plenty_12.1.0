@@ -22,6 +22,7 @@ use Plenty\Modules\Helper\Services\WebstoreHelper;
 use Plenty\Modules\Plugin\DataBase\Contracts\DataBase;
 use Plenty\Modules\Plugin\DataBase\Contracts\Query;
 use Plenty\Modules\Payment\Contracts\PaymentRepositoryContract;
+use Plenty\Modules\Basket\Contracts\BasketRepositoryContract;
 use Plenty\Plugin\Http\Response;
 use Plenty\Plugin\Log\Loggable;
 
@@ -59,6 +60,11 @@ class PaymentService
      */
     private $addressRepository;
 
+    /**
+     * @var BasketRepositoryContract
+     */
+    private $basketRepository;
+    
     /**
      * @var CountryRepositoryContract
      */
@@ -99,11 +105,12 @@ class PaymentService
     public function __construct(SettingsService $settingsService,
                                 PaymentHelper $paymentHelper,
                                 WebstoreHelper $webstoreHelper,
-				Response $response,
+								Response $response,
                                 AddressRepositoryContract $addressRepository,
                                 CountryRepositoryContract $countryRepository,
                                 FrontendSessionStorageFactoryContract $sessionStorage,
                                 TransactionService $transactionService,
+                                BasketRepositoryContract $basketRepository,
                                 PaymentRepositoryContract $paymentRepository
                                )
     {
@@ -111,11 +118,12 @@ class PaymentService
         $this->paymentHelper        = $paymentHelper;
         $this->webstoreHelper       = $webstoreHelper;
         $this->addressRepository    = $addressRepository;
-	$this->response             = $response;
+		$this->response             = $response;
         $this->countryRepository    = $countryRepository;
         $this->sessionStorage       = $sessionStorage;
         $this->transactionService   = $transactionService;
         $this->paymentRepository    = $paymentRepository;
+        $this->basketRepository 	= $basketRepository;
     }
 
     /**
@@ -469,16 +477,16 @@ class PaymentService
         $paymentRequestData = $this->sessionStorage->getPlugin()->getValue('nnPaymentData');
         $paymentKey = $this->paymentHelper->getPaymentKey($paymentRequestData['paymentRequestData']['transaction']['payment_type']);
         $nnDoRedirect = $this->sessionStorage->getPlugin()->getValue('nnDoRedirect');
-	$nnGooglePayDoRedirect = $this->sessionStorage->getPlugin()->getValue('nnGooglePayDoRedirect');
+		$nnGooglePayDoRedirect = $this->sessionStorage->getPlugin()->getValue('nnGooglePayDoRedirect');
         $nnOrderCreator = $this->sessionStorage->getPlugin()->getValue('nnOrderCreator');
         $nnReinitiatePayment   = $this->sessionStorage->getPlugin()->getValue('nnReinitiatePayment');
         $this->sessionStorage->getPlugin()->setValue('nnOrderCreator', null);
         $this->sessionStorage->getPlugin()->setValue('nnReinitiatePayment', null);
         // Send the order no to Novalnet server if order is created initially
-       if($this->settingsService->getPaymentSettingsValue('novalnet_order_creation') == true || !empty($nnOrderCreator) || ($nnReinitiatePayment == 1)) {
+		if($this->settingsService->getPaymentSettingsValue('novalnet_order_creation') == true || !empty($nnOrderCreator) || ($nnReinitiatePayment == 1)) {
         	$paymentRequestData['paymentRequestData']['transaction']['order_no'] = $this->sessionStorage->getPlugin()->getValue('nnOrderNo');
         }
-	if((empty($paymentRequestData['paymentRequestData']['customer']['first_name']) || empty($paymentRequestData['paymentRequestData']['customer']['last_name'])) || empty($paymentRequestData['paymentRequestData']['customer']['email'])) {
+		if((empty($paymentRequestData['paymentRequestData']['customer']['first_name']) || empty($paymentRequestData['paymentRequestData']['customer']['last_name'])) || empty($paymentRequestData['paymentRequestData']['customer']['email'])) {
 			$content = $this->paymentHelper->getTranslatedText('nn_first_last_name_error');
 			$this->pushNotification($content, 'error', 100);
 		if(empty($paymentRequestData['paymentRequestData']['customer']['email'])){
@@ -486,8 +494,15 @@ class PaymentService
 			$this->pushNotification($content, 'error', 100);	
 		}
 		return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/confirmation');  
-	}
+		}
         $privateKey = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
+        
+        if($this->isGuaranteePaymentToBeDisplayed( $this->basketRepository , 'novalnet_guaranteed_invoice') != 'guarantee'){
+			$content = $this->paymentHelper->getTranslatedText('nn_email_error');
+			$this->pushNotification($content, 'error', 100);	
+			return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/confirmation');
+		}
+		
         $paymentResponseData = $this->paymentHelper->executeCurl($paymentRequestData['paymentRequestData'], $paymentRequestData['paymentUrl'], $privateKey);
         $isPaymentSuccess = isset($paymentResponseData['result']['status']) && $paymentResponseData['result']['status'] == 'SUCCESS';
         // Do redirect if the redirect URL is present
