@@ -109,10 +109,11 @@ jQuery(document).ready(function() {
                     jQuery('.fa-arrow-right').parent('button').hide();
                }
             });
-            
+            console.log('test4'); 
         });
     } catch (e) {
         // Handling the errors from the payment intent setup
         console.log(e.message);
     }
 });
+console.log('test5'); 
