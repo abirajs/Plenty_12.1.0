@@ -102,11 +102,11 @@ document.querySelectorAll('.method-list-item').forEach(function(item) {
             if (clickedId !== undefined && clickedId != mopId) {
                 document.querySelector("#nn_google_pay").style.display = 'none !important';
                 console.log('test2');
-                button.parentNode.style.display = 'block';
+                button.parentNode.style.display = 'block !important';
             } else {
                 document.querySelector("#nn_google_pay").style.display = 'block !important';
                 console.log('test3');
-                button.parentNode.style.display = 'none';
+                button.parentNode.style.display = 'none !important';
             }
         });
     });
