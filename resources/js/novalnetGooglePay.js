@@ -97,7 +97,6 @@ jQuery(document).ready(function() {
 
             jQuery('.method-list-item').on('click',function() {
                 var clickedId = jQuery(this).attr('data-id');
-                jQuery('.fa-arrow-right').parent('button').hide();
                 if(clickedId !== undefined && clickedId != mopId) {
                     jQuery("#nn_google_pay").hide();  
                     console.log('test2');   
