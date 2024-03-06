@@ -132,7 +132,7 @@ abstract class NovalnetPaymentAbstract extends PaymentMethodBaseService
     {
         $paymentMethodKey = str_replace('_','',ucwords(strtolower($this::PAYMENT_KEY),'_'));
         $paymentMethodKey[0] = strtolower($paymentMethodKey[0]);
-        if($paymentMethodKey) {
+        if(!empty($paymentMethodKey)) {
         // /** @var Translator $translator */
         $translator = pluginApp(Translator::class);
         return $translator->trans('Novalnet::Customize.'. $paymentMethodKey, [], $lang);
