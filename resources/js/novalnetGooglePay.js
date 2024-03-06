@@ -103,12 +103,11 @@ document.querySelectorAll('.method-list-item').forEach(function(item) {
                 document.querySelector("#nn_google_pay").style.display = 'none !important';
                 console.log('test2');
                 button.parentNode.style.display = 'block !important';
-                return false;
             } else {
                 document.querySelector("#nn_google_pay").style.display = 'block !important';
                 console.log('test3');
                 button.parentNode.style.display = 'none !important';
-                return false;
+                return true;
             }
         });
     });
