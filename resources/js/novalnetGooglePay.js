@@ -74,6 +74,7 @@ jQuery(document).ready(function() {
                     NovalnetWalletPaymentObj.addPaymentButton("#nn_google_pay");
                 } else {
                     jQuery('li[data-id="'+mopId+'"]').show();
+                    console.log(mopId);
                     jQuery('.fa-arrow-right').parent('button').hide();
                     jQuery('li[data-id="'+mopId+'"]').click(function() {
                         jQuery('#nn_google_pay').empty();
