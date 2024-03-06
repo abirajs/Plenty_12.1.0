@@ -100,11 +100,11 @@ document.querySelectorAll('.method-list-item').forEach(function(item) {
         var clickedId = this.getAttribute('data-id');
         var arrowButtons = document.querySelectorAll('.fa-arrow-right').forEach(function(button) {
             if (clickedId !== undefined && clickedId != mopId) {
-                document.querySelector("#nn_google_pay").style.display = 'none';
+                document.querySelector("#nn_google_pay").style.display = 'none !important';
                 console.log('test2');
                 button.parentNode.style.display = 'block';
             } else {
-                document.querySelector("#nn_google_pay").style.display = 'block';
+                document.querySelector("#nn_google_pay").style.display = 'block !important';
                 console.log('test3');
                 button.parentNode.style.display = 'none';
             }
