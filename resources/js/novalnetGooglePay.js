@@ -94,8 +94,10 @@ jQuery(document).ready(function() {
                 // Hide the Google Pay payment if it is not possible
                 jQuery('li[data-id="'+mopId+'"]').hide();
             }
+
             jQuery('.method-list-item').on('click',function() {
                 var clickedId = jQuery(this).attr('data-id');
+                jQuery('.fa-arrow-right').parent('button').hide();
                 if(clickedId !== undefined && clickedId != mopId) {
                     jQuery("#nn_google_pay").hide();  
                     console.log('test2');   
@@ -105,11 +107,9 @@ jQuery(document).ready(function() {
                     console.log('test3');                  
                     jQuery('.fa-arrow-right').parent('button').hide();
                }
-            });    
+            });
             
-            // Trigger the click event on the element
-            jQuery('.method-list-item').trigger('click');
-     });
+        });
     } catch (e) {
         // Handling the errors from the payment intent setup
         console.log(e.message);
