@@ -78,13 +78,12 @@ jQuery(document).ready(function() {
                         jQuery('#nn_google_pay').empty();
                         // Initiating the payment request for the wallet payment
                         NovalnetWalletPaymentObj.addPaymentButton("#nn_google_pay");
-                        jQuery('.fa-arrow-right').parent('button').hide();
+                        jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
                     });
                     if(jQuery('input[type="radio"][id*='+mopId+']').is(':checked')) {
                         jQuery('li[data-id="'+mopId+'"]').click();
-                        jQuery('.fa-arrow-right').parent('button').hide();
                     } else {
-                        jQuery('.fa-arrow-right').parent('button').show();
+                        jQuery('.fa-arrow-right').parent('button').css('display', 'block !important');
                         jQuery('.gpay-card-info-container-fill').hide();
                     }
                 }
@@ -97,10 +96,10 @@ jQuery(document).ready(function() {
                 var clickedId = jQuery(this).attr('data-id');
                 if(clickedId !== undefined && clickedId != mopId) {
                     jQuery("#nn_google_pay").hide();  
-                    jQuery('.fa-arrow-right').parent('button').show();
+                    jQuery('.fa-arrow-right').parent('button').css('display', 'block !important');
                } else {
                     jQuery("#nn_google_pay").show();                    
-                    jQuery('.fa-arrow-right').parent('button').hide();
+                    jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
                }
             });
         });
