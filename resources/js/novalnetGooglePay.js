@@ -95,18 +95,22 @@ jQuery(document).ready(function() {
                 jQuery('li[data-id="'+mopId+'"]').hide();
             }
 
-            jQuery('.method-list-item').on('click',function() {
-                var clickedId = jQuery(this).attr('data-id');
-                if(clickedId !== undefined && clickedId != mopId) {
-                    jQuery("#nn_google_pay").hide();  
-                    console.log('test2');   
-                    jQuery('.fa-arrow-right').parent('button').show();
-               } else {
-                    jQuery("#nn_google_pay").show();  
-                    console.log('test3');                  
-                    jQuery('.fa-arrow-right').parent('button').hide();
-               }
-            });
+document.querySelectorAll('.method-list-item').forEach(function(item) {
+    item.addEventListener('click', function() {
+        var clickedId = this.getAttribute('data-id');
+        var arrowButtons = document.querySelectorAll('.fa-arrow-right').forEach(function(button) {
+            if (clickedId !== undefined && clickedId != mopId) {
+                document.querySelector("#nn_google_pay").style.display = 'none';
+                console.log('test2');
+                button.parentNode.style.display = 'block';
+            } else {
+                document.querySelector("#nn_google_pay").style.display = 'block';
+                console.log('test3');
+                button.parentNode.style.display = 'none';
+            }
+        });
+    });
+});
         });
     } catch (e) {
         // Handling the errors from the payment intent setup
