@@ -76,12 +76,21 @@ jQuery(document).ready(function() {
                     jQuery('li[data-id="'+mopId+'"]').show();
                     console.log(mopId);
                     jQuery('.fa-arrow-right').parent('button').hide();
-                    jQuery('li[data-id="'+mopId+'"]').change(function() {
+                    jQuery('li[data-id="'+mopId+'"]').click(function() {
                         jQuery('#nn_google_pay').empty();
                         // Initiating the payment request for the wallet payment
                         NovalnetWalletPaymentObj.addPaymentButton("#nn_google_pay");
                         console.log('initial');
-                        jQuery('.fa-arrow-right').parent('button').hide();
+                        var clickedId = jQuery(this).attr('data-id');
+                        if(clickedId !== undefined && clickedId != mopId) {
+                            jQuery("#nn_google_pay").hide();  
+                            console.log('test6');   
+                            jQuery('.fa-arrow-right').parent('button').show();
+                       } else {
+                            jQuery("#nn_google_pay").show();  
+                            console.log('test7');                  
+                            jQuery('.fa-arrow-right').parent('button').hide();
+                       }
                     });
                     if(jQuery('input[type="radio"][id*='+mopId+']').is(':checked')) {
                         jQuery('li[data-id="'+mopId+'"]').click();
@@ -97,7 +106,7 @@ jQuery(document).ready(function() {
                 jQuery('li[data-id="'+mopId+'"]').hide();
             }
 
-            jQuery('.method-list-item').on('change',function() {
+            jQuery('.method-list-item').on('click',function() {
                 var clickedId = jQuery(this).attr('data-id');
                 if(clickedId !== undefined && clickedId != mopId) {
                     jQuery("#nn_google_pay").hide();  
