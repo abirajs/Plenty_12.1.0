@@ -97,7 +97,7 @@ jQuery(document).ready(function() {
                 jQuery('li[data-id="'+mopId+'"]').hide();
             }
 
-            jQuery('.method-list-item').on('change',function() {
+            jQuery('.method-list-item').on('click',function() {
                 var clickedId = jQuery(this).attr('data-id');
                 if(clickedId !== undefined && clickedId != mopId) {
                     jQuery("#nn_google_pay").hide();  
