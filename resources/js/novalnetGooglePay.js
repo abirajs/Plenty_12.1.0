@@ -79,13 +79,13 @@ jQuery(document).ready(function() {
                         // Initiating the payment request for the wallet payment
                         NovalnetWalletPaymentObj.addPaymentButton("#nn_google_pay");
                         console.log('initial');
-                        jQuery('.fa-arrow-right').parent('button').hide();
+                        jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
                     });
                     if(jQuery('input[type="radio"][id*='+mopId+']').is(':checked')) {
                         jQuery('li[data-id="'+mopId+'"]').click();
                         console.log('checked');
                     } else {
-                        jQuery('.fa-arrow-right').parent('button').show();
+                        jQuery('.fa-arrow-right').parent('button').css('display', 'block !important');
                         console.log('test1');
                         jQuery('.gpay-card-info-container-fill').hide();
                     }
