@@ -60,8 +60,8 @@
         },
         {
             "key": "Novalnet\\Providers\\DataProvider\\NovalnetExpressButtonDataProvider",
-            "name": "Novalnet Wallet button",
-            "description": "Display the pay now button"
+            "name": "Novalnet Express button",
+            "description": "Display the express button"
         }
     ]
 }
