@@ -128,17 +128,17 @@ abstract class NovalnetPaymentAbstract extends PaymentMethodBaseService
      *
      * @return string
      */
-    public function getName(string $lang = 'de'): string
-    {
-        $paymentMethodKey = str_replace('_','',ucwords(strtolower($this::PAYMENT_KEY),'_'));
-        $paymentMethodKey[0] = strtolower($paymentMethodKey[0]);
+    // public function getName(string $lang = 'de'): string
+    // {
+    //     $paymentMethodKey = str_replace('_','',ucwords(strtolower($this::PAYMENT_KEY),'_'));
+    //     $paymentMethodKey[0] = strtolower($paymentMethodKey[0]);
 
         // /** @var Translator $translator */
         $translator = pluginApp(Translator::class);
-        return $translator->trans('Novalnet::Customize.'. $paymentMethodKey, [], $lang);
+        // return $translator->trans('Novalnet::Customize.'. $paymentMethodKey, [], $lang);
         // return $translator->trans('Novalnet', [], $lang);
 
-    }
+    // }
 
     /**
      * Return an additional payment fee for the payment method.
@@ -227,10 +227,10 @@ abstract class NovalnetPaymentAbstract extends PaymentMethodBaseService
     public function getBackendName(string $lang = 'de'): string
     {
 
-        return 'Novalnet ' . $this->getName($lang);
+        // return 'Novalnet ' . $this->getName($lang);
         
 
-        // return 'NovalnetExpress';
+        return 'NovalnetExpress';
     }
 
     /**
