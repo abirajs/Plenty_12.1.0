@@ -85,7 +85,7 @@ jQuery(document).ready(function() {
                         jQuery('li[data-id="'+mopId+'"]').click();
                         console.log('checked');
                     } else {
-                        jQuery('.fa-arrow-right').parent('button').hide();
+                        jQuery('.fa-arrow-right').parent('button').show();
                         console.log('test1');
                         jQuery('.gpay-card-info-container-fill').hide();
                     }
