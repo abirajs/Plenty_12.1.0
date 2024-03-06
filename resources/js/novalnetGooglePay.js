@@ -66,7 +66,6 @@ jQuery(document).ready(function() {
         NovalnetWalletPaymentObj.setPaymentIntent(requestData);
         // Checking for the Payment method availability
         NovalnetWalletPaymentObj.isPaymentMethodAvailable(function(displayGooglePayButton) {
-            jQuery('.fa-arrow-right').parent('button').hide();
             var mopId = jQuery('#nn_google_pay_mop').val();
             if(displayGooglePayButton) {
                 // Display the Google Pay payment
@@ -98,7 +97,7 @@ jQuery(document).ready(function() {
                 jQuery('li[data-id="'+mopId+'"]').hide();
             }
 
-            jQuery('.method-list-item').on('click',function() {
+            jQuery('.method-list-item').on('change',function() {
                 var clickedId = jQuery(this).attr('data-id');
                 if(clickedId !== undefined && clickedId != mopId) {
                     jQuery("#nn_google_pay").hide();  
