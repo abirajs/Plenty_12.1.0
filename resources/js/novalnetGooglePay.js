@@ -107,7 +107,7 @@ document.querySelectorAll('.method-list-item').forEach(function(item) {
                 document.querySelector("#nn_google_pay").style.display = 'block !important';
                 console.log('test3');
                 button.parentNode.style.display = 'none !important';
-                return true;
+                return false;
             }
         });
     });
