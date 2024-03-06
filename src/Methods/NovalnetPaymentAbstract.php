@@ -134,7 +134,7 @@ abstract class NovalnetPaymentAbstract extends PaymentMethodBaseService
         // $paymentMethodKey[0] = strtolower($paymentMethodKey[0]);
 
         // /** @var Translator $translator */
-        // $translator = pluginApp(Translator::class);
+        $translator = pluginApp(Translator::class);
         // return $translator->trans('Novalnet::Customize.'. $paymentMethodKey, [], $lang);
         return $translator->trans('Novalnet', [], $lang);
 
