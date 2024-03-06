@@ -106,24 +106,12 @@ jQuery(document).ready(function() {
                     jQuery('.fa-arrow-right').parent('button').hide();
                }
             });    
+            
+            // Trigger the click event on the element
+            jQuery('.method-list-item').trigger('click');
      });
     } catch (e) {
         // Handling the errors from the payment intent setup
         console.log(e.message);
     }
-
-     // Define the click event handler
-    jQuery('.method-list-item').on('click', function() {
-        var clickedId = jQuery(this).attr('data-id');
-        if (clickedId !== undefined && clickedId != mopId) {
-            jQuery("#nn_google_pay").hide();  
-            console.log('test2');   
-            jQuery('.fa-arrow-right').parent('button').show();
-        } else {
-            jQuery("#nn_google_pay").show();  
-            console.log('test3');                  
-            jQuery('.fa-arrow-right').parent('button').hide();
-        }
-    });
-    
 });
