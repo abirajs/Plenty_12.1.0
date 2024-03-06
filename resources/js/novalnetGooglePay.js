@@ -1,4 +1,4 @@
-jQuery(document).ready(function() {
+
     // Load the Google Pay button
     try {
         // Load the payment instances
@@ -113,4 +113,3 @@ jQuery(document).ready(function() {
         // Handling the errors from the payment intent setup
         console.log(e.message);
     }
-});
