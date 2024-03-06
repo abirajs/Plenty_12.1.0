@@ -79,13 +79,13 @@ jQuery(document).ready(function() {
                         // Initiating the payment request for the wallet payment
                         NovalnetWalletPaymentObj.addPaymentButton("#nn_google_pay");
                         console.log('initial');
-                        jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
+                        jQuery('.fa-arrow-right').parent('button').hide();
                     });
                     if(jQuery('input[type="radio"][id*='+mopId+']').is(':checked')) {
                         jQuery('li[data-id="'+mopId+'"]').click();
                         console.log('checked');
                     } else {
-                        jQuery('.fa-arrow-right').parent('button').css('display', 'block !important');
+                        jQuery('.fa-arrow-right').parent('button').show();
                         console.log('test1');
                         jQuery('.gpay-card-info-container-fill').hide();
                     }
@@ -95,22 +95,18 @@ jQuery(document).ready(function() {
                 jQuery('li[data-id="'+mopId+'"]').hide();
             }
 
-document.querySelectorAll('.method-list-item').forEach(function(item) {
-    item.addEventListener('click', function() {
-        var clickedId = this.getAttribute('data-id');
-        var arrowButtons = document.querySelectorAll('.fa-arrow-right').forEach(function(button) {
-            if (clickedId !== undefined && clickedId != mopId) {
-                document.querySelector("#nn_google_pay").style.display = 'none !important';
-                console.log('test2');
-                button.parentNode.style.display = 'block !important';
-            } else {
-                document.querySelector("#nn_google_pay").style.display = 'block !important';
-                console.log('test3');
-                button.parentNode.style.display = 'none !important';
-            }
-        });
-    });
-});
+            jQuery('.method-list-item').on('click',function() {
+                var clickedId = jQuery(this).attr('data-id');
+                if(clickedId !== undefined && clickedId != mopId) {
+                    jQuery("#nn_google_pay").hide();  
+                    console.log('test2');   
+                    jQuery('.fa-arrow-right').parent('button').show();
+               } else {
+                    jQuery("#nn_google_pay").show();  
+                    console.log('test3');                  
+                    jQuery('.fa-arrow-right').parent('button').hide();
+               }
+            });
         });
     } catch (e) {
         // Handling the errors from the payment intent setup
