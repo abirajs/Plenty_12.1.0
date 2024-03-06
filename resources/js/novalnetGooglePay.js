@@ -76,7 +76,7 @@ jQuery(document).ready(function() {
                     jQuery('li[data-id="'+mopId+'"]').show();
                     console.log(mopId);
                     jQuery('.fa-arrow-right').parent('button').hide();
-                    jQuery('li[data-id="'+mopId+'"]').click(function() {
+                    jQuery('li[data-id="'+mopId+'"]').change(function() {
                         jQuery('#nn_google_pay').empty();
                         // Initiating the payment request for the wallet payment
                         NovalnetWalletPaymentObj.addPaymentButton("#nn_google_pay");
@@ -97,7 +97,7 @@ jQuery(document).ready(function() {
                 jQuery('li[data-id="'+mopId+'"]').hide();
             }
 
-            jQuery('.method-list-item').on('click',function() {
+            jQuery('.method-list-item').on('change',function() {
                 var clickedId = jQuery(this).attr('data-id');
                 if(clickedId !== undefined && clickedId != mopId) {
                     jQuery("#nn_google_pay").hide();  
