@@ -78,14 +78,7 @@ jQuery(document).ready(function() {
                     },
                     onPaymentButtonClicked: function(clickResult) {
                            clickResult({status: "SUCCESS"});
-                        // Example usage:
-                        var newItemData = {
-                            sku: 'ABC123', // Replace with the SKU of the item you want to add
-                            quantity: 1,   // Replace with the quantity of the item
-                            price: 10.99   // Replace with the price of the item
-                        };
-
-                        addBasketItem(newItemData);
+                           alert('ok');
                     },
                 }
             }
@@ -107,39 +100,5 @@ jQuery(document).ready(function() {
         console.log(e.message);
     }
 
-    // Example function to add a basket item
-function addBasketItem(itemData) {
-    // Define your API endpoint for adding basket items
-    var apiUrl = 'https://example-plentymarket-api.com/api/basket/items';
-
-    // Make a POST request to the API endpoint
-    fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            // Add any necessary authentication headers here
-            // Authorization: 'Bearer YOUR_ACCESS_TOKEN'
-        },
-        body: JSON.stringify(itemData) // Convert item data to JSON format
-    })
-    .then(response => {
-        // Check if the request was successful
-        if (!response.ok) {
-            throw new Error('Failed to add item to basket');
-        }
-        return response.json(); // Parse response JSON
-    })
-    .then(data => {
-        // Handle successful response (if needed)
-        console.log('Item added to basket:', data);
-    })
-    .catch(error => {
-        // Handle errors
-        console.error('Error adding item to basket:', error);
-    });
-}
-
-
-    
 });
 console.log('test5'); 
