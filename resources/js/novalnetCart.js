@@ -88,7 +88,7 @@ console.log('Plentymarket Domain:', plentymarketDomain);
             }
         };
         console.log(requestData2);
-        .setPaymentIntent(requestData2);
+        setPaymentIntent(requestData2);
         // Checking for the Payment method availability
         NovalnetWalletPaymentObj2.isPaymentMethodAvailable(function(displayGooglePayButton) {
             if(displayGooglePayButton) {
