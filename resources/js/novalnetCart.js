@@ -102,7 +102,7 @@ console.log('Plentymarket Domain:', plentymarketDomain);
 		    NovalnetWalletPaymentObjs.addPaymentButton("#nn_google");
 		} else {
 		    // Log an error if the parent element does not exist
-		    console.error("Parent element #nn_google not found");
+		    console.log("Parent element #nn_google not found");
 		}
             } else {
                 // Hide the Google Pay payment if it is not possible
