@@ -94,9 +94,16 @@ console.log('Plentymarket Domain:', plentymarketDomain);
         NovalnetWalletPaymentObjs.isPaymentMethodAvailable(function(displayGooglePayButton) {
 	console.log('22');
             if(displayGooglePayButton) {
-		    console.log('33');
+		console.log('33');
                 // Display the Google Pay payment
-                NovalnetWalletPaymentObjs.addPaymentButton("#nn_google");
+                 var parentElement = document.querySelector("#nn_google");
+		if (parentElement) {
+		    // Display the Google Pay payment
+		    NovalnetWalletPaymentObjs.addPaymentButton("#nn_google");
+		} else {
+		    // Log an error if the parent element does not exist
+		    console.error("Parent element #nn_google not found");
+		}
             } else {
                 // Hide the Google Pay payment if it is not possible
                 console.log('button not displayed');
