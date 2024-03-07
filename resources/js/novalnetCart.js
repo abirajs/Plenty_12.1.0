@@ -1,4 +1,5 @@
 jQuery(document).ready(function() {
+    console.log('0');
     // Load the Google Pay button
     try {
         console.log('1');
