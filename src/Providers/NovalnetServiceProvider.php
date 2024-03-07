@@ -12,7 +12,7 @@ namespace Novalnet\Providers;
 use Novalnet\Helper\PaymentHelper;
 use Novalnet\Services\PaymentService;
 use Novalnet\Assistants\NovalnetAssistant;
-use Novalnet\Methods\NovalnetPaymentAbstract;
+// use Novalnet\Methods\NovalnetPaymentAbstract;
 use Novalnet\Constants\NovalnetConstants;
 use Novalnet\Services\SettingsService;
 use Plenty\Plugin\ServiceProvider;
