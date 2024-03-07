@@ -97,9 +97,6 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                                 jQuery.post(
                                     '/rest/io/basket/items/',
                                     postData,
-                                    function () {
-                                        callback();
-                                    }
                                 );
                             } else {
                                 callback();
