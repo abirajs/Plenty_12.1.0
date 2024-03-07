@@ -90,8 +90,11 @@ console.log('Plentymarket Domain:', plentymarketDomain);
         console.log(requestData2);
         NovalnetWalletPaymentObj2.setPaymentIntent(requestData2);
         // Checking for the Payment method availability
+	console.log('11');
         NovalnetWalletPaymentObj2.isPaymentMethodAvailable(function(displayGooglePayButton) {
+	console.log('22');
             if(displayGooglePayButton) {
+		    console.log('33');
                 // Display the Google Pay payment
                 NovalnetWalletPaymentObj2.addPaymentButton("#nn_google_pay_cart");
             } else {
