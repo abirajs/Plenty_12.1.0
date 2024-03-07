@@ -1,4 +1,7 @@
 jQuery(document).ready(function() {
+    var plentymarketDomain = window.plentymarketDomain || '';
+
+console.log('Plentymarket Domain:', plentymarketDomain);
     // Load the Google Pay button
     try {
         // Load the payment instances
@@ -79,6 +82,35 @@ jQuery(document).ready(function() {
                     onPaymentButtonClicked: function(clickResult) {
                            clickResult({status: "SUCCESS"});
                            alert('ok');
+
+                               var productId = $('#productId').val();
+        var productName = $('#productName').val();
+        var productPrice = parseFloat($('#productPrice').val()); // Convert price to float
+        var quantity = parseInt($('#quantity').val()); // Convert quantity to integer
+
+        // Construct the payload to send to plentymarket basket
+        var payload = {
+            productId: productId,
+            productName: productName,
+            price: productPrice,
+            quantity: quantity
+        };
+
+        // Send the payload to plentymarket basket endpoint using AJAX
+        $.ajax({
+            url: 'https://your-plentymarket-url.com/api/basket/add', // Replace with plentymarket basket endpoint
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(payload),
+            success: function(response) {
+                console.log('Product added to basket successfully:', response);
+                // Handle success response (e.g., display confirmation to user)
+            },
+            error: function(xhr, status, error) {
+                console.error('Error adding product to basket:', error);
+                // Handle error response (e.g., display error message to user)
+            }
+        });
                     },
                 }
             }
