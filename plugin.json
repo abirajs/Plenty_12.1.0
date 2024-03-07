@@ -62,6 +62,11 @@
             "key": "Novalnet\\Providers\\DataProvider\\NovalnetExpressButtonDataProvider",
             "name": "Novalnet Express button",
             "description": "Display the express button"
+        },
+        {
+            "key": "Novalnet\\Providers\\DataProvider\\NovalnetCartButtonDataProvider",
+            "name": "Novalnet Cart button",
+            "description": "Display the cart button"
         }
     ]
 }
