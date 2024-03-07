@@ -1,4 +1,4 @@
-jQuery(document).ready(function() {
+document.addEventListener('DOMContentLoaded', function() {
     var plentymarketDomain = window.plentymarketDomain || '';
 
 console.log('Plentymarket Domain:', plentymarketDomain);
