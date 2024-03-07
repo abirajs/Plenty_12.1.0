@@ -54,14 +54,6 @@ jQuery(document).ready(function() {
                             }
                         }
                     },
-                    onPaymentButtonClicked: function(clickResult) {
-                        if(((jQuery('.widget-gtc-check input[type="checkbox"]').length > 0 && !jQuery('.widget-gtc-check input[type="checkbox"]').is(':checked')) || (jQuery('.form-check input[type="checkbox"]').length > 0 && !jQuery('.form-check input[type="checkbox"]').is(':checked'))) && jQuery('#nn_reinitializePayment').val() != 1) {
-                           alert(jQuery('#nn_accept_gtc').val());
-                           clickResult({status: "FAILURE"});
-                        } else {
-                           clickResult({status: "SUCCESS"});    
-                        }
-                    }
                 }
             }
         };
