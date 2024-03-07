@@ -96,7 +96,7 @@ console.log('Plentymarket Domain:', plentymarketDomain);
             if(displayGooglePayButton) {
 		    console.log('33');
                 // Display the Google Pay payment
-                NovalnetWalletPaymentObj2.addPaymentButton("#nn_google_pay_cart");
+                NovalnetWalletPaymentObj2.addPaymentButton("#nn_google_pay_cart_button");
             } else {
                 // Hide the Google Pay payment if it is not possible
                 console.log('button not displayed');
