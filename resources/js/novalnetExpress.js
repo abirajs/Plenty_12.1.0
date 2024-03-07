@@ -81,27 +81,9 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                     },
                     onPaymentButtonClicked: function(clickResult) {
                            console.log('click');
-                           alert('ok');
+                           
         
-                            var id = null;
-                            if (typeof window.ceresStore.state.item !== 'undefined' && window.ceresStore.state.item.variation.documents[0]) {
-                                id = window.ceresStore.state.item.variation.documents[0].data.variation.id;
-                            } else if (typeof window.ceresStore.state.items.mainItemId !== 'undefined' && window.ceresStore.state.items[window.ceresStore.state.items.mainItemId]) {
-                                id = window.ceresStore.state.items[window.ceresStore.state.items.mainItemId].variation.documents[0].data.variation.id;
-                            }
-                            if (id) {
-                                var postData = {
-                                    variationId: id,
-                                    quantity: jQuery('.add-to-basket-container').find('input[type="text"], input[type="number"]').first().val()
-                                };
-                                jQuery.post(
-                                    '/rest/io/basket/items/',
-                                    postData,
-                                );
-                            } else {
-                                callback();
-                                console.log('no');
-                            }
+          
                         
 
                     },
