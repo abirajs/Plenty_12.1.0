@@ -12,13 +12,13 @@ jQuery(document).ready(function() {
             paymentIntent: {
                 merchant: {
                     paymentDataPresent: false,
-                    countryCode : String(jQuery('#nn_google_pay_cart').attr('data-country')),
+                    countryCode : String(jQuery('#nn_google_pay_cart').attr('data-country')) ? String(jQuery('#nn_google_pay_cart').attr('data-country')) : 'DE',
                     partnerId: jQuery('#nn_merchant_id').val(),
                 },
                 transaction: {
                     setPendingPayment: true,
-                    amount: String(jQuery('#nn_google_pay_cart').attr('data-total-amount')),
-                    currency: String(jQuery('#nn_google_pay_cart').attr('data-currency')),
+                    amount: String(jQuery('#nn_google_pay_cart').attr('data-total-amount')) ? String(jQuery('#nn_google_pay_cart').attr('data-total-amount')) : '100',
+                    currency: String(jQuery('#nn_google_pay_cart').attr('data-currency')) ? String(jQuery('#nn_google_pay_cart').attr('data-currency')) : 'EUR',
                     enforce3d: Boolean(jQuery('#nn_enforce').val()),
                     paymentMethod: "GOOGLEPAY",
                     environment: jQuery('#nn_environment').val(),
