@@ -34,22 +34,6 @@ jQuery(document).ready(function() {
                     },
                     shipping: {
                     	requiredFields: ["postalAddress", "phone"],
-                        methods: [
-                          {
-                            identifier: "freeshipping",
-                            amount: 0,
-                            detail: "Free shipping within Deutschland",				
-                            label: "Free Shipping"
-                          },
-                          {
-                            identifier: "dhlshipping",
-                            amount: 500,
-                            detail: "The product will be delivered depends on the executive",
-                            label: "DHL Shipping"
-                          }
-                        ],
-                        defaultIdentifier: "dhlshipping",	
-                        methodsUpdatedLater: true
                      }
                 },
                 button: {
@@ -69,7 +53,7 @@ jQuery(document).ready(function() {
                             jQuery('#nn_google_pay_token').val(response.transaction.token);
                             jQuery('#nn_google_pay_do_redirect').val(response.transaction.doRedirect);                               
                             jQuery('#nn_google_pay_form').submit();
-                            jQuery('#nn_google_pay').find('button').prop('disabled', true);
+                            jQuery('#nn_google_pay_cart').find('button').prop('disabled', true);
                         } else {
                             // Upon failure, displaying the error text
                             if(response.result.status_text) {
