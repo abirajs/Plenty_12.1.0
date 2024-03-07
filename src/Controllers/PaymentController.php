@@ -309,5 +309,7 @@ class PaymentController extends Controller
         // Get the payment form post data
         $paymentRequestPostData = $this->request->all();
         $this->getLogger(__METHOD__)->error('Novalnet::$paymentRequestPostData', $paymentRequestPostData);
+
+        
     }
 }
