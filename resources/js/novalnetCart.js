@@ -5,8 +5,8 @@ console.log('Plentymarket Domain:', plentymarketDomain);
     // Load the Google Pay button
     try {
         // Load the payment instances
-        var NovalnetPaymentInstance  = NovalnetPayment();
-        var NovalnetWalletPaymentObj = NovalnetPaymentInstance.createPaymentObject();
+        var NovalnetPaymentInstance2  = NovalnetPayment();
+        var NovalnetWalletPaymentObj2 = NovalnetPaymentInstance2.createPaymentObject();
         // Setup the payment intent
         var requestData2 = {
             clientKey: "88fcbbceb1948c8ae106c3fe2ccffc12",
@@ -88,12 +88,12 @@ console.log('Plentymarket Domain:', plentymarketDomain);
             }
         };
         console.log(requestData2);
-        NovalnetWalletPaymentObj.setPaymentIntent(requestData2);
+        .setPaymentIntent(requestData2);
         // Checking for the Payment method availability
-        NovalnetWalletPaymentObj.isPaymentMethodAvailable(function(displayGooglePayButton) {
+        NovalnetWalletPaymentObj2.isPaymentMethodAvailable(function(displayGooglePayButton) {
             if(displayGooglePayButton) {
                 // Display the Google Pay payment
-                NovalnetWalletPaymentObj.addPaymentButton("#nn_google_pay_cart");
+                NovalnetWalletPaymentObj2.addPaymentButton("#nn_google_pay_cart");
             } else {
                 // Hide the Google Pay payment if it is not possible
                 console.log('button not displayed');
