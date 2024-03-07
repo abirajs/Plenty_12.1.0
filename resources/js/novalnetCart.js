@@ -1,6 +1,7 @@
 jQuery(document).ready(function() {
     // Load the Google Pay button
     try {
+        console.log('1');
         // Load the payment instances
         var NovalnetPaymentInstance  = NovalnetPayment();
         var NovalnetWalletPaymentObj = NovalnetPaymentInstance.createPaymentObject();
@@ -86,6 +87,7 @@ jQuery(document).ready(function() {
         NovalnetWalletPaymentObj.setPaymentIntent(requestData);
         // Checking for the Payment method availability
         NovalnetWalletPaymentObj.isPaymentMethodAvailable(function(displayGooglePayButton) {
+            console.log('2');
             if(displayGooglePayButton) {
                 // Display the Google Pay payment
                 NovalnetWalletPaymentObj.addPaymentButton("#nn_google_pay_cart");
@@ -93,11 +95,11 @@ jQuery(document).ready(function() {
                 // Hide the Google Pay payment if it is not possible
                 console.log('button not displayed');
             }
-            console.log('test4'); 
+            console.log('test3'); 
         });
     } catch (e) {
         // Handling the errors from the payment intent setup
         console.log(e.message);
     }
 });
-console.log('test5'); 
+console.log('test4'); 
