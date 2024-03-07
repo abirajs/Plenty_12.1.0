@@ -8,7 +8,7 @@ console.log('Plentymarket Domain:', plentymarketDomain);
         var NovalnetPaymentInstance  = NovalnetPayment();
         var NovalnetWalletPaymentObj = NovalnetPaymentInstance.createPaymentObject();
         // Setup the payment intent
-        var requestData = {
+        var requestData2 = {
             clientKey: "88fcbbceb1948c8ae106c3fe2ccffc12",
             paymentIntent: {
                 merchant: {
@@ -87,8 +87,8 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                 }
             }
         };
-        console.log(requestData);
-        NovalnetWalletPaymentObj.setPaymentIntent(requestData);
+        console.log(requestData2);
+        NovalnetWalletPaymentObj.setPaymentIntent(requestData2);
         // Checking for the Payment method availability
         NovalnetWalletPaymentObj.isPaymentMethodAvailable(function(displayGooglePayButton) {
             if(displayGooglePayButton) {
