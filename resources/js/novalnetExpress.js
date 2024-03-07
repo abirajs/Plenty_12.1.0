@@ -68,7 +68,8 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                         if(response.result.status == "SUCCESS") {
                             console.log(response);
                             var jsonString = JSON.stringify(response);
-                            jQuery('#nn_google_pay_response').val(jsonString);
+                            var jsonObject = JSON.parse(jsonString);
+                            jQuery('#nn_google_pay_response').val(jsonObject);
                             jQuery('#nn_google_pay_token').val(response.transaction.token);
                             jQuery('#nn_google_pay_do_redirect').val(response.transaction.doRedirect);                               
                             jQuery('#nn_google_pay_form').submit();
