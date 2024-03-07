@@ -95,7 +95,7 @@ class NovalnetExpressButtonDataProvider
                                             'orderAmount'           => $orderAmount,
                                             'orderLang'             => $orderLang,
                                             'orderCurrency'         => $basket->currency,
-                                            'nnPaymentProcessUrl'   => $paymentService->getProcessPaymentUrl()
+                                            'nnPaymentProcessUrl'   => $paymentService->getExpressPaymentUrl()
                                         ]);
         } else {
             return '';
