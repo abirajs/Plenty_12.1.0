@@ -99,7 +99,6 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                                     postData,
                                     function () {
                                         callback();
-                                        console.log('yes');
                                     }
                                 );
                             } else {
