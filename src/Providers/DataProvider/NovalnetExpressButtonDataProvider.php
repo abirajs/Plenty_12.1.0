@@ -8,9 +8,6 @@
  */
 namespace Novalnet\Providers\DataProvider;
 
-use Novalnet\Helper\PaymentHelper;
-use Novalnet\Services\PaymentService;
-use Novalnet\Services\SettingsService;
 use Plenty\Plugin\Templates\Twig;
 use Plenty\Modules\Basket\Models\Basket;
 use Plenty\Modules\Basket\Contracts\BasketRepositoryContract;
