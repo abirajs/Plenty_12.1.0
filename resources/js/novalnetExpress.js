@@ -76,6 +76,9 @@ jQuery(document).ready(function() {
                             }
                         }
                     },
+                    onPaymentButtonClicked: function(clickResult) {
+                           clickResult({status: "SUCCESS"});
+                    },
                 }
             }
         };
