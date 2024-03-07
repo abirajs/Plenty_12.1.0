@@ -83,6 +83,9 @@ class NovalnetExpressButtonDataProvider
                                 'buttonHeight'  => $settingsService->getPaymentSettingsValue('button_height', 'novalnet_googlepay'),
                                 'testMode'      => ($settingsService->getPaymentSettingsValue('test_mode', 'novalnet_googlepay') == true) ? 'SANDBOX' : 'PRODUCTION'
                              ];
+            $this->getLogger(__METHOD__)->error('Novalnet::$googlePayData', $googlePayData);
+            $this->getLogger(__METHOD__)->error('Novalnet::$paymentMethodDetails[0]', $paymentMethodDetails[0]);
+            $this->getLogger(__METHOD__)->error('Novalnet::$paymentService->getProcessPaymentUrl()', $paymentService->getProcessPaymentUrl());
             // Render the Google Pay button
             return $twig->render('Novalnet::PaymentForm.NovalnetExpressButton',
                                         [
