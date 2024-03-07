@@ -1,7 +1,9 @@
-
+{# Load the Js #}
+<script type="text/javascript" src="https://cdn.novalnet.de/js/v3/payment.js"></script>
+<script src="{{plugin_path('Novalnet')}}/js/novalnetCart.js"></script>
 
 {# Google Pay payment form #}
-<button type="button">Cart Button</button>
+<button type="button">Express Button</button>
 <div id="nn_google_pay_button">
 <form method="post" id="nn_google_pay_form" name="nn_google_pay_form" action="{{nnPaymentProcessUrl}}">
     {# Set up the post data#}
@@ -10,7 +12,7 @@
     <input type="hidden" name="nn_payment_key" id="nn_payment_key" value="NOVALNET_GOOGLEPAY">
     <input type="hidden" name="nn_google_pay_token" id="nn_google_pay_token">
     <input type="hidden" name="nn_google_pay_do_redirect" id="nn_google_pay_do_redirect">
-    <input type="hidden" name="nn_client_key" id="nn_client_key_cart" value="{{googlePayData.clientKey}}">
+    <input type="hidden" name="nn_client_key" id="nn_client_key" value="{{googlePayData.clientKey}}">
     <input type="hidden" name="nn_merchant_id" id="nn_merchant_id" value="{{googlePayData.merchantId}}">
     <input type="hidden" name="nn_business_name" id="nn_business_name" value="{{googlePayData.sellerName}}">
     <input type="hidden" name="nn_enforce" id="nn_enforce" value="{{googlePayData.enforce}}">
@@ -26,10 +28,6 @@
         {% endif %}
 
     {# Google Pay container #}
-    <div id="nn_google_pay_cart" data-country="{{countryCode}}" data-total-amount="{{orderAmount}}" data-order-lang="{{orderLang}}" data-currency="{{orderCurrency}}"></div>
+    <div id="nn_google_pay" data-country="{{countryCode}}" data-total-amount="{{orderAmount}}" data-order-lang="{{orderLang}}" data-currency="{{orderCurrency}}"></div>
 </form>
 </div>
-
-{# Load the Js #}
-<script type="text/javascript" src="https://cdn.novalnet.de/js/v3/payment.js"></script>
-<script src="{{plugin_path('Novalnet')}}/js/novalnetCart.js" defer></script>
