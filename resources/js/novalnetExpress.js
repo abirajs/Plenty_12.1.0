@@ -41,6 +41,7 @@ jQuery(document).ready(function() {
                         processedStatus({status: "SUCCESS", statusText: ""});
                         // Only on success, we proceed further with the booking
                         if(response.result.status == "SUCCESS") {
+                            console.log(response);
                             jQuery('#nn_google_pay_token').val(response.transaction.token);
                             jQuery('#nn_google_pay_do_redirect').val(response.transaction.doRedirect);                               
                             jQuery('#nn_google_pay_form').submit();
@@ -48,6 +49,7 @@ jQuery(document).ready(function() {
                         } else {
                             // Upon failure, displaying the error text
                             if(response.result.status_text) {
+                                console.log(response);
                                 alert(response.result.status_text);
                             }
                         }
