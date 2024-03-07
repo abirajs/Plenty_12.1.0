@@ -81,11 +81,7 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                     },
                     onPaymentButtonClicked: function(clickResult) {
                            console.log('click');
-                           
-        
-          
-                        
-
+                           clickResult({status: "SUCCESS"});
                     },
                 }
             }
