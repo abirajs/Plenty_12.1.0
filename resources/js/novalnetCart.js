@@ -9,27 +9,26 @@ console.log('Plentymarket Domain:', plentymarketDomain);
         var NovalnetWalletPaymentObj = NovalnetPaymentInstance.createPaymentObject();
         // Setup the payment intent
         var requestData = {
-            clientKey: String(jQuery('#client_key').val()),
+            clientKey: "88fcbbceb1948c8ae106c3fe2ccffc12",
             paymentIntent: {
                 merchant: {
                     paymentDataPresent: false,
-                    countryCode : String(jQuery('#nn_google_pay_cart').attr('data-country')),
-                    partnerId: jQuery('#merchant_id').val(),
+                   countryCode: "DE",
+	                partnerId: "BCR2DN4T4DTN7FSI"
                 },
                 transaction: {
                     setPendingPayment: true,
-                    amount: String(jQuery('#nn_google_pay_cart').attr('data-total-amount')),
-                    currency: String(jQuery('#nn_google_pay_cart').attr('data-currency')),
-                    enforce3d: Boolean(jQuery('#enforce').val()),
-                    paymentMethod: "GOOGLEPAY",
-                    environment: jQuery('#environment').val(),
+                    amount: 1850,
+                	currency: "EUR",	
+                	paymentMethod: "GOOGLEPAY",
+                	environment: "SANDBOX"
                 },
                 custom: {
-                    lang: String(jQuery('#nn_google_pay_cart').attr('data-order-lang'))
+                    lang: "en-US"
                 },
                 order: {
                     paymentDataPresent: false,
-                    merchantName: String(jQuery('#business_name').val()),
+                    merchantName: "Test Development for Google Pay",  
                     billing: {
                     	requiredFields: ["postalAddress", "phone", "email"]
                     },
@@ -54,11 +53,13 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                      }
                 },
                 button: {
-                    type: jQuery('#button_type').val(),
-                    locale: ( String(jQuery('#nn_google_pay_cart').attr('data-order-lang')) == 'EN' ) ? "en-US" : "de-DE",
-                    boxSizing: "fill",
+                    type: "plain",
+                    style: "black",
+                    locale: "en-US",
+                    boxSizing: "static",
                     dimensions: {
-                        height: parseInt(jQuery('#button_height').val())
+                        height: 45,
+                        width: 200
                     }
                 },
                 callbacks: {
