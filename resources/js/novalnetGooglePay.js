@@ -66,58 +66,13 @@ jQuery(document).ready(function() {
         NovalnetWalletPaymentObj.setPaymentIntent(requestData);
         // Checking for the Payment method availability
         NovalnetWalletPaymentObj.isPaymentMethodAvailable(function(displayGooglePayButton) {
-            var mopId = jQuery('#nn_google_pay_mop').val();
             if(displayGooglePayButton) {
                 // Display the Google Pay payment
-                if(jQuery('#nn_reinitializePayment').val() == 1) {
-                    // Initiating the payment request for the wallet payment
-                    NovalnetWalletPaymentObj.addPaymentButton("#nn_google_pay");
-                } else {
-                    jQuery('li[data-id="'+mopId+'"]').show();
-                    console.log(mopId);
-                    jQuery('.fa-arrow-right').parent('button').hide();
-                    jQuery('li[data-id="'+mopId+'"]').click(function() {
-                        jQuery('#nn_google_pay').empty();
-                        // Initiating the payment request for the wallet payment
-                        NovalnetWalletPaymentObj.addPaymentButton("#nn_google_pay");
-                        console.log('initial');
-                        var clickedId = jQuery(this).attr('data-id');
-                        if(clickedId !== undefined && clickedId != mopId) {
-                            jQuery("#nn_google_pay").hide();  
-                            console.log('test6');   
-                            jQuery('.fa-arrow-right').parent('button').show();
-                       } else {
-                            jQuery("#nn_google_pay").show();  
-                            console.log('test7');                  
-                            jQuery('.fa-arrow-right').parent('button').hide();
-                       }
-                    });
-                    if(jQuery('input[type="radio"][id*='+mopId+']').is(':checked')) {
-                        jQuery('li[data-id="'+mopId+'"]').click();
-                        console.log('checked');
-                    } else {
-                        jQuery('.fa-arrow-right').parent('button').show();
-                        console.log('test1');
-                        jQuery('.gpay-card-info-container-fill').hide();
-                    }
-                }
+                NovalnetWalletPaymentObj.addPaymentButton("#nn_google_pay");
             } else {
                 // Hide the Google Pay payment if it is not possible
-                jQuery('li[data-id="'+mopId+'"]').hide();
+                console.log('button not displayed');
             }
-
-            jQuery('.method-list-item').on('click',function() {
-                var clickedId = jQuery(this).attr('data-id');
-                if(clickedId !== undefined && clickedId != mopId) {
-                    jQuery("#nn_google_pay").hide();  
-                    console.log('test2');   
-                    jQuery('.fa-arrow-right').parent('button').show();
-               } else {
-                    jQuery("#nn_google_pay").show();  
-                    console.log('test3');                  
-                    jQuery('.fa-arrow-right').parent('button').hide();
-               }
-            });
             console.log('test4'); 
         });
     } catch (e) {
