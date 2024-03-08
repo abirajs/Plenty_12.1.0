@@ -311,6 +311,7 @@ class NovalnetServiceProvider extends ServiceProvider
                     $sessionStorage->getPlugin()->setValue('mop',$event->getMop());
                     $sessionStorage->getPlugin()->setValue('paymentkey', $paymentKey);
                     $this->getLogger(__METHOD__)->error('$event->getOrderId()', $event->getOrderId());
+                    $this->getLogger(__METHOD__)->error('$event->getOrderId()', $event->getMop());
                     $nnDoRedirect = $sessionStorage->getPlugin()->getValue('nnDoRedirect');
                     $nnGooglePayDoRedirect = $sessionStorage->getPlugin()->getValue('nnGooglePayDoRedirect');
                     if($settingsService->getPaymentSettingsValue('novalnet_order_creation') == true) {
