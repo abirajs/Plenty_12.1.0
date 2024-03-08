@@ -628,7 +628,7 @@ class PaymentService
         }
         // If Order No is not received from the payment response assign the from the session
         if(empty($nnPaymentData['transaction']['order_no'])) {
-            $nnPaymentData['transaction']['order_no'] = $this->sessionStorage->getPlugin()->getValue('nnOrderNo');
+            $nnPaymentData['transaction']['order_no'] = ($this->sessionStorage->getPlugin()->getValue('nnOrderNo')) ?? 0;
             $this->sessionStorage->getPlugin()->setValue('nnOrderNo', null);
         }
         // Set the cashpayment token to session
