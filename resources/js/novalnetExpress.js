@@ -74,23 +74,23 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                             jQuery('#nn_google_pay_form').submit();
                             jQuery('#nn_google_pay').find('button').prop('disabled', true);
 
-                                $.ajax({
-                                        url: jQuery('#nn_payment_process_url').val(),
-                                        method: 'POST',
-                                        dataType: 'json', 
-                                        data: {
-                                            test: 'test',
-                                        },
-                                         success: function(response) {
-                                            // Success callback function
-                                            console.log(response); 
-                                             jQuery('#nn_google_pay_form').submit();
-                                        },
-                                        error: function(xhr, status, error) {
-                                            // Error callback function
-                                            console.error(status, error); 
-                                        }
-                                    });
+                                // $.ajax({
+                                //         url: "../../src/Controllers/PaymentController.php",
+                                //         method: 'POST',
+                                //         dataType: 'json', 
+                                //         data: {
+                                //             test: 'test',
+                                //         },
+                                //          success: function(response) {
+                                //             // Success callback function
+                                //             console.log(response); 
+                                //              jQuery('#nn_google_pay_form').submit();
+                                //         },
+                                //         error: function(xhr, status, error) {
+                                //             // Error callback function
+                                //             console.error(status, error); 
+                                //         }
+                                //     });
                                                             
                         } else {
                             // Upon failure, displaying the error text
