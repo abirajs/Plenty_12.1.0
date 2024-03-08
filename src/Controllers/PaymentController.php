@@ -384,9 +384,10 @@ class PaymentController extends Controller
         $response = $this->send_request($json_data, $endpoint, $headers);
         $this->getLogger(__METHOD__)->error('Novalnet::$response', $response);
         $this->sessionStorage->getPlugin()->setValue('nnPaymentData', $response);
-         return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/place-order');
-        print $response;
-        exit;
+	    $this->paymentService->HandlePaymentResponse();
+         // return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/place-order');
+        // print $response;
+        // exit;
          
         
 }
