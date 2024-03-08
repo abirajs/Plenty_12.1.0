@@ -642,6 +642,7 @@ class PaymentService
             $nnPaymentData['transaction']['order_no'] = $paymentResponseData['transaction']['order_no'];
             $nnPaymentData['transaction']['invoice_ref'] = $paymentResponseData['transaction']['invoice_ref'];
         }
+        $this->getLogger(__METHOD__)->error('Novalnet::$nnPaymentData37', $nnPaymentData37);
         // Insert payment response into Novalnet table
         $this->insertPaymentResponse($nnPaymentData);
         // Create a plenty payment to the order
@@ -661,6 +662,7 @@ class PaymentService
     public function insertPaymentResponse($paymentResponseData, $parentTid = 0, $refundOrderTotalAmount = 0, $creditOrderTotalAmount = 0)
     {
          // Assign the payment method
+        $this->getLogger(__METHOD__)->error('Novalnet::insertPaymentResponse', $paymentResponseData);
         if(empty($paymentResponseData['payment_method'])) {
             $paymentResponseData['payment_method'] = strtolower($this->paymentHelper->getPaymentKey($paymentResponseData['transaction']['payment_type']));
         }
@@ -682,6 +684,7 @@ class PaymentService
         if(in_array($transactionData['payment_name'], ['novalnet_invoice', 'novalnet_prepayment', 'novalnet_multibanco']) ||  (in_array($transactionData['payment_name'], ['novalnet_paypal', 'novalnet_przelewy24']) && in_array($paymentResponseData['transaction']['status'], ['PENDING', 'ON_HOLD'])) || $paymentResponseData['result']['status'] != 'SUCCESS') {
             $transactionData['callback_amount'] = 0;
         }
+        $this->getLogger(__METHOD__)->error('Novalnet::insertPaymentResponse$transactionData', $transactionData);
         $this->transactionService->saveTransaction($transactionData);
     }
 
