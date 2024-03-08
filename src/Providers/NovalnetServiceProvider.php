@@ -305,10 +305,12 @@ class NovalnetServiceProvider extends ServiceProvider
             function (ExecutePayment $event) use ($paymentHelper, $paymentService, $sessionStorage, $settingsService)
             {
                 $paymentKey = $paymentHelper->getPaymentKeyByMop($event->getMop());
+                $this->getLogger(__METHOD__)->error('Adding PDF comment failed for order', $paymentKey);
                 if($paymentKey) {
                     $sessionStorage->getPlugin()->setValue('nnOrderNo',$event->getOrderId());
                     $sessionStorage->getPlugin()->setValue('mop',$event->getMop());
                     $sessionStorage->getPlugin()->setValue('paymentkey', $paymentKey);
+                    $this->getLogger(__METHOD__)->error('$event->getOrderId()', $event->getOrderId());
                     $nnDoRedirect = $sessionStorage->getPlugin()->getValue('nnDoRedirect');
                     $nnGooglePayDoRedirect = $sessionStorage->getPlugin()->getValue('nnGooglePayDoRedirect');
                     if($settingsService->getPaymentSettingsValue('novalnet_order_creation') == true) {
@@ -329,6 +331,7 @@ class NovalnetServiceProvider extends ServiceProvider
                         }
                     } else {
                             // Handle the further process to the order based on the payment response for direct payment payments
+                            $this->getLogger(__METHOD__)->error('HandlePaymentResponse', 'HandlePaymentResponse');
                             $paymentService->HandlePaymentResponse();
                    }
                 }
