@@ -388,7 +388,7 @@ class PaymentController extends Controller
         $this->sessionStorage->getPlugin()->setValue('nnPaymentData', array_merge($data, $responseArray));
 	    // $this->paymentService->HandlePaymentResponse();
 	    // return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/confirmation');
-         // return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/place-order');
+         return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/place-order');
         // print $response;
         // exit;
          
