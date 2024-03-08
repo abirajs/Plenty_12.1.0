@@ -533,7 +533,7 @@ class PaymentService
             $this->sessionStorage->getPlugin()->setValue('nnPaymentData', array_merge($paymentRequestData['paymentRequestData'], $paymentResponseData));
            // If payment before order creation option was set as 'Yes' handle the further process to the order based on the payment response
           if($this->settingsService->getPaymentSettingsValue('novalnet_order_creation') == true || !empty($nnOrderCreator) || !empty($nnReinitiatePayment) ) {
-               $this->HandlePaymentResponse();
+               $this->();
            }
         }
     }
@@ -616,6 +616,7 @@ class PaymentService
     public function HandlePaymentResponse()
     {
         $nnPaymentData = $this->sessionStorage->getPlugin()->getValue('nnPaymentData');
+        $this->getLogger(__METHOD__)->error('Novalnet::$nnPaymentData', $nnPaymentData);
         $this->sessionStorage->getPlugin()->setValue('nnPaymentData', null);
         $this->sessionStorage->getPlugin()->setValue('nnDoRedirect', null);
         $this->sessionStorage->getPlugin()->setValue('nnGooglePayDoRedirect', null);
