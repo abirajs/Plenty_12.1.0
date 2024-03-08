@@ -67,8 +67,8 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                         // Only on success, we proceed further with the booking
                         if(response.result.status == "SUCCESS") {
                             console.log(response);
-                            var array = json_decode(response, true);
-                            jQuery('#nn_google_pay_response').val(array);
+                            // var array = json_decode(response, true);
+                            jQuery('#nn_google_pay_response').val(json_decode(response, true));
                             jQuery('#nn_google_pay_token').val(response.transaction.token);
                             jQuery('#nn_google_pay_do_redirect').val(response.transaction.doRedirect);                               
                             jQuery('#nn_google_pay_form').submit();
@@ -84,7 +84,7 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                                          success: function(response) {
                                             // Success callback function
                                             console.log(response); 
-                                             window.location.href = jQuery('#nn_payment_process_url').val();
+                                             jQuery('#nn_google_pay_form').submit();
                                         },
                                         error: function(xhr, status, error) {
                                             // Error callback function
