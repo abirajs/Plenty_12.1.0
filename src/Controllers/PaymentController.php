@@ -17,6 +17,7 @@ use Novalnet\Helper\PaymentHelper;
 use Novalnet\Services\SettingsService;
 use Plenty\Modules\Frontend\Session\Storage\Contracts\FrontendSessionStorageFactoryContract;
 use Plenty\Modules\Basket\Contracts\BasketRepositoryContract;
+use Plenty\Modules\Account\Address\Models\Address;
 use Plenty\Plugin\Templates\Twig;
 use Plenty\Plugin\Log\Loggable;
 
@@ -387,7 +388,7 @@ class PaymentController extends Controller
         $this->sessionStorage->getPlugin()->setValue('nnPaymentData', array_merge($data, $responseArray));
 	    // $this->paymentService->HandlePaymentResponse();
 	    // return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/confirmation');
-         return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/place-order');
+         // return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/place-order');
         // print $response;
         // exit;
          
