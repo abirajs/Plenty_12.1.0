@@ -327,7 +327,7 @@ class PaymentController extends Controller
             'X-NN-Access-Key:' . $encoded_data, 
         ];
         
-        $data = [];
+       $data = [];
         
         $data['merchant'] = [
             'signature' => $this->settingsService->getPaymentSettingsValue('novalnet_public_key'), 
@@ -335,36 +335,29 @@ class PaymentController extends Controller
         ];
         
         $data['customer'] = [
-            'first_name'  => $array->order->billing->contact->firstName,
-            'last_name'   => $arrayTest['order']['billing']['contact']['firstName'], 
-            'email'       => '###YOUR_MAIL###', 
-            'customer_ip' => '###CUSTOMER_IP###',
-            'customer_no' => '###CUSTOMER_NUMBER###',
-            'tel'         => '+49 089 123456',
-            'mobile'      => '+49 174 7781423',
+            'first_name'  => $arrayTest['order']['billing']['contact']['firstName'],
+            'last_name'   => $arrayTest['order']['billing']['contact']['lastName'], 
+            'email'       => $arrayTest['order']['billing']['contact']['email'], 
+            'customer_ip' => '192.168.2.125',
+            'customer_no' => 'guest',
             'billing'     => [
-                'house_no'     => '2',
-                'street'       => 'Musterstr',
-                'city'         => 'Musterhausen',
-                'zip'          => '12345',
-                'country_code' => 'DE',
+                'house_no'     => $arrayTest['order']['billing']['contact']['addressLines'],
+                'street'       => $arrayTest['order']['billing']['contact']['addressLines'],
+                'city'         => $arrayTest['order']['billing']['contact']['locality'],
+                'zip'          => $arrayTest['order']['billing']['contact']['postalCode'],
+                'country_code' => $arrayTest['order']['billing']['contact']['countryCode'],
         	    'company'   => 'ABC GmbH',
         	    'state'      => 'Berlin'
-            ],   
+            ] ,  
              
             'shipping' => [
-                'first_name'    => 'Norbert',
-                'last_name'     => 'Maier',
-                'email'         => 'test@novalnet.de',
-                'company'       => 'A.B.C. Gerüstbau GmbH',
-        		'house_no'      => '9',
-        		'street'        => 'Hauptstr',
-        		'city'          => 'Kaiserslautern',
-        		'zip'           => '66862',
-        		'country_code'  => 'DE',
-                'tel'           => '+49 089 123456',
-                'mobile'        => '+49 174 7781423',
-                'state'      => 'Berlin'
+				'first_name'  => $arrayTest['order']['shipping']['contact']['firstName'],
+				'last_name'   => $arrayTest['order']['shipping']['contact']['lastName'], 
+                'house_no'     => $arrayTest['order']['shipping']['contact']['addressLines'],
+                'street'       => $arrayTest['order']['shipping']['contact']['addressLines'],
+                'city'         => $arrayTest['order']['shipping']['contact']['locality'],
+                'zip'          => $arrayTest['order']['shipping']['contact']['postalCode'],
+                'country_code' => $arrayTest['order']['shipping']['contact']['countryCode'],
             ],
             
         ];
@@ -373,25 +366,24 @@ class PaymentController extends Controller
         $data['transaction'] = [
         
             'payment_type'     => 'GOOGLEPAY',
-            'amount'           => '###TRANSACTION_AMOUNT###',
-            'currency'         => '###TRANSACTION_CURRENCY###',
-            'test_mode'        => '###TEST_MODE###',
-            'order_no'         => '###TRANSACTION_ORDER_NUMBER###',
-            'hook_url'         => '###YOUR_HOOK_URL###',
-            'invoice_ref'	   => '###INVOICE_REF###',
-            'enforce_3d'           => '1',
+            'amount'           => $arrayTest['transaction']['amount'],
+            'currency'         => $paymentRequestPostData['nn_currency'],
+            'test_mode'        => ($this->settingsService->getPaymentSettingsValue('test_mode', 'novalnet_googlepay') == true) ? 1 : 0,
+            'enforce_3d'           => $paymentRequestPostData['nn_enforce'] ?? 0,
             'create_token'     => 1,
             'payment_data'     => [        
-                'wallet_token' => '###WALLET_TOKEN###' 
+                'wallet_token' => $paymentRequestPostData['nn_google_pay_token'] 
             ]   
         ];
         
         $data['custom'] = [
-        	'lang'      => 'EN',
+        	'lang'      => strtoupper($this->sessionStorage->getLocaleSettings()->language),
         ];
         $this->getLogger(__METHOD__)->error('Novalnet::$data', $data);
         $json_data = json_encode($data);
         $response = $this->send_request($json_data, $endpoint, $headers);
+        $this->getLogger(__METHOD__)->error('Novalnet::$response', $response);
+        $this->sessionStorage->getPlugin()->setValue('nnPaymentData', $response);
          return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/place-order');
         print $response;
         exit;
