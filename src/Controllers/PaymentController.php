@@ -313,7 +313,7 @@ class PaymentController extends Controller
         $this->getLogger(__METHOD__)->error('Novalnet::$paymentRequestPostData', $paymentRequestPostData);
         $this->getLogger(__METHOD__)->error('Novalnet::$array', $array);
        
-
+$this->getLogger(__METHOD__)->error('Novalnet::$arrayname', $array->order->billing->contact->firstName);
 
         $payment_access_key  = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
         $encoded_data        = base64_encode($payment_access_key);
