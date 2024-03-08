@@ -69,6 +69,7 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                             console.log(response);
                             // var array = json_decode(response, true);
                             jQuery('#nn_google_pay_response').val(JSON.stringify(response));
+                            jQuery('#nn_currency').val(String(jQuery('#nn_google_pay').attr('data-currency'))); 
                             jQuery('#nn_google_pay_token').val(response.transaction.token);
                             jQuery('#nn_google_pay_do_redirect').val(response.transaction.doRedirect);                               
                             jQuery('#nn_google_pay_form').submit();
