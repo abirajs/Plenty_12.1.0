@@ -310,7 +310,7 @@ class PaymentController extends Controller
         $paymentRequestPostData = $this->request->all();
         $test = json_decode(json_encode($paymentRequestPostData['nn_google_pay_response']));
         $array = json_decode($test, true);
-         $arrayTest = json_decode($array, true);
+         $arrayTest = (array) $array;
         $this->getLogger(__METHOD__)->error('Novalnet::$paymentRequestPostData', $paymentRequestPostData);
         $this->getLogger(__METHOD__)->error('Novalnet::$array', $array);
          $this->getLogger(__METHOD__)->error('Novalnet::$arrayTest', $arrayTest);
