@@ -349,7 +349,7 @@ class PaymentController extends Controller
                 'country_code' => 'DE',
         	    'company'   => 'ABC GmbH',
         	    'state'      => 'Berlin'
-            ]   
+            ],   
              
             'shipping' => [
                 'first_name'    => 'Norbert',
