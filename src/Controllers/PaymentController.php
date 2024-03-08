@@ -312,7 +312,7 @@ class PaymentController extends Controller
         $array = json_decode($test, true);
         $this->getLogger(__METHOD__)->error('Novalnet::$paymentRequestPostData', $paymentRequestPostData);
         $this->getLogger(__METHOD__)->error('Novalnet::$array', $array);
-        return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/place-order');
+       
 
 
         $payment_access_key  = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
@@ -391,6 +391,7 @@ class PaymentController extends Controller
         $this->getLogger(__METHOD__)->error('Novalnet::$data', $data);
         $json_data = json_encode($data);
         $response = $this->send_request($json_data, $endpoint, $headers);
+         return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/place-order');
         print $response;
         exit;
          
