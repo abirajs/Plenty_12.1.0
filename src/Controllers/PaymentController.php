@@ -308,7 +308,9 @@ class PaymentController extends Controller
     {
         // Get the payment form post data
         $paymentRequestPostData = $this->request->all();
-        $expressResponse = $_REQUEST['delete_action'];
+        if( $_REQUEST['test']){
+        $expressResponse = $_REQUEST['test'];
+        }
         $this->getLogger(__METHOD__)->error('Novalnet::$paymentRequestPostData', $paymentRequestPostData);
         $this->getLogger(__METHOD__)->error('Novalnet::$paymentRequestPostData', $expressResponse);
         return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/place-order');
