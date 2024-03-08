@@ -367,7 +367,7 @@ class PaymentController extends Controller
         
             'payment_type'     => 'GOOGLEPAY',
             'amount'           => $arrayTest['transaction']['amount'],
-            'currency'         => $paymentRequestPostData['nn_currency'],
+            'currency'         => $paymentRequestPostData['nn_accept_gtc'],
             'test_mode'        => ($this->settingsService->getPaymentSettingsValue('test_mode', 'novalnet_googlepay') == true) ? 1 : 0,
             'enforce_3d'           => $paymentRequestPostData['nn_enforce'] ?? 0,
             'create_token'     => 1,
