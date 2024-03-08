@@ -388,6 +388,7 @@ class PaymentController extends Controller
         $this->sessionStorage->getPlugin()->setValue('nnPaymentData',$responseArray);
 	$this->sessionStorage->getPlugin()->setValue('test','test'); 
 	$this->paymentService->HandlePaymentResponse();
+      	 $this->getLogger(__METHOD__)->error('Confirmation', 'Confirmation');
 	return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/confirmation');
          // return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/place-order');
         // print $response;
