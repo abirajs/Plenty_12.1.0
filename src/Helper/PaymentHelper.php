@@ -414,6 +414,7 @@ class PaymentHelper
     public function createPlentyPayment($paymentResponseData)
     {
         try {
+            $this->getLogger(__METHOD__)->error('Novalnet::createPlentyPayment', $paymentResponseData);
             /** @var Payment $payment */
             $payment = pluginApp(\Plenty\Modules\Payment\Models\Payment::class);
             $paymentResponseData['result']['status'] = !empty($paymentResponseData['result']['status']) ? $paymentResponseData['result']['status'] : $paymentResponseData['status'];
@@ -447,7 +448,7 @@ class PaymentHelper
             $paymentProperty[]   = $this->getPaymentProperty(PaymentProperty::TYPE_TRANSACTION_ID, $paymentResponseData['transaction']['tid']);
             $paymentProperty[]   = $this->getPaymentProperty(PaymentProperty::TYPE_ORIGIN, Payment::ORIGIN_PLUGIN);
             $paymentProperty[]   = $this->getPaymentProperty(PaymentProperty::TYPE_EXTERNAL_TRANSACTION_STATUS, $txnStatus);
-
+            
             $payment->properties = $paymentProperty;
             // Create the payment
             $paymentObj = $this->paymentRepository->createPayment($payment);
@@ -488,6 +489,8 @@ class PaymentHelper
     public function assignPlentyPaymentToPlentyOrder(Payment $payment, int $orderId)
     {
         try {
+            $this->getLogger(__METHOD__)->error('Novalnet::assignPlentyPaymentToPlentyOrder', $orderId);
+            
             /** @var \Plenty\Modules\Authorization\Services\AuthHelper $authHelper */
             $authHelper = pluginApp(AuthHelper::class);
             $authHelper->processUnguarded(function() use ($payment, $orderId) {
@@ -498,7 +501,7 @@ class PaymentHelper
                 }
             });
         } catch (\Exception $e) {
-            $this->getLogger(__METHOD__)->error('Novalnet::assignPlentyPaymentToPlentyOrder ' . $orderId, $e);
+            $this->getLogger(__METHOD__)->error('Novalnet::assignPlentyPaymentToPlentyOrder failed' . $orderId, $e);
         }
     }
 
