@@ -386,9 +386,9 @@ class PaymentController extends Controller
 	     $responseArray = json_decode($response, true);
         $this->getLogger(__METHOD__)->error('Novalnet::$response', $responseArray);
         $this->sessionStorage->getPlugin()->setValue('nnPaymentData',$responseArray);
-	    // $this->paymentService->HandlePaymentResponse();
-	    // return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/confirmation');
-         return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/place-order');
+	    $this->paymentService->HandlePaymentResponse();
+	    return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/confirmation');
+         // return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/place-order');
         // print $response;
         // exit;
          
