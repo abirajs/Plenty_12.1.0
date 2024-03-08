@@ -308,9 +308,9 @@ class PaymentController extends Controller
     {
         // Get the payment form post data
         $paymentRequestPostData = $this->request->all();
-
+        $test = json_decode(json_encode($paymentRequestPostData['nn_google_pay_response']));
         $this->getLogger(__METHOD__)->error('Novalnet::$paymentRequestPostData', $paymentRequestPostData);
-
+        $this->getLogger(__METHOD__)->error('Novalnet::$test', $test);
         return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/place-order');
         
     }
