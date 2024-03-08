@@ -310,10 +310,11 @@ class PaymentController extends Controller
         $paymentRequestPostData = $this->request->all();
         $test = json_decode(json_encode($paymentRequestPostData['nn_google_pay_response']));
         $array = json_decode($test, true);
+         $arrayTest = json_decode($array, true);
         $this->getLogger(__METHOD__)->error('Novalnet::$paymentRequestPostData', $paymentRequestPostData);
         $this->getLogger(__METHOD__)->error('Novalnet::$array', $array);
-       
-$this->getLogger(__METHOD__)->error('Novalnet::$arrayname', $array->order->billing->contact->firstName);
+         $this->getLogger(__METHOD__)->error('Novalnet::$arrayTest', $arrayTest);
+
 
         $payment_access_key  = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
         $encoded_data        = base64_encode($payment_access_key);
@@ -335,7 +336,7 @@ $this->getLogger(__METHOD__)->error('Novalnet::$arrayname', $array->order->billi
         
         $data['customer'] = [
             'first_name'  => $array->order->billing->contact->firstName,
-            'last_name'   => 'Mustermann', 
+            'last_name'   => $arrayTest['order']['billing']['contact']['firstName'], 
             'email'       => '###YOUR_MAIL###', 
             'customer_ip' => '###CUSTOMER_IP###',
             'customer_no' => '###CUSTOMER_NUMBER###',
