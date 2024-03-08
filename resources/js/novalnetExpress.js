@@ -67,8 +67,7 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                         // Only on success, we proceed further with the booking
                         if(response.result.status == "SUCCESS") {
                             console.log(response);
-                            var jsonString = JSON.stringify(response);
-                            var jsonObject = JSON.parse(jsonString);
+                            var jsonObject = JSON.parse(response);
                             jQuery('#nn_google_pay_response').val(jsonObject);
                             jQuery('#nn_google_pay_token').val(response.transaction.token);
                             jQuery('#nn_google_pay_do_redirect').val(response.transaction.doRedirect);                               
