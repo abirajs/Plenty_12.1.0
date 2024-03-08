@@ -620,7 +620,11 @@ class PaymentService
         $this->sessionStorage->getPlugin()->setValue('nnDoRedirect', null);
         $this->sessionStorage->getPlugin()->setValue('nnGooglePayDoRedirect', null);
         $nnPaymentData['mop']            = $this->sessionStorage->getPlugin()->getValue('mop');
+        if(isset($nnPaymentData['mop'])) {
         $nnPaymentData['payment_method'] = strtolower($this->paymentHelper->getPaymentKeyByMop($nnPaymentData['mop']));
+        } else {
+        $nnPaymentData['payment_method'] = 'novalnet_googlepay'
+        }
         // If Order No is not received from the payment response assign the from the session
         if(empty($nnPaymentData['transaction']['order_no'])) {
             $nnPaymentData['transaction']['order_no'] = $this->sessionStorage->getPlugin()->getValue('nnOrderNo');
