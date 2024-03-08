@@ -313,6 +313,123 @@ class PaymentController extends Controller
         $this->getLogger(__METHOD__)->error('Novalnet::$paymentRequestPostData', $paymentRequestPostData);
         $this->getLogger(__METHOD__)->error('Novalnet::$array', $array);
         return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/place-order');
+
+
+        $payment_access_key  = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
+        $encoded_data        = base64_encode($payment_access_key);
+        $endpoint            = 'https://payport.novalnet.de/v2/payment';
+        $headers = [
         
+            'Content-Type:application/json',
+            'Charset:utf-8', 
+            'Accept:application/json', 
+            'X-NN-Access-Key:' . $encoded_data, 
+        ];
+        
+        $data = [];
+        
+        $data['merchant'] = [
+            'signature' => $this->settingsService->getPaymentSettingsValue('novalnet_public_key'), 
+            'tariff'    => $this->settingsService->getPaymentSettingsValue('novalnet_tariff_id'), 
+        ];
+        
+        $data['customer'] = [
+            'first_name'  => $array->order->billing->contact->firstName,
+            'last_name'   => 'Mustermann', 
+            'email'       => '###YOUR_MAIL###', 
+            'customer_ip' => '###CUSTOMER_IP###',
+            'customer_no' => '###CUSTOMER_NUMBER###',
+            'tel'         => '+49 089 123456',
+            'mobile'      => '+49 174 7781423',
+            'billing'     => [
+                'house_no'     => '2',
+                'street'       => 'Musterstr',
+                'city'         => 'Musterhausen',
+                'zip'          => '12345',
+                'country_code' => 'DE',
+        	    'company'   => 'ABC GmbH',
+        	    'state'      => 'Berlin'
+            ]   
+             
+            'shipping' => [
+                'first_name'    => 'Norbert',
+                'last_name'     => 'Maier',
+                'email'         => 'test@novalnet.de',
+                'company'       => 'A.B.C. Gerüstbau GmbH',
+        		'house_no'      => '9',
+        		'street'        => 'Hauptstr',
+        		'city'          => 'Kaiserslautern',
+        		'zip'           => '66862',
+        		'country_code'  => 'DE',
+                'tel'           => '+49 089 123456',
+                'mobile'        => '+49 174 7781423',
+                'state'      => 'Berlin'
+            ],
+            
+        ];
+        
+        // Build Transaction Data
+        $data['transaction'] = [
+        
+            'payment_type'     => 'GOOGLEPAY',
+            'amount'           => '###TRANSACTION_AMOUNT###',
+            'currency'         => '###TRANSACTION_CURRENCY###',
+            'test_mode'        => '###TEST_MODE###',
+            'order_no'         => '###TRANSACTION_ORDER_NUMBER###',
+            'hook_url'         => '###YOUR_HOOK_URL###',
+            'invoice_ref'	   => '###INVOICE_REF###',
+            'enforce_3d'           => '1',
+            'create_token'     => 1,
+            'payment_data'     => [        
+                'wallet_token' => '###WALLET_TOKEN###' 
+            ]   
+        ];
+        
+        $data['custom'] = [
+        	'lang'      => 'EN',
+        ];
+        $this->getLogger(__METHOD__)->error('Novalnet::$data', $data);
+        $json_data = json_encode($data);
+        $response = $this->send_request($json_data, $endpoint, $headers);
+        print $response;
+        exit;
+         
+        
+}
+
+  public  function send_request($data, $url, $headers) {
+
+    // Initiate cURL
+    $curl = curl_init();
+    
+    // Set the url
+    curl_setopt($curl, CURLOPT_URL, $url);
+    
+    // Set the result output to be a string
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    
+    // Set the POST value to true (mandatory)
+    curl_setopt($curl, CURLOPT_POST, true);
+    
+    // Set the post fields
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    
+    // Set the headers
+    curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+
+    // Execute cURL
+    $result = curl_exec($curl);
+
+    // Handle cURL error
+    if (curl_errno($curl)) {
+        echo 'Request Error:' . curl_error($curl);
+        return $result;
     }
+    
+    // Close cURL
+    curl_close($curl);  
+   
+    return $result;
+}
+    
 }
