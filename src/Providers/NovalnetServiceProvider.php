@@ -138,6 +138,7 @@ class NovalnetServiceProvider extends ServiceProvider
             GetPaymentMethodContent::class,
             function(GetPaymentMethodContent $event) use($basketRepository, $paymentHelper, $paymentService, $sessionStorage, $twig, $settingsService) {
                 $paymentKey = $paymentHelper->getPaymentKeyByMop($event->getMop());
+                $this->getLogger(__METHOD__)->error('Novalnet::$paymentKey initial', $paymentKey);
                 if($paymentKey) {
                     $paymentRequestData = $paymentService->generatePaymentParams($basketRepository->load(), $paymentKey);
                 if(empty($paymentRequestData['paymentRequestData']['customer']['first_name']) && empty($paymentRequestData['paymentRequestData']['customer']['last_name'])) {
