@@ -85,7 +85,7 @@ class NovalnetExpressButtonDataProvider
                              ];
             $this->getLogger(__METHOD__)->error('Novalnet::$googlePayData', $googlePayData);
             $this->getLogger(__METHOD__)->error('Novalnet::$paymentMethodDetails[0]', $paymentMethodDetails[0]);
-            $this->getLogger(__METHOD__)->error('Novalnet::$paymentService->getProcessPaymentUrl()', $paymentService->getProcessPaymentUrl());
+            $this->getLogger(__METHOD__)->error('Novalnet::$paymentService->getProcessPaymentUrl()', $paymentService->getExpressPaymentUrl());
             // Render the Google Pay button
             return $twig->render('Novalnet::PaymentForm.NovalnetExpressButton',
                                         [
