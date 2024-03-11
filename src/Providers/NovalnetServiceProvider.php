@@ -304,13 +304,13 @@ class NovalnetServiceProvider extends ServiceProvider
             ExecutePayment::class,
             function (ExecutePayment $event) use ($paymentHelper, $paymentService, $sessionStorage, $settingsService)
             {
-                // $test = $sessionStorage->getPlugin()->getValue('test');
-                // if($test == 'test'){
+                $test = $sessionStorage->getPlugin()->getValue('test');
+                if($test == 'test'){
                     $this->getLogger(__METHOD__)->error('$event->getOrderId()', $event->getMop());
                     $sessionStorage->getPlugin()->setValue('nnOrderNo',$event->getOrderId());
                     $sessionStorage->getPlugin()->setValue('mop',$event->getMop());
                     $paymentService->HandlePaymentResponse();
-                // }
+                }
                 $paymentKey = $paymentHelper->getPaymentKeyByMop($event->getMop());
                 $this->getLogger(__METHOD__)->error('Adding PDF comment failed for order', $paymentKey);
                 if($paymentKey) {
