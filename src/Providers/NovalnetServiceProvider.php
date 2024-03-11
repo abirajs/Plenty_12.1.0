@@ -253,12 +253,14 @@ class NovalnetServiceProvider extends ServiceProvider
 
                 // If payment before order creation option was set as 'No' the payment will be created initially
                 if($settingsService->getPaymentSettingsValue('novalnet_order_creation') != true) { 
+                     $this->getLogger(__METHOD__)->error('Novalnet:: option was set as 'No' the paymen',  'option was set as  the paymen');
                     if(in_array($paymentKey, ['NOVALNET_INVOICE', 'NOVALNET_PREPAYMENT', 'NOVALNET_CASHPAYMENT', 'NOVALNET_MULTIBANCO']) || ($paymentKey == 'NOVALNET_GUARANTEED_INVOICE' && $showBirthday == false) || $paymentService->isRedirectPayment($paymentKey)) {
                         $paymentResponseData = $paymentService->performServerCall();
                         if(!empty($paymentResponseData) && ($paymentResponseData['result']['status'] == 'FAILURE' || $paymentResponseData['status'] == 'FAILURE')) {
                             $errorMsg = !empty($paymentResponseData['result']['status_text']) ? $paymentResponseData['result']['status_text'] : $paymentResponseData['status_text'];
                             $content = $errorMsg;
                             $contentType = 'errorCode';
+                            $this->getLogger(__METHOD__)->error('Novalnet:: $contentType, $contentType);
                         } elseif($paymentService->isRedirectPayment($paymentKey)) {
                             if(!empty($paymentResponseData) && !empty($paymentResponseData['result']['redirect_url']) && !empty($paymentResponseData['transaction']['txn_secret'])) {
                                 // Transaction secret used for the later checksum verification
@@ -268,9 +270,11 @@ class NovalnetServiceProvider extends ServiceProvider
                                     'nnPaymentUrl' => $paymentResponseData['result']['redirect_url']
                                 ]);
                                 $contentType = 'htmlContent';
+                                 $this->getLogger(__METHOD__)->error('Novalnet:: $contentType, $contentType);
                             } else {
                                 $content = $paymentResponseData['result']['status_text'];
                                 $contentType = 'errorCode';
+                                 $this->getLogger(__METHOD__)->error('Novalnet:: $contentType, $contentType);
                             }
                         }
                     }
