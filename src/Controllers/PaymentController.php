@@ -322,13 +322,14 @@ class PaymentController extends Controller
         if($checkout instanceof Checkout)
         {
             $paymentMethodId = $this->paymentHelper->getPaymentMethodByKey('NOVALNET_GOOGLEPAY');
+	    $this->getLogger(__METHOD__)->error('Novalnet::$paymentMethodId', $paymentMethodId);
             if($paymentMethodId > 0)
             {
                 $checkout->setPaymentMethodId((int)$paymentMethodId);
+		$this->getLogger(__METHOD__)->error('Novalnet::setPaymentMethodId', 'setPaymentMethodId');
             }
         }
- 	return $this->response->redirectTo('https://8wm6k5wm7963.c01-16.plentymarkets.com/de/kasse/');
-
+ 	return $this->response->redirectTo('checkout');
 
 
 
