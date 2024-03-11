@@ -251,30 +251,30 @@ class NovalnetServiceProvider extends ServiceProvider
                 }
                 // $sessionStorage->getPlugin()->setValue('nnPaymentData', $paymentRequestData);
 
-                // // If payment before order creation option was set as 'No' the payment will be created initially
-                // if($settingsService->getPaymentSettingsValue('novalnet_order_creation') != true) { 
-                //     if(in_array($paymentKey, ['NOVALNET_INVOICE', 'NOVALNET_PREPAYMENT', 'NOVALNET_CASHPAYMENT', 'NOVALNET_MULTIBANCO']) || ($paymentKey == 'NOVALNET_GUARANTEED_INVOICE' && $showBirthday == false) || $paymentService->isRedirectPayment($paymentKey)) {
-                //         $paymentResponseData = $paymentService->performServerCall();
-                //         if(!empty($paymentResponseData) && ($paymentResponseData['result']['status'] == 'FAILURE' || $paymentResponseData['status'] == 'FAILURE')) {
-                //             $errorMsg = !empty($paymentResponseData['result']['status_text']) ? $paymentResponseData['result']['status_text'] : $paymentResponseData['status_text'];
-                //             $content = $errorMsg;
-                //             $contentType = 'errorCode';
-                //         } elseif($paymentService->isRedirectPayment($paymentKey)) {
-                //             if(!empty($paymentResponseData) && !empty($paymentResponseData['result']['redirect_url']) && !empty($paymentResponseData['transaction']['txn_secret'])) {
-                //                 // Transaction secret used for the later checksum verification
-                //                 $sessionStorage->getPlugin()->setValue('nnTxnSecret', $paymentResponseData['transaction']['txn_secret']);
-                //                 $content = $twig->render('Novalnet::NovalnetPaymentRedirectForm', 
-                //                 [
-                //                     'nnPaymentUrl' => $paymentResponseData['result']['redirect_url']
-                //                 ]);
-                //                 $contentType = 'htmlContent';
-                //             } else {
-                //                 $content = $paymentResponseData['result']['status_text'];
-                //                 $contentType = 'errorCode';
-                //             }
-                //         }
-                //     }
-                // }
+                // If payment before order creation option was set as 'No' the payment will be created initially
+                if($settingsService->getPaymentSettingsValue('novalnet_order_creation') != true) { 
+                    if(in_array($paymentKey, ['NOVALNET_INVOICE', 'NOVALNET_PREPAYMENT', 'NOVALNET_CASHPAYMENT', 'NOVALNET_MULTIBANCO']) || ($paymentKey == 'NOVALNET_GUARANTEED_INVOICE' && $showBirthday == false) || $paymentService->isRedirectPayment($paymentKey)) {
+                        $paymentResponseData = $paymentService->performServerCall();
+                        if(!empty($paymentResponseData) && ($paymentResponseData['result']['status'] == 'FAILURE' || $paymentResponseData['status'] == 'FAILURE')) {
+                            $errorMsg = !empty($paymentResponseData['result']['status_text']) ? $paymentResponseData['result']['status_text'] : $paymentResponseData['status_text'];
+                            $content = $errorMsg;
+                            $contentType = 'errorCode';
+                        } elseif($paymentService->isRedirectPayment($paymentKey)) {
+                            if(!empty($paymentResponseData) && !empty($paymentResponseData['result']['redirect_url']) && !empty($paymentResponseData['transaction']['txn_secret'])) {
+                                // Transaction secret used for the later checksum verification
+                                $sessionStorage->getPlugin()->setValue('nnTxnSecret', $paymentResponseData['transaction']['txn_secret']);
+                                $content = $twig->render('Novalnet::NovalnetPaymentRedirectForm', 
+                                [
+                                    'nnPaymentUrl' => $paymentResponseData['result']['redirect_url']
+                                ]);
+                                $contentType = 'htmlContent';
+                            } else {
+                                $content = $paymentResponseData['result']['status_text'];
+                                $contentType = 'errorCode';
+                            }
+                        }
+                    }
+                }
                 $event->setValue($content);
                 $event->setType($contentType);
             }
@@ -311,38 +311,38 @@ class NovalnetServiceProvider extends ServiceProvider
                     $sessionStorage->getPlugin()->setValue('mop',$event->getMop());
                     $paymentService->HandlePaymentResponse();
                 // }
-                // $paymentKey = $paymentHelper->getPaymentKeyByMop($event->getMop());
-                // $this->getLogger(__METHOD__)->error('Adding PDF comment failed for order', $paymentKey);
-                // if($paymentKey) {
-                //     $sessionStorage->getPlugin()->setValue('nnOrderNo',$event->getOrderId());
-                //     $sessionStorage->getPlugin()->setValue('mop',$event->getMop());
-                //     $sessionStorage->getPlugin()->setValue('paymentkey', $paymentKey);
-                //     $this->getLogger(__METHOD__)->error('$event->getOrderId()', $event->getOrderId());
-                //     $this->getLogger(__METHOD__)->error('$event->getOrderId()', $event->getMop());
-                //     $nnDoRedirect = $sessionStorage->getPlugin()->getValue('nnDoRedirect');
-                //     $nnGooglePayDoRedirect = $sessionStorage->getPlugin()->getValue('nnGooglePayDoRedirect');
-                //     if($settingsService->getPaymentSettingsValue('novalnet_order_creation') == true) {
-                //         $paymentResponseData = $paymentService->performServerCall();
-                //         if($paymentService->isRedirectPayment($paymentKey) || !empty($nnDoRedirect) || (!empty($nnGooglePayDoRedirect) && (string) $nnGooglePayDoRedirect === 'true')) {
-                //             if(!empty($paymentResponseData) && !empty($paymentResponseData['result']['redirect_url']) && !empty($paymentResponseData['transaction']['txn_secret'])) {
-                //                 // Transaction secret used for the later checksum verification
-                //                 $sessionStorage->getPlugin()->setValue('nnTxnSecret', $paymentResponseData['transaction']['txn_secret']);
-                //                 $sessionStorage->getPlugin()->setValue('nnDoRedirect', null);
-                //                 $sessionStorage->getPlugin()->setValue('nnGooglePayDoRedirect', null);
-                //                 $event->setType('redirectUrl');
-                //                 $event->setValue($paymentResponseData['result']['redirect_url']);
-                //             } else {
-                //                // Handle an error case and set the return type and value for the event.
-                //                 $event->setType('error');
-                //                 $event->setValue($paymentResponseData['result']['status_text']);
-                //             }
-                //         }
-                //     } else {
-                //             // Handle the further process to the order based on the payment response for direct payment payments
-                //             $this->getLogger(__METHOD__)->error('HandlePaymentResponse', 'HandlePaymentResponse');
-                //             $paymentService->HandlePaymentResponse();
-                //    }
-                // }
+                $paymentKey = $paymentHelper->getPaymentKeyByMop($event->getMop());
+                $this->getLogger(__METHOD__)->error('Adding PDF comment failed for order', $paymentKey);
+                if($paymentKey) {
+                    $sessionStorage->getPlugin()->setValue('nnOrderNo',$event->getOrderId());
+                    $sessionStorage->getPlugin()->setValue('mop',$event->getMop());
+                    $sessionStorage->getPlugin()->setValue('paymentkey', $paymentKey);
+                    $this->getLogger(__METHOD__)->error('$event->getOrderId()', $event->getOrderId());
+                    $this->getLogger(__METHOD__)->error('$event->getOrderId()', $event->getMop());
+                    $nnDoRedirect = $sessionStorage->getPlugin()->getValue('nnDoRedirect');
+                    $nnGooglePayDoRedirect = $sessionStorage->getPlugin()->getValue('nnGooglePayDoRedirect');
+                    if($settingsService->getPaymentSettingsValue('novalnet_order_creation') == true) {
+                        $paymentResponseData = $paymentService->performServerCall();
+                        if($paymentService->isRedirectPayment($paymentKey) || !empty($nnDoRedirect) || (!empty($nnGooglePayDoRedirect) && (string) $nnGooglePayDoRedirect === 'true')) {
+                            if(!empty($paymentResponseData) && !empty($paymentResponseData['result']['redirect_url']) && !empty($paymentResponseData['transaction']['txn_secret'])) {
+                                // Transaction secret used for the later checksum verification
+                                $sessionStorage->getPlugin()->setValue('nnTxnSecret', $paymentResponseData['transaction']['txn_secret']);
+                                $sessionStorage->getPlugin()->setValue('nnDoRedirect', null);
+                                $sessionStorage->getPlugin()->setValue('nnGooglePayDoRedirect', null);
+                                $event->setType('redirectUrl');
+                                $event->setValue($paymentResponseData['result']['redirect_url']);
+                            } else {
+                               // Handle an error case and set the return type and value for the event.
+                                $event->setType('error');
+                                $event->setValue($paymentResponseData['result']['status_text']);
+                            }
+                        }
+                    } else {
+                            // Handle the further process to the order based on the payment response for direct payment payments
+                            $this->getLogger(__METHOD__)->error('HandlePaymentResponse', 'HandlePaymentResponse');
+                            $paymentService->HandlePaymentResponse();
+                   }
+                }
             });
     }
 
