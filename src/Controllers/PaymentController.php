@@ -20,6 +20,7 @@ use Plenty\Modules\Basket\Contracts\BasketRepositoryContract;
 use Plenty\Modules\Account\Address\Models\Address;
 use Plenty\Plugin\Templates\Twig;
 use Plenty\Plugin\Log\Loggable;
+use Plenty\Modules\Frontend\Contracts\Checkout;
 
 /**
  * Class PaymentController
