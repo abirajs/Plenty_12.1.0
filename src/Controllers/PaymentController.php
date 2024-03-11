@@ -311,86 +311,101 @@ class PaymentController extends Controller
         $paymentRequestPostData = $this->request->all();
         $test = json_decode(json_encode($paymentRequestPostData['nn_google_pay_response']));
         $array = json_decode($test, true);
-         $arrayTest = (array) $array;
+        $arrayTest = (array) $array;
         $this->getLogger(__METHOD__)->error('Novalnet::$paymentRequestPostData', $paymentRequestPostData);
         $this->getLogger(__METHOD__)->error('Novalnet::$array', $array);
-         $this->getLogger(__METHOD__)->error('Novalnet::$arrayTest', $arrayTest);
+        $this->getLogger(__METHOD__)->error('Novalnet::$arrayTest', $arrayTest);
+
+	    
+	$basket = $this->basketRepository->load();
+	$checkout = pluginApp(\Plenty\Modules\Frontend\Contracts\Checkout::class);
+        if($checkout instanceof Checkout)
+        {
+            $paymentMethodId = $this->paymentHelper->getPaymentMethodByKey('NOVALNET_GOOGLEPAY');
+            if($paymentMethodId > 0)
+            {
+                $checkout->setPaymentMethodId((int)$paymentMethodId);
+            }
+        }
+ 	return $this->response->redirectTo('https://8wm6k5wm7963.c01-16.plentymarkets.com/de/kasse/');
 
 
-        $payment_access_key  = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
-        $encoded_data        = base64_encode($payment_access_key);
-        $endpoint            = 'https://payport.novalnet.de/v2/payment';
-        $headers = [
+
+
+ //        $payment_access_key  = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
+ //        $encoded_data        = base64_encode($payment_access_key);
+ //        $endpoint            = 'https://payport.novalnet.de/v2/payment';
+ //        $headers = [
         
-            'Content-Type:application/json',
-            'Charset:utf-8', 
-            'Accept:application/json', 
-            'X-NN-Access-Key:' . $encoded_data, 
-        ];
+ //            'Content-Type:application/json',
+ //            'Charset:utf-8', 
+ //            'Accept:application/json', 
+ //            'X-NN-Access-Key:' . $encoded_data, 
+ //        ];
         
-       $data = [];
+ //       $data = [];
         
-        $data['merchant'] = [
-            'signature' => $this->settingsService->getPaymentSettingsValue('novalnet_public_key'), 
-            'tariff'    => $this->settingsService->getPaymentSettingsValue('novalnet_tariff_id'), 
-        ];
+ //        $data['merchant'] = [
+ //            'signature' => $this->settingsService->getPaymentSettingsValue('novalnet_public_key'), 
+ //            'tariff'    => $this->settingsService->getPaymentSettingsValue('novalnet_tariff_id'), 
+ //        ];
         
-        $data['customer'] = [
-            'first_name'  => $arrayTest['order']['billing']['contact']['firstName'],
-            'last_name'   => $arrayTest['order']['billing']['contact']['lastName'], 
-            'email'       => $arrayTest['order']['billing']['contact']['email'], 
-            'customer_ip' => '192.168.2.125',
-            'customer_no' => 'guest',
-            'billing'     => [
-                'house_no'     => $arrayTest['order']['billing']['contact']['addressLines'],
-                'street'       => $arrayTest['order']['billing']['contact']['addressLines'],
-                'city'         => $arrayTest['order']['billing']['contact']['locality'],
-                'zip'          => $arrayTest['order']['billing']['contact']['postalCode'],
-                'country_code' => $arrayTest['order']['billing']['contact']['countryCode'],
-        	    'company'   => 'ABC GmbH',
-        	    'state'      => 'Berlin'
-            ] ,  
+ //        $data['customer'] = [
+ //            'first_name'  => $arrayTest['order']['billing']['contact']['firstName'],
+ //            'last_name'   => $arrayTest['order']['billing']['contact']['lastName'], 
+ //            'email'       => $arrayTest['order']['billing']['contact']['email'], 
+ //            'customer_ip' => '192.168.2.125',
+ //            'customer_no' => 'guest',
+ //            'billing'     => [
+ //                'house_no'     => $arrayTest['order']['billing']['contact']['addressLines'],
+ //                'street'       => $arrayTest['order']['billing']['contact']['addressLines'],
+ //                'city'         => $arrayTest['order']['billing']['contact']['locality'],
+ //                'zip'          => $arrayTest['order']['billing']['contact']['postalCode'],
+ //                'country_code' => $arrayTest['order']['billing']['contact']['countryCode'],
+ //        	    'company'   => 'ABC GmbH',
+ //        	    'state'      => 'Berlin'
+ //            ] ,  
              
-            'shipping' => [
-				'first_name'  => $arrayTest['order']['shipping']['contact']['firstName'],
-				'last_name'   => $arrayTest['order']['shipping']['contact']['lastName'], 
-                'house_no'     => $arrayTest['order']['shipping']['contact']['addressLines'],
-                'street'       => $arrayTest['order']['shipping']['contact']['addressLines'],
-                'city'         => $arrayTest['order']['shipping']['contact']['locality'],
-                'zip'          => $arrayTest['order']['shipping']['contact']['postalCode'],
-                'country_code' => $arrayTest['order']['shipping']['contact']['countryCode'],
-            ],
+ //            'shipping' => [
+	// 			'first_name'  => $arrayTest['order']['shipping']['contact']['firstName'],
+	// 			'last_name'   => $arrayTest['order']['shipping']['contact']['lastName'], 
+ //                'house_no'     => $arrayTest['order']['shipping']['contact']['addressLines'],
+ //                'street'       => $arrayTest['order']['shipping']['contact']['addressLines'],
+ //                'city'         => $arrayTest['order']['shipping']['contact']['locality'],
+ //                'zip'          => $arrayTest['order']['shipping']['contact']['postalCode'],
+ //                'country_code' => $arrayTest['order']['shipping']['contact']['countryCode'],
+ //            ],
             
-        ];
+ //        ];
         
-        // Build Transaction Data
-        $data['transaction'] = [
+ //        // Build Transaction Data
+ //        $data['transaction'] = [
         
-            'payment_type'     => 'GOOGLEPAY',
-            'amount'           => $arrayTest['transaction']['amount'],
-            'currency'         => $paymentRequestPostData['nn_accept_gtc'],
-            'test_mode'        => ($this->settingsService->getPaymentSettingsValue('test_mode', 'novalnet_googlepay') == true) ? 1 : 0,
-            'enforce_3d'           => $paymentRequestPostData['nn_enforce'] ?? 0,
-            'create_token'     => 1,
-            'payment_data'     => [        
-                'wallet_token' => $paymentRequestPostData['nn_google_pay_token'] 
-            ]   
-        ];
+ //            'payment_type'     => 'GOOGLEPAY',
+ //            'amount'           => $arrayTest['transaction']['amount'],
+ //            'currency'         => $paymentRequestPostData['nn_accept_gtc'],
+ //            'test_mode'        => ($this->settingsService->getPaymentSettingsValue('test_mode', 'novalnet_googlepay') == true) ? 1 : 0,
+ //            'enforce_3d'           => $paymentRequestPostData['nn_enforce'] ?? 0,
+ //            'create_token'     => 1,
+ //            'payment_data'     => [        
+ //                'wallet_token' => $paymentRequestPostData['nn_google_pay_token'] 
+ //            ]   
+ //        ];
         
-        $data['custom'] = [
-        	'lang'      => strtoupper($this->sessionStorage->getLocaleSettings()->language),
-        ];
-        $this->getLogger(__METHOD__)->error('Novalnet::$data', $data);
-        $json_data = json_encode($data);
-        $response = $this->send_request($json_data, $endpoint, $headers);
-	     $responseArray = json_decode($response, true);
-        $this->getLogger(__METHOD__)->error('Novalnet::$response', $responseArray);
-        $this->sessionStorage->getPlugin()->setValue('nnPaymentData',$responseArray);
-	$this->sessionStorage->getPlugin()->setValue('test','test'); 
+ //        $data['custom'] = [
+ //        	'lang'      => strtoupper($this->sessionStorage->getLocaleSettings()->language),
+ //        ];
+ //        $this->getLogger(__METHOD__)->error('Novalnet::$data', $data);
+ //        $json_data = json_encode($data);
+ //        $response = $this->send_request($json_data, $endpoint, $headers);
+	//      $responseArray = json_decode($response, true);
+ //        $this->getLogger(__METHOD__)->error('Novalnet::$response', $responseArray);
+ //        $this->sessionStorage->getPlugin()->setValue('nnPaymentData',$responseArray);
+	// $this->sessionStorage->getPlugin()->setValue('test','test'); 
 	// return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/place-order');
-	$this->paymentService->HandlePaymentResponse();
-	return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/confirmation');
-        $this->getLogger(__METHOD__)->error('Confirmation', 'Confirmation');
+	// $this->paymentService->HandlePaymentResponse();
+	// return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/confirmation');
+ //        $this->getLogger(__METHOD__)->error('Confirmation', 'Confirmation');
         
          
         
