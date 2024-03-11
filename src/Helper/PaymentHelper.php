@@ -421,7 +421,7 @@ class PaymentHelper
             // Get the Novalnet payment method Id if it is missing in the response
             if(empty($paymentResponseData['mop'])) {
                 $paymentMethodDetail = $this->getPaymentMethodByKey($this->getPaymentKey($paymentResponseData['transaction']['payment_type']));
-                $paymentResponseData['mop'] = $paymentMethodDetail[0];
+                $paymentResponseData['mop'] = $paymentMethodDetail[0] ?? 6035;
             }
             $payment->mopId           = (int) $paymentResponseData['mop'];
             $payment->transactionType = Payment::TRANSACTION_TYPE_BOOKED_POSTING;
