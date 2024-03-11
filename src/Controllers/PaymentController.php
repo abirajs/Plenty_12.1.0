@@ -328,7 +328,9 @@ class PaymentController extends Controller
             if($paymentMethodId[0] > 0)
             {
                 $checkout->setPaymentMethodId((int)$paymentMethodId[0]);
+	        $this->sessionStorage->getPlugin()->setValue('test','test');
 		$this->getLogger(__METHOD__)->error('Novalnet::setPaymentMethodId', 'setPaymentMethodId');
+		    
             }
         }
 	$this->getLogger(__METHOD__)->error('Novalnet::checkout', 'checkout');
