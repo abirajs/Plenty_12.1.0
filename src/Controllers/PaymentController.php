@@ -324,10 +324,10 @@ class PaymentController extends Controller
         if($checkout instanceof Checkout)
         {
             $paymentMethodId = $this->paymentHelper->getPaymentMethodByKey('NOVALNET_GOOGLEPAY');
-	    $this->getLogger(__METHOD__)->error('Novalnet::$paymentMethodId', $paymentMethodId);
-            if($paymentMethodId > 0)
+	    $this->getLogger(__METHOD__)->error('Novalnet::$paymentMethodId', $paymentMethodId[0]);
+            if($paymentMethodId[0] > 0)
             {
-                $checkout->setPaymentMethodId((int)$paymentMethodId);
+                $checkout->setPaymentMethodId((int)$paymentMethodId[0]);
 		$this->getLogger(__METHOD__)->error('Novalnet::setPaymentMethodId', 'setPaymentMethodId');
             }
         }
