@@ -319,6 +319,7 @@ class PaymentController extends Controller
 	    
 	$basket = $this->basketRepository->load();
 	$checkout = pluginApp(\Plenty\Modules\Frontend\Contracts\Checkout::class);
+	$this->getLogger(__METHOD__)->error('Novalnet::$checkout', $checkout);
         if($checkout instanceof Checkout)
         {
             $paymentMethodId = $this->paymentHelper->getPaymentMethodByKey('NOVALNET_GOOGLEPAY');
@@ -329,6 +330,7 @@ class PaymentController extends Controller
 		$this->getLogger(__METHOD__)->error('Novalnet::setPaymentMethodId', 'setPaymentMethodId');
             }
         }
+	$this->getLogger(__METHOD__)->error('Novalnet::checkout', 'checkout');
  	return $this->response->redirectTo('checkout');
 
 
