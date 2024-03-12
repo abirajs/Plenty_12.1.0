@@ -11,6 +11,7 @@ namespace Novalnet\Providers;
 
 use Novalnet\Helper\PaymentHelper;
 use Novalnet\Services\PaymentService;
+use Novalnet\Controller\PaymentController;
 use Novalnet\Assistants\NovalnetAssistant;
 use Novalnet\Methods\NovalnetPaymentAbstract;
 use Novalnet\Constants\NovalnetConstants;
@@ -181,7 +182,8 @@ class NovalnetServiceProvider extends ServiceProvider
                         ]);
                         $contentType = 'htmlContent';
                     } elseif (this->sessionStorage->getPlugin()->getValue('test') == 'test') {
-                         $content = '';
+                         $this->getLogger(__METHOD__)->error('Novalnet::test test', 'test');
+                        $content = '';
                         $contentType = 'continue';
                     }
                 }
