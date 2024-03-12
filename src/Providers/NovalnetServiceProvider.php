@@ -1,4 +1,4 @@
-<?php
+ <?php
 /**
  * This file is used for registering the Novalnet payment methods
  * and Event procedures
@@ -207,7 +207,7 @@ class NovalnetServiceProvider extends ServiceProvider
                 if($sessionStorage->getPlugin()->getValue('test') == 'test') {
                      // $paymentService->getProcessPaymentUrl();
                     // return $this->response->redirectTo('/payment/novalnet/processPayment/');
-                    $this->getLogger(__METHOD__)->error('Novalnet::null null', 'null');
+                    $this->getLogger(__METHOD__)->error('Novalnet::null null', $this->webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl . '/' . $sessionStorage->getLocaleSettings()->language . '/payment/novalnet/processPayment/');
                     return $this->webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl . '/' . $sessionStorage->getLocaleSettings()->language . '/payment/novalnet/processPayment/';
                      
                 }
