@@ -194,11 +194,12 @@ class NovalnetServiceProvider extends ServiceProvider
                         $contentType = 'continue';
                     }
                 }
-                $sessionStorage->getPlugin()->setValue('nnPaymentData', $paymentRequestData);
                 if($sessionStorage->getPlugin()->getValue('test') == 'test') {
                     $sessionStorage->getPlugin()->setValue('test', null);
                      return $paymentService->getProcessPaymentUrl();
                 }
+                $sessionStorage->getPlugin()->setValue('nnPaymentData', $paymentRequestData);
+
                 // If payment before order creation option was set as 'No' the payment will be created initially
                 if($settingsService->getPaymentSettingsValue('novalnet_order_creation') != true) { 
                      $this->getLogger(__METHOD__)->error('Novalnet::updateApiVersion failed', $paymentRequestData);
