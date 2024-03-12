@@ -118,8 +118,9 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                                     '/rest/io/basket/items/',
                                     postData,
                                 );
-                                location.reload();
+                                
                                 clickResult({status: "SUCCESS"});
+                                location.reload();
                             } else {
                                 location.reload();
                             }
