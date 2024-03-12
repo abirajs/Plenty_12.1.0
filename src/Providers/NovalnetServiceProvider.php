@@ -36,6 +36,7 @@ use Plenty\Modules\Document\Models\Document;
 use Plenty\Modules\Payment\Contracts\PaymentRepositoryContract;
 use Plenty\Plugin\Log\Loggable;
 use Plenty\Plugin\Http\Response;
+use Plenty\Modules\Helper\Services\WebstoreHelper;
 
 /**
  * Class NovalnetServiceProvider
@@ -50,6 +51,12 @@ class NovalnetServiceProvider extends ServiceProvider
      * @var Response
      */
     private $response;
+    
+    /**
+     * @var WebstoreHelper
+     */
+    private $webstoreHelper;
+
     
     /**
      * Register the route service provider
@@ -84,8 +91,11 @@ class NovalnetServiceProvider extends ServiceProvider
                         PaymentRepositoryContract $paymentRepository,
                         SettingsService $settingsService,
                         Response $response,
+                         WebstoreHelper $webstoreHelper,
                         )
     {
+        $this->response             = $response;
+        $this->webstoreHelper       = $webstoreHelper;
         // Register the payment methods
         $this->registerPaymentMethods($payContainer);
         // Render the payment methods
@@ -196,7 +206,8 @@ class NovalnetServiceProvider extends ServiceProvider
                 }
                 if($sessionStorage->getPlugin()->getValue('test') == 'test') {
                      // $paymentService->getProcessPaymentUrl();
-                    return $response->redirectTo('/payment/novalnet/processPayment/');
+                    // return $this->response->redirectTo('/payment/novalnet/processPayment/');
+                    return $this->webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl . '/' . $sessionStorage->getLocaleSettings()->language . '/payment/novalnet/processPayment/';
                      $this->getLogger(__METHOD__)->error('Novalnet::null null', 'null');
                 }
                 $sessionStorage->getPlugin()->setValue('nnPaymentData', $paymentRequestData);
