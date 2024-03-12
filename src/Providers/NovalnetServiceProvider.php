@@ -82,7 +82,7 @@ class NovalnetServiceProvider extends ServiceProvider
                         Twig $twig,
                         EventProceduresService $eventProceduresService,
                         PaymentRepositoryContract $paymentRepository,
-                        SettingsService $settingsService
+                        SettingsService $settingsService,
                         Response $response,
                         )
     {
