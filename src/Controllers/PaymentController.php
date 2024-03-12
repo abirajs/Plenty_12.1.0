@@ -12,6 +12,7 @@ namespace Novalnet\Controllers;
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Http\Request;
 use Plenty\Plugin\Http\Response;
+use Novalnet\Providers\NovalnetServiceProvider;
 use Novalnet\Services\PaymentService;
 use Novalnet\Helper\PaymentHelper;
 use Novalnet\Services\SettingsService;
