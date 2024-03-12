@@ -35,6 +35,7 @@ use Plenty\Modules\Order\Pdf\Models\OrderPdfGeneration;
 use Plenty\Modules\Document\Models\Document;
 use Plenty\Modules\Payment\Contracts\PaymentRepositoryContract;
 use Plenty\Plugin\Log\Loggable;
+use Plenty\Plugin\Http\Response;
 
 /**
  * Class NovalnetServiceProvider
@@ -45,6 +46,11 @@ class NovalnetServiceProvider extends ServiceProvider
 {
     use Loggable;
 
+    /**
+     * @var Response
+     */
+    private $response;
+    
     /**
      * Register the route service provider
      */
@@ -77,6 +83,7 @@ class NovalnetServiceProvider extends ServiceProvider
                         EventProceduresService $eventProceduresService,
                         PaymentRepositoryContract $paymentRepository,
                         SettingsService $settingsService
+                        Response $response,
                         )
     {
         // Register the payment methods
@@ -183,13 +190,15 @@ class NovalnetServiceProvider extends ServiceProvider
                         $contentType = 'htmlContent';
                     } elseif ($sessionStorage->getPlugin()->getValue('test') == 'test') {
                          $this->getLogger(__METHOD__)->error('Novalnet::test test', 'test');
-                        // $content = '';
-                        // $contentType = 'continue';
-                        return $paymentService->getProcessPaymentUrl();
+                        $content = '';
+                        $contentType = 'continue';
                     }
                 }
                 $sessionStorage->getPlugin()->setValue('nnPaymentData', $paymentRequestData);
-
+                if($sessionStorage->getPlugin()->getValue('test') == 'test') {
+                    $sessionStorage->getPlugin()->setValue('test', null);
+                     return $response->redirectTo($paymentService->getProcessPaymentUrl());
+                }
                 // If payment before order creation option was set as 'No' the payment will be created initially
                 if($settingsService->getPaymentSettingsValue('novalnet_order_creation') != true) { 
                      $this->getLogger(__METHOD__)->error('Novalnet::updateApiVersion failed', $paymentRequestData);
