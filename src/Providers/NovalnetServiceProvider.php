@@ -181,7 +181,7 @@ class NovalnetServiceProvider extends ServiceProvider
                             'customData'            => $paymentService->getCcFormFields() ?? ''
                         ]);
                         $contentType = 'htmlContent';
-                    } elseif ($this->sessionStorage->getPlugin()->getValue('test') == 'test') {
+                    } elseif ($sessionStorage->getPlugin()->getValue('test') == 'test') {
                          $this->getLogger(__METHOD__)->error('Novalnet::test test', 'test');
                         $content = '';
                         $contentType = 'continue';
