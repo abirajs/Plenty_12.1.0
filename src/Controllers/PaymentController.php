@@ -111,7 +111,12 @@ class PaymentController extends Controller
     {
         // Get the initial payment call response
         $paymentResponseData = $this->request->all();
-
+	if($sessionStorage->getPlugin()->getValue('test') == 'test') {
+	    $paymentResponseData = $sessionStorage->getPlugin()->getValue('postData');
+	     $this->getLogger(__METHOD__)->error('Novalnet::postData', 'postData');
+	     $sessionStorage->getPlugin()->setValue('postData', null);
+	     $sessionStorage->getPlugin()->setValue('test', null);
+	}
         // Checksum validation for redirects
         if(!empty($paymentResponseData['tid'])) {
             if($paymentResponseData['status'] == 'SUCCESS') {
