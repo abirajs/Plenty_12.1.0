@@ -23,6 +23,14 @@ use Plenty\Plugin\Templates\Twig;
 use Plenty\Plugin\Log\Loggable;
 use Plenty\Modules\Frontend\Contracts\Checkout;
 
+use Plenty\Modules\Order\Shipping\Countries\Contracts\CountryRepositoryContract;
+use Plenty\Modules\Order\Shipping\Countries\Models\Country;
+use Plenty\Modules\Account\Address\Models\AddressOption;
+use Plenty\Modules\Account\Address\Models\AddressRelationType;
+use Plenty\Modules\Account\Address\Contracts\AddressRepositoryContract;
+use Plenty\Modules\Account\Contact\Contracts\ContactAddressRepositoryContract;
+use Plenty\Modules\Frontend\Services\AccountService;
+
 /**
  * Class PaymentController
  *
@@ -72,6 +80,16 @@ class PaymentController extends Controller
     private $twig;
 
     /**
+     * @var AddressRepositoryContract
+     */
+    private $addressContract;
+
+    /**
+     * @var Checkout
+     */
+    private $checkout;
+    
+    /**
      * Constructor.
      *
      * @param Request $request
@@ -90,6 +108,8 @@ class PaymentController extends Controller
                                 SettingsService $settingsService,
                                 FrontendSessionStorageFactoryContract $sessionStorage,
                                 BasketRepositoryContract $basketRepository,
+                                AddressRepositoryContract $addressRepositoryContract,
+                                Checkout $checkout,
                                 Twig $twig
                                )
     {
@@ -101,6 +121,9 @@ class PaymentController extends Controller
         $this->sessionStorage   = $sessionStorage;
         $this->basketRepository = $basketRepository;
         $this->twig             = $twig;
+        
+        $this->addressContract = $addressRepositoryContract;
+        $this->checkout = $checkout;
     }
 
     /**
@@ -340,7 +363,61 @@ class PaymentController extends Controller
 		    
             }
         }
-	$this->getLogger(__METHOD__)->error('Novalnet::checkout', 'checkout');
+		$this->getLogger(__METHOD__)->error('Novalnet::checkout', 'checkout');
+
+
+
+		$address = pluginApp(\Plenty\Modules\Account\Address\Models\Address::class);
+
+		$countryContract = pluginApp(\Plenty\Modules\Order\Shipping\Countries\Contracts\CountryRepositoryContract::class);
+
+		$country = $countryContract->getCountryByIso('DE', 'isoCode2');
+
+		$address->name2 = 'testte';
+		$address->name3 = 'testte';
+		$address->address1 = 'testte';
+		$address->address2 = 'testte';
+		$address->town = 'testte';
+		$address->postalCode = '66862';
+		$address->countryId = $country->id;
+
+		$addressOptions = [];
+
+		/** @var AddressOption $addressOption */
+		$addressOption = pluginApp(\Plenty\Modules\Account\Address\Models\AddressOption::class);
+		$addressOption = pluginApp(\Plenty\Modules\Account\Address\Models\AddressOption::class);
+
+		$addressOption->typeId = AddressOption::TYPE_EMAIL;
+		$addressOption->value = $email;
+		$addressOptions[] = $addressOption->toArray();
+		$address->options = $addressOptions;
+
+		$this->getLogger(__METHOD__)->error('Novalnet::$address', $address);
+		$accountService = pluginApp(\Plenty\Modules\Frontend\Services\AccountService::class);
+		$contactId = $accountService->getAccountContactId();
+
+		$this->getLogger(__METHOD__)->error('Novalnet::$contactId', $contactId);
+		if(!empty($contactId) && $contactId > 0)
+		{
+			$this->getLogger(__METHOD__)->error('contact id created succesfully', $contactId);
+			$contactAddress = pluginApp(\Plenty\Modules\Account\Contact\Contracts\ContactAddressRepositoryContract::class);
+			$createdAddress = $contactAddress->createAddress($address->toArray(), $contactId, AddressRelationType::DELIVERY_ADDRESS);
+		}
+		else
+		{
+			$this->getLogger(__METHOD__)->error('contact id failed', $contactId);
+			$createdAddress = $this->addressContract->createAddress($address->toArray());
+			if(empty($this->checkout->getCustomerInvoiceAddressId()))
+			{
+				$this->getLogger(__METHOD__)->error('setCustomerInvoiceAddressId', $createdAddress->id);
+				$this->checkout->setCustomerInvoiceAddressId($createdAddress->id);
+			}
+		}
+		$this->getLogger(__METHOD__)->error('setCustomerShippingAddressId', $createdAddress->id);
+		$this->checkout->setCustomerShippingAddressId($createdAddress->id);
+	}
+	
+
  	return $this->response->redirectTo('checkout');
 
 
