@@ -208,7 +208,7 @@ class NovalnetServiceProvider extends ServiceProvider
                      // $paymentService->getProcessPaymentUrl();
                     // return $this->response->redirectTo('/payment/novalnet/processPayment/');
                     $this->getLogger(__METHOD__)->error('Novalnet::null null', 'null');
-                    return $this->webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl . '/' . $sessionStorage->getLocaleSettings()->language . '/payment/novalnet/processPayment/';
+                    // return $this->webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl . '/' . $sessionStorage->getLocaleSettings()->language . '/payment/novalnet/processPayment/';
                      
                 }
                 $sessionStorage->getPlugin()->setValue('nnPaymentData', $paymentRequestData);
