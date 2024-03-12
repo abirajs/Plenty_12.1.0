@@ -415,11 +415,11 @@ class PaymentController extends Controller
 		}
 		$this->getLogger(__METHOD__)->error('setCustomerShippingAddressId', $createdAddress->id);
 		$this->checkout->setCustomerShippingAddressId($createdAddress->id);
-	}
+	
 	
 
  	return $this->response->redirectTo('checkout');
-
+}
 
 
  //        $payment_access_key  = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
@@ -499,7 +499,7 @@ class PaymentController extends Controller
         
          
         
-}
+
 
   public  function send_request($data, $url, $headers) {
 
