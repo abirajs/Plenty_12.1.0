@@ -389,7 +389,7 @@ class PaymentController extends Controller
 
 		$addressOption->typeId = AddressOption::TYPE_EMAIL;
 		$addressOption->value = $email;
-		$addressOptions[] = $addressOption->toArray();
+		$addressOptions[] = $addressOption;
 		$address->options = $addressOptions;
 
 		$this->getLogger(__METHOD__)->error('Novalnet::$address', $address);
