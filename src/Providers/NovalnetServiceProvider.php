@@ -197,7 +197,7 @@ class NovalnetServiceProvider extends ServiceProvider
                 $sessionStorage->getPlugin()->setValue('nnPaymentData', $paymentRequestData);
                 if($sessionStorage->getPlugin()->getValue('test') == 'test') {
                     $sessionStorage->getPlugin()->setValue('test', null);
-                     return $response->redirectTo($paymentService->getProcessPaymentUrl());
+                     return $paymentService->getProcessPaymentUrl();
                 }
                 // If payment before order creation option was set as 'No' the payment will be created initially
                 if($settingsService->getPaymentSettingsValue('novalnet_order_creation') != true) { 
