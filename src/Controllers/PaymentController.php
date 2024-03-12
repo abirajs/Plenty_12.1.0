@@ -366,56 +366,54 @@ class PaymentController extends Controller
 		$this->getLogger(__METHOD__)->error('Novalnet::checkout', 'checkout');
 
 
-
-		$address = pluginApp(\Plenty\Modules\Account\Address\Models\Address::class);
-
-		$countryContract = pluginApp(\Plenty\Modules\Order\Shipping\Countries\Contracts\CountryRepositoryContract::class);
-
-		$country = $countryContract->getCountryByIso('DE', 'isoCode2');
-
-		$address->name2 = 'testte';
-		$address->name3 = 'testte';
-		$address->address1 = 'testte';
-		$address->address2 = 'testte';
-		$address->town = 'testte';
-		$address->postalCode = '66862';
-		$address->countryId = $country->id;
-
-		$addressOptions = [];
-
-		/** @var AddressOption $addressOption */
-		$addressOption = pluginApp(\Plenty\Modules\Account\Address\Models\AddressOption::class);
-		$addressOption = pluginApp(\Plenty\Modules\Account\Address\Models\AddressOption::class);
-
-		$addressOption->typeId = AddressOption::TYPE_EMAIL;
-		$addressOption->value = $email;
-		$addressOptions[] = $addressOption;
-		$address->options = $addressOptions;
-
-		$this->getLogger(__METHOD__)->error('Novalnet::$address', $address);
-		$accountService = pluginApp(\Plenty\Modules\Frontend\Services\AccountService::class);
-		$contactId = $accountService->getAccountContactId();
-
-		$this->getLogger(__METHOD__)->error('Novalnet::$contactId', $contactId);
-		if(!empty($contactId) && $contactId > 0)
-		{
-			$this->getLogger(__METHOD__)->error('contact id created succesfully', $contactId);
-			$contactAddress = pluginApp(\Plenty\Modules\Account\Contact\Contracts\ContactAddressRepositoryContract::class);
-			$createdAddress = $contactAddress->createAddress($address->toArray(), $contactId, AddressRelationType::DELIVERY_ADDRESS);
-		}
-		else
-		{
-			$this->getLogger(__METHOD__)->error('contact id failed', $contactId);
-			$createdAddress = $this->addressContract->createAddress($address->toArray());
-			if(empty($this->checkout->getCustomerInvoiceAddressId()))
-			{
-				$this->getLogger(__METHOD__)->error('setCustomerInvoiceAddressId', $createdAddress->id);
-				$this->checkout->setCustomerInvoiceAddressId($createdAddress->id);
-			}
-		}
-		$this->getLogger(__METHOD__)->error('setCustomerShippingAddressId', $createdAddress->id);
-		$this->checkout->setCustomerShippingAddressId($createdAddress->id);
+	$address = pluginApp(\Plenty\Modules\Account\Address\Models\Address::class);
 	
+	// Set address details
+	$address->name2 = 'testte';
+	$address->name3 = 'testte';
+	$address->address1 = 'testte';
+	$address->address2 = 'testte';
+	$address->town = 'testte';
+	$address->postalCode = '66862';
+	
+	// Retrieve country ID
+	$countryContract = pluginApp(\Plenty\Modules\Order\Shipping\Countries\Contracts\CountryRepositoryContract::class);
+	$country = $countryContract->getCountryByIso('DE', 'isoCode2');
+	$address->countryId = $country->id;
+	
+	// Set address options
+	$addressOptions = [];
+	
+	// Set email address as an option
+	$addressOption = pluginApp(\Plenty\Modules\Account\Address\Models\AddressOption::class);
+	$addressOption->typeId = \Plenty\Modules\Account\Address\Models\AddressOption::TYPE_EMAIL;
+	$addressOption->value = $email; // Assuming $email is defined elsewhere
+	$addressOptions[] = $addressOption->toArray();
+	
+	// Set options as an array
+	$address->options = $addressOptions;
+	
+	// Create or update the address
+	$accountService = pluginApp(\Plenty\Modules\Frontend\Services\AccountService::class);
+	$contactId = $accountService->getAccountContactId();
+	
+	if (!empty($contactId) && $contactId > 0) {
+	// If a contact ID is available, create the address for the contact
+	$contactAddress = pluginApp(\Plenty\Modules\Account\Contact\Contracts\ContactAddressRepositoryContract::class);
+	$createdAddress = $contactAddress->createAddress($address->toArray(), $contactId, \Plenty\Modules\Account\Contact\Models\AddressRelationType::DELIVERY_ADDRESS);
+	} else {
+	// If no contact ID is available, create the address independently
+	$createdAddress = $this->addressContract->createAddress($address->toArray());
+	
+	// Set the customer invoice address ID if not already set
+	if (empty($this->checkout->getCustomerInvoiceAddressId())) {
+	$this->checkout->setCustomerInvoiceAddressId($createdAddress->id);
+	}
+	}
+	
+	// Set the customer shipping address ID
+	$this->checkout->setCustomerShippingAddressId($createdAddress->id);
+
 	
 
  	return $this->response->redirectTo('checkout');
