@@ -29,7 +29,7 @@ use Plenty\Modules\Account\Address\Models\AddressOption;
 use Plenty\Modules\Account\Address\Contracts\AddressRepositoryContract;
 use Plenty\Modules\Account\Contact\Contracts\ContactAddressRepositoryContract;
 use Plenty\Modules\Frontend\Services\AccountService;
-use Plenty\Modules\Account\Contact\Models\AddressRelationType;
+use Plenty\Modules\Account\Address\Models\AddressRelationType;
 
 /**
  * Class PaymentController
