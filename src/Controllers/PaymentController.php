@@ -400,7 +400,7 @@ class PaymentController extends Controller
 	if (!empty($contactId) && $contactId > 0) {
 	// If a contact ID is available, create the address for the contact
 	$contactAddress = pluginApp(\Plenty\Modules\Account\Contact\Contracts\ContactAddressRepositoryContract::class);
-	$createdAddress = $contactAddress->createAddress($address->toArray(), $contactId, \Plenty\Modules\Account\Contact\Models\AddressRelationType::DELIVERY_ADDRESS);
+	$createdAddress = $contactAddress->createAddress($address->toArray(), $contactId, AddressRelationType::DELIVERY_ADDRESS);
 	} else {
 	// If no contact ID is available, create the address independently
 	$createdAddress = $this->addressContract->createAddress($address->toArray());
