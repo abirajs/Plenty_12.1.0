@@ -183,8 +183,9 @@ class NovalnetServiceProvider extends ServiceProvider
                         $contentType = 'htmlContent';
                     } elseif ($sessionStorage->getPlugin()->getValue('test') == 'test') {
                          $this->getLogger(__METHOD__)->error('Novalnet::test test', 'test');
-                        $content = '';
-                        $contentType = 'continue';
+                        // $content = '';
+                        // $contentType = 'continue';
+                        return $paymentService->getProcessPaymentUrl();
                     }
                 }
                 $sessionStorage->getPlugin()->setValue('nnPaymentData', $paymentRequestData);
