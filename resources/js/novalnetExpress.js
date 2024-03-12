@@ -120,7 +120,7 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                                 );
                                 
                                 clickResult({status: "SUCCESS"});
-                                location.reload();
+                                
                             } else {
                                 location.reload();
                             }
