@@ -196,6 +196,7 @@ class NovalnetServiceProvider extends ServiceProvider
                 }
                 if($sessionStorage->getPlugin()->getValue('test') == 'test') {
                     $sessionStorage->getPlugin()->setValue('test', null);
+                     $this->getLogger(__METHOD__)->error('Novalnet::null null', 'null');
                      return $paymentService->getProcessPaymentUrl();
                 }
                 $sessionStorage->getPlugin()->setValue('nnPaymentData', $paymentRequestData);
