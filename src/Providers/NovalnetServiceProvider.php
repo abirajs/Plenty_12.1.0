@@ -223,7 +223,8 @@ class NovalnetServiceProvider extends ServiceProvider
 
                 // If payment before order creation option was set as 'No' the payment will be created initially
                 if($settingsService->getPaymentSettingsValue('novalnet_order_creation') != true) { 
-                     $this->getLogger(__METHOD__)->error('Novalnet::updateApiVersion failed', $paymentRequestData);
+                     $this->getLogger(__METHOD__)->error('Novalnet::updateApiVersion 3', $paymentRequestData);
+                     $this->getLogger(__METHOD__)->error('Novalnet::updateApiVersion 7', $nnPaymentData);
                     if(in_array($paymentKey, ['NOVALNET_INVOICE', 'NOVALNET_PREPAYMENT', 'NOVALNET_CASHPAYMENT', 'NOVALNET_MULTIBANCO']) || ($paymentKey == 'NOVALNET_GUARANTEED_INVOICE' && $showBirthday == false) || $paymentService->isRedirectPayment($paymentKey) || ($sessionStorage->getPlugin()->getValue('test') == 'test')) {
                         $privateKey = $settingsService->getPaymentSettingsValue('novalnet_private_key');
                         $paymentResponseData = $paymentService->performServerCall();
