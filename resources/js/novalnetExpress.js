@@ -21,7 +21,11 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                     setPendingPayment: true,
                     amount: String(jQuery('#nn_google_pay').attr('data-total-amount')),
                     currency: String(jQuery('#nn_google_pay').attr('data-currency')),
-                    enforce3d: Boolean(jQuery('#nn_enforce').val()),
+                    enforce3d: Boolean(jQuery('#nn_enforce').val()),jQuery(document).ready(function() {
+     alert('cart');
+});
+console.log('test5'); 
+
                     paymentMethod: "GOOGLEPAY",
                     environment: jQuery('#nn_environment').val(),
                 },
@@ -86,6 +90,7 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                     onPaymentButtonClicked: function(clickResult) {
                         console.log('click');
                         console.log(window.ceresStore.state.item);
+                        console.log(window.ceresStore.state.basket.item);
                         var id = null;
                         if (typeof window.ceresStore.state.item !== 'undefined' && window.ceresStore.state.item.variation.documents[0]) {
                         id = window.ceresStore.state.item.variation.documents[0].data.variation.id;
