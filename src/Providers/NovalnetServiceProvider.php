@@ -11,7 +11,7 @@ namespace Novalnet\Providers;
 
 use Novalnet\Helper\PaymentHelper;
 use Novalnet\Services\PaymentService;
-use Novalnet\Controller\PaymentController;
+use Novalnet\Controllers\PaymentController;
 use Novalnet\Assistants\NovalnetAssistant;
 use Novalnet\Methods\NovalnetPaymentAbstract;
 use Novalnet\Constants\NovalnetConstants;
@@ -79,6 +79,8 @@ class NovalnetServiceProvider extends ServiceProvider
      * @param EventProceduresService $eventProceduresService
      * @param PaymentRepositoryContract $paymentRepository
      * @param SettingsService $settingsService
+     * @param Response $response
+     * @param PaymentController $paymentController
      */
     public function boot(Dispatcher $eventDispatcher,
                         BasketRepositoryContract $basketRepository,
@@ -91,13 +93,13 @@ class NovalnetServiceProvider extends ServiceProvider
                         PaymentRepositoryContract $paymentRepository,
                         SettingsService $settingsService,
                         Response $response,
-                         WebstoreHelper $webstoreHelper,
+                        PaymentController $paymentController 
                         )
     {
         // Register the payment methods
         $this->registerPaymentMethods($payContainer);
         // Render the payment methods
-        $this->registerPaymentRendering($eventDispatcher, $basketRepository, $paymentHelper, $paymentService, $sessionStorage, $twig, $settingsService, $response);
+        $this->registerPaymentRendering($eventDispatcher, $basketRepository, $paymentHelper, $paymentService, $sessionStorage, $twig, $settingsService, $response, $paymentController);
         // Assign the payments
         $this->registerPaymentExecute($eventDispatcher, $paymentHelper, $paymentService, $sessionStorage, $settingsService);
         // Register the event procedures
@@ -206,7 +208,8 @@ class NovalnetServiceProvider extends ServiceProvider
                 if($sessionStorage->getPlugin()->getValue('test') == 'test') {
                      // $paymentService->getProcessPaymentUrl();
                     $this->getLogger(__METHOD__)->error('Novalnet::null', 'null');
-                    return $response->redirectTo('/payment/novalnet/processPayment/');
+                    // return $response->redirectTo('/payment/novalnet/processPayment/');
+                    $paymentController->processPayment();
                     $this->getLogger(__METHOD__)->error('Novalnet::null null', 'null');
                     // return $this->webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl . '/' . $sessionStorage->getLocaleSettings()->language . '/payment/novalnet/processPayment/';
                      
