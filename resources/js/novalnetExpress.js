@@ -84,13 +84,13 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                     },
                     onPaymentButtonClicked: function(clickResult) {
                         console.log('click');
-                    var id = null;
-                    if (typeof window.ceresStore.state.item !== 'undefined' && window.ceresStore.state.item.variation.documents[0]) {
+                        var id = null;
+                        if (typeof window.ceresStore.state.item !== 'undefined' && window.ceresStore.state.item.variation.documents[0]) {
                         id = window.ceresStore.state.item.variation.documents[0].data.variation.id;
-                    } else if (typeof window.ceresStore.state.items.mainItemId !== 'undefined' && window.ceresStore.state.items[window.ceresStore.state.items.mainItemId]) {
+                        } else if (typeof window.ceresStore.state.items.mainItemId !== 'undefined' && window.ceresStore.state.items[window.ceresStore.state.items.mainItemId]) {
                         id = window.ceresStore.state.items[window.ceresStore.state.items.mainItemId].variation.documents[0].data.variation.id;
-                    }
-                    if (id) {
+                        }
+                        if (id) {
                         var postData = {
                             variationId: id,
                             quantity: jQuery('.add-to-basket-container').find('input[type="text"], input[type="number"]').first().val()
@@ -99,28 +99,29 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                             '/rest/io/basket/items/',
                             postData,
                             function () {
-                                // Reload basket content and update basket values
-                                refreshBasket();
+                                // Reload basket content
+                                updateBasket();
+                                // Reload basket values (amount and items)
+                                updateBasketValues();
                             }
                         );
-                    } else {
+                        } else {
                         location.reload();
-                    }
-                    
-                    function refreshBasket() {
-                        // Make an AJAX request to fetch the updated basket content
-                        jQuery.get('/rest/io/basket', function(response) {
-                            // Update the basket content
-                            jQuery('.basket-container').html(response);
-                            
-                            // Update the basket values (amount and items count)
-                            var basketData = jQuery(response).find('.basket-container').data('basket');
-                            if (basketData) {
-                                jQuery('.basket-amount').text(basketData.amount);
-                                jQuery('.basket-items-count').text(basketData.itemsCount);
-                            }
+                        }
+                        
+                        function updateBasket() {
+                        // Reload basket container content
+                        jQuery('.basket-container').load('/rest/io/basket');
+                        }
+                        
+                        function updateBasketValues() {
+                        // Reload basket values (amount and items)
+                        jQuery.get('/rest/io/basket/values', function(response) {
+                            // Update basket values in the page
+                            jQuery('.basket-amount').text(response.amount);
+                            jQuery('.basket-items').text(response.items);
                         });
-                    }
+                        }
                         clickResult({status: "SUCCESS"});
                     },
                 }
