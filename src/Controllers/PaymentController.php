@@ -193,12 +193,12 @@ class PaymentController extends Controller
         // Get the payment form post data
         $paymentRequestPostData = $this->request->all();
         $this->getLogger(__METHOD__)->error('Novalnet::ProcessPaymentRequest', $paymentRequestPostData);
-	if($sessionStorage->getPlugin()->getValue('test') == 'test') {
-	    $paymentRequestPostData = $sessionStorage->getPlugin()->getValue('postData');
-	     $this->getLogger(__METHOD__)->error('Novalnet::postData', $paymentRequestPostData);
-	     $sessionStorage->getPlugin()->setValue('postData', null);
-	     $sessionStorage->getPlugin()->setValue('test', null);
-	}
+	// if($sessionStorage->getPlugin()->getValue('test') == 'test') {
+	//     $paymentRequestPostData = $sessionStorage->getPlugin()->getValue('postData');
+	//      $this->getLogger(__METHOD__)->error('Novalnet::postData', $paymentRequestPostData);
+	//      $sessionStorage->getPlugin()->setValue('postData', null);
+	//      $sessionStorage->getPlugin()->setValue('test', null);
+	// }
         // Get the order amount
         $orderAmount = !empty($paymentRequestPostData['nn_order_amount']) ? $paymentRequestPostData['nn_order_amount'] : 0;
         // Get instalment selected option key value
