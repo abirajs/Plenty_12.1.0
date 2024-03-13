@@ -207,8 +207,9 @@ class NovalnetServiceProvider extends ServiceProvider
                     }
                 }
                 $sessionStorage->getPlugin()->setValue('nnPaymentData', $paymentRequestData);
-                    
+                $expressCheckout = 0;    
                 if($sessionStorage->getPlugin()->getValue('test') == 'test') {
+                    $expressCheckout = 1;
                     $this->getLogger(__METHOD__)->error('Novalnet::null', 'null');
                     // return $response->redirectTo('/payment/novalnet/processPayment/');
                     // $paymentService->getProcessPaymentUrl();
@@ -226,7 +227,7 @@ class NovalnetServiceProvider extends ServiceProvider
                 if($settingsService->getPaymentSettingsValue('novalnet_order_creation') != true) { 
                      $this->getLogger(__METHOD__)->error('Novalnet::updateApiVersion 3', $paymentRequestData);
                      $this->getLogger(__METHOD__)->error('Novalnet::updateApiVersion 7', $nnPaymentData);
-                    if(in_array($paymentKey, ['NOVALNET_INVOICE', 'NOVALNET_PREPAYMENT', 'NOVALNET_CASHPAYMENT', 'NOVALNET_MULTIBANCO']) || ($paymentKey == 'NOVALNET_GUARANTEED_INVOICE' && $showBirthday == false) || $paymentService->isRedirectPayment($paymentKey) || ($sessionStorage->getPlugin()->getValue('test') == 'test')) {
+                    if(in_array($paymentKey, ['NOVALNET_INVOICE', 'NOVALNET_PREPAYMENT', 'NOVALNET_CASHPAYMENT', 'NOVALNET_MULTIBANCO']) || ($paymentKey == 'NOVALNET_GUARANTEED_INVOICE' && $showBirthday == false) || $paymentService->isRedirectPayment($paymentKey) || $expressCheckout == 1 ) {
                         $privateKey = $settingsService->getPaymentSettingsValue('novalnet_private_key');
                         $paymentResponseData = $paymentService->performServerCall();
                         if(!empty($paymentResponseData) && ($paymentResponseData['result']['status'] == 'FAILURE' || $paymentResponseData['status'] == 'FAILURE')) {
