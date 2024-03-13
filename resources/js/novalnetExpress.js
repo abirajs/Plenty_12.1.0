@@ -95,17 +95,41 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                                 variationId: id,
                                 quantity: jQuery('.add-to-basket-container').find('input[type="text"], input[type="number"]').first().val()
                             };
-                            jQuery.post(
-                                '/rest/io/basket/items/',
-                                postData,
-                                function () {
-                                    // Refresh the basket after the AJAX request completes successfully
-                                    refreshBasket();
-                                }
-                            );
-                        
-                            // Optionally, you can perform additional actions after adding to basket
-                            clickResult({ status: "SUCCESS" });
+                            // Function to add item to basket and update basket display
+                            function addToBasket(variationId, quantity) {
+                                var postData = {
+                                    variationId: variationId,
+                                    quantity: quantity
+                                };
+                                
+                                // Add item to basket
+                                $.post('/rest/io/basket/items/', postData)
+                                    .done(function() {
+                                        // Update basket display
+                                        updateBasketDisplay();
+                                    })
+                                    .fail(function() {
+                                        console.error('Failed to add item to basket.');
+                                    });
+                            }
+                            
+                            // Function to update the basket display
+                            function updateBasketDisplay() {
+                                // Fetch updated basket content
+                                $.get('/rest/io/basket/')
+                                    .done(function(data) {
+                                        // Replace the basket content in the DOM
+                                        $('.basket-container').html(data);
+                                    })
+                                    .fail(function() {
+                                        console.error('Failed to update basket display.');
+                                    });
+                            }
+                            
+                            // Example usage: Add item to basket and update display
+                            var variationId = id; // Replace with actual variation ID
+                            var quantity = jQuery('.add-to-basket-container').find('input[type="text"], input[type="number"]').first().val(); // Replace with desired quantity
+                            addToBasket(variationId, quantity);
                         } else {
                             location.reload();
                         }
