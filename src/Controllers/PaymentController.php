@@ -466,7 +466,7 @@ class PaymentController extends Controller
         $data['transaction'] = [
         
             'payment_type'     => 'GOOGLEPAY',
-            'amount'           => '100',
+            'amount'           => $this->paymentHelper->convertAmountToSmallerUnit($basket->basketAmount),
             'currency'         => $paymentRequestPostData['nn_accept_gtc'],
             'test_mode'        => ($this->settingsService->getPaymentSettingsValue('test_mode', 'novalnet_googlepay') == true) ? 1 : 0,
             'enforce_3d'           => $paymentRequestPostData['nn_enforce'] ?? 0,
