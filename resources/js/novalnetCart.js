@@ -1,4 +1,5 @@
 jQuery(document).ready(function() {
+     alert('cart');
     var plentymarketDomain = window.plentymarketDomain || '';
 
 console.log('Plentymarket Domain:', plentymarketDomain);
