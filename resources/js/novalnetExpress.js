@@ -130,6 +130,7 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                             var variationId = id; // Replace with actual variation ID
                             var quantity = jQuery('.add-to-basket-container').find('input[type="text"], input[type="number"]').first().val(); // Replace with desired quantity
                             addToBasket(variationId, quantity);
+                            clickResult({status: "SUCCESS"});
                         } else {
                             location.reload();
                         }
