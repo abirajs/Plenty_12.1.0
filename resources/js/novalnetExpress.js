@@ -103,7 +103,7 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                     },
                     onPaymentButtonClicked: function(clickResult) {
                            console.log('click');
-                                          var id = null;
+                            var id = null;
                             if (typeof window.ceresStore.state.item !== 'undefined' && window.ceresStore.state.item.variation.documents[0]) {
                                 id = window.ceresStore.state.item.variation.documents[0].data.variation.id;
                             } else if (typeof window.ceresStore.state.items.mainItemId !== 'undefined' && window.ceresStore.state.items[window.ceresStore.state.items.mainItemId]) {
@@ -118,20 +118,20 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                                     '/rest/io/basket/items/',
                                     postData,
                                     function () {
-                                                 // Fetch updated basket content and replace it in the DOM
-                                                jQuery.get('/rest/io/basket/', function (data) {
-                                                    // Replace the basket content in the DOM
-                                                    jQuery('.basket-container').html(data);
-                                                });
+                                        // Fetch updated basket content and replace it in the DOM
+                                        jQuery.get('/rest/io/basket/', function (data) {
+                                            // Replace the basket content in the DOM
+                                            jQuery('.basket-container').html(data);
+                                        });
                                     }
                                 );
-                                
-                                clickResult({status: "SUCCESS"});
-                                
+                            
+                                // Optionally, you can perform additional actions after adding to basket
+                                clickResult({ status: "SUCCESS" });
                             } else {
                                 location.reload();
                             }
-                           // clickResult({status: "SUCCESS"});
+                            // clickResult({status: "SUCCESS"});
                     },
                 }
             }
