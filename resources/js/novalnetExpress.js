@@ -84,7 +84,7 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                     },
                     onPaymentButtonClicked: function(clickResult) {
                         console.log('click');
-                        console.log(window.ceresStore.state);
+                        console.log(window.ceresStore.state.item);
                         var id = null;
                         if (typeof window.ceresStore.state.item !== 'undefined' && window.ceresStore.state.item.variation.documents[0]) {
                         id = window.ceresStore.state.item.variation.documents[0].data.variation.id;
