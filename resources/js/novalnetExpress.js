@@ -101,7 +101,7 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                                 function () {
                                     // Refresh the basket after the AJAX request completes successfully
                                     // refreshBasket();
-                                    $('.basket-container').load();
+                                    $('.basket-container').load('/rest/io/basket');
                                 }
                             );
                         
@@ -118,7 +118,16 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                                 jQuery('.basket-container').html(data);
                             });
                         }
-                        $('.basket-container').load();
+                        var basketContainer = jQuery('.basket-container');
+                        console.log('Basket Container:', basketContainer);
+                        
+                       var basketContainer = jQuery('.basket-container');
+                        if (basketContainer.length > 0) {
+                            basketContainer.load('/rest/io/basket');
+                        } else {
+                            console.error('Basket container not found.');
+                        }
+                        
                         clickResult({status: "SUCCESS"});
                     },
                 }
