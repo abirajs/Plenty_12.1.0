@@ -349,7 +349,7 @@ class PaymentController extends Controller
 	    
 	$basket = $this->basketRepository->load();
 	$checkout = pluginApp(\Plenty\Modules\Frontend\Contracts\Checkout::class);
-	$this->getLogger(__METHOD__)->error('Novalnet::$checkout', $checkout);
+	$this->getLogger(__METHOD__)->error('Novalnet::$basketExpress', $basket);
         if($checkout instanceof Checkout)
         {
             $paymentMethodId = $this->paymentHelper->getPaymentMethodByKey('NOVALNET_GOOGLEPAY');
@@ -466,7 +466,7 @@ class PaymentController extends Controller
         $data['transaction'] = [
         
             'payment_type'     => 'GOOGLEPAY',
-            'amount'           => $this->paymentHelper->convertAmountToSmallerUnit($basket->basketAmount),,
+            'amount'           => $this->paymentHelper->convertAmountToSmallerUnit($basket->basketAmount),
             'currency'         => $paymentRequestPostData['nn_accept_gtc'],
             'test_mode'        => ($this->settingsService->getPaymentSettingsValue('test_mode', 'novalnet_googlepay') == true) ? 1 : 0,
             'enforce_3d'           => $paymentRequestPostData['nn_enforce'] ?? 0,
