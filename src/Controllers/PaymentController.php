@@ -439,7 +439,7 @@ class PaymentController extends Controller
             'email'       => $arrayTest['order']['billing']['contact']['email'], 
             'customer_ip' => '192.168.2.125',
             'customer_no' => 'guest',
-	    'gender'      => 'u'
+	    'gender'      => 'u',
             'billing'     => [
                 'house_no'     => $arrayTest['order']['billing']['contact']['addressLines'],
                 'street'       => $arrayTest['order']['billing']['contact']['addressLines'],
