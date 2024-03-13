@@ -1,5 +1,4 @@
 jQuery(document).ready(function() {
-    alert('product');
     var plentymarketDomain = window.plentymarketDomain || '';
 
 console.log('Plentymarket Domain:', plentymarketDomain);
