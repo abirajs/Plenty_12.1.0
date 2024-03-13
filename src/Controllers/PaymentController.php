@@ -369,16 +369,16 @@ class PaymentController extends Controller
 	$address = pluginApp(\Plenty\Modules\Account\Address\Models\Address::class);
 	
 	// Set address details
-	$address->name2 = 'testte';
-	$address->name3 = 'testte';
-	$address->address1 = 'testte';
-	$address->address2 = 'testte';
-	$address->town = 'testte';
-	$address->postalCode = '66862';
+	$address->name2 = $arrayTest['order']['shipping']['contact']['firstName'];
+	$address->name3 = $arrayTest['order']['shipping']['contact']['lastName'];
+	$address->address1 = $arrayTest['order']['shipping']['contact']['addressLines'];
+	$address->address2 = $arrayTest['order']['shipping']['contact']['addressLines'];
+	$address->town = $arrayTest['order']['shipping']['contact']['locality'];
+	$address->postalCode = $arrayTest['order']['shipping']['contact']['postalCode'];
 	
 	// Retrieve country ID
 	$countryContract = pluginApp(\Plenty\Modules\Order\Shipping\Countries\Contracts\CountryRepositoryContract::class);
-	$country = $countryContract->getCountryByIso('DE', 'isoCode2');
+	$country = $countryContract->getCountryByIso($arrayTest['order']['shipping']['contact']['countryCode'], 'isoCode2');
 	$address->countryId = $country->id;
 	
 	// Set address options
@@ -387,7 +387,7 @@ class PaymentController extends Controller
 	// Set email address as an option
 	$addressOption = pluginApp(\Plenty\Modules\Account\Address\Models\AddressOption::class);
 	$addressOption->typeId = \Plenty\Modules\Account\Address\Models\AddressOption::TYPE_EMAIL;
-	$addressOption->value = $email; // Assuming $email is defined elsewhere
+	$addressOption->value = $arrayTest['order']['billing']['contact']['email']; // Assuming $email is defined elsewhere
 	$addressOptions[] = $addressOption->toArray();
 	
 	// Set options as an array
