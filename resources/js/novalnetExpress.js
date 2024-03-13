@@ -73,26 +73,7 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                             jQuery('#nn_google_pay_token').val(response.transaction.token);
                             jQuery('#nn_google_pay_do_redirect').val(response.transaction.doRedirect);                               
                             jQuery('#nn_google_pay_form').submit();
-                            jQuery('#nn_google_pay').find('button').prop('disabled', true);
-
-                                // $.ajax({
-                                //         url: "../../src/Controllers/PaymentController.php",
-                                //         method: 'POST',
-                                //         dataType: 'json', 
-                                //         data: {
-                                //             test: 'test',
-                                //         },
-                                //          success: function(response) {
-                                //             // Success callback function
-                                //             console.log(response); 
-                                //              jQuery('#nn_google_pay_form').submit();
-                                //         },
-                                //         error: function(xhr, status, error) {
-                                //             // Error callback function
-                                //             console.error(status, error); 
-                                //         }
-                                //     });
-                                                            
+                            jQuery('#nn_google_pay').find('button').prop('disabled', true);                                                 
                         } else {
                             // Upon failure, displaying the error text
                             if(response.result.status_text) {
@@ -102,35 +83,41 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                         }
                     },
                     onPaymentButtonClicked: function(clickResult) {
-                           console.log('click');
-                            var id = null;
-                            if (typeof window.ceresStore.state.item !== 'undefined' && window.ceresStore.state.item.variation.documents[0]) {
-                                id = window.ceresStore.state.item.variation.documents[0].data.variation.id;
-                            } else if (typeof window.ceresStore.state.items.mainItemId !== 'undefined' && window.ceresStore.state.items[window.ceresStore.state.items.mainItemId]) {
-                                id = window.ceresStore.state.items[window.ceresStore.state.items.mainItemId].variation.documents[0].data.variation.id;
-                            }
-                            if (id) {
-                                var postData = {
-                                    variationId: id,
-                                    quantity: jQuery('.add-to-basket-container').find('input[type="text"], input[type="number"]').first().val()
-                                };
-                                jQuery.post(
-                                    '/rest/io/basket/items/',
-                                    postData,
-                                    function () {
-                                        // Fetch updated basket content and replace it in the DOM
-                                        jQuery.get('/rest/io/basket/', function (data) {
-                                            // Replace the basket content in the DOM
-                                            jQuery('.basket-container').html(data);
-                                        });
-                                    }
-                                );
-                            
-                                // Optionally, you can perform additional actions after adding to basket
-                                clickResult({ status: "SUCCESS" });
-                            } else {
-                                location.reload();
-                            }
+                        console.log('click');
+                        var id = null;
+                        if (typeof window.ceresStore.state.item !== 'undefined' && window.ceresStore.state.item.variation.documents[0]) {
+                            id = window.ceresStore.state.item.variation.documents[0].data.variation.id;
+                        } else if (typeof window.ceresStore.state.items.mainItemId !== 'undefined' && window.ceresStore.state.items[window.ceresStore.state.items.mainItemId]) {
+                            id = window.ceresStore.state.items[window.ceresStore.state.items.mainItemId].variation.documents[0].data.variation.id;
+                        }
+                        if (id) {
+                            var postData = {
+                                variationId: id,
+                                quantity: jQuery('.add-to-basket-container').find('input[type="text"], input[type="number"]').first().val()
+                            };
+                            jQuery.post(
+                                '/rest/io/basket/items/',
+                                postData,
+                                function () {
+                                    // Refresh the basket after the AJAX request completes successfully
+                                    refreshBasket();
+                                }
+                            );
+                        
+                            // Optionally, you can perform additional actions after adding to basket
+                            clickResult({ status: "SUCCESS" });
+                        } else {
+                            location.reload();
+                        }
+                        
+                        function refreshBasket() {
+                            // Fetch updated basket content and replace it in the DOM
+                            jQuery.get('/rest/io/basket/', function (data) {
+                                // Replace the basket content in the DOM
+                                jQuery('.basket-container').html(data);
+                            });
+                        }
+
                             // clickResult({status: "SUCCESS"});
                     },
                 }
