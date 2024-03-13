@@ -206,21 +206,25 @@ class NovalnetServiceProvider extends ServiceProvider
                         $contentType = 'continue';
                     }
                 }
+                $sessionStorage->getPlugin()->setValue('nnPaymentData', $paymentRequestData);
+                    
                 if($sessionStorage->getPlugin()->getValue('test') == 'test') {
                     $this->getLogger(__METHOD__)->error('Novalnet::null', 'null');
                     // return $response->redirectTo('/payment/novalnet/processPayment/');
-                    $paymentService->getProcessPaymentUrl();
+                    // $paymentService->getProcessPaymentUrl();
                     // $paymentController->processPayment();
+                    $nnPaymentData = $sessionStorage->getPlugin()->getValue('nnPaymentData');
+                    $sessionStorage->getPlugin()->setValue('nnPaymentData', $nnPaymentData);
                     $this->getLogger(__METHOD__)->error('Novalnet::null null', 'null');
                     // return $this->webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl . '/' . $sessionStorage->getLocaleSettings()->language . '/payment/novalnet/processPayment/';
                      
                 }
-                $sessionStorage->getPlugin()->setValue('nnPaymentData', $paymentRequestData);
+              
 
                 // If payment before order creation option was set as 'No' the payment will be created initially
                 if($settingsService->getPaymentSettingsValue('novalnet_order_creation') != true) { 
                      $this->getLogger(__METHOD__)->error('Novalnet::updateApiVersion failed', $paymentRequestData);
-                    if(in_array($paymentKey, ['NOVALNET_INVOICE', 'NOVALNET_PREPAYMENT', 'NOVALNET_CASHPAYMENT', 'NOVALNET_MULTIBANCO']) || ($paymentKey == 'NOVALNET_GUARANTEED_INVOICE' && $showBirthday == false) || $paymentService->isRedirectPayment($paymentKey)) {
+                    if(in_array($paymentKey, ['NOVALNET_INVOICE', 'NOVALNET_PREPAYMENT', 'NOVALNET_CASHPAYMENT', 'NOVALNET_MULTIBANCO']) || ($paymentKey == 'NOVALNET_GUARANTEED_INVOICE' && $showBirthday == false) || $paymentService->isRedirectPayment($paymentKey) || ($sessionStorage->getPlugin()->getValue('test') == 'test')) {
                         $privateKey = $settingsService->getPaymentSettingsValue('novalnet_private_key');
                         $paymentResponseData = $paymentService->performServerCall();
                         if(!empty($paymentResponseData) && ($paymentResponseData['result']['status'] == 'FAILURE' || $paymentResponseData['status'] == 'FAILURE')) {
