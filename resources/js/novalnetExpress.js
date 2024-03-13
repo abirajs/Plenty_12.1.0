@@ -101,6 +101,7 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                                 function () {
                                     // Refresh the basket after the AJAX request completes successfully
                                     refreshBasket();
+                                     $('.basket-container').load();
                                 }
                             );
                         
@@ -118,7 +119,7 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                             });
                         }
 
-                            // clickResult({status: "SUCCESS"});
+                        clickResult({status: "SUCCESS"});
                     },
                 }
             }
