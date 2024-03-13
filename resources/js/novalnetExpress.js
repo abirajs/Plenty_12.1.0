@@ -118,10 +118,11 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                                     '/rest/io/basket/items/',
                                     postData,
                                     function () {
-                                             jQuery.get('/path/to/basket/data', function(response) {
-                                                // Replace the existing basket content with the updated content received from the server
-                                                jQuery('.basket-container').html(response);
-                                            });
+                                                 // Fetch updated basket content and replace it in the DOM
+                                                jQuery.get('/rest/io/basket/', function (data) {
+                                                    // Replace the basket content in the DOM
+                                                    jQuery('.basket-container').html(data);
+                                                });
                                     }
                                 );
                                 
