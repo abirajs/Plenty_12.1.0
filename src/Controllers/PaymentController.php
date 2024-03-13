@@ -415,11 +415,6 @@ class PaymentController extends Controller
 	$this->checkout->setCustomerShippingAddressId($createdAddress->id);
 
 	
-
- 	return $this->response->redirectTo('checkout');
-}
-
-
         $payment_access_key  = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
         $encoded_data        = base64_encode($payment_access_key);
         $endpoint            = 'https://payport.novalnet.de/v2/payment';
@@ -497,7 +492,8 @@ class PaymentController extends Controller
 	// return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/confirmation');
  //        $this->getLogger(__METHOD__)->error('Confirmation', 'Confirmation');
         
-         
+  	return $this->response->redirectTo('checkout');
+}        
         
 
 
