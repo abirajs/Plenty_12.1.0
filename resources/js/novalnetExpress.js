@@ -100,8 +100,8 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                                 postData,
                                 function () {
                                     // Refresh the basket after the AJAX request completes successfully
-                                    refreshBasket();
-                                     jQuery('.basket-container').load();
+                                    // refreshBasket();
+                                    $('.basket-container').load(location.href + ' .basket-container');
                                 }
                             );
                         
