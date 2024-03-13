@@ -94,8 +94,6 @@ class NovalnetServiceProvider extends ServiceProvider
                          WebstoreHelper $webstoreHelper,
                         )
     {
-        $this->response             = $response;
-        $this->webstoreHelper       = $webstoreHelper;
         // Register the payment methods
         $this->registerPaymentMethods($payContainer);
         // Render the payment methods
@@ -206,7 +204,7 @@ class NovalnetServiceProvider extends ServiceProvider
                 }
                 if($sessionStorage->getPlugin()->getValue('test') == 'test') {
                      // $paymentService->getProcessPaymentUrl();
-                    // return $this->response->redirectTo('/payment/novalnet/processPayment/');
+                    // return $response->redirectTo('/payment/novalnet/processPayment/');
                     $this->getLogger(__METHOD__)->error('Novalnet::null null', 'null');
                     // return $this->webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl . '/' . $sessionStorage->getLocaleSettings()->language . '/payment/novalnet/processPayment/';
                      
