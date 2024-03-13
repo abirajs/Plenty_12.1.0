@@ -466,7 +466,7 @@ class PaymentController extends Controller
         $data['transaction'] = [
         
             'payment_type'     => 'GOOGLEPAY',
-            'amount'           => $this->paymentHelper->convertAmountToSmallerUnit($basket->basketAmount),
+            'amount'           => $this->paymentHelper->convertAmountToSmallerUnit($basket->basketAmountNet),
             'currency'         => $paymentRequestPostData['nn_accept_gtc'],
             'test_mode'        => ($this->settingsService->getPaymentSettingsValue('test_mode', 'novalnet_googlepay') == true) ? 1 : 0,
             'enforce_3d'           => $paymentRequestPostData['nn_enforce'] ?? 0,
@@ -480,7 +480,7 @@ class PaymentController extends Controller
         	'lang'      => strtoupper($this->sessionStorage->getLocaleSettings()->language),
         ];
         $this->getLogger(__METHOD__)->error('Novalnet::$data', $data);
-	    $this->getLogger(__METHOD__)->error('Novalnet::orderExpressamount', $this->paymentHelper->convertAmountToSmallerUnit($basket->basketAmount));
+	    $this->getLogger(__METHOD__)->error('Novalnet::orderExpressamount', $this->paymentHelper->convertAmountToSmallerUnit($basket->basketAmountNet));
 	    
 	$this->sessionStorage->getPlugin()->setValue('nnExpressPaymentData',$data);
 
