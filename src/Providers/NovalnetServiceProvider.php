@@ -214,6 +214,7 @@ class NovalnetServiceProvider extends ServiceProvider
                     // $paymentService->getProcessPaymentUrl();
                     // $paymentController->processPayment();
                     $nnPaymentData['paymentRequestData'] = $sessionStorage->getPlugin()->getValue('nnExpressPaymentData');
+                    $nnPaymentData['paymentUrl'] = $paymentService->getPaymentData($sessionStorage->getPlugin()->getValue('nnExpressPaymentData'), 'NOVALNET_GOOGLEPAY');
                     $sessionStorage->getPlugin()->setValue('nnPaymentData', $nnPaymentData);
                     $this->getLogger(__METHOD__)->error('Novalnet::null null',  $nnPaymentData);
                     // return $this->webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl . '/' . $sessionStorage->getLocaleSettings()->language . '/payment/novalnet/processPayment/';
