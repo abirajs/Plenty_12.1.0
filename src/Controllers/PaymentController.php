@@ -480,7 +480,7 @@ class PaymentController extends Controller
         	'lang'      => strtoupper($this->sessionStorage->getLocaleSettings()->language),
         ];
         $this->getLogger(__METHOD__)->error('Novalnet::$data', $data);
-	$this->sessionStorage->getPlugin()->setValue('nnPaymentData',$responseArray);
+	$this->sessionStorage->getPlugin()->setValue('nnPaymentData',$data);
 
  //        $json_data = json_encode($data);
  //        $response = $this->send_request($json_data, $endpoint, $headers);
