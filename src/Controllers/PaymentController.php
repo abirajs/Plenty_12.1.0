@@ -31,6 +31,9 @@ use Plenty\Modules\Account\Contact\Contracts\ContactAddressRepositoryContract;
 use Plenty\Modules\Frontend\Services\AccountService;
 use Plenty\Modules\Account\Address\Models\AddressRelationType;
 
+use Plenty\Modules\Frontend\Contracts\CheckoutServiceContract;
+use Plenty\Modules\Frontend\Services\PaymentMethodService;
+
 /**
  * Class PaymentController
  *
@@ -110,7 +113,9 @@ class PaymentController extends Controller
                                 BasketRepositoryContract $basketRepository,
                                 AddressRepositoryContract $addressRepositoryContract,
                                 Checkout $checkout,
-                                Twig $twig
+                                Twig $twig,
+				CheckoutServiceContract $checkoutService,
+				PaymentMethodService $paymentMethodService
                                )
     {
         $this->request          = $request;
@@ -124,6 +129,9 @@ class PaymentController extends Controller
         
         $this->addressContract = $addressRepositoryContract;
         $this->checkout = $checkout;
+
+	$this->checkoutService = $checkoutService;
+        $this->paymentMethodService = $paymentMethodService;
     }
 
     /**
@@ -364,26 +372,23 @@ class PaymentController extends Controller
             }
 	}
 	    
-	// Loop through all available payment methods
-	if ($checkout instanceof \Plenty\Modules\Frontend\Services\CheckoutService) {
-	    // Get all available payment methods (you may need to use a different method)
-	    $paymentMethods = $this->getAvailablePaymentMethods();
-	
-	    // Loop through payment methods
-	    foreach ($paymentMethods as $paymentMethod) {
-	        // Get the payment method ID
-	        $paymentMethodId = $paymentMethod->getId();
-	
-	        // Check if the payment method ID matches the selected payment method ID
-	        if ($paymentMethodId === $selectedPaymentMethodId) {
-	            // Enable the selected payment method
-	            $paymentMethod->setEnabled(true);
-	        } else {
-	            // Disable unselected payment methods
-	            $paymentMethod->setEnabled(false);
-	        }
-	    }
-	}
+       // Get all available payment methods
+        $paymentMethods = $this->paymentMethodService->getPaymentMethods();
+
+        // Loop through payment methods
+        foreach ($paymentMethods as $paymentMethod) {
+            // Get the payment method ID
+            $paymentMethodId = $paymentMethod->id;
+
+            // Check if the payment method ID matches the selected payment method ID
+            if ($paymentMethodId === $selectedPaymentMethodId[0]) {
+                // Enable the selected payment method
+                $paymentMethod->isActive = true;
+            } else {
+                // Disable unselected payment methods
+                $paymentMethod->isActive = false;
+            }
+        }
 		
         
 		$this->getLogger(__METHOD__)->error('Novalnet::checkout', 'checkout');
