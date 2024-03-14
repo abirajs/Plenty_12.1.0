@@ -1,37 +1,104 @@
-{# Load the Js #}
-<script type="text/javascript" src="https://cdn.novalnet.de/js/v3/payment.js"></script>
-<script src="{{plugin_path('Novalnet')}}/js/novalnetExpress.js"></script>
+<?php
+/**
+ * This file is used for displaying the Google Pay button
+ *
+ * @author       Novalnet AG
+ * @copyright(C) Novalnet
+ * @license      https://www.novalnet.de/payment-plugins/kostenlos/lizenz
+ */
+namespace Novalnet\Providers\DataProvider;
 
-{# Google Pay payment form #}
-<button type="button">Express Button</button>
-<div id="nn_google_pay_button">
-<form method="post" id="nn_google_pay_form" name="nn_google_pay_form" action="{{nnPaymentProcessUrl}}">
-    {# Set up the post data#}
-    <input type="hidden" name="nn_payment_process_url" id="nn_payment_process_url" value="{{nnPaymentProcessUrl}}">
-    <input type="hidden" name="nn_google_pay_mop" id="nn_google_pay_mop" value="{{paymentMethodId}}">
-    <input type="hidden" name="nn_payment_key" id="nn_payment_key" value="NOVALNET_GOOGLEPAY">
-    <input type="hidden" name="nn_google_pay_token" id="nn_google_pay_token">
-    <input type="hidden" name="nn_google_pay_response" id="nn_google_pay_response">
-    <input type="hidden" name="nn_google_pay_do_redirect" id="nn_google_pay_do_redirect">
-    <input type="hidden" name="nn_client_key" id="nn_client_key" value="{{googlePayData.clientKey}}">
-    <input type="hidden" name="nn_merchant_id" id="nn_merchant_id" value="{{googlePayData.merchantId}}">
-    <input type="hidden" name="nn_business_name" id="nn_business_name" value="{{googlePayData.sellerName}}">
-    <input type="hidden" name="nn_enforce" id="nn_enforce" value="{{googlePayData.enforce}}">
-    <input type="hidden" name="nn_button_type" id="nn_button_type" value="{{googlePayData.buttonType}}">
-    <input type="hidden" name="nn_button_height" id="nn_button_height" value="{{googlePayData.buttonHeight}}">
-    <input type="hidden" name="nn_environment" id="nn_environment" value="{{googlePayData.testMode}}">
-    <input type="hidden" name="nn_accept_gtc" id="nn_accept_gtc" value="{{trans("Novalnet::Customize.template_checkout_accept_gtc")}}">
-    <input type="hidden" name="nn_accept_gtc" id="nn_currency">
-    <input type="hidden" name="nn_accept_gtc" id="nn_order_amount" value="{{orderAmount}}">
-    <input type="hidden" name="nn_order_lang" id="nn_order_lang" value="{{orderLang}}">
+use Novalnet\Helper\PaymentHelper;
+use Novalnet\Services\PaymentService;
+use Novalnet\Services\SettingsService;
+use Plenty\Plugin\Templates\Twig;
+use Plenty\Modules\Basket\Models\Basket;
+use Plenty\Modules\Basket\Contracts\BasketRepositoryContract;
+use Plenty\Modules\Frontend\Session\Storage\Contracts\FrontendSessionStorageFactoryContract;
+use Plenty\Modules\Order\Shipping\Countries\Contracts\CountryRepositoryContract;
+use Plenty\Modules\Helper\Services\WebstoreHelper;
+use Plenty\Plugin\Log\Loggable;
 
-    {# Set the reinitialization is used #}
-        {% if reinitializePayment is not empty %}
-            <input type="hidden" id="nn_reinitializePayment" name="nn_reinitializePayment" value="{{reinitializePayment}}">
-            <input type="hidden" id="nn_order_amount" name="nn_order_amount" value="{{orderAmount}}">
-        {% endif %}
+/**
+ * Class NovalnetExpressCheckoutGooglePayDataProvider
+ *
+ * @package Novalnet\Providers\DataProvider
+ */
+class NovalnetExpressCheckoutGooglePayDataProvider
+{
+    use Loggable;
+    /**
+     * Display the Google Pay button
+     *
+     * @param Twig $twig
+     * @param BasketRepositoryContract $basketRepository
+     * @param CountryRepositoryContract $countryRepository
+     * @param WebstoreHelper $webstoreHelper
+     * @param Arguments $arg
+     *
+     * @return string
+     */
+    public function call(Twig $twig,
+                         BasketRepositoryContract $basketRepository,
+                         CountryRepositoryContract $countryRepository,
+                         WebstoreHelper $webstoreHelper,
+                         $arg)
+    {
+        $basket             = $basketRepository->load();
+        $paymentHelper      = pluginApp(PaymentHelper::class);
+        $sessionStorage     = pluginApp(FrontendSessionStorageFactoryContract::class);
+        $paymentService     = pluginApp(PaymentService::class);
+        $settingsService    = pluginApp(SettingsService::class);
+        $this->getLogger(__METHOD__)->error('Novalnet::ExpressBasket failed', $basket);
+        if($settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay') == true) {
+            if(!empty($basket->basketAmount)) {
+                $orderAmount = 0;
+                /** @var \Plenty\Modules\Frontend\Services\VatService $vatService */
+                $vatService = pluginApp(\Plenty\Modules\Frontend\Services\VatService::class);
 
-    {# Google Pay container #}
-    <div id="nn_google_pay" data-country="{{countryCode}}" data-total-amount="{{orderAmount}}" data-order-lang="{{orderLang}}" data-currency="{{orderCurrency}}"></div>
-</form>
-</div>
+                //we have to manipulate the basket because its stupid and doesnt know if its netto or gross
+                if(!count($vatService->getCurrentTotalVats())) {
+                    $basket->itemSum = $basket->itemSumNet;
+                    $basket->shippingAmount = $basket->shippingAmountNet;
+                    $basket->basketAmount = $basket->basketAmountNet;
+                }
+                // Get the order total basket amount
+                $orderAmount = $paymentHelper->convertAmountToSmallerUnit($basket->basketAmount);
+            }
+            // Get the Payment MOP Id
+            $paymentMethodDetails = $paymentHelper->getPaymentMethodByKey('NOVALNET_GOOGLEPAY');
+            // Get the order language
+            $orderLang = strtoupper($sessionStorage->getLocaleSettings()->language);
+            // Get the countryCode
+            $billingAddress = $paymentHelper->getCustomerAddress((int) $basket->customerInvoiceAddressId);
+            // Get the seller name from the shop configuaration
+            $sellerName = $settingsService->getPaymentSettingsValue('business_name', 'novalnet_googlepay');
+            // Required details for the Google Pay button
+            $googlePayData = [
+                                'clientKey'     => trim($settingsService->getPaymentSettingsValue('novalnet_client_key')),
+                                'merchantId'    => $settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay'),
+                                'sellerName'    => !empty($sellerName) ? $sellerName : $webstoreHelper->getCurrentWebstoreConfiguration()->name,
+                                'enforce'       => $settingsService->getPaymentSettingsValue('enforce', 'novalnet_googlepay'),
+                                'buttonType'    => $settingsService->getPaymentSettingsValue('button_type', 'novalnet_googlepay'),
+                                'buttonHeight'  => $settingsService->getPaymentSettingsValue('button_height', 'novalnet_googlepay'),
+                                'testMode'      => ($settingsService->getPaymentSettingsValue('test_mode', 'novalnet_googlepay') == true) ? 'SANDBOX' : 'PRODUCTION'
+                             ];
+            $this->getLogger(__METHOD__)->error('Novalnet::$googlePayData', $googlePayData);
+            $this->getLogger(__METHOD__)->error('Novalnet::$paymentMethodDetails[0]', $paymentMethodDetails[0]);
+            $this->getLogger(__METHOD__)->error('Novalnet::$paymentService->getProcessPaymentUrl()', $paymentService->getExpressPaymentUrl());
+            // Render the Google Pay button
+            return $twig->render('Novalnet::PaymentForm.NovalnetExpressCheckoutGooglePay',
+                                        [
+                                            'paymentMethodId'       => $paymentMethodDetails[0],
+                                            'googlePayData'         => $googlePayData,
+                                            'countryCode'           => !empty($countryRepository->findIsoCode($billingAddress->countryId, 'iso_code_2')) ? $countryRepository->findIsoCode($billingAddress->countryId, 'iso_code_2') : 'DE',
+                                            'orderAmount'           => $orderAmount,
+                                            'orderLang'             => $orderLang,
+                                            'orderCurrency'         => $basket->currency,
+                                            'nnPaymentProcessUrl'   => $paymentService->getExpressPaymentUrl()
+                                        ]);
+        } else {
+            return '';
+        }
+    }
+}
