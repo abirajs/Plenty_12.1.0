@@ -352,9 +352,9 @@ class PaymentController extends Controller
 	$this->getLogger(__METHOD__)->error('Novalnet::$basketExpress', $basket);
         if($checkout instanceof Checkout)
         {
-            $paymentMethodId = $this->paymentHelper->getPaymentMethodByKey('NOVALNET_GOOGLEPAY');
+            $selectedPaymentMethodId = $this->paymentHelper->getPaymentMethodByKey('NOVALNET_GOOGLEPAY');
 	    $this->getLogger(__METHOD__)->error('Novalnet::$paymentMethodId', $paymentMethodId[0]);
-            if($paymentMethodId[0] > 0)
+            if($selectedPaymentMethodId[0] > 0)
             {
                 $checkout->setPaymentMethodId((int)$paymentMethodId[0]);
 	        $this->sessionStorage->getPlugin()->setValue('test','test');
@@ -362,22 +362,30 @@ class PaymentController extends Controller
 		$this->getLogger(__METHOD__)->error('Novalnet::setPaymentMethodId', 'setPaymentMethodId');
 		    
             }
-	    // Loop through all available payment methods
-	    foreach ($checkout->getPaymentMethods() as $paymentMethod) {
-		// Get the payment method ID
-		$getPaymentMethodId = $paymentMethod->getId();
-		
-		// Check if the payment method ID matches the selected payment method ID
-		if ($getPaymentMethodId === $paymentMethodId[0]) {
-		    // Enable the selected payment method
-		    $paymentMethod->setEnabled(true);
-		} else {
-		    // Disable unselected payment methods
-		    $paymentMethod->setEnabled(false);
-		}
+	}
+	    
+	// Loop through all available payment methods
+	if ($checkout instanceof \Plenty\Modules\Frontend\Services\CheckoutService) {
+	    // Get all available payment methods (you may need to use a different method)
+	    $paymentMethods = $this->getAvailablePaymentMethods();
+	
+	    // Loop through payment methods
+	    foreach ($paymentMethods as $paymentMethod) {
+	        // Get the payment method ID
+	        $paymentMethodId = $paymentMethod->getId();
+	
+	        // Check if the payment method ID matches the selected payment method ID
+	        if ($paymentMethodId === $selectedPaymentMethodId) {
+	            // Enable the selected payment method
+	            $paymentMethod->setEnabled(true);
+	        } else {
+	            // Disable unselected payment methods
+	            $paymentMethod->setEnabled(false);
+	        }
 	    }
+	}
 		
-        }
+        
 		$this->getLogger(__METHOD__)->error('Novalnet::checkout', 'checkout');
 
 
