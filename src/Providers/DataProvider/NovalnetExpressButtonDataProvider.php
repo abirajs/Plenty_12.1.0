@@ -68,13 +68,13 @@ class NovalnetExpressButtonDataProvider
             // Get the Payment MOP Id
             $applePay = $googlePay = [];
 			if($settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay') == true) {
-				$googlePay = ['GOOGLEPAY'];
+				$googlePay = ['googlePay' => 'GOOGLEPAY'];
 			}
 			if($settingsService->getPaymentSettingsValue('payment_active', 'novalnet_applepay') == true) {
-				$applePay = ['APPLEPAY'];
+				$applePay = ['applePay' => 'APPLEPAY'];
 			}
 			$walletPayments = array_merge($googlePay, $applePay);
-			$enabledWalletPayment = json_encode($walletPayments);
+			$enabledWalletPayment = $walletPayments;
 			$this->getLogger(__METHOD__)->error('Novalnet::$enabledWalletPayment', $enabledWalletPayment);	 
              
             $paymentMethodDetails = $paymentHelper->getPaymentMethodByKey('NOVALNET_GOOGLEPAY');
