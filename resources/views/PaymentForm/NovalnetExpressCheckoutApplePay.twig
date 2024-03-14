@@ -2,26 +2,28 @@
 <script type="text/javascript" src="https://cdn.novalnet.de/js/v3/payment.js"></script>
 <script src="{{plugin_path('Novalnet')}}/js/novalnetExpress.js"></script>
 
-{# Google Pay payment form #}
+{# Apple Pay payment form #}
 <button type="button">Express Button</button>
-<div id="nn_google_pay_button">
-<form method="post" id="nn_google_pay_form" name="nn_google_pay_form" action="{{nnPaymentProcessUrl}}">
+<div id="nn_apple_pay_button">
+<form method="post" id="nn_apple_pay_form" name="nn_apple_pay_form" action="{{nnPaymentProcessUrl}}">
     {# Set up the post data#}
     <input type="hidden" name="nn_payment_process_url" id="nn_payment_process_url" value="{{nnPaymentProcessUrl}}">
-    <input type="hidden" name="nn_google_pay_mop" id="nn_google_pay_mop" value="{{paymentMethodId}}">
+    <input type="hidden" name="nn_apple_pay_mop" id="nn_apple_pay_mop" value="{{paymentMethodId}}">
     <input type="hidden" name="nn_payment_key" id="nn_payment_key" value="NOVALNET_APPLEPAY">
-    <input type="hidden" name="nn_google_pay_token" id="nn_google_pay_token">
-    <input type="hidden" name="nn_google_pay_response" id="nn_google_pay_response">
-    <input type="hidden" name="nn_google_pay_do_redirect" id="nn_google_pay_do_redirect">
-    <input type="hidden" name="nn_client_key" id="nn_client_key" value="{{googlePayData.clientKey}}">
-    <input type="hidden" name="nn_merchant_id" id="nn_merchant_id" value="{{googlePayData.merchantId}}">
-    <input type="hidden" name="nn_business_name" id="nn_business_name" value="{{googlePayData.sellerName}}">
-    <input type="hidden" name="nn_enforce" id="nn_enforce" value="{{googlePayData.enforce}}">
-    <input type="hidden" name="nn_button_type" id="nn_button_type" value="{{googlePayData.buttonType}}">
-    <input type="hidden" name="nn_button_height" id="nn_button_height" value="{{googlePayData.buttonHeight}}">
-    <input type="hidden" name="nn_environment" id="nn_environment" value="{{googlePayData.testMode}}">
+    <input type="hidden" name="nn_apple_pay_token" id="nn_apple_pay_token">
+    <input type="hidden" name="nn_apple_pay_response" id="nn_apple_pay_response">
+    <input type="hidden" name="nn_apple_pay_do_redirect" id="nn_apple_pay_do_redirect">
+    <input type="hidden" name="nn_client_key" id="nn_client_key" value="{{applePayData.clientKey}}">
+    <input type="hidden" name="nn_merchant_id" id="nn_merchant_id" value="{{applePayData.merchantId}}">
+    <input type="hidden" name="nn_business_name" id="nn_business_name" value="{{applePayData.sellerName}}">
+    <input type="hidden" name="nn_enforce" id="nn_enforce" value="{{applePayData.enforce}}">
+    <input type="hidden" name="nn_button_type" id="nn_button_type" value="{{applePayData.buttonType}}">
+    <input type="hidden" name="nn_button_height" id="nn_button_height" value="{{applePayData.buttonHeight}}">
+    <input type="hidden" name="nn_environment" id="nn_environment" value="{{applePayData.testMode}}">
     <input type="hidden" name="nn_accept_gtc" id="nn_accept_gtc" value="{{trans("Novalnet::Customize.template_checkout_accept_gtc")}}">
-    <input type="hidden" name="nn_accept_gtc" id="nn_currency">
+    <input type="hidden" name="nn_currency" id="nn_currency">
+    <input type="hidden" name="nn_order_amount" id="nn_order_amount" value="{{orderAmount}}">
+    <input type="hidden" name="nn_order_lang" id="nn_order_lang" value="{{orderLang}}">
 
     {# Set the reinitialization is used #}
         {% if reinitializePayment is not empty %}
@@ -29,7 +31,7 @@
             <input type="hidden" id="nn_order_amount" name="nn_order_amount" value="{{orderAmount}}">
         {% endif %}
 
-    {# Google Pay container #}
+    {# Apple Pay container #}
     <div id="nn_apple_pay" data-country="{{countryCode}}" data-total-amount="{{orderAmount}}" data-order-lang="{{orderLang}}" data-currency="{{orderCurrency}}"></div>
 </form>
 </div>
