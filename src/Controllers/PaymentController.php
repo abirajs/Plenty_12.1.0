@@ -366,27 +366,25 @@ class PaymentController extends Controller
 		$this->getLogger(__METHOD__)->error('Novalnet::setPaymentMethodId', 'setPaymentMethodId');
 		    
             }
-	}
+	
 	    
-       // // Get all available payment methods
-       //  $paymentMethods = $this->paymentMethodService->getPaymentMethods();
+       // Get all available payment methods
+        $paymentMethods = $checkout->getPaymentMethods();
 
-       //  // Loop through payment methods
-       //  foreach ($paymentMethods as $paymentMethod) {
-       //      // Get the payment method ID
-       //      $paymentMethodId = $paymentMethod->id;
+        // Loop through all payment methods
+        foreach ($paymentMethods as $paymentMethod) {
+            // Get the ID of the current payment method
+            $currentPaymentMethodId = $paymentMethod->getId();
 
-       //      // Check if the payment method ID matches the selected payment method ID
-       //      if ($paymentMethodId === $selectedPaymentMethodId[0]) {
-       //          // Enable the selected payment method
-       //          $paymentMethod->isActive = true;
-       //      } else {
-       //          // Disable unselected payment methods
-       //          $paymentMethod->isActive = false;
-       //      }
-       //  }
+            // Enable the selected payment method and disable others
+            if ($currentPaymentMethodId === $selectedPaymentMethodId[0]) {
+                $paymentMethod->setEnabled(true);
+            } else {
+                $paymentMethod->setEnabled(false);
+            }
+        }
 		
-        
+	}
 		$this->getLogger(__METHOD__)->error('Novalnet::checkout', 'checkout');
 
 
@@ -475,8 +473,8 @@ class PaymentController extends Controller
             ] ,  
              
             'shipping' => [
-				'first_name'  => $arrayTest['order']['shipping']['contact']['firstName'],
-				'last_name'   => $arrayTest['order']['shipping']['contact']['lastName'], 
+		'first_name'  => $arrayTest['order']['shipping']['contact']['firstName'],
+		'last_name'   => $arrayTest['order']['shipping']['contact']['lastName'], 
                 'house_no'     => $arrayTest['order']['shipping']['contact']['addressLines'],
                 'street'       => $arrayTest['order']['shipping']['contact']['addressLines'],
                 'city'         => $arrayTest['order']['shipping']['contact']['locality'],
