@@ -464,7 +464,6 @@ class PaymentController extends Controller
         
         // Build Transaction Data
         $data['transaction'] = [
-        
             'payment_type'     => 'GOOGLEPAY',
             'amount'           => $this->paymentHelper->convertAmountToSmallerUnit($basket->basketAmountNet),
             'currency'         => $paymentRequestPostData['nn_accept_gtc'],
@@ -480,59 +479,8 @@ class PaymentController extends Controller
         	'lang'      => strtoupper($this->sessionStorage->getLocaleSettings()->language),
         ];
         $this->getLogger(__METHOD__)->error('Novalnet::$data', $data);
-	    $this->getLogger(__METHOD__)->error('Novalnet::orderExpressamount', $this->paymentHelper->convertAmountToSmallerUnit($basket->basketAmountNet));
-	    
 	$this->sessionStorage->getPlugin()->setValue('nnExpressPaymentData',$data);
-
- //        $json_data = json_encode($data);
- //        $response = $this->send_request($json_data, $endpoint, $headers);
-	//      $responseArray = json_decode($response, true);
- //        $this->getLogger(__METHOD__)->error('Novalnet::$response', $responseArray);
- //        $this->sessionStorage->getPlugin()->setValue('nnPaymentData',$responseArray);
-	// $this->sessionStorage->getPlugin()->setValue('test','test'); 
-	// return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/place-order');
-	// $this->paymentService->HandlePaymentResponse();
-	// return $this->response->redirectTo($this->sessionStorage->getLocaleSettings()->language . '/confirmation');
- //        $this->getLogger(__METHOD__)->error('Confirmation', 'Confirmation');
-        
   	return $this->response->redirectTo('checkout');
-}        
-        
+    }        
 
-
-  public  function send_request($data, $url, $headers) {
-
-    // Initiate cURL
-    $curl = curl_init();
-    
-    // Set the url
-    curl_setopt($curl, CURLOPT_URL, $url);
-    
-    // Set the result output to be a string
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    
-    // Set the POST value to true (mandatory)
-    curl_setopt($curl, CURLOPT_POST, true);
-    
-    // Set the post fields
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-    
-    // Set the headers
-    curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-
-    // Execute cURL
-    $result = curl_exec($curl);
-
-    // Handle cURL error
-    if (curl_errno($curl)) {
-        echo 'Request Error:' . curl_error($curl);
-        return $result;
-    }
-    
-    // Close cURL
-    curl_close($curl);  
-   
-    return $result;
-}
-    
 }
