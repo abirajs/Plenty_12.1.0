@@ -367,7 +367,11 @@ class PaymentController extends Controller
 		    
             }
 	
-	    
+	}
+
+	$checkoutClass = pluginApp(\Plenty\Modules\Frontend\Services\CheckoutService::class);
+	if($checkoutClass instanceof Checkout)
+        {
        // Get all available payment methods
         $paymentMethods = $checkout->getPaymentMethods();
 
@@ -383,8 +387,9 @@ class PaymentController extends Controller
                 $paymentMethod->setEnabled(false);
             }
         }
-		
 	}
+		
+	
 		$this->getLogger(__METHOD__)->error('Novalnet::checkout', 'checkout');
 
 
