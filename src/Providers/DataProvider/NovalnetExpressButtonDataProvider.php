@@ -50,7 +50,7 @@ class NovalnetExpressButtonDataProvider
         $paymentService     = pluginApp(PaymentService::class);
         $settingsService    = pluginApp(SettingsService::class);
         $this->getLogger(__METHOD__)->error('Novalnet::ExpressBasket failed', $basket);
-        if($settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay') == true || $settingsService->getPaymentSettingsValue('payment_active', 'novalnet_applepay') == true) {
+        if($settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay') == true) {
             if(!empty($basket->basketAmount)) {
                 $orderAmount = 0;
                 /** @var \Plenty\Modules\Frontend\Services\VatService $vatService */
@@ -66,17 +66,6 @@ class NovalnetExpressButtonDataProvider
                 $orderAmount = $paymentHelper->convertAmountToSmallerUnit($basket->basketAmount);
             }
             // Get the Payment MOP Id
-            $applePay = $googlePay = [];
-			if($settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay') == true) {
-				$googlePay = ['googlePay' => 'GOOGLEPAY'];
-			}
-			if($settingsService->getPaymentSettingsValue('payment_active', 'novalnet_applepay') == true) {
-				$applePay = ['applePay' => 'APPLEPAY'];
-			}
-			$walletPayments = array_merge($googlePay, $applePay);
-			$enabledWalletPayment = $walletPayments;
-			$this->getLogger(__METHOD__)->error('Novalnet::$enabledWalletPayment', $enabledWalletPayment);	 
-             
             $paymentMethodDetails = $paymentHelper->getPaymentMethodByKey('NOVALNET_GOOGLEPAY');
             // Get the order language
             $orderLang = strtoupper($sessionStorage->getLocaleSettings()->language);
@@ -106,8 +95,7 @@ class NovalnetExpressButtonDataProvider
                                             'orderAmount'           => $orderAmount,
                                             'orderLang'             => $orderLang,
                                             'orderCurrency'         => $basket->currency,
-                                            'nnPaymentProcessUrl'   => $paymentService->getExpressPaymentUrl(),
-                                            'enabledWalletPayment'  => $enabledWalletPayment
+                                            'nnPaymentProcessUrl'   => $paymentService->getExpressPaymentUrl()
                                         ]);
         } else {
             return '';
