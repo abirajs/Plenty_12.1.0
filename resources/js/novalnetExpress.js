@@ -2,7 +2,7 @@ jQuery(document).ready(function() {
     var plentymarketDomain = window.plentymarketDomain || '';
 
 console.log('Plentymarket Domain:', plentymarketDomain);
-    // Load the Google Pay button
+    // Load the Wallet Pay button
     try {
         // Load the payment instances
         var NovalnetPaymentInstance  = NovalnetPayment();
@@ -13,19 +13,19 @@ console.log('Plentymarket Domain:', plentymarketDomain);
             paymentIntent: {
                 merchant: {
                     paymentDataPresent: false,
-                    countryCode : String(jQuery('#nn_google_pay').attr('data-country')),
+                    countryCode : (String(jQuery('#nn_google_pay').attr('data-country'))) ?? String(jQuery('#nn_apple_pay').attr('data-country')) ,
                     partnerId: jQuery('#nn_merchant_id').val(),
                 },
                 transaction: {
                     setPendingPayment: true,
-                    amount: (String(jQuery('#nn_google_pay').attr('data-total-amount')) != '') ? String(jQuery('#nn_google_pay').attr('data-total-amount')) : ((window.ceresStore.state.items[window.ceresStore.state.items.mainItemId].variation.documents[0].data.prices.default.price.value).toFixed(2)) * jQuery('.add-to-basket-container').find('input[type="text"], input[type="number"]').first().val() * 100,
-                    currency: String(jQuery('#nn_google_pay').attr('data-currency')),
+                    amount: (String(jQuery('#nn_order_amount').val()) != '') ? String(jQuery('#nn_order_amount').val()) : ((window.ceresStore.state.items[window.ceresStore.state.items.mainItemId].variation.documents[0].data.prices.default.price.value).toFixed(2)) * jQuery('.add-to-basket-container').find('input[type="text"], input[type="number"]').first().val() * 100,
+                    currency: (String(jQuery('#nn_google_pay').attr('data-currency'))) ? String(jQuery('#nn_apple_pay').attr('data-currency')),
                     enforce3d: Boolean(jQuery('#nn_enforce').val()),
-                    paymentMethod: "GOOGLEPAY",
+                    paymentMethod: (String(jQuery('#nn_payment_key').val()) == 'NOVALNET_GOOGLEPAY' ) ? "GOOGLEPAY" : "APPLEPAY",
                     environment: jQuery('#nn_environment').val(),
                 },
                 custom: {
-                    lang: String(jQuery('#nn_google_pay').attr('data-order-lang'))
+                    lang: (String(jQuery('#nn_google_pay').attr('data-order-lang'))) ?? String(jQuery('#nn_apple_pay').attr('data-order-lang'))
                 },
                 order: {
                     paymentDataPresent: false,
@@ -55,7 +55,7 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                 },
                 button: {
                     type: jQuery('#nn_button_type').val(),
-                    locale: ( String(jQuery('#nn_google_pay').attr('data-order-lang')) == 'EN' ) ? "en-US" : "de-DE",
+                    locale: ( String(jQuery('#nn_order_lang').val()) == 'EN' ) ? "en-US" : "de-DE",
                     boxSizing: "fill",
                     dimensions: {
                         height: parseInt(jQuery('#nn_button_height').val())
@@ -156,10 +156,14 @@ console.log('Plentymarket Domain:', plentymarketDomain);
         NovalnetWalletPaymentObj.setPaymentIntent(requestData);
         
         // Checking for the Payment method availability
-        NovalnetWalletPaymentObj.isPaymentMethodAvailable(function(displayGooglePayButton) {
-            if(displayGooglePayButton) {
+        NovalnetWalletPaymentObj.isPaymentMethodAvailable(function(displayPayButton) {
+            if(displayPayButton) {
+				if(String(jQuery('#nn_payment_key').val()) == 'NOVALNET_GOOGLEPAY') {
                 // Display the Google Pay payment
                 NovalnetWalletPaymentObj.addPaymentButton("#nn_google_pay");
+				} else {
+				NovalnetWalletPaymentObj.addPaymentButton("#nn_apple_pay");
+				}
             } else {
                 // Hide the Google Pay payment if it is not possible
                 console.log('button not displayed');
