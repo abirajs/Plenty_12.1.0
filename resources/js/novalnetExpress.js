@@ -118,7 +118,7 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                         
                         function updateBasketValues() {
                         // Reload basket values (amount and items)
-                        jQuery.get('/rest/io/basket/values', function(response) {
+                        jQuery.get('/rest/io/basket', function(response) {
                             // Update basket values in the page
                             console.log(response.amount);
                             console.log(response.items);
