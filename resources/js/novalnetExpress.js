@@ -92,40 +92,22 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                         } else if (typeof window.ceresStore.state.items.mainItemId !== 'undefined' && window.ceresStore.state.items[window.ceresStore.state.items.mainItemId]) {
                         id = window.ceresStore.state.items[window.ceresStore.state.items.mainItemId].variation.documents[0].data.variation.id;
                         }
-                        if (id) {
-                        var postData = {
-                            variationId: id,
-                            quantity: jQuery('.add-to-basket-container').find('input[type="text"], input[type="number"]').first().val()
-                        };
-                        jQuery.post(
-                            '/rest/io/basket/items/',
-                            postData,
-                            function () {
-                                // Reload basket content
-                                updateBasket();
-                                // Reload basket values (amount and items)
-                                updateBasketValues();
-                            }
-                        );
-                        } else {
-                        location.reload();
-                        }
-                        
-                        function updateBasket() {
-                        // Reload basket container content
-                        jQuery('.basket-container').load('/rest/io/basket');
-                        }
-                        
-                        function updateBasketValues() {
-                        // Reload basket values (amount and items)
-                        jQuery.get('/rest/io/basket', function(response) {
-                            // Update basket values in the page
-                            console.log(response.amount);
-                            console.log(response.items);
-                            jQuery('.basket-amount').text(response.amount);
-                            jQuery('.basket-items').text(response.items);
-                        });
-                        }
+                        // if (id) {
+                        // var postData = {
+                        //     variationId: id,
+                        //     quantity: jQuery('.add-to-basket-container').find('input[type="text"], input[type="number"]').first().val()
+                        // };
+                        // jQuery.post(
+                        //     '/rest/io/basket/items/',
+                        //     postData,
+                        //     function () {
+                        //        jQuery('.basket-container').load('/rest/io/basket');
+                        //     }
+                        // );
+                        // } else {
+                        // location.reload();
+                        // }
+                        jQuery('.fa-shopping-cart').parent('button').click();
                         clickResult({status: "SUCCESS"});
                     },
                 }
