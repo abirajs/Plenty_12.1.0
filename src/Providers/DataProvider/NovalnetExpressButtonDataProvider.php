@@ -74,7 +74,7 @@ class NovalnetExpressButtonDataProvider
 				$applePay = ['APPLEPAY'];
 			}
 			$walletPayments = array_merge($googlePay, $applePay);
-			$enabledWalletPayment = json_encode($walletPayments);
+			$enabledWalletPayment = $walletPayments;
 			$this->getLogger(__METHOD__)->error('Novalnet::$enabledWalletPayment', $enabledWalletPayment);	 
              
             $paymentMethodDetails = $paymentHelper->getPaymentMethodByKey('NOVALNET_GOOGLEPAY');
