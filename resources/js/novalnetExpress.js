@@ -108,14 +108,19 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                     }
                     
                     // Recalculating the total gross based on the chosen shipping method
-                    transactionInfoToUpdate.amount = transactionInfoToUpdate.methods[0].amount + requestData.paymentIntent.transaction.amount;	        	
+                    transactionInfoToUpdate.amount = transactionInfoToUpdate.methods[0].amount + requestData.paymentIntent.transaction.amount;	
+                    console.log(transactionInfoToUpdate.methods[0].amount);
+                    console.log(requestData.paymentIntent.transaction.amount);
                     newShippingContactResult(transactionInfoToUpdate);
                  },
                  onShippingMethodChange : function(shippingMethod, newShippingMethodResult) {
                      // There could be a situation where the shipping method can alter total  
                     let transactionInfoToUpdate = {};
                     // Recalculating the total gross based on the chosen shipping method
-                    transactionInfoToUpdate.amount = parseInt(shippingMethod.amount) + requestData.paymentIntent.transaction.amount;		
+                    transactionInfoToUpdate.amount = parseInt(shippingMethod.amount) + requestData.paymentIntent.transaction.amount;
+                     console.log(shippingMethod.amount);
+                     console.log( parseInt(shippingMethod.amount));
+                     console.log(transactionInfoToUpdate.amount);
                     newShippingMethodResult(transactionInfoToUpdate);
                  },
                     
