@@ -1,0 +1,35 @@
+{# Load the Js #}
+
+
+{# Google Pay payment form #}
+<button type="button">Cart Button</button>
+<div id="nn_google">
+<form method="post" id="google_pay_form" name="nn_google_pay_form" action="{{nnPaymentProcessUrl}}">
+    {# Set up the post data#}
+    <input type="hidden" name="nn_payment_process_url" id="nn_payment_process_url" value="{{nnPaymentProcessUrl}}">
+    <input type="hidden" name="nn_google_pay_mop" id="nn_google_pay_mop" value="{{paymentMethodId}}">
+    <input type="hidden" name="nn_payment_key" id="nn_payment_key" value="NOVALNET_GOOGLEPAY">
+    <input type="hidden" name="nn_google_pay_token" id="google_pay_token">
+    <input type="hidden" name="nn_google_pay_do_redirect" id="google_pay_do_redirect">
+    <input type="hidden" name="nn_client_key" id="client_key" value="{{googlePayData.clientKey}}">
+    <input type="hidden" name="nn_merchant_id" id="merchant_id" value="{{googlePayData.merchantId}}">
+    <input type="hidden" name="nn_business_name" id="business_name" value="{{googlePayData.sellerName}}">
+    <input type="hidden" name="nn_enforce" id="enforce" value="{{googlePayData.enforce}}">
+    <input type="hidden" name="nn_button_type" id="button_type" value="{{googlePayData.buttonType}}">
+    <input type="hidden" name="nn_button_height" id="button_height" value="{{googlePayData.buttonHeight}}">
+    <input type="hidden" name="nn_environment" id="environment" value="{{googlePayData.testMode}}">
+    <input type="hidden" name="nn_accept_gtc" id="nn_accept_gtc" value="{{trans("Novalnet::Customize.template_checkout_accept_gtc")}}">
+
+    {# Set the reinitialization is used #}
+        {% if reinitializePayment is not empty %}
+            <input type="hidden" id="nn_reinitializePayment" name="nn_reinitializePayment" value="{{reinitializePayment}}">
+            <input type="hidden" id="nn_order_amount" name="nn_order_amount" value="{{orderAmount}}">
+        {% endif %}
+
+    {# Google Pay container #}
+    <div id="nn_google_pay_cart_button" data-country="{{countryCode}}" data-total-amount="{{orderAmount}}" data-order-lang="{{orderLang}}" data-currency="{{orderCurrency}}"></div>
+</form>
+</div>
+
+<script type="text/javascript" src="https://cdn.novalnet.de/js/v3/payment.js"></script>
+<script src="{{plugin_path('Novalnet')}}/js/novalnetCart.js"></script>
