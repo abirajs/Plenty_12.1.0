@@ -31,7 +31,7 @@ use Plenty\Modules\Account\Contact\Contracts\ContactAddressRepositoryContract;
 use Plenty\Modules\Frontend\Services\AccountService;
 use Plenty\Modules\Account\Address\Models\AddressRelationType;
 
-use Plenty\Modules\Frontend\Contracts\CheckoutServiceContract;
+
 use Plenty\Modules\Frontend\Services\PaymentMethodService;
 
 /**
@@ -114,7 +114,6 @@ class PaymentController extends Controller
                                 AddressRepositoryContract $addressRepositoryContract,
                                 Checkout $checkout,
                                 Twig $twig,
-				CheckoutServiceContract $checkoutService,
 				PaymentMethodService $paymentMethodService
                                )
     {
@@ -130,7 +129,6 @@ class PaymentController extends Controller
         $this->addressContract = $addressRepositoryContract;
         $this->checkout = $checkout;
 
-	$this->checkoutService = $checkoutService;
         $this->paymentMethodService = $paymentMethodService;
     }
 
