@@ -31,6 +31,7 @@ use Plenty\Modules\Account\Contact\Contracts\ContactAddressRepositoryContract;
 use Plenty\Modules\Frontend\Services\AccountService;
 use Plenty\Modules\Account\Address\Models\AddressRelationType;
 
+use Plenty\Modules\Frontend\Contracts\Checkout;
 use Plenty\Modules\Frontend\Services\CheckoutService;
 
 
@@ -369,26 +370,32 @@ class PaymentController extends Controller
 	
 	}
 
-	$checkoutClass = pluginApp(\Plenty\Modules\Frontend\Services\CheckoutService::class);
-	if($checkoutClass instanceof Checkout)
-        {
-       // Get all available payment methods
-        $paymentMethods = $checkout->getPaymentMethods();
-
-        // Loop through all payment methods
-        foreach ($paymentMethods as $paymentMethod) {
-            // Get the ID of the current payment method
-            $currentPaymentMethodId = $paymentMethod->getId();
-
-            // Enable the selected payment method and disable others
-            if ($currentPaymentMethodId === $selectedPaymentMethodId[0]) {
-                $paymentMethod->setEnabled(true);
-            } else {
-                $paymentMethod->setEnabled(false);
-            }
-        }
+	// Instantiate the CheckoutService
+	$checkoutService = pluginApp(CheckoutService::class);
+	
+	// Check if $checkoutService is an instance of CheckoutService
+	if ($checkoutService instanceof CheckoutService) {
+	    // Get the checkout object
+	    $checkout = $checkoutService->getCheckout();
+	
+	    // Assuming $selectedPaymentMethodId is already defined
+	    // Get all available payment methods
+	    $paymentMethods = $checkout->getPaymentMethods();
+	
+	    // Loop through all payment methods
+	    foreach ($paymentMethods as $paymentMethod) {
+		// Get the ID of the current payment method
+		$currentPaymentMethodId = $paymentMethod->getId();
+	
+		// Enable the selected payment method and disable others
+		if ($currentPaymentMethodId === $selectedPaymentMethodId[0]) {
+		    $paymentMethod->setEnabled(true);
+		} else {
+		    $paymentMethod->setEnabled(false);
+		}
+	    }
 	}
-		
+			
 	
 		$this->getLogger(__METHOD__)->error('Novalnet::checkout', 'checkout');
 
