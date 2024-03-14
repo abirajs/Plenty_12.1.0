@@ -8,8 +8,6 @@
 <form method="post" id="nn_google_pay_form" name="nn_google_pay_form" action="{{nnPaymentProcessUrl}}">
     {# Set up the post data#}
     <input type="hidden" name="nn_payment_process_url" id="nn_payment_process_url" value="{{nnPaymentProcessUrl}}">
-    <input type="hidden" name="nn_enable_googlePay_payment" id="nn_enable_googlePay_payment" value="{{enabledWalletPayment.googlePay}}">
-    <input type="hidden" name="nn_enable_applePay_payment" id="nn_enable_applePay_payment" value="{{enabledWalletPayment.applePay}}">
     <input type="hidden" name="nn_google_pay_mop" id="nn_google_pay_mop" value="{{paymentMethodId}}">
     <input type="hidden" name="nn_payment_key" id="nn_payment_key" value="NOVALNET_GOOGLEPAY">
     <input type="hidden" name="nn_google_pay_token" id="nn_google_pay_token">
@@ -24,7 +22,6 @@
     <input type="hidden" name="nn_environment" id="nn_environment" value="{{googlePayData.testMode}}">
     <input type="hidden" name="nn_accept_gtc" id="nn_accept_gtc" value="{{trans("Novalnet::Customize.template_checkout_accept_gtc")}}">
     <input type="hidden" name="nn_accept_gtc" id="nn_currency">
- 
 
     {# Set the reinitialization is used #}
         {% if reinitializePayment is not empty %}
@@ -33,14 +30,6 @@
         {% endif %}
 
     {# Google Pay container #}
-    {% if enabledWalletPayment.googlePay == GOOGLEPAY %}
-        <div id="nn_google_pay" data-country="{{countryCode}}" data-total-amount="{{orderAmount}}" data-order-lang="{{orderLang}}" data-currency="{{orderCurrency}}"></div>
-    {% endif %}
-
-    {% if enabledWalletPayment.applePay == APPLEPAY %}
-        <div id="nn_apple_pay" data-country="{{countryCode}}" data-total-amount="{{orderAmount}}" data-order-lang="{{orderLang}}" data-currency="{{orderCurrency}}"></div>
-    {% endif %}
-
-
+    <div id="nn_google_pay" data-country="{{countryCode}}" data-total-amount="{{orderAmount}}" data-order-lang="{{orderLang}}" data-currency="{{orderCurrency}}"></div>
 </form>
 </div>
