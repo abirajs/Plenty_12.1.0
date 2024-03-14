@@ -82,7 +82,44 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                             }
                         }
                     },
-                    onPaymentButtonClicked: function(clickResult) {
+                    
+                    onShippingContactChange : function(shippingContact, newShippingContactResult) {
+                    let transactionInfoToUpdate = {};
+                    // There could be a situation where the shipping methods differ based on region
+                    if (shippingContact.countryCode == "DE" || shippingContact.countryCode == "US") {		
+                        transactionInfoToUpdate.methods = [{
+                            identifier: "dhlshipping",
+                            amount: 500,
+                            detail: "The product will be delivered depends on the executive",
+                            label: "DHL Shipping"
+                        }, {
+                            identifier: "freeshipping",
+                            amount: 0,
+                            detail: "Free shipping within Deutschland",
+                            label: "Free Shipping"
+                        }];
+                    } else {
+                        transactionInfoToUpdate.methods = [{
+                            identifier: "expressshipping",
+                            amount: 750,
+                            detail: "The product will be dispatched in the same day",				
+                            label: "Express Shipping"
+                        }];
+                    }
+                    
+                    // Recalculating the total gross based on the chosen shipping method
+                    transactionInfoToUpdate.amount = transactionInfoToUpdate.methods[0].amount + transactionInformation.amount;	        	
+                    newShippingContactResult(transactionInfoToUpdate);
+                 },
+                 onShippingMethodChange : function(shippingMethod, newShippingMethodResult) {
+                     // There could be a situation where the shipping method can alter total  
+                    let transactionInfoToUpdate = {};
+                    // Recalculating the total gross based on the chosen shipping method
+                    transactionInfoToUpdate.amount = parseInt(shippingMethod.amount) + transactionInformation.amount;		
+                    newShippingMethodResult(transactionInfoToUpdate);
+                 },
+                    
+                 onPaymentButtonClicked: function(clickResult) {
                         console.log('click');
                         console.log(window.ceresStore.state);
                         console.log(window.ceresStore.state.basket.item);
