@@ -155,7 +155,7 @@ jQuery(document).ready(function() {
 							clickResult({status: "SUCCESS"});
 							} 
 							if(walletPayments[walletPayment] == 'APPLEPAY')  {
-							 jQuery('#nn_apple_pay_form').submit();
+							 jQuery('#nn_google_pay_form').submit();
 							}
 							
 						},
@@ -165,16 +165,11 @@ jQuery(document).ready(function() {
 			
 			// Checking for the Payment method availability
 
-			if((walletPayments[walletPayment] == "GOOGLEPAY")) {
+			if((walletPayments[walletPayment] == "GOOGLEPAY") || (walletPayments[walletPayment] == "APPLEPAY")) {
 				console.log(walletPayments[walletPayment]);
             			displayWalletButton(walletPayments[walletPayment]);
         		}
 
-		       if((walletPayments[walletPayment] == "APPLEPAY")) {
-				console.log(walletPayments[walletPayment]);
-            			displayWalletButton(walletPayments[walletPayment]);
-        		}
-			
 			function displayWalletButton(paymentName) {
 			// Load the payment instances
 			var NovalnetPaymentInstance  = NovalnetPayment();
