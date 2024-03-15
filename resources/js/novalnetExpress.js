@@ -82,7 +82,7 @@ jQuery(document).ready(function() {
 								// jQuery('#nn_apple_pay_do_redirect').val(response.transaction.doRedirect);                               
 								// jQuery('#nn_apple_pay_form').submit();
 								// jQuery('#nn_apple_pay').find('button').prop('disabled', true);
-								}                                                
+								// }                                                
 							} else {
 								// Upon failure, displaying the error text
 								if(response.result.status_text) {
