@@ -170,7 +170,7 @@ jQuery(document).ready(function() {
 			console.log(walletPayments[walletPayment]);
 			// Checking for the Payment method availability
 
-			if((walletPayments[walletPayment] == "GOOGLEPAY"   || (walletPayments[walletPayment] == "APPLEPAY" ) {
+			if((walletPayments[walletPayment] == "GOOGLEPAY")   || (walletPayments[walletPayment] == "APPLEPAY" )) {
             			displayWalletButton(walletPayments[walletPayment]);
         		}
 
