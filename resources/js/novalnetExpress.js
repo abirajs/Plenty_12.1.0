@@ -168,15 +168,19 @@ jQuery(document).ready(function() {
 			
 			// Checking for the Payment method availability
 
-			if((walletPayments[walletPayment] == "GOOGLEPAY")   || (walletPayments[walletPayment] == "APPLEPAY" )) {
-				console.log(requestData);
-				
+			if((walletPayments[walletPayment] == "GOOGLEPAY")) {
 				console.log(walletPayments[walletPayment]);
             			displayWalletButton(walletPayments[walletPayment]);
         		}
 
+		       if((walletPayments[walletPayment] == "APPLEPAY")) {
+				console.log(walletPayments[walletPayment]);
+            			displayWalletButton(walletPayments[walletPayment]);
+        		}
+			
 			function displayWalletButton(paymentName) {
 			NovalnetWalletPaymentObj.setPaymentIntent(requestData);
+			console.log(requestData);
 			NovalnetWalletPaymentObj.isPaymentMethodAvailable(function(displayPayButton) {
 				console.log('paymentMethodAvailable');
 				if(displayPayButton) {
