@@ -170,12 +170,13 @@ jQuery(document).ready(function() {
 
 			if((walletPayments[walletPayment] == "GOOGLEPAY")   || (walletPayments[walletPayment] == "APPLEPAY" )) {
 				console.log(requestData);
-				NovalnetWalletPaymentObj.setPaymentIntent(requestData);
+				
 				console.log(walletPayments[walletPayment]);
             			displayWalletButton(walletPayments[walletPayment]);
         		}
 
 			function displayWalletButton(paymentName) {
+			NovalnetWalletPaymentObj.setPaymentIntent(requestData);
 			NovalnetWalletPaymentObj.isPaymentMethodAvailable(function(displayPayButton) {
 				console.log('paymentMethodAvailable');
 				if(displayPayButton) {
