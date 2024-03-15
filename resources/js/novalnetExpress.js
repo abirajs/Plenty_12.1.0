@@ -165,12 +165,13 @@ jQuery(document).ready(function() {
 					}
 				}
 			};
-			console.log(requestData);
-			NovalnetWalletPaymentObj.setPaymentIntent(requestData);
-			console.log(walletPayments[walletPayment]);
+			
 			// Checking for the Payment method availability
 
 			if((walletPayments[walletPayment] == "GOOGLEPAY")   || (walletPayments[walletPayment] == "APPLEPAY" )) {
+				console.log(requestData);
+				NovalnetWalletPaymentObj.setPaymentIntent(requestData);
+				console.log(walletPayments[walletPayment]);
             			displayWalletButton(walletPayments[walletPayment]);
         		}
 
