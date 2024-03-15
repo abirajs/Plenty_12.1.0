@@ -68,7 +68,7 @@ jQuery(document).ready(function() {
 							if(response.result.status == "SUCCESS") {
 								console.log(response);
 								// var array = json_decode(response, true);
-								if(String(jQuery('#nn_payment_key').val()) == 'NOVALNET_GOOGLEPAY') {
+								if(walletPayments[walletPayment] == 'NOVALNET_GOOGLEPAY') {
 								jQuery('#nn_google_pay_response').val(JSON.stringify(response));
 								jQuery('#nn_currency').val(jQuery('#nn_order_currency').val()); 
 								jQuery('#nn_google_pay_token').val(response.transaction.token);
@@ -153,7 +153,7 @@ jQuery(document).ready(function() {
 							// } else {
 							// location.reload();
 							// }
-							if(String(jQuery('#nn_payment_key').val()) == 'NOVALNET_GOOGLEPAY') {
+							if(walletPayments[walletPayment] == 'NOVALNET_GOOGLEPAY') {
 							jQuery('.fa-shopping-cart').parent('button').click();
 							clickResult({status: "SUCCESS"});
 							} else {
