@@ -22,6 +22,10 @@
     <input type="hidden" name="nn_environment" id="nn_environment" value="{{googlePayData.testMode}}">
     <input type="hidden" name="nn_accept_gtc" id="nn_accept_gtc" value="{{trans("Novalnet::Customize.template_checkout_accept_gtc")}}">
     <input type="hidden" name="nn_accept_gtc" id="nn_currency">
+    <input type="hidden" name="nn_order_amount" id="nn_order_amount" value="{{orderAmount}}">
+    <input type="hidden" name="nn_order_lang" id="nn_order_lang" value="{{orderLang}}">
+    <input type="hidden" name="nn_order_currency" id="nn_order_currency" value="{{orderCurrency}}">
+    <input type="hidden" name="nn_country_code" id="nn_country_code" value="{{countryCode}}">
 
     {# Set the reinitialization is used #}
         {% if reinitializePayment is not empty %}
