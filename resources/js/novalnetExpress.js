@@ -13,19 +13,19 @@ console.log('Plentymarket Domain:', plentymarketDomain);
             paymentIntent: {
                 merchant: {
                     paymentDataPresent: false,
-                    countryCode : (String(jQuery('#nn_google_pay').attr('data-country'))) ?? String(jQuery('#nn_apple_pay').attr('data-country')) ,
+                    countryCode : jQuery('#nn_country_code').val(),
                     partnerId: jQuery('#nn_merchant_id').val(),
                 },
                 transaction: {
                     setPendingPayment: true,
                     amount: (String(jQuery('#nn_order_amount').val()) != '') ? String(jQuery('#nn_order_amount').val()) : ((window.ceresStore.state.items[window.ceresStore.state.items.mainItemId].variation.documents[0].data.prices.default.price.value).toFixed(2)) * jQuery('.add-to-basket-container').find('input[type="text"], input[type="number"]').first().val() * 100,
-                    currency: (String(jQuery('#nn_google_pay').attr('data-currency'))) ?? String(jQuery('#nn_apple_pay').attr('data-currency')),
+                    currency: jQuery('#nn_order_currency').val(),
                     enforce3d: Boolean(jQuery('#nn_enforce').val()),
                     paymentMethod: (String(jQuery('#nn_payment_key').val()) == 'NOVALNET_GOOGLEPAY' ) ? "GOOGLEPAY" : "APPLEPAY",
                     environment: jQuery('#nn_environment').val(),
                 },
                 custom: {
-                    lang: (String(jQuery('#nn_google_pay').attr('data-order-lang'))) ?? String(jQuery('#nn_apple_pay').attr('data-order-lang'))
+                    lang: jQuery('#nn_order_lang').val(),
                 },
                 order: {
                     paymentDataPresent: false,
@@ -68,12 +68,21 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                         if(response.result.status == "SUCCESS") {
                             console.log(response);
                             // var array = json_decode(response, true);
+                            if(String(jQuery('#nn_payment_key').val()) == 'NOVALNET_GOOGLEPAY') {
                             jQuery('#nn_google_pay_response').val(JSON.stringify(response));
-                            jQuery('#nn_currency').val(String(jQuery('#nn_google_pay').attr('data-currency'))); 
+                            jQuery('#nn_currency').val(jQuery('#nn_order_currency').val()); 
                             jQuery('#nn_google_pay_token').val(response.transaction.token);
                             jQuery('#nn_google_pay_do_redirect').val(response.transaction.doRedirect);                               
                             jQuery('#nn_google_pay_form').submit();
-                            jQuery('#nn_google_pay').find('button').prop('disabled', true);                                                 
+                            jQuery('#nn_google_pay').find('button').prop('disabled', true);
+							} else {
+							jQuery('#nn_apple_pay_response').val(JSON.stringify(response));
+                            jQuery('#nn_currency').val(jQuery('#nn_order_currency').val()); 
+                            jQuery('#nn_apple_pay_token').val(response.transaction.token);
+                            jQuery('#nn_apple_pay_do_redirect').val(response.transaction.doRedirect);                               
+                            jQuery('#nn_apple_pay_form').submit();
+                            jQuery('#nn_apple_pay').find('button').prop('disabled', true);
+							}                                                
                         } else {
                             // Upon failure, displaying the error text
                             if(response.result.status_text) {
@@ -144,10 +153,13 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                         // } else {
                         // location.reload();
                         // }
-                        
+                        if(String(jQuery('#nn_payment_key').val()) == 'NOVALNET_GOOGLEPAY') {
                         jQuery('.fa-shopping-cart').parent('button').click();
-                         
                         clickResult({status: "SUCCESS"});
+						} else {
+						 jQuery('#nn_apple_pay_form').submit();
+						}
+                        
                     },
                 }
             }
