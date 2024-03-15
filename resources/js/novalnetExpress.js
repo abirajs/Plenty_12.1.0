@@ -170,7 +170,7 @@ jQuery(document).ready(function() {
 			// Checking for the Payment method availability
 			NovalnetWalletPaymentObj.isPaymentMethodAvailable(function(displayPayButton) {
 				if(displayPayButton) {
-					if(walletPayments[walletPayment] == 'NOVALNET_GOOGLEPAY') {
+					if(walletPayments[walletPayment] == 'GOOGLEPAY') {
 					// Display the Google Pay payment
 					NovalnetWalletPaymentObj.addPaymentButton("#nn_google_pay");
 					} else {
