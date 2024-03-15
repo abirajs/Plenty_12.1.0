@@ -174,17 +174,17 @@ jQuery(document).ready(function() {
             			displayWalletButton(walletPayments[walletPayment]);
         		}
 
-			function displayWalletButton(walletPayments[walletPayment]) {
+			function displayWalletButton(paymentName) {
 			NovalnetWalletPaymentObj.isPaymentMethodAvailable(function(displayPayButton) {
 				console.log('paymentMethodAvailable');
 				if(displayPayButton) {
 					console.log(walletPayments[walletPayment]);
 					// Display the Google Pay payment
-					if(walletPayments[walletPayment] == 'APPLEPAY') {
+					if(paymentName == 'APPLEPAY') {
 						console.log('APPLEPAY' + walletPayments[walletPayment]);
 					       NovalnetWalletPaymentObj.addPaymentButton('#APPLEPAY');
 					}
-					if(walletPayments[walletPayment] == 'GOOGLEPAY') {
+					if(paymentName == 'GOOGLEPAY') {
 						console.log('GOOGLEPAY' + walletPayments[walletPayment]);
 						NovalnetWalletPaymentObj.addPaymentButton('#GOOGLEPAY');
 					}
