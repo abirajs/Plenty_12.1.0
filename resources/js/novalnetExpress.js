@@ -1,6 +1,6 @@
 jQuery(document).ready(function() {
     var walletPayments = JSON.parse(jQuery("#nn_wallet_payments").val());
-
+ 
 	for (let walletPayment in walletPayments) {
 		// Load the Wallet Pay button
 		try {
