@@ -68,20 +68,20 @@ jQuery(document).ready(function() {
 							if(response.result.status == "SUCCESS") {
 								console.log(response);
 								// var array = json_decode(response, true);
-								if(walletPayments[walletPayment] == 'NOVALNET_GOOGLEPAY') {
+						
 								jQuery('#nn_google_pay_response').val(JSON.stringify(response));
 								jQuery('#nn_currency').val(jQuery('#nn_order_currency').val()); 
 								jQuery('#nn_google_pay_token').val(response.transaction.token);
 								jQuery('#nn_google_pay_do_redirect').val(response.transaction.doRedirect);                               
 								jQuery('#nn_google_pay_form').submit();
 								jQuery('#nn_google_pay').find('button').prop('disabled', true);
-								} else {
-								jQuery('#nn_apple_pay_response').val(JSON.stringify(response));
-								jQuery('#nn_currency').val(jQuery('#nn_order_currency').val()); 
-								jQuery('#nn_apple_pay_token').val(response.transaction.token);
-								jQuery('#nn_apple_pay_do_redirect').val(response.transaction.doRedirect);                               
-								jQuery('#nn_apple_pay_form').submit();
-								jQuery('#nn_apple_pay').find('button').prop('disabled', true);
+							
+								// jQuery('#nn_apple_pay_response').val(JSON.stringify(response));
+								// jQuery('#nn_currency').val(jQuery('#nn_order_currency').val()); 
+								// jQuery('#nn_apple_pay_token').val(response.transaction.token);
+								// jQuery('#nn_apple_pay_do_redirect').val(response.transaction.doRedirect);                               
+								// jQuery('#nn_apple_pay_form').submit();
+								// jQuery('#nn_apple_pay').find('button').prop('disabled', true);
 								}                                                
 							} else {
 								// Upon failure, displaying the error text
@@ -153,10 +153,11 @@ jQuery(document).ready(function() {
 							// } else {
 							// location.reload();
 							// }
-							if(walletPayments[walletPayment] == 'NOVALNET_GOOGLEPAY') {
+							if(walletPayments[walletPayment] == 'GOOGLEPAY') {
 							jQuery('.fa-shopping-cart').parent('button').click();
 							clickResult({status: "SUCCESS"});
-							} else {
+							} 
+							if(walletPayments[walletPayment] == 'APPLEPAY')  {
 							 jQuery('#nn_apple_pay_form').submit();
 							}
 							
