@@ -174,7 +174,7 @@ jQuery(document).ready(function() {
 					// Display the Google Pay payment
 					NovalnetWalletPaymentObj.addPaymentButton("#nn_google_pay");
 					} else {
-					NovalnetWalletPaymentObj.addPaymentButton("#nn_apple_pay");
+					NovalnetWalletPaymentObj.addPaymentButton("#nn_apple");
 					}
 				} else {
 					// Hide the Google Pay payment if it is not possible
