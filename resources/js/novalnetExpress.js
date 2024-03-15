@@ -155,7 +155,7 @@ jQuery(document).ready(function() {
 							clickResult({status: "SUCCESS"});
 							} 
 							if(walletPayments[walletPayment] == 'APPLEPAY')  {
-							 jQuery('#nn_google_pay_form').submit();
+							 jQuery('.fa-shopping-cart').parent('button').click();
 							}
 							
 						},
