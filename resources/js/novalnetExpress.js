@@ -173,10 +173,10 @@ jQuery(document).ready(function() {
 				if(displayPayButton) {
 					// Display the Google Pay payment
 					if(walletPayments[walletPayment] == 'GOOGLEPAY') {
-						NovalnetWalletPaymentObj.addPaymentButton('#' + walletPayments[walletPayment]);
+						NovalnetWalletPaymentObj.addPaymentButton('#GOOGLEPAY']);
 					}
 					if(walletPayments[walletPayment] == 'APPLEPAY') {
-					       NovalnetWalletPaymentObj.addPaymentButton('#' + walletPayments[walletPayment]);
+					       NovalnetWalletPaymentObj.addPaymentButton('#APPLEPAY');
 					}
 				} else {
 					// Hide the Google Pay payment if it is not possible
