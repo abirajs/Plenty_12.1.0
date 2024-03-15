@@ -178,14 +178,14 @@ jQuery(document).ready(function() {
 			NovalnetWalletPaymentObj.isPaymentMethodAvailable(function(displayPayButton) {
 				console.log('paymentMethodAvailable');
 				if(displayPayButton) {
-					console.log(walletPayments[walletPayment]);
+					console.log(paymentName);
 					// Display the Google Pay payment
 					if(paymentName == 'APPLEPAY') {
-						console.log('APPLEPAY' + walletPayments[walletPayment]);
+						console.log('APPLEPAY' + paymentName);
 					       NovalnetWalletPaymentObj.addPaymentButton('#APPLEPAY');
 					}
 					if(paymentName == 'GOOGLEPAY') {
-						console.log('GOOGLEPAY' + walletPayments[walletPayment]);
+						console.log('GOOGLEPAY' + paymentName);
 						NovalnetWalletPaymentObj.addPaymentButton('#GOOGLEPAY');
 					}
 				} else {
