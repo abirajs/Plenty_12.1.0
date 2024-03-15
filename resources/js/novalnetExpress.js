@@ -169,6 +169,12 @@ jQuery(document).ready(function() {
 			NovalnetWalletPaymentObj.setPaymentIntent(requestData);
 			console.log(walletPayments[walletPayment]);
 			// Checking for the Payment method availability
+
+			if((walletPayments[walletPayment] == "GOOGLEPAY"   || (walletPayments[walletPayment] == "APPLEPAY" ) {
+            			displayWalletButton(walletPayments[walletPayment]);
+        		}
+
+			function displayWalletButton(walletPayments[walletPayment]) {
 			NovalnetWalletPaymentObj.isPaymentMethodAvailable(function(displayPayButton) {
 				console.log('paymentMethodAvailable');
 				if(displayPayButton) {
@@ -188,6 +194,7 @@ jQuery(document).ready(function() {
 				}
 				console.log('test4'); 
 			});
+			}
 		} catch (e) {
 			// Handling the errors from the payment intent setup
 			console.log(e.message);
