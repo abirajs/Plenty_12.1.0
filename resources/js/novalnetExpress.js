@@ -151,11 +151,14 @@ jQuery(document).ready(function() {
 							// location.reload();
 							// }
 							if(walletPayments[walletPayment] == 'GOOGLEPAY') {
+							alert('googlepayClick');
 							jQuery('.fa-shopping-cart').parent('button').click();
 							clickResult({status: "SUCCESS"});
 							} 
 							if(walletPayments[walletPayment] == 'APPLEPAY')  {
+							alert('applepayClick');
 							 jQuery('.fa-shopping-cart').parent('button').click();
+							 window.location.href = jQuery('.nn_payment_process_url').val();
 							}
 							
 						},
