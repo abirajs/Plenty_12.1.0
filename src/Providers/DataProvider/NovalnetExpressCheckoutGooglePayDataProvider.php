@@ -50,7 +50,7 @@ class NovalnetExpressCheckoutGooglePayDataProvider
         $paymentService     = pluginApp(PaymentService::class);
         $settingsService    = pluginApp(SettingsService::class);
         $this->getLogger(__METHOD__)->error('Novalnet::ExpressBasket failed', $basket);
-        if($settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay') == true) {
+        if($settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay') == true || $settingsService->getPaymentSettingsValue('payment_active', 'novalnet_applepay') == true) {
             if(!empty($basket->basketAmount)) {
                 $orderAmount = 0;
                 /** @var \Plenty\Modules\Frontend\Services\VatService $vatService */
@@ -73,6 +73,16 @@ class NovalnetExpressCheckoutGooglePayDataProvider
             $billingAddress = $paymentHelper->getCustomerAddress((int) $basket->customerInvoiceAddressId);
             // Get the seller name from the shop configuaration
             $sellerName = $settingsService->getPaymentSettingsValue('business_name', 'novalnet_googlepay');
+            
+            if($settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay') == true) {
+				$googlePay = ['GOOGLEPAY'];
+			}
+			if($settingsService->getPaymentSettingsValue('payment_active', 'novalnet_applepay') == true) {
+				$applePay = ['APPLEPAY'];
+			}
+			$walletPayments = array_merge($googlePay, $applePay);
+			$enabledWalletPayment = json_encode($walletPayments);
+			$this->getLogger(__METHOD__)->error('Novalnet::$enabledWalletPayment', $enabledWalletPayment);
             // Required details for the Google Pay button
             $googlePayData = [
                                 'clientKey'     => trim($settingsService->getPaymentSettingsValue('novalnet_client_key')),
@@ -95,7 +105,8 @@ class NovalnetExpressCheckoutGooglePayDataProvider
                                             'orderAmount'           => $orderAmount,
                                             'orderLang'             => $orderLang,
                                             'orderCurrency'         => $basket->currency,
-                                            'nnPaymentProcessUrl'   => $paymentService->getExpressPaymentUrl()
+                                            'nnPaymentProcessUrl'   => $paymentService->getExpressPaymentUrl(),
+                                            'enabledWalletPayment'   => $enabledWalletPayment
                                         ]);
         } else {
             return '';
