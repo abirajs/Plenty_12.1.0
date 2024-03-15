@@ -4,9 +4,6 @@
 	for (let walletPayment in walletPayments) {
 		// Load the Wallet Pay button
 		try {
-			// Load the payment instances
-			var NovalnetPaymentInstance  = NovalnetPayment();
-			var NovalnetWalletPaymentObj = NovalnetPaymentInstance.createPaymentObject();
 			// Setup the payment intent
 			var requestData = {
 				clientKey: String(jQuery('#nn_client_key').val()),
@@ -179,6 +176,9 @@
         		}
 			
 			function displayWalletButton(paymentName) {
+			// Load the payment instances
+			var NovalnetPaymentInstance  = NovalnetPayment();
+			var NovalnetWalletPaymentObj = NovalnetPaymentInstance.createPaymentObject();
 			NovalnetWalletPaymentObj.setPaymentIntent(requestData);
 			console.log(requestData);
 			NovalnetWalletPaymentObj.isPaymentMethodAvailable(function(displayPayButton) {
