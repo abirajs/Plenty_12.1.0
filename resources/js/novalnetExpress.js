@@ -170,12 +170,8 @@ jQuery(document).ready(function() {
 			// Checking for the Payment method availability
 			NovalnetWalletPaymentObj.isPaymentMethodAvailable(function(displayPayButton) {
 				if(displayPayButton) {
-					if(walletPayments[walletPayment] == 'GOOGLEPAY') {
 					// Display the Google Pay payment
-					NovalnetWalletPaymentObj.addPaymentButton("#nn_google_pay");
-					} else {
-					NovalnetWalletPaymentObj.addPaymentButton("#nn_apple");
-					}
+					NovalnetWalletPaymentObj.addPaymentButton(walletPayments[walletPayment]);
 				} else {
 					// Hide the Google Pay payment if it is not possible
 					console.log('button not displayed');
