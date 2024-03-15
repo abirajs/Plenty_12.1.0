@@ -158,7 +158,7 @@ jQuery(document).ready(function() {
 							if(walletPayments[walletPayment] == 'APPLEPAY')  {
 							alert('applepayClick');
 							 jQuery('.fa-shopping-cart').parent('button').click();
-							 window.location.href = jQuery('.nn_payment_process_url').val();
+							 window.location.href = jQuery('#nn_payment_process_url').val();
 							}
 							
 						},
