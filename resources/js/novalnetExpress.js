@@ -173,7 +173,7 @@ jQuery(document).ready(function() {
 				if(displayPayButton) {
 					// Display the Google Pay payment
 					if(walletPayments[walletPayment] == 'GOOGLEPAY') {
-						NovalnetWalletPaymentObj.addPaymentButton('#GOOGLEPAY']);
+						NovalnetWalletPaymentObj.addPaymentButton('#GOOGLEPAY');
 					}
 					if(walletPayments[walletPayment] == 'APPLEPAY') {
 					       NovalnetWalletPaymentObj.addPaymentButton('#APPLEPAY');
