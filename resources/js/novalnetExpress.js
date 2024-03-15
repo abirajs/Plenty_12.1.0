@@ -1,4 +1,4 @@
-jQuery(document).ready(function() {
+// jQuery(document).ready(function() {
     var walletPayments = JSON.parse(jQuery("#nn_wallet_payments").val());
  
 	for (let walletPayment in walletPayments) {
@@ -206,5 +206,5 @@ jQuery(document).ready(function() {
 			console.log(e.message);
 		}
 	}
-});
+// });
 console.log('test5'); 
