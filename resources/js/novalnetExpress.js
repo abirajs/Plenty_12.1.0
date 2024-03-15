@@ -167,16 +167,16 @@ jQuery(document).ready(function() {
 			};
 			console.log(requestData);
 			NovalnetWalletPaymentObj.setPaymentIntent(requestData);
-			
+			console.log(walletPayments[walletPayment]);
 			// Checking for the Payment method availability
 			NovalnetWalletPaymentObj.isPaymentMethodAvailable(function(displayPayButton) {
 				if(displayPayButton) {
 					// Display the Google Pay payment
-					if(walletPayments[walletPayment] == 'GOOGLEPAY') {
-						NovalnetWalletPaymentObj.addPaymentButton('#GOOGLEPAY');
-					}
 					if(walletPayments[walletPayment] == 'APPLEPAY') {
 					       NovalnetWalletPaymentObj.addPaymentButton('#APPLEPAY');
+					}
+					if(walletPayments[walletPayment] == 'GOOGLEPAY') {
+						NovalnetWalletPaymentObj.addPaymentButton('#GOOGLEPAY');
 					}
 				} else {
 					// Hide the Google Pay payment if it is not possible
