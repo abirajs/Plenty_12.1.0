@@ -21,7 +21,7 @@ console.log('Plentymarket Domain:', plentymarketDomain);
                     amount: (String(jQuery('#nn_order_amount').val()) != '') ? String(jQuery('#nn_order_amount').val()) : ((window.ceresStore.state.items[window.ceresStore.state.items.mainItemId].variation.documents[0].data.prices.default.price.value).toFixed(2)) * jQuery('.add-to-basket-container').find('input[type="text"], input[type="number"]').first().val() * 100,
                     currency: jQuery('#nn_order_currency').val(),
                     enforce3d: Boolean(jQuery('#nn_enforce').val()),
-                    paymentMethod: (String(jQuery('#nn_payment_key').val()) == 'NOVALNET_GOOGLEPAY' ) ? "GOOGLEPAY" : "APPLEPAY",
+                    // paymentMethod: (String(jQuery('#nn_payment_key').val()) == 'NOVALNET_GOOGLEPAY' ) ? "GOOGLEPAY" : "APPLEPAY",
                     environment: jQuery('#nn_environment').val(),
                 },
                 custom: {
