@@ -21,7 +21,7 @@ jQuery(document).ready(function() {
 						currency: jQuery('#nn_order_currency').val(),
 						enforce3d: (jQuery('#nn_enforce').val() == 'on') ? true : false,
 						paymentMethod: ( walletPayments[walletPayment] == 'novalnet_googlepay' ) ? 'GOOGLEPAY' : 'APPLEPAY' ,
-						environment: (configurationData[paymentTypeValue].testmode == 'on') ? "SANDBOX" : "PRODUCTION",
+						environment: (configurationData[paymentTypeValue].testmode == 'SANDBOX') ? "SANDBOX" : "PRODUCTION",
 					},
 					custom: {
 						lang: jQuery('#nn_order_lang').val(),
