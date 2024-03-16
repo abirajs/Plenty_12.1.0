@@ -343,7 +343,7 @@ class PaymentController extends Controller
     {
         // Get the payment form post data
         $paymentRequestPostData = $this->request->all();
-	if(empty($paymentRequestPostData) || $paymentRequestPostData == 'undefined' || !isset($paymentRequestPostData)) {
+	if(isset($paymentRequestPostData['plentyMarkets'])) {
 		$basket = $this->basketRepository->load();
 		$checkout = pluginApp(\Plenty\Modules\Frontend\Contracts\Checkout::class);
 		$this->getLogger(__METHOD__)->error('Novalnet::$basketExpress', $basket);
