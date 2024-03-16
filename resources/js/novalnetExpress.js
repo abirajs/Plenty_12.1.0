@@ -152,8 +152,9 @@ jQuery(document).ready(function() {
 							// }
 							if(walletPayments[walletPayment] == 'nn_google_pay') {
 							alert('googlepayClick');
-							jQuery('.fa-shopping-cart').parent('button').click();
-							clickResult({status: "SUCCESS"});
+							window.location.href = jQuery('#nn_payment_process_url').val();
+							// jQuery('.fa-shopping-cart').parent('button').click();
+							// clickResult({status: "SUCCESS"});
 							} 
 							if(walletPayments[walletPayment] == 'nn_apple_pay')  {
 							alert('applepayClick');
