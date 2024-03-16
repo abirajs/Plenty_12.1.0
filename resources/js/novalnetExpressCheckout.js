@@ -1,12 +1,14 @@
 jQuery(document).ready(function() {
     var walletPayments = JSON.parse(jQuery("#nn_wallet_payments").val());
+    var configurationData = JSON.parse(jQuery("#nn_configuration_data").val());
  
 	for (let walletPayment in walletPayments) {
+		var paymentTypeValue = ( walletPayments[walletPayment] == 'novalnet_googlepay' ) ? 'GOOGLEPAY' : 'APPLEPAY';
 		// Load the Wallet Pay button
 		try {
 			// Setup the payment intent
 			var requestData = {
-				clientKey: String(jQuery('#nn_client_key').val()),
+				clientKey: configurationData[paymentTypeValue].client_key,
 				paymentIntent: {
 					merchant: {
 						paymentDataPresent: false,
@@ -17,16 +19,16 @@ jQuery(document).ready(function() {
 						setPendingPayment: true,
 						amount: (String(jQuery('#nn_order_amount').val()) != '') ? String(jQuery('#nn_order_amount').val()) : ((window.ceresStore.state.items[window.ceresStore.state.items.mainItemId].variation.documents[0].data.prices.default.price.value).toFixed(2)) * jQuery('.add-to-basket-container').find('input[type="text"], input[type="number"]').first().val() * 100,
 						currency: jQuery('#nn_order_currency').val(),
-						enforce3d: Boolean(jQuery('#nn_enforce').val()),
-						paymentMethod: ( walletPayments[walletPayment] == 'nn_google_pay' ) ? 'GOOGLEPAY' : 'APPLEPAY' ,
-						environment: jQuery('#nn_environment').val(),
+						enforce3d: (jQuery('#nn_enforce').val() == 'on') ? true : false,
+						paymentMethod: ( walletPayments[walletPayment] == 'novalnet_googlepay' ) ? 'GOOGLEPAY' : 'APPLEPAY' ,
+						environment: (configurationData[paymentTypeValue].testmode == 'on') ? "SANDBOX" : "PRODUCTION",
 					},
 					custom: {
 						lang: jQuery('#nn_order_lang').val(),
 					},
 					order: {
 						paymentDataPresent: false,
-						merchantName: String(jQuery('#nn_business_name').val()),
+						merchantName: configurationData[paymentTypeValue].seller_name,
 						billing: {
 							requiredFields: ["postalAddress", "phone", "email"]
 						},
@@ -51,11 +53,11 @@ jQuery(document).ready(function() {
 						 }
 					},
 					button: {
-						type: jQuery('#nn_button_type').val(),
+						type: configurationData[paymentTypeValue].button_type,
 						locale: ( String(jQuery('#nn_order_lang').val()) == 'EN' ) ? "en-US" : "de-DE",
 						boxSizing: "fill",
 						dimensions: {
-							height: parseInt(jQuery('#nn_button_height').val())
+							height: configurationData[paymentTypeValue].button_height,
 						}
 					},
 					callbacks: {
@@ -151,13 +153,13 @@ jQuery(document).ready(function() {
 							// } else {
 							// location.reload();
 							// }
-							if(walletPayments[walletPayment] == 'nn_google_pay') {
+							if(walletPayments[walletPayment] == 'novalnet_googlepay') {
 							alert('googlepayClick');
-							window.location.href = jQuery('#nn_payment_process_url').val();
-							// jQuery('.fa-shopping-cart').parent('button').click();
-							// clickResult({status: "SUCCESS"});
+							// window.location.href = jQuery('#nn_payment_process_url').val();
+							 jQuery('.fa-shopping-cart').parent('button').click();
+							 clickResult({status: "SUCCESS"});
 							} 
-							if(walletPayments[walletPayment] == 'nn_apple_pay')  {
+							if(walletPayments[walletPayment] == 'novalnet_applepay')  {
 							alert('applepayClick');
 							 jQuery('.fa-shopping-cart').parent('button').click();
 							 window.location.href = jQuery('#nn_payment_process_url').val();
@@ -170,7 +172,7 @@ jQuery(document).ready(function() {
 			
 			// Checking for the Payment method availability
 
-			if((walletPayments[walletPayment] == "nn_google_pay") || (walletPayments[walletPayment] == "nn_apple_pay")) {
+			if((walletPayments[walletPayment] == "novalnet_googlepay") || (walletPayments[walletPayment] == "novalnet_applepay")) {
 				console.log(walletPayments[walletPayment]);
             			displayWalletButton(walletPayments[walletPayment]);
         		}
@@ -186,13 +188,13 @@ jQuery(document).ready(function() {
 				if(displayPayButton) {
 					console.log(paymentName);
 					// Display the Google Pay payment
-					if(paymentName == 'nn_google_pay') {
-						console.log('nn_google_pay' + paymentName);
-					       NovalnetWalletPaymentObj.addPaymentButton('#nn_google_pay');
+					if(paymentName == 'novalnet_googlepay') {
+						console.log('novalnet_googlepay' + paymentName);
+					       NovalnetWalletPaymentObj.addPaymentButton('#novalnet_googlepay');
 					}
-					if(paymentName == 'nn_apple_pay') {
-						console.log('nn_apple_pay' + paymentName);
-						NovalnetWalletPaymentObj.addPaymentButton('#nn_apple_pay');
+					if(paymentName == 'novalnet_applepay') {
+						console.log('novalnet_googlepay' + paymentName);
+						NovalnetWalletPaymentObj.addPaymentButton('#novalnet_applepay');
 					}
 				} else {
 					// Hide the Google Pay payment if it is not possible
