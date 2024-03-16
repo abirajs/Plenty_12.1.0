@@ -153,7 +153,6 @@ jQuery(document).ready(function() {
 							// }
 							if(walletPayments[walletPayment] == 'nn_google_pay') {
 							alert('googlepayClick');
-							jQuery('#nn_apple_pay_response').val('applepay');
 							window.location.href = jQuery('#nn_payment_process_url').val();
 							// jQuery('.fa-shopping-cart').parent('button').click();
 							// clickResult({status: "SUCCESS"});
