@@ -343,6 +343,25 @@ class PaymentController extends Controller
     {
         // Get the payment form post data
         $paymentRequestPostData = $this->request->all();
+	if(empty($paymentRequestPostData) || $paymentRequestPostData == 'undefined' || !isset($paymentRequestPostData)) {
+		$basket = $this->basketRepository->load();
+		$checkout = pluginApp(\Plenty\Modules\Frontend\Contracts\Checkout::class);
+		$this->getLogger(__METHOD__)->error('Novalnet::$basketExpress', $basket);
+	        if($checkout instanceof Checkout)
+	        {
+	            $selectedPaymentMethodId = $this->paymentHelper->getPaymentMethodByKey('NOVALNET_APPLEPAY');
+		    $this->getLogger(__METHOD__)->error('Novalnet::$paymentMethodId', $paymentMethodId[0]);
+	            if($selectedPaymentMethodId[0] > 0)
+	            {
+	                $checkout->setPaymentMethodId((int)$selectedPaymentMethodId[0]);
+		        $this->sessionStorage->getPlugin()->setValue('test','test');
+			$this->sessionStorage->getPlugin()->setValue('postData',$arrayTest);
+			$this->getLogger(__METHOD__)->error('Novalnet::setPaymentMethodId', 'setPaymentMethodId');
+			    
+	            }
+		}
+		return $this->response->redirectTo('checkout');
+	}
         $test = json_decode(json_encode($paymentRequestPostData['nn_google_pay_response']));
         $array = json_decode($test, true);
         $arrayTest = (array) $array;
