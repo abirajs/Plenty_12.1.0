@@ -85,30 +85,20 @@ class NovalnetExpressCheckoutDataProvider
 			$this->getLogger(__METHOD__)->error('Novalnet::$enabledWalletPayment', $enabledWalletPayment);
             // Required details for the Google Pay button
             $paymentTypes = ['novalnet_applepay' => 'APPLEPAY', 'novalnet_googlepay' => 'GOOGLEPAY'];
-			$configurationArr = [];
-			foreach($paymentTypes as $paymentTypeKey => $paymentTypeValue) {
-				if($settingsService->getPaymentSettingsValue('payment_active', $paymentTypeKey) == true) {
-					$configurationArr[$paymentTypeValue]['client_key'] =  trim($settingsService->getPaymentSettingsValue('novalnet_client_key'));
-					$configurationArr[$paymentTypeValue]['seller_name'] =  !empty($sellerName) ? $sellerName : $webstoreHelper->getCurrentWebstoreConfiguration()->name;
-					$configurationArr[$paymentTypeValue]['button_type'] =  $settingsService->getPaymentSettingsValue('button_type', $paymentTypeKey);
-					$configurationArr[$paymentTypeValue]['button_height'] =  $settingsService->getPaymentSettingsValue('button_height', $paymentTypeKey);
-					$configurationArr[$paymentTypeValue]['testmode'] =  ($settingsService->getPaymentSettingsValue('test_mode', $paymentTypeKey) == true) ? 'SANDBOX' : 'PRODUCTION';
-				}
-			}
-			$configurationData = json_encode($configurationArr);
-			$merchantId = $settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay');
-			$isEnforceEnabled = $settingsService->getPaymentSettingsValue('enforce', 'novalnet_googlepay');
-			
-            $googlePayData = [
-                                'clientKey'     => trim($settingsService->getPaymentSettingsValue('novalnet_client_key')),
-                                'merchantId'    => $settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay'),
-                                'sellerName'    => !empty($sellerName) ? $sellerName : $webstoreHelper->getCurrentWebstoreConfiguration()->name,
-                                'enforce'       => $settingsService->getPaymentSettingsValue('enforce', 'novalnet_googlepay'),
-                                'buttonType'    => $settingsService->getPaymentSettingsValue('button_type', 'novalnet_googlepay'),
-                                'buttonHeight'  => $settingsService->getPaymentSettingsValue('button_height', 'novalnet_googlepay'),
-                                'testMode'      => ($settingsService->getPaymentSettingsValue('test_mode', 'novalnet_googlepay') == true) ? 'SANDBOX' : 'PRODUCTION'
-                             ];
-            $this->getLogger(__METHOD__)->error('Novalnet::$googlePayData', $googlePayData);
+	    $configurationArr = [];
+	    foreach($paymentTypes as $paymentTypeKey => $paymentTypeValue) {
+		if($settingsService->getPaymentSettingsValue('payment_active', $paymentTypeKey) == true) {
+			$configurationArr[$paymentTypeValue]['client_key'] =  trim($settingsService->getPaymentSettingsValue('novalnet_client_key'));
+			$configurationArr[$paymentTypeValue]['seller_name'] =  !empty($sellerName) ? $sellerName : $webstoreHelper->getCurrentWebstoreConfiguration()->name;
+			$configurationArr[$paymentTypeValue]['button_type'] =  $settingsService->getPaymentSettingsValue('button_type', $paymentTypeKey);
+			$configurationArr[$paymentTypeValue]['button_height'] =  $settingsService->getPaymentSettingsValue('button_height', $paymentTypeKey);
+			$configurationArr[$paymentTypeValue]['testmode'] =  ($settingsService->getPaymentSettingsValue('test_mode', $paymentTypeKey) == true) ? 'SANDBOX' : 'PRODUCTION';
+		}
+	     }
+	     $configurationData = json_encode($configurationArr);
+	     $merchantId = $settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay');
+	     $isEnforceEnabled = $settingsService->getPaymentSettingsValue('enforce', 'novalnet_googlepay');
+            $this->getLogger(__METHOD__)->error('Novalnet::$googlePayData', $configurationData);
             $this->getLogger(__METHOD__)->error('Novalnet::$paymentMethodDetails[0]', $paymentMethodDetails[0]);
             $this->getLogger(__METHOD__)->error('Novalnet::$paymentService->getProcessPaymentUrl()', $paymentService->getExpressPaymentUrl());
             // Render the Google Pay button
