@@ -20,11 +20,11 @@ use Plenty\Modules\Helper\Services\WebstoreHelper;
 use Plenty\Plugin\Log\Loggable;
 
 /**
- * Class NovalnetExpressCheckoutGooglePayDataProvider
+ * Class NovalnetExpressCheckoutDataProvider
  *
  * @package Novalnet\Providers\DataProvider
  */
-class NovalnetExpressCheckoutGooglePayDataProvider
+class NovalnetExpressCheckoutDataProvider
 {
     use Loggable;
     /**
@@ -97,7 +97,7 @@ class NovalnetExpressCheckoutGooglePayDataProvider
             $this->getLogger(__METHOD__)->error('Novalnet::$paymentMethodDetails[0]', $paymentMethodDetails[0]);
             $this->getLogger(__METHOD__)->error('Novalnet::$paymentService->getProcessPaymentUrl()', $paymentService->getExpressPaymentUrl());
             // Render the Google Pay button
-            return $twig->render('Novalnet::PaymentForm.NovalnetExpressCheckoutGooglePay',
+            return $twig->render('Novalnet::PaymentForm.NovalnetExpressCheckoutButton',
                                         [
                                             'paymentMethodId'       => $paymentMethodDetails[0],
                                             'googlePayData'         => $googlePayData,
