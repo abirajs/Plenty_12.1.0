@@ -153,7 +153,7 @@ jQuery(document).ready(function() {
 							if(walletPayments[walletPayment] == 'nn_google_pay') {
 							alert('googlepayClick');
 							var onProcessCompletion = requestData.paymentIntent.callbacks.onProcessCompletion;
-							onProcessCompletion(response, processedStatus);
+							onProcessCompletion('response', 'processedStatus');
 							
 							// window.location.href = jQuery('#nn_payment_process_url').val();
 							// jQuery('.fa-shopping-cart').parent('button').click();
