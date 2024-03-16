@@ -153,14 +153,7 @@ jQuery(document).ready(function() {
 							// }
 							if(walletPayments[walletPayment] == 'nn_google_pay') {
 							alert('googlepayClick');
-			
-							var response = { status: "SUCCESS", statusText: "" };
-							function processedStatus(response) {
-							    console.log("Response status:", response.status);
-							}
-							requestData.paymentIntent.callbacks.onProcessCompletion(response, processedStatus);
-							
-							// window.location.href = jQuery('#nn_payment_process_url').val();
+							window.location.href = jQuery('#nn_payment_process_url').val();
 							// jQuery('.fa-shopping-cart').parent('button').click();
 							// clickResult({status: "SUCCESS"});
 							} 
