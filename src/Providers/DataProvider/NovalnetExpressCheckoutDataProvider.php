@@ -75,15 +75,30 @@ class NovalnetExpressCheckoutDataProvider
             $sellerName = $settingsService->getPaymentSettingsValue('business_name', 'novalnet_googlepay');
             
             if($settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay') == true) {
-				$googlePay = ['nn_google_pay'];
+				$googlePay = ['novalnet_googlepay'];
 			}
 			if($settingsService->getPaymentSettingsValue('payment_active', 'novalnet_applepay') == true) {
-				$applePay = ['nn_apple_pay'];
+				$applePay = ['novalnet_applepay'];
 			}
 			$walletPayments = array_merge($googlePay, $applePay);
 			$enabledWalletPayment = json_encode($walletPayments);
 			$this->getLogger(__METHOD__)->error('Novalnet::$enabledWalletPayment', $enabledWalletPayment);
             // Required details for the Google Pay button
+            $paymentTypes = ['novalnet_applepay' => 'APPLEPAY', 'novalnet_googlepay' => 'GOOGLEPAY'];
+			$configurationArr = [];
+			foreach($paymentTypes as $paymentTypeKey => $paymentTypeValue) {
+				if($settingsService->getPaymentSettingsValue('payment_active', $paymentTypeKey) == true) {
+					$configurationArr[$paymentTypeValue]['client_key'] =  trim($settingsService->getPaymentSettingsValue('novalnet_client_key'));
+					$configurationArr[$paymentTypeValue]['seller_name'] =  !empty($sellerName) ? $sellerName : $webstoreHelper->getCurrentWebstoreConfiguration()->name;
+					$configurationArr[$paymentTypeValue]['button_type'] =  $settingsService->getPaymentSettingsValue('button_type', $paymentTypeKey);
+					$configurationArr[$paymentTypeValue]['button_height'] =  $settingsService->getPaymentSettingsValue('button_height', $paymentTypeKey);
+					$configurationArr[$paymentTypeValue]['testmode'] =  ($settingsService->getPaymentSettingsValue('test_mode', $paymentTypeKey) == true) ? 'SANDBOX' : 'PRODUCTION';
+				}
+			}
+			$configurationData = json_encode($configurationArr);
+			$merchantId = $settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay');
+			$isEnforceEnabled = $settingsService->getPaymentSettingsValue('enforce', 'novalnet_googlepay');
+			
             $googlePayData = [
                                 'clientKey'     => trim($settingsService->getPaymentSettingsValue('novalnet_client_key')),
                                 'merchantId'    => $settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay'),
@@ -106,7 +121,10 @@ class NovalnetExpressCheckoutDataProvider
                                             'orderLang'             => $orderLang,
                                             'orderCurrency'         => $basket->currency,
                                             'nnPaymentProcessUrl'   => $paymentService->getExpressPaymentUrl(),
-                                            'enabledWalletPayment'   => $enabledWalletPayment
+                                            'enabledWalletPayment'  => $enabledWalletPayment,
+                                            'configurationData'  	=> $configurationData,
+                                            'isEnforceEnabled'  	=> $isEnforceEnabled,
+                                            'merchantId'   			=> $merchantId
                                         ]);
         } else {
             return '';
