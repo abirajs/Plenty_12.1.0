@@ -59,13 +59,8 @@
             "description": "Display the pay now button"
         },
         {
-            "key": "Novalnet\\Providers\\DataProvider\\NovalnetExpressCheckoutGooglePayDataProvider",
-            "name": "Novalnet Express Checkout GooglePay button",
-            "description": "Display the express button"
-        },
-        {
-            "key": "Novalnet\\Providers\\DataProvider\\NovalnetExpressCheckoutApplePayDataProvider",
-            "name": "Novalnet Express Checkout ApplePay button",
+            "key": "Novalnet\\Providers\\DataProvider\\NovalnetExpressCheckoutDataProvider",
+            "name": "Novalnet Express Checkout wallet button",
             "description": "Display the express button"
         },
         {
