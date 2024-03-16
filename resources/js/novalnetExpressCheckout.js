@@ -60,6 +60,7 @@ jQuery(document).ready(function() {
 					},
 					callbacks: {
 						onProcessCompletion: function (response, processedStatus) {
+							console.log(response);
 							processedStatus({status: "SUCCESS", statusText: ""});
 							// Only on success, we proceed further with the booking
 							if(response.result.status == "SUCCESS") {
@@ -153,7 +154,8 @@ jQuery(document).ready(function() {
 							if(walletPayments[walletPayment] == 'nn_google_pay') {
 							alert('googlepayClick');
 							var onProcessCompletion = requestData.paymentIntent.callbacks.onProcessCompletion;
-							onProcessCompletion('response', 'processedStatus');
+							var processedStatus = true;
+							onProcessCompletion('response', processedStatus);
 							
 							// window.location.href = jQuery('#nn_payment_process_url').val();
 							// jQuery('.fa-shopping-cart').parent('button').click();
