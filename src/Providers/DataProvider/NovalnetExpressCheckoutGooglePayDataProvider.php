@@ -75,10 +75,10 @@ class NovalnetExpressCheckoutGooglePayDataProvider
             $sellerName = $settingsService->getPaymentSettingsValue('business_name', 'novalnet_googlepay');
             
             if($settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay') == true) {
-				$googlePay = ['GOOGLEPAY'];
+				$googlePay = ['nn_google_pay'];
 			}
 			if($settingsService->getPaymentSettingsValue('payment_active', 'novalnet_applepay') == true) {
-				$applePay = ['APPLEPAY'];
+				$applePay = ['nn_apple_pay'];
 			}
 			$walletPayments = array_merge($googlePay, $applePay);
 			$enabledWalletPayment = json_encode($walletPayments);
