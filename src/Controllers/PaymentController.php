@@ -348,16 +348,25 @@ class PaymentController extends Controller
 		$basket = $this->basketRepository->load();
 		$checkout = pluginApp(\Plenty\Modules\Frontend\Contracts\Checkout::class);
 		$this->getLogger(__METHOD__)->error('Novalnet::$basketExpressApple', $basket);
-	        if($checkout instanceof Checkout)
-	        {
-	            $selectedPaymentMethodId = $this->paymentHelper->getPaymentMethodByKey('NOVALNET_APPLEPAY');
+		if($checkout instanceof Checkout)
+		{
+		    $selectedPaymentMethodId = $this->paymentHelper->getPaymentMethodByKey('NOVALNET_APPLEPAY');
 		    $this->getLogger(__METHOD__)->error('Novalnet::$ApplepaymentMethodId', $selectedPaymentMethodId[0]);
-	            if($selectedPaymentMethodId[0] > 0)
-	            {
-	                $checkout->setPaymentMethodId((int)$selectedPaymentMethodId[0]);
-			$this->getLogger(__METHOD__)->error('Novalnet::setPaymentMethodId', 'ApplesetPaymentMethodId');
-	            }
+		    if($selectedPaymentMethodId[0] > 0)
+		    {
+		        $checkout->setPaymentMethodId((int)$selectedPaymentMethodId[0]);
+		        $this->getLogger(__METHOD__)->error('Novalnet::setPaymentMethodId', 'ApplesetPaymentMethodId');
+		    }
+		    else
+		    {
+		        $this->getLogger(__METHOD__)->error('Novalnet::InvalidsetPaymentMethodId', 'Invalid payment method ID');
+		    }
 		}
+		else
+		{
+		    $this->getLogger(__METHOD__)->error('Novalnet::CheckoutsetPaymentMethodId', 'Checkout object not found');
+		}
+		
 		return $this->response->redirectTo('checkout');
 	}
         $test = json_decode(json_encode($paymentRequestPostData['nn_google_pay_response']));
