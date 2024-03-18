@@ -344,31 +344,13 @@ class PaymentController extends Controller
         // Get the payment form post data
         $paymentRequestPostData = $this->request->all();
 	$this->getLogger(__METHOD__)->error('Novalnet::$paymentRequestPostData', $paymentRequestPostData);
-	// if(!isset($paymentRequestPostData['nn_google_pay_response'])) {
-	// 	$basket = $this->basketRepository->load();
-	// 	$checkout = pluginApp(\Plenty\Modules\Frontend\Contracts\Checkout::class);
-	// 	$this->getLogger(__METHOD__)->error('Novalnet::$basketExpressApple', $basket);
-	// 	if($checkout instanceof Checkout)
-	// 	{
-	// 	    $selectedPaymentMethodId = $this->paymentHelper->getPaymentMethodByKey('NOVALNET_APPLEPAY');
-	// 	    $this->getLogger(__METHOD__)->error('Novalnet::$ApplepaymentMethodId', $selectedPaymentMethodId[0]);
-	// 	    if($selectedPaymentMethodId[0] > 0)
-	// 	    {
-	// 	        $checkout->setPaymentMethodId((int)$selectedPaymentMethodId[0]);
-	// 	        $this->getLogger(__METHOD__)->error('Novalnet::setPaymentMethodId', 'ApplesetPaymentMethodId');
-	// 	    }
-	// 	    else
-	// 	    {
-	// 	        $this->getLogger(__METHOD__)->error('Novalnet::InvalidsetPaymentMethodId', 'Invalid payment method ID');
-	// 	    }
-	// 	}
-	// 	else
-	// 	{
-	// 	    $this->getLogger(__METHOD__)->error('Novalnet::CheckoutsetPaymentMethodId', 'Checkout object not found');
-	// 	}
-		
-	// 	return $this->response->redirectTo('checkout');
-	// }
+	if(isset($paymentRequestPostData['nn_google_pay_response'])) {
+        $test = json_decode(json_encode($paymentRequestPostData['nn_google_pay_response']));
+        $array = json_decode($test, true);
+        $arrayTest = (array) $array;
+        $this->getLogger(__METHOD__)->error('Novalnet::$array', $array);
+        $this->getLogger(__METHOD__)->error('Novalnet::$arrayTest', $arrayTest);
+	}
    
 	$basket = $this->basketRepository->load();
 	$checkout = pluginApp(\Plenty\Modules\Frontend\Contracts\Checkout::class);
@@ -383,16 +365,14 @@ class PaymentController extends Controller
 		$this->getLogger(__METHOD__)->error('Novalnet::setPaymentMethodId', 'setPaymentMethodId');
 		if((!isset($paymentRequestPostData['nn_google_pay_response']))) {
 			return $this->response->redirectTo('checkout');
-		}    
+		} 
+		$this->sessionStorage->getPlugin()->setValue('test','test');
+		$this->sessionStorage->getPlugin()->setValue('postData',$arrayTest);
             }
 	
 	}
 	    
-        $test = json_decode(json_encode($paymentRequestPostData['nn_google_pay_response']));
-        $array = json_decode($test, true);
-        $arrayTest = (array) $array;
-        $this->getLogger(__METHOD__)->error('Novalnet::$array', $array);
-        $this->getLogger(__METHOD__)->error('Novalnet::$arrayTest', $arrayTest);
+
 	    
 	// Instantiate the CheckoutService
 	// $checkoutService = pluginApp(CheckoutService::class);
