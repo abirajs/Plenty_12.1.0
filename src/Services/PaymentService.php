@@ -492,6 +492,7 @@ class PaymentService
         $this->sessionStorage->getPlugin()->setValue('nnOrderCreator', null);
         $this->sessionStorage->getPlugin()->setValue('nnReinitiatePayment', null);
         $this->sessionStorage->getPlugin()->setValue('test', null);
+        $this->sessionStorage->getPlugin()->setValue('postData', null);
         // Send the order no to Novalnet server if order is created initially
         if($this->settingsService->getPaymentSettingsValue('novalnet_order_creation') == true || !empty($nnOrderCreator) || ($nnReinitiatePayment == 1)) {
             $paymentRequestData['paymentRequestData']['transaction']['order_no'] = $this->sessionStorage->getPlugin()->getValue('nnOrderNo');
