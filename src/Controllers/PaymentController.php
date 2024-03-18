@@ -345,7 +345,7 @@ class PaymentController extends Controller
 	$this->getLogger(__METHOD__)->error('APPLEBASKET', $basket);
 	$checkoutData = pluginApp(\Plenty\Modules\Frontend\Contracts\Checkout::class);
 	if($checkoutData instanceof Checkout) {
-	    $selectedPaymentMethodId = $this->paymentHelper->getPaymentMethodByKey('NOVALNET_APPLEPAY');
+	    $selectedPaymentMethodId = $this->paymentHelper->getPaymentMethodByKey('NOVALNET_GOOGLEPAY');
 	    if(isset($selectedPaymentMethodId[0]) && $selectedPaymentMethodId[0] > 0) {
 	        $checkoutData->setPaymentMethodId((int)$selectedPaymentMethodId[0]);
 	        $this->getLogger(__METHOD__)->error('Payment method set to NOVALNET_APPLEPAY', $selectedPaymentMethodId[0]);
@@ -374,7 +374,7 @@ class PaymentController extends Controller
 	$this->getLogger(__METHOD__)->error('Novalnet::$basketExpress', $basket);
         if($checkout instanceof Checkout)
         {
-            $selectedPaymentMethodId =  $this->paymentHelper->getPaymentMethodByKey('NOVALNET_GOOGLEPAY');
+            $selectedPaymentMethodId =  $this->paymentHelper->getPaymentMethodByKey('NOVALNET_APPLEPAY');
 	    $this->getLogger(__METHOD__)->error('Novalnet::$paymentMethodId', $selectedPaymentMethodId[0]);
             if($selectedPaymentMethodId[0] > 0)
             {
