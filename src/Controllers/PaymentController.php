@@ -381,13 +381,13 @@ class PaymentController extends Controller
 	
 	}
 
-	$test = json_decode(json_encode($paymentRequestPostData['nn_google_pay_response']));
-        $array = json_decode($test, true);
-        $arrayTest = (array) $array;
-        $this->getLogger(__METHOD__)->error('Novalnet::$array', $array);
-        $this->getLogger(__METHOD__)->error('Novalnet::$arrayTest', $arrayTest);  
-	$this->sessionStorage->getPlugin()->setValue('test','test');
-	$this->sessionStorage->getPlugin()->setValue('postData',$arrayTest);
+	// $test = json_decode(json_encode($paymentRequestPostData['nn_google_pay_response']));
+ //        $array = json_decode($test, true);
+ //        $arrayTest = (array) $array;
+ //        $this->getLogger(__METHOD__)->error('Novalnet::$array', $array);
+ //        $this->getLogger(__METHOD__)->error('Novalnet::$arrayTest', $arrayTest);  
+	// $this->sessionStorage->getPlugin()->setValue('test','test');
+	// $this->sessionStorage->getPlugin()->setValue('postData',$arrayTest);
 	 
 	// Instantiate the CheckoutService
 	// $checkoutService = pluginApp(CheckoutService::class);
