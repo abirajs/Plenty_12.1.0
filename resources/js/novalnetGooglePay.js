@@ -77,10 +77,11 @@ jQuery(document).ready(function() {
                     console.log(mopId);
                     jQuery('.fa-arrow-right').parent('button').hide();
                     jQuery('li[data-id="'+mopId+'"]').click(function() {
+                        console.log('initial');
+                        jQuery('.fa-arrow-right').parent('button').hide();
                         jQuery('#nn_google_pay').empty();
                         // Initiating the payment request for the wallet payment
                         NovalnetWalletPaymentObj.addPaymentButton("#nn_google_pay");
-                        console.log('initial');
                         var clickedId = jQuery(this).attr('data-id');
                         if(clickedId !== undefined && clickedId != mopId) {
                             jQuery("#nn_google_pay").hide();  
