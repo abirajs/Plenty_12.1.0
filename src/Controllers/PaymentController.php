@@ -534,7 +534,7 @@ class PaymentController extends Controller
         ];
         $this->getLogger(__METHOD__)->error('Novalnet::$data', $data);
 	$this->sessionStorage->getPlugin()->setValue('nnExpressPaymentData',$data);
-  	return $this->response->redirectTo('checkout');
+  	return $this->response->redirectTo('checkout?express=checkout');
     }
 
 
