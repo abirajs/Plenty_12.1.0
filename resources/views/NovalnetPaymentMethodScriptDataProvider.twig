@@ -1,6 +1,18 @@
 {# Set the post data and Load the JS #}
 <input type="hidden" name="nn_paymentmethod_key" id="nn_paymentmethod_key" value="{{nnPaymentMethodKey}}">
 <input type="hidden" name="nn_paymentmethod_id" id="nn_paymentmethod_id" value="{{nnPaymentMethodId}}">
+{# Check if the 'express' parameter exists in the URL #}
+{% if app.request.query.has('express') %}
+    {# Get the value of the 'express' parameter #}
+    {% set expressValue = app.request.query.get('express') %}
+    <script type="text/javascript">
+    alert('express')
+    </script>
+{% else %}
+    <script type="text/javascript">
+    alert('Notexpress')
+    </script>
+{% endif %}
 <script type="text/javascript">
     jQuery(document).ready(function() {
         {# Define variables #}
