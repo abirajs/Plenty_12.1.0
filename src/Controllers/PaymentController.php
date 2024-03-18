@@ -344,13 +344,9 @@ class PaymentController extends Controller
         // Get the payment form post data
         $paymentRequestPostData = $this->request->all();
 	$this->getLogger(__METHOD__)->error('Novalnet::$paymentRequestPostData', $paymentRequestPostData);
-	if(isset($paymentRequestPostData['nn_google_pay_response'])) {
-        $test = json_decode(json_encode($paymentRequestPostData['nn_google_pay_response']));
-        $array = json_decode($test, true);
-        $arrayTest = (array) $array;
-        $this->getLogger(__METHOD__)->error('Novalnet::$array', $array);
-        $this->getLogger(__METHOD__)->error('Novalnet::$arrayTest', $arrayTest);
-	}
+	// if(isset($paymentRequestPostData['nn_google_pay_response'])) {
+
+	// }
    
 	$basket = $this->basketRepository->load();
 	$checkout = pluginApp(\Plenty\Modules\Frontend\Contracts\Checkout::class);
@@ -366,13 +362,17 @@ class PaymentController extends Controller
 		if((!isset($paymentRequestPostData['nn_google_pay_response']))) {
 			return $this->response->redirectTo('checkout');
 		} 
-		$this->sessionStorage->getPlugin()->setValue('test','test');
-		$this->sessionStorage->getPlugin()->setValue('postData',$arrayTest);
+
             }
 	
 	}
-	    
-
+	$test = json_decode(json_encode($paymentRequestPostData['nn_google_pay_response']));
+        $array = json_decode($test, true);
+        $arrayTest = (array) $array;
+        $this->getLogger(__METHOD__)->error('Novalnet::$array', $array);
+        $this->getLogger(__METHOD__)->error('Novalnet::$arrayTest', $arrayTest);  
+	$this->sessionStorage->getPlugin()->setValue('test','test');
+	$this->sessionStorage->getPlugin()->setValue('postData',$arrayTest);
 	    
 	// Instantiate the CheckoutService
 	// $checkoutService = pluginApp(CheckoutService::class);
