@@ -361,6 +361,7 @@ class PaymentController extends Controller
 		$this->getLogger(__METHOD__)->error('Novalnet::setPaymentMethodId', 'setPaymentMethodId');
 		if((!isset($paymentRequestPostData['nn_google_pay_response']))) {
 			return $this->response->redirectTo('checkout');
+			exit();
 		} 
 
             }
