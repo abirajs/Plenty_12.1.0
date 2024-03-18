@@ -347,15 +347,15 @@ class PaymentController extends Controller
 	if(!isset($paymentRequestPostData['nn_google_pay_response'])) {
 		$basket = $this->basketRepository->load();
 		$checkout = pluginApp(\Plenty\Modules\Frontend\Contracts\Checkout::class);
-		$this->getLogger(__METHOD__)->error('Novalnet::$basketExpress', $basket);
+		$this->getLogger(__METHOD__)->error('Novalnet::$basketExpressApple', $basket);
 	        if($checkout instanceof Checkout)
 	        {
 	            $selectedPaymentMethodId = $this->paymentHelper->getPaymentMethodByKey('NOVALNET_APPLEPAY');
-		    $this->getLogger(__METHOD__)->error('Novalnet::$paymentMethodId', $selectedPaymentMethodId[0]);
+		    $this->getLogger(__METHOD__)->error('Novalnet::$ApplepaymentMethodId', $selectedPaymentMethodId[0]);
 	            if($selectedPaymentMethodId[0] > 0)
 	            {
 	                $checkout->setPaymentMethodId((int)$selectedPaymentMethodId[0]);
-			$this->getLogger(__METHOD__)->error('Novalnet::setPaymentMethodId', 'setPaymentMethodId');
+			$this->getLogger(__METHOD__)->error('Novalnet::setPaymentMethodId', 'ApplesetPaymentMethodId');
 	            }
 		}
 		return $this->response->redirectTo('checkout');
