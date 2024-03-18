@@ -73,16 +73,17 @@ class NovalnetExpressCheckoutDataProvider
             $billingAddress = $paymentHelper->getCustomerAddress((int) $basket->customerInvoiceAddressId);
             // Get the seller name from the shop configuaration
             $sellerName = $settingsService->getPaymentSettingsValue('business_name', 'novalnet_googlepay');
-            
-            if($settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay') == true) {
-				$googlePay = ['novalnet_googlepay'];
-			}
-			if($settingsService->getPaymentSettingsValue('payment_active', 'novalnet_applepay') == true) {
-				$applePay = ['novalnet_applepay'];
-			}
-			$walletPayments = array_merge($googlePay, $applePay);
-			$enabledWalletPayment = json_encode($walletPayments);
-			$this->getLogger(__METHOD__)->error('Novalnet::$enabledWalletPayment', $enabledWalletPayment);
+            // Set the Wallet payments
+            $applePay = $googlePay = [];
+	    if($settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay') == true) {
+		$googlePay = ['novalnet_googlepay'];
+	   }
+	   if($settingsService->getPaymentSettingsValue('payment_active', 'novalnet_applepay') == true) {
+		$applePay = ['novalnet_applepay'];
+	   }
+	    $walletPayments = array_merge($googlePay, $applePay);
+	    $enabledWalletPayment = json_encode($walletPayments);
+	    $this->getLogger(__METHOD__)->error('Novalnet::$enabledWalletPayment', $enabledWalletPayment);
             // Required details for the Google Pay button
             $paymentTypes = ['novalnet_applepay' => 'APPLEPAY', 'novalnet_googlepay' => 'GOOGLEPAY'];
 	    $configurationArr = [];
