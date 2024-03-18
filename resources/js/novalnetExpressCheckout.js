@@ -153,18 +153,18 @@ jQuery(document).ready(function() {
 							// } else {
 							// location.reload();
 							// }
-							if(walletPayments[walletPayment] == 'novalnet_googlepay') {
-							alert('googlepayClick');
-							// window.location.href = jQuery('#nn_payment_process_url').val();
-							 jQuery('.fa-shopping-cart').parent('button').click();
-							 clickResult({status: "SUCCESS"});
-							} 
 							if(walletPayments[walletPayment] == 'novalnet_applepay')  {
 							alert('applepayClick');
 							 jQuery('.fa-shopping-cart').parent('button').click();
 							 clickResult({status: "SUCCESS"});
 							 window.location.href = jQuery('#nn_apple_pay_process_url').val();
 							}
+						 	if(walletPayments[walletPayment] == 'novalnet_googlepay') {
+							alert('googlepayClick');
+							// window.location.href = jQuery('#nn_payment_process_url').val();
+							 jQuery('.fa-shopping-cart').parent('button').click();
+							 clickResult({status: "SUCCESS"});
+							} 
 							
 						},
 					}
