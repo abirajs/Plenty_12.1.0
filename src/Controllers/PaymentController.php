@@ -525,7 +525,7 @@ class PaymentController extends Controller
 	$this->getLogger(__METHOD__)->error('Novalnet::APPLE$basketExpress', $basket);
         if($checkout instanceof Checkout)
         {
-            $selectedPaymentMethodId = (!isset($paymentRequestPostData['nn_google_pay_response'])) ? $this->paymentHelper->getPaymentMethodByKey('NOVALNET_APPLEPAY') : $this->paymentHelper->getPaymentMethodByKey('NOVALNET_GOOGLEPAY');
+            $selectedPaymentMethodId = $this->paymentHelper->getPaymentMethodByKey('NOVALNET_APPLEPAY');
 	    $this->getLogger(__METHOD__)->error('Novalnet::APPLE$paymentMethodId', $selectedPaymentMethodId[0]);
             if($selectedPaymentMethodId[0] > 0)
             {
