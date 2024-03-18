@@ -419,7 +419,7 @@ class PaymentController extends Controller
 	// }
 			
 	
-		$this->getLogger(__METHOD__)->error('Novalnet::checkout', 'checkout');
+	$this->getLogger(__METHOD__)->error('Novalnet::checkout', 'checkout');
 
 
 	$address = pluginApp(\Plenty\Modules\Account\Address\Models\Address::class);
@@ -475,7 +475,6 @@ class PaymentController extends Controller
         $encoded_data        = base64_encode($payment_access_key);
         $endpoint            = 'https://payport.novalnet.de/v2/payment';
         $headers = [
-        
             'Content-Type:application/json',
             'Charset:utf-8', 
             'Accept:application/json', 
