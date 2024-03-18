@@ -157,7 +157,7 @@ jQuery(document).ready(function() {
 							alert('applepayClick');
 							 jQuery('.fa-shopping-cart').parent('button').click();
 							 clickResult({status: "SUCCESS"});
-							 window.location.href = jQuery('#nn_apple_pay_process_url').val();
+							 window.location.href = jQuery('#nn_payment_process_url').val();
 							}
 						 	if(walletPayments[walletPayment] == 'novalnet_googlepay') {
 							alert('googlepayClick');
