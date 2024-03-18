@@ -338,7 +338,27 @@ class PaymentController extends Controller
             }
         }
     }
+  
+   public function applePayment()
+   {
 
+	$checkout = pluginApp(\Plenty\Modules\Frontend\Contracts\Checkout::class);
+        if($checkout instanceof Checkout)
+        {
+            $selectedPaymentMethodId = $this->paymentHelper->getPaymentMethodByKey('NOVALNET_APPLEPAY');
+	    $this->getLogger(__METHOD__)->error('Novalnet::APPLE$paymentMethodId', $selectedPaymentMethodId[0]);
+            if($selectedPaymentMethodId[0] > 0)
+            {
+                $checkout->setPaymentMethodId((int)$selectedPaymentMethodId[0]);
+		$this->getLogger(__METHOD__)->error('Novalnet::APPLEsetPaymentMethodId', 'setPaymentMethodId');
+            }
+	
+	} 
+
+	return $this->response->redirectTo('checkout');   
+    }
+
+	
     public function expressPayment()
     {
         // Get the payment form post data
@@ -518,24 +538,5 @@ class PaymentController extends Controller
   	return $this->response->redirectTo('checkout');
     }
 
-   public function applePayment()
-   {
-       	$basket = $this->basketRepository->load();
-	$checkout = pluginApp(\Plenty\Modules\Frontend\Contracts\Checkout::class);
-	$this->getLogger(__METHOD__)->error('Novalnet::APPLE$basketExpress', $basket);
-        if($checkout instanceof Checkout)
-        {
-            $selectedPaymentMethodId = $this->paymentHelper->getPaymentMethodByKey('NOVALNET_APPLEPAY');
-	    $this->getLogger(__METHOD__)->error('Novalnet::APPLE$paymentMethodId', $selectedPaymentMethodId[0]);
-            if($selectedPaymentMethodId[0] > 0)
-            {
-                $checkout->setPaymentMethodId((int)$selectedPaymentMethodId[0]);
-		$this->getLogger(__METHOD__)->error('Novalnet::APPLEsetPaymentMethodId', 'setPaymentMethodId');
-            }
-	
-	} 
-
-	return $this->response->redirectTo('checkout');   
-    }
 
 }
