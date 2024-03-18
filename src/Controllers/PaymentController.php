@@ -353,7 +353,7 @@ class PaymentController extends Controller
 	$this->getLogger(__METHOD__)->error('Novalnet::$basketExpress', $basket);
         if($checkout instanceof Checkout)
         {
-            $selectedPaymentMethodId = (!isset($paymentRequestPostData['nn_google_pay_response'])) ? $this->paymentHelper->getPaymentMethodByKey('NOVALNET_APPLEPAY') : $this->paymentHelper->getPaymentMethodByKey('NOVALNET_GOOGLEPAY');
+            $selectedPaymentMethodId =  $this->paymentHelper->getPaymentMethodByKey('NOVALNET_GOOGLEPAY');
 	    $this->getLogger(__METHOD__)->error('Novalnet::$paymentMethodId', $selectedPaymentMethodId[0]);
             if($selectedPaymentMethodId[0] > 0)
             {
@@ -362,9 +362,7 @@ class PaymentController extends Controller
             }
 	
 	}
-	if((!isset($paymentRequestPostData['nn_google_pay_response']))) {
-		return $this->response->redirectTo('checkout');
-	} else {
+
 	$test = json_decode(json_encode($paymentRequestPostData['nn_google_pay_response']));
         $array = json_decode($test, true);
         $arrayTest = (array) $array;
@@ -372,7 +370,7 @@ class PaymentController extends Controller
         $this->getLogger(__METHOD__)->error('Novalnet::$arrayTest', $arrayTest);  
 	$this->sessionStorage->getPlugin()->setValue('test','test');
 	$this->sessionStorage->getPlugin()->setValue('postData',$arrayTest);
-	}   
+	 
 	// Instantiate the CheckoutService
 	// $checkoutService = pluginApp(CheckoutService::class);
 	
@@ -518,6 +516,26 @@ class PaymentController extends Controller
         $this->getLogger(__METHOD__)->error('Novalnet::$data', $data);
 	$this->sessionStorage->getPlugin()->setValue('nnExpressPaymentData',$data);
   	return $this->response->redirectTo('checkout');
-    }        
+    }
+
+   public function applePayment()
+   {
+       	$basket = $this->basketRepository->load();
+	$checkout = pluginApp(\Plenty\Modules\Frontend\Contracts\Checkout::class);
+	$this->getLogger(__METHOD__)->error('Novalnet::APPLE$basketExpress', $basket);
+        if($checkout instanceof Checkout)
+        {
+            $selectedPaymentMethodId = (!isset($paymentRequestPostData['nn_google_pay_response'])) ? $this->paymentHelper->getPaymentMethodByKey('NOVALNET_APPLEPAY') : $this->paymentHelper->getPaymentMethodByKey('NOVALNET_GOOGLEPAY');
+	    $this->getLogger(__METHOD__)->error('Novalnet::APPLE$paymentMethodId', $selectedPaymentMethodId[0]);
+            if($selectedPaymentMethodId[0] > 0)
+            {
+                $checkout->setPaymentMethodId((int)$selectedPaymentMethodId[0]);
+		$this->getLogger(__METHOD__)->error('Novalnet::APPLEsetPaymentMethodId', 'setPaymentMethodId');
+            }
+	
+	} 
+
+	return $this->response->redirectTo('checkout');   
+    }
 
 }
