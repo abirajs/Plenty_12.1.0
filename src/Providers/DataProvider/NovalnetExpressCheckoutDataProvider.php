@@ -99,14 +99,13 @@ class NovalnetExpressCheckoutDataProvider
 	     $configurationData = json_encode($configurationArr);
 	     $merchantId = $settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay');
 	     $isEnforceEnabled = $settingsService->getPaymentSettingsValue('enforce', 'novalnet_googlepay');
-            $this->getLogger(__METHOD__)->error('Novalnet::$googlePayData', $configurationData);
+            $this->getLogger(__METHOD__)->error('Novalnet::$configurationData', $configurationData);
             $this->getLogger(__METHOD__)->error('Novalnet::$paymentMethodDetails[0]', $paymentMethodDetails[0]);
             $this->getLogger(__METHOD__)->error('Novalnet::$paymentService->getProcessPaymentUrl()', $paymentService->getExpressPaymentUrl());
             // Render the Google Pay button
             return $twig->render('Novalnet::PaymentForm.NovalnetExpressCheckoutButton',
                                         [
                                             'paymentMethodId'       => $paymentMethodDetails[0],
-                                            'googlePayData'         => $googlePayData,
                                             'countryCode'           => !empty($countryRepository->findIsoCode($billingAddress->countryId, 'iso_code_2')) ? $countryRepository->findIsoCode($billingAddress->countryId, 'iso_code_2') : 'DE',
                                             'orderAmount'           => $orderAmount,
                                             'orderLang'             => $orderLang,
