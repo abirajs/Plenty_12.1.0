@@ -369,176 +369,176 @@ class PaymentController extends Controller
 		
 		return $this->response->redirectTo('checkout');
 	}
-        $test = json_decode(json_encode($paymentRequestPostData['nn_google_pay_response']));
-        $array = json_decode($test, true);
-        $arrayTest = (array) $array;
-        $this->getLogger(__METHOD__)->error('Novalnet::$array', $array);
-        $this->getLogger(__METHOD__)->error('Novalnet::$arrayTest', $arrayTest);
+ //        $test = json_decode(json_encode($paymentRequestPostData['nn_google_pay_response']));
+ //        $array = json_decode($test, true);
+ //        $arrayTest = (array) $array;
+ //        $this->getLogger(__METHOD__)->error('Novalnet::$array', $array);
+ //        $this->getLogger(__METHOD__)->error('Novalnet::$arrayTest', $arrayTest);
 
 	    
-	$basket = $this->basketRepository->load();
-	$checkout = pluginApp(\Plenty\Modules\Frontend\Contracts\Checkout::class);
-	$this->getLogger(__METHOD__)->error('Novalnet::$basketExpress', $basket);
-        if($checkout instanceof Checkout)
-        {
-            $selectedPaymentMethodId = $this->paymentHelper->getPaymentMethodByKey('NOVALNET_APPLEPAY');
-	    $this->getLogger(__METHOD__)->error('Novalnet::$paymentMethodId', $selectedPaymentMethodId[0]);
-            if($selectedPaymentMethodId[0] > 0)
-            {
-                $checkout->setPaymentMethodId((int)$selectedPaymentMethodId[0]);
-	        $this->sessionStorage->getPlugin()->setValue('test','test');
-		$this->sessionStorage->getPlugin()->setValue('postData',$arrayTest);
-		$this->getLogger(__METHOD__)->error('Novalnet::setPaymentMethodId', 'setPaymentMethodId');
+	// $basket = $this->basketRepository->load();
+	// $checkout = pluginApp(\Plenty\Modules\Frontend\Contracts\Checkout::class);
+	// $this->getLogger(__METHOD__)->error('Novalnet::$basketExpress', $basket);
+ //        if($checkout instanceof Checkout)
+ //        {
+ //            $selectedPaymentMethodId = $this->paymentHelper->getPaymentMethodByKey('NOVALNET_GOOGLEPAY');
+	//     $this->getLogger(__METHOD__)->error('Novalnet::$paymentMethodId', $selectedPaymentMethodId[0]);
+ //            if($selectedPaymentMethodId[0] > 0)
+ //            {
+ //                $checkout->setPaymentMethodId((int)$selectedPaymentMethodId[0]);
+	//         $this->sessionStorage->getPlugin()->setValue('test','test');
+	// 	$this->sessionStorage->getPlugin()->setValue('postData',$arrayTest);
+	// 	$this->getLogger(__METHOD__)->error('Novalnet::setPaymentMethodId', 'setPaymentMethodId');
 		    
-            }
+ //            }
 	
-	}
-
-	// Instantiate the CheckoutService
-	// $checkoutService = pluginApp(CheckoutService::class);
-	
-	// // Check if $checkoutService is an instance of CheckoutService
-	// if ($checkoutService instanceof CheckoutService) {
-	//     // Get the checkout object
-	//     $checkout = $checkoutService->getCheckout();
-	
-	//     // Assuming $selectedPaymentMethodId is already defined
-	//     // Get all available payment methods
-	//     $paymentMethods = $checkout->getPaymentMethods();
-	
-	//     // Loop through all payment methods
-	//     foreach ($paymentMethods as $paymentMethod) {
-	// 	// Get the ID of the current payment method
-	// 	$currentPaymentMethodId = $paymentMethod->getId();
-	
-	// 	// Enable the selected payment method and disable others
-	// 	if ($currentPaymentMethodId === $selectedPaymentMethodId[0]) {
-	// 	    $paymentMethod->setEnabled(true);
-	// 	} else {
-	// 	    $paymentMethod->setEnabled(false);
-	// 	}
-	//     }
 	// }
+
+	// // Instantiate the CheckoutService
+	// // $checkoutService = pluginApp(CheckoutService::class);
+	
+	// // // Check if $checkoutService is an instance of CheckoutService
+	// // if ($checkoutService instanceof CheckoutService) {
+	// //     // Get the checkout object
+	// //     $checkout = $checkoutService->getCheckout();
+	
+	// //     // Assuming $selectedPaymentMethodId is already defined
+	// //     // Get all available payment methods
+	// //     $paymentMethods = $checkout->getPaymentMethods();
+	
+	// //     // Loop through all payment methods
+	// //     foreach ($paymentMethods as $paymentMethod) {
+	// // 	// Get the ID of the current payment method
+	// // 	$currentPaymentMethodId = $paymentMethod->getId();
+	
+	// // 	// Enable the selected payment method and disable others
+	// // 	if ($currentPaymentMethodId === $selectedPaymentMethodId[0]) {
+	// // 	    $paymentMethod->setEnabled(true);
+	// // 	} else {
+	// // 	    $paymentMethod->setEnabled(false);
+	// // 	}
+	// //     }
+	// // }
 			
 	
-		$this->getLogger(__METHOD__)->error('Novalnet::checkout', 'checkout');
+	// 	$this->getLogger(__METHOD__)->error('Novalnet::checkout', 'checkout');
 
 
-	$address = pluginApp(\Plenty\Modules\Account\Address\Models\Address::class);
+	// $address = pluginApp(\Plenty\Modules\Account\Address\Models\Address::class);
 	
-	// Set address details
-	$address->name2 = $arrayTest['order']['shipping']['contact']['firstName'];
-	$address->name3 = $arrayTest['order']['shipping']['contact']['lastName'];
-	$address->address1 = $arrayTest['order']['shipping']['contact']['addressLines'];
-	$address->address2 = $arrayTest['order']['shipping']['contact']['addressLines'];
-	$address->town = $arrayTest['order']['shipping']['contact']['locality'];
-	$address->postalCode = $arrayTest['order']['shipping']['contact']['postalCode'];
+	// // Set address details
+	// $address->name2 = $arrayTest['order']['shipping']['contact']['firstName'];
+	// $address->name3 = $arrayTest['order']['shipping']['contact']['lastName'];
+	// $address->address1 = $arrayTest['order']['shipping']['contact']['addressLines'];
+	// $address->address2 = $arrayTest['order']['shipping']['contact']['addressLines'];
+	// $address->town = $arrayTest['order']['shipping']['contact']['locality'];
+	// $address->postalCode = $arrayTest['order']['shipping']['contact']['postalCode'];
 	
-	// Retrieve country ID
-	$countryContract = pluginApp(\Plenty\Modules\Order\Shipping\Countries\Contracts\CountryRepositoryContract::class);
-	$country = $countryContract->getCountryByIso($arrayTest['order']['shipping']['contact']['countryCode'], 'isoCode2');
-	$address->countryId = $country->id;
+	// // Retrieve country ID
+	// $countryContract = pluginApp(\Plenty\Modules\Order\Shipping\Countries\Contracts\CountryRepositoryContract::class);
+	// $country = $countryContract->getCountryByIso($arrayTest['order']['shipping']['contact']['countryCode'], 'isoCode2');
+	// $address->countryId = $country->id;
 	
-	// Set address options
-	$addressOptions = [];
+	// // Set address options
+	// $addressOptions = [];
 	
-	// Set email address as an option
-	$addressOption = pluginApp(\Plenty\Modules\Account\Address\Models\AddressOption::class);
-	$addressOption->typeId = \Plenty\Modules\Account\Address\Models\AddressOption::TYPE_EMAIL;
-	$addressOption->value = $arrayTest['order']['billing']['contact']['email']; // Assuming $email is defined elsewhere
-	$addressOptions[] = $addressOption->toArray();
+	// // Set email address as an option
+	// $addressOption = pluginApp(\Plenty\Modules\Account\Address\Models\AddressOption::class);
+	// $addressOption->typeId = \Plenty\Modules\Account\Address\Models\AddressOption::TYPE_EMAIL;
+	// $addressOption->value = $arrayTest['order']['billing']['contact']['email']; // Assuming $email is defined elsewhere
+	// $addressOptions[] = $addressOption->toArray();
 	
-	// Set options as an array
-	$address->options = $addressOptions;
+	// // Set options as an array
+	// $address->options = $addressOptions;
 	
-	// Create or update the address
-	$accountService = pluginApp(\Plenty\Modules\Frontend\Services\AccountService::class);
-	$contactId = $accountService->getAccountContactId();
+	// // Create or update the address
+	// $accountService = pluginApp(\Plenty\Modules\Frontend\Services\AccountService::class);
+	// $contactId = $accountService->getAccountContactId();
 	
-	if (!empty($contactId) && $contactId > 0) {
-	// If a contact ID is available, create the address for the contact
-	$contactAddress = pluginApp(\Plenty\Modules\Account\Contact\Contracts\ContactAddressRepositoryContract::class);
-	$createdAddress = $contactAddress->createAddress($address->toArray(), $contactId, AddressRelationType::DELIVERY_ADDRESS);
-	} else {
-	// If no contact ID is available, create the address independently
-	$createdAddress = $this->addressContract->createAddress($address->toArray());
+	// if (!empty($contactId) && $contactId > 0) {
+	// // If a contact ID is available, create the address for the contact
+	// $contactAddress = pluginApp(\Plenty\Modules\Account\Contact\Contracts\ContactAddressRepositoryContract::class);
+	// $createdAddress = $contactAddress->createAddress($address->toArray(), $contactId, AddressRelationType::DELIVERY_ADDRESS);
+	// } else {
+	// // If no contact ID is available, create the address independently
+	// $createdAddress = $this->addressContract->createAddress($address->toArray());
 	
-	// Set the customer invoice address ID if not already set
-	if (empty($this->checkout->getCustomerInvoiceAddressId())) {
-	$this->checkout->setCustomerInvoiceAddressId($createdAddress->id);
-	}
-	}
+	// // Set the customer invoice address ID if not already set
+	// if (empty($this->checkout->getCustomerInvoiceAddressId())) {
+	// $this->checkout->setCustomerInvoiceAddressId($createdAddress->id);
+	// }
+	// }
 	
-	// Set the customer shipping address ID
-	$this->checkout->setCustomerShippingAddressId($createdAddress->id);
+	// // Set the customer shipping address ID
+	// $this->checkout->setCustomerShippingAddressId($createdAddress->id);
 
 	
-        $payment_access_key  = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
-        $encoded_data        = base64_encode($payment_access_key);
-        $endpoint            = 'https://payport.novalnet.de/v2/payment';
-        $headers = [
+ //        $payment_access_key  = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
+ //        $encoded_data        = base64_encode($payment_access_key);
+ //        $endpoint            = 'https://payport.novalnet.de/v2/payment';
+ //        $headers = [
         
-            'Content-Type:application/json',
-            'Charset:utf-8', 
-            'Accept:application/json', 
-            'X-NN-Access-Key:' . $encoded_data, 
-        ];
+ //            'Content-Type:application/json',
+ //            'Charset:utf-8', 
+ //            'Accept:application/json', 
+ //            'X-NN-Access-Key:' . $encoded_data, 
+ //        ];
         
-       $data = [];
+ //       $data = [];
         
-        $data['merchant'] = [
-            'signature' => $this->settingsService->getPaymentSettingsValue('novalnet_public_key'), 
-            'tariff'    => $this->settingsService->getPaymentSettingsValue('novalnet_tariff_id'), 
-        ];
+ //        $data['merchant'] = [
+ //            'signature' => $this->settingsService->getPaymentSettingsValue('novalnet_public_key'), 
+ //            'tariff'    => $this->settingsService->getPaymentSettingsValue('novalnet_tariff_id'), 
+ //        ];
         
-        $data['customer'] = [
-            'first_name'  => $arrayTest['order']['billing']['contact']['firstName'],
-            'last_name'   => $arrayTest['order']['billing']['contact']['lastName'], 
-            'email'       => $arrayTest['order']['billing']['contact']['email'], 
-            'customer_ip' => '192.168.2.125',
-            'customer_no' => 'guest',
-	    'gender'      => 'u',
-            'billing'     => [
-                'house_no'     => $arrayTest['order']['billing']['contact']['addressLines'],
-                'street'       => $arrayTest['order']['billing']['contact']['addressLines'],
-                'city'         => $arrayTest['order']['billing']['contact']['locality'],
-                'zip'          => $arrayTest['order']['billing']['contact']['postalCode'],
-                'country_code' => $arrayTest['order']['billing']['contact']['countryCode'],
-        	    'company'   => 'ABC GmbH',
-        	    'state'      => 'Berlin'
-            ] ,  
+ //        $data['customer'] = [
+ //            'first_name'  => $arrayTest['order']['billing']['contact']['firstName'],
+ //            'last_name'   => $arrayTest['order']['billing']['contact']['lastName'], 
+ //            'email'       => $arrayTest['order']['billing']['contact']['email'], 
+ //            'customer_ip' => '192.168.2.125',
+ //            'customer_no' => 'guest',
+	//     'gender'      => 'u',
+ //            'billing'     => [
+ //                'house_no'     => $arrayTest['order']['billing']['contact']['addressLines'],
+ //                'street'       => $arrayTest['order']['billing']['contact']['addressLines'],
+ //                'city'         => $arrayTest['order']['billing']['contact']['locality'],
+ //                'zip'          => $arrayTest['order']['billing']['contact']['postalCode'],
+ //                'country_code' => $arrayTest['order']['billing']['contact']['countryCode'],
+ //        	    'company'   => 'ABC GmbH',
+ //        	    'state'      => 'Berlin'
+ //            ] ,  
              
-            'shipping' => [
-		'first_name'  => $arrayTest['order']['shipping']['contact']['firstName'],
-		'last_name'   => $arrayTest['order']['shipping']['contact']['lastName'], 
-                'house_no'     => $arrayTest['order']['shipping']['contact']['addressLines'],
-                'street'       => $arrayTest['order']['shipping']['contact']['addressLines'],
-                'city'         => $arrayTest['order']['shipping']['contact']['locality'],
-                'zip'          => $arrayTest['order']['shipping']['contact']['postalCode'],
-                'country_code' => $arrayTest['order']['shipping']['contact']['countryCode'],
-            ],
+ //            'shipping' => [
+	// 	'first_name'  => $arrayTest['order']['shipping']['contact']['firstName'],
+	// 	'last_name'   => $arrayTest['order']['shipping']['contact']['lastName'], 
+ //                'house_no'     => $arrayTest['order']['shipping']['contact']['addressLines'],
+ //                'street'       => $arrayTest['order']['shipping']['contact']['addressLines'],
+ //                'city'         => $arrayTest['order']['shipping']['contact']['locality'],
+ //                'zip'          => $arrayTest['order']['shipping']['contact']['postalCode'],
+ //                'country_code' => $arrayTest['order']['shipping']['contact']['countryCode'],
+ //            ],
             
-        ];
+ //        ];
         
-        // Build Transaction Data
-        $data['transaction'] = [
-            'payment_type'     => 'GOOGLEPAY',
-            'amount'           => $this->paymentHelper->convertAmountToSmallerUnit($basket->basketAmountNet),
-            'currency'         => $paymentRequestPostData['nn_accept_gtc'],
-            'test_mode'        => ($this->settingsService->getPaymentSettingsValue('test_mode', 'novalnet_googlepay') == true) ? 1 : 0,
-            'enforce_3d'           => $paymentRequestPostData['nn_enforce'] ?? 0,
-            'create_token'     => 1,
-            'payment_data'     => [        
-                'wallet_token' => $paymentRequestPostData['nn_google_pay_token'] 
-            ]   
-        ];
+ //        // Build Transaction Data
+ //        $data['transaction'] = [
+ //            'payment_type'     => 'GOOGLEPAY',
+ //            'amount'           => $this->paymentHelper->convertAmountToSmallerUnit($basket->basketAmountNet),
+ //            'currency'         => $paymentRequestPostData['nn_accept_gtc'],
+ //            'test_mode'        => ($this->settingsService->getPaymentSettingsValue('test_mode', 'novalnet_googlepay') == true) ? 1 : 0,
+ //            'enforce_3d'           => $paymentRequestPostData['nn_enforce'] ?? 0,
+ //            'create_token'     => 1,
+ //            'payment_data'     => [        
+ //                'wallet_token' => $paymentRequestPostData['nn_google_pay_token'] 
+ //            ]   
+ //        ];
         
-        $data['custom'] = [
-        	'lang'      => strtoupper($this->sessionStorage->getLocaleSettings()->language),
-        ];
-        $this->getLogger(__METHOD__)->error('Novalnet::$data', $data);
-	$this->sessionStorage->getPlugin()->setValue('nnExpressPaymentData',$data);
-  	return $this->response->redirectTo('checkout');
+ //        $data['custom'] = [
+ //        	'lang'      => strtoupper($this->sessionStorage->getLocaleSettings()->language),
+ //        ];
+ //        $this->getLogger(__METHOD__)->error('Novalnet::$data', $data);
+	// $this->sessionStorage->getPlugin()->setValue('nnExpressPaymentData',$data);
+ //  	return $this->response->redirectTo('checkout');
     }        
 
 }
