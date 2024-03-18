@@ -20,8 +20,8 @@
     <input type="hidden" name="nn_country_code" id="nn_country_code" value="{{countryCode}}">
     <input type='hidden' name="nn_wallet_payments"  id="nn_wallet_payments" value="{{enabledWalletPayment}}">
     <input type='hidden' name="nn_configuration_data" id="nn_configuration_data" value="{{configurationData}}">
-    <input type='hidden' name="nn_enforce" id="nn_enforce" value='{$isEnforceEnabled}'>
-    <input type='hidden' name="nn_merchant_id" id="nn_merchant_id" value='{$merchantId}'>
+    <input type='hidden' name="nn_enforce" id="nn_enforce" value='{{isEnforceEnabled}}'>
+    <input type='hidden' name="nn_merchant_id" id="nn_merchant_id" value='{{merchantId}}'>
 
     {# Set the reinitialization is used #}
         {% if reinitializePayment is not empty %}
