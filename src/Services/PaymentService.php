@@ -467,13 +467,23 @@ class PaymentService
     }
 
     /**
-    * Get the direct payment process controller URL to be handled
+    * Get the express payment process controller URL to be handled
     *
     * @return string
     */
     public function getExpressPaymentUrl()
     {
         return $this->webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl . '/' . $this->sessionStorage->getLocaleSettings()->language . '/payment/novalnet/expressPayment/';
+    }
+
+    /**
+    * Get the express payment process controller URL to be handled
+    *
+    * @return string
+    */
+    public function getApplePaymentUrl()
+    {
+        return $this->webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl . '/' . $this->sessionStorage->getLocaleSettings()->language . '/payment/novalnet/applePayment/';
     }
     
     /**
