@@ -341,21 +341,21 @@ class PaymentController extends Controller
   
    public function applePayment()
    {
-
+	$basket = $this->basketRepository->load();
 	$checkout = pluginApp(\Plenty\Modules\Frontend\Contracts\Checkout::class);
-        if($checkout instanceof Checkout)
-        {
-            $selectedPaymentMethodId = $this->paymentHelper->getPaymentMethodByKey('NOVALNET_APPLEPAY');
-	    $this->getLogger(__METHOD__)->error('Novalnet::APPLE$paymentMethodId', $selectedPaymentMethodId[0]);
-            if($selectedPaymentMethodId[0] > 0)
-            {
-                $checkout->setPaymentMethodId((int)$selectedPaymentMethodId[0]);
-		$this->getLogger(__METHOD__)->error('Novalnet::APPLEsetPaymentMethodId', 'setPaymentMethodId');
-            }
+	if($checkout instanceof Checkout) {
+	    $selectedPaymentMethodId = $this->paymentHelper->getPaymentMethodByKey('NOVALNET_APPLEPAY');
+	    if(isset($selectedPaymentMethodId[0]) && $selectedPaymentMethodId[0] > 0) {
+	        $checkout->setPaymentMethodId((int)$selectedPaymentMethodId[0]);
+	        $this->getLogger(__METHOD__)->info('Payment method set to NOVALNET_APPLEPAY', $selectedPaymentMethodId[0]);
+	    } else {
+	        $this->getLogger(__METHOD__)->error('Failed to get payment method ID for NOVALNET_APPLEPAY',  $selectedPaymentMethodId[0]);
+	    }
+	} else {
+	    $this->getLogger(__METHOD__)->error('Checkout instance not available',  $selectedPaymentMethodId[0]);
+	}
 	
-	} 
-
-	return $this->response->redirectTo('checkout');   
+	return $this->response->redirectTo('checkout');
     }
 
 	
