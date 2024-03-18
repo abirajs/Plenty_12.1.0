@@ -342,12 +342,13 @@ class PaymentController extends Controller
    public function applePayment()
    {
 	$basket = $this->basketRepository->load();
+	$this->getLogger(__METHOD__)->error('APPLEBASKET', $basket);
 	$checkout = pluginApp(\Plenty\Modules\Frontend\Contracts\Checkout::class);
 	if($checkout instanceof Checkout) {
 	    $selectedPaymentMethodId = $this->paymentHelper->getPaymentMethodByKey('NOVALNET_APPLEPAY');
 	    if(isset($selectedPaymentMethodId[0]) && $selectedPaymentMethodId[0] > 0) {
 	        $checkout->setPaymentMethodId((int)$selectedPaymentMethodId[0]);
-	        $this->getLogger(__METHOD__)->info('Payment method set to NOVALNET_APPLEPAY', $selectedPaymentMethodId[0]);
+	        $this->getLogger(__METHOD__)->error('Payment method set to NOVALNET_APPLEPAY', $selectedPaymentMethodId[0]);
 	    } else {
 	        $this->getLogger(__METHOD__)->error('Failed to get payment method ID for NOVALNET_APPLEPAY',  $selectedPaymentMethodId[0]);
 	    }
