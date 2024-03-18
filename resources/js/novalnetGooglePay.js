@@ -95,6 +95,7 @@ jQuery(document).ready(function() {
                     });
                     if(jQuery('input[type="radio"][id*='+mopId+']').is(':checked')) {
                         jQuery('li[data-id="'+mopId+'"]').click();
+                        jQuery('.fa-arrow-right').parent('button').hide();
                         console.log('checked');
                     } else {
                         jQuery('.fa-arrow-right').parent('button').show();
