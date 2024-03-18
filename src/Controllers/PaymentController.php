@@ -359,14 +359,12 @@ class PaymentController extends Controller
             {
                 $checkout->setPaymentMethodId((int)$selectedPaymentMethodId[0]);
 		$this->getLogger(__METHOD__)->error('Novalnet::setPaymentMethodId', 'setPaymentMethodId');
-		if((!isset($paymentRequestPostData['nn_google_pay_response']))) {
-			return $this->response->redirectTo('checkout');
-			exit();
-		} 
-
             }
 	
 	}
+	if((!isset($paymentRequestPostData['nn_google_pay_response']))) {
+		return $this->response->redirectTo('checkout');
+	} else {
 	$test = json_decode(json_encode($paymentRequestPostData['nn_google_pay_response']));
         $array = json_decode($test, true);
         $arrayTest = (array) $array;
@@ -374,7 +372,7 @@ class PaymentController extends Controller
         $this->getLogger(__METHOD__)->error('Novalnet::$arrayTest', $arrayTest);  
 	$this->sessionStorage->getPlugin()->setValue('test','test');
 	$this->sessionStorage->getPlugin()->setValue('postData',$arrayTest);
-	    
+	}   
 	// Instantiate the CheckoutService
 	// $checkoutService = pluginApp(CheckoutService::class);
 	
