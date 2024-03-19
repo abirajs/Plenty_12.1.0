@@ -394,16 +394,17 @@ class PaymentController extends Controller
 		$this->sessionStorage->getPlugin()->setValue('test','test');
 		$this->sessionStorage->getPlugin()->setValue('postData',$arrayTest);
 	}
+	    
 	// Instantiate the CheckoutService
-	// $checkoutService = pluginApp(CheckoutService::class);
+	$checkoutService = pluginApp(Plenty\Modules\Frontend\Services\CheckoutService::class);
 	
-	// // Check if $checkoutService is an instance of CheckoutService
-	// if ($checkoutService instanceof CheckoutService) {
-	//     // Get the checkout object
+	// Check if $checkoutService is an instance of CheckoutService
+	if ($checkoutService instanceof CheckoutService) {
+	    // Get the checkout object
 	    $checkout = $this->checkoutService->getCheckout();
 	
-	//     // Assuming $selectedPaymentMethodId is already defined
-	//     // Get all available payment methods
+	    // Assuming $selectedPaymentMethodId is already defined
+	    // Get all available payment methods
 	    $paymentMethods = $checkout->getPaymentMethods();
 	
 	    // Loop through all payment methods
@@ -418,7 +419,7 @@ class PaymentController extends Controller
 		    $paymentMethod->setEnabled(false);
 		}
 	    }
-	// }
+	}
 			
 	
 	$this->getLogger(__METHOD__)->error('Novalnet::checkout', 'checkout');
