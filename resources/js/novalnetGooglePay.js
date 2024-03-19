@@ -1,7 +1,5 @@
-jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
+
 jQuery(document).ready(function() {
-jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
-    
     // Load the Google Pay button
     try {
         // Load the payment instances
@@ -78,12 +76,10 @@ jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
                 } else {
                     jQuery('li[data-id="'+mopId+'"]').show();
                     console.log(mopId);
-                    // jQuery('.fa-arrow-right').parent('button').hide();
-                    jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
+                    jQuery('.fa-arrow-right').parent('button').hide();
                     jQuery('li[data-id="'+mopId+'"]').click(function() {
                         console.log('initial');
-                        // jQuery('.fa-arrow-right').parent('button').hide();
-                        jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
+                        jQuery('.fa-arrow-right').parent('button').hide();
                         jQuery('#nn_google_pay').empty();
                         // Initiating the payment request for the wallet payment
                         NovalnetWalletPaymentObj.addPaymentButton("#nn_google_pay");
@@ -95,14 +91,12 @@ jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
                        } else {
                             jQuery("#nn_google_pay").show();  
                             console.log('test7');                  
-                            // jQuery('.fa-arrow-right').parent('button').hide();
-                            jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
+                            jQuery('.fa-arrow-right').parent('button').hide();
                        }
                     });
                     if(jQuery('input[type="radio"][id*='+mopId+']').is(':checked')) {
                         jQuery('li[data-id="'+mopId+'"]').click();
-                        // jQuery('.fa-arrow-right').parent('button').hide();
-                        jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
+                        jQuery('.fa-arrow-right').parent('button').hide();
                         console.log('checked');
                     } else {
                         jQuery('.fa-arrow-right').parent('button').show();
@@ -124,16 +118,10 @@ jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
                } else {
                     jQuery("#nn_google_pay").show();  
                     console.log('test3');                  
-                    // jQuery('.fa-arrow-right').parent('button').hide();
-                    jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
+                    jQuery('.fa-arrow-right').parent('button').hide();
                }
             });
-            console.log('test4'); 
-          if (jQuery('#nn_google_pay').is(':empty')) {
-                console.log('block');
-                jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
-          } 
-            
+            console.log('test4');          
         });
     } catch (e) {
         // Handling the errors from the payment intent setup
@@ -141,3 +129,6 @@ jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
     }
 });
 console.log('test5'); 
+if (jQuery('#nn_google_pay').is(':empty')) {
+    jQuery('.fa-arrow-right').parent('button').hide();
+}
