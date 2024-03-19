@@ -401,7 +401,7 @@ class PaymentController extends Controller
 	// Check if $checkoutService is an instance of CheckoutService
 	if ($checkoutService instanceof CheckoutService) {
 	    // Get the checkout object
-	    $checkout = $this->checkoutService->getCheckout();
+	    $checkout = $checkoutService->getCheckout();
 	
 	    // Assuming $selectedPaymentMethodId is already defined
 	    // Get all available payment methods
