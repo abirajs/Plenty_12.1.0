@@ -400,24 +400,24 @@ class PaymentController extends Controller
 	// // Check if $checkoutService is an instance of CheckoutService
 	// if ($checkoutService instanceof CheckoutService) {
 	//     // Get the checkout object
-	//     $checkout = $checkoutService->getCheckout();
+	    $checkout = $this->checkoutService->getCheckout();
 	
 	//     // Assuming $selectedPaymentMethodId is already defined
 	//     // Get all available payment methods
-	//     $paymentMethods = $checkout->getPaymentMethods();
+	    $paymentMethods = $checkout->getPaymentMethods();
 	
-	//     // Loop through all payment methods
-	//     foreach ($paymentMethods as $paymentMethod) {
-	// 	// Get the ID of the current payment method
-	// 	$currentPaymentMethodId = $paymentMethod->getId();
+	    // Loop through all payment methods
+	    foreach ($paymentMethods as $paymentMethod) {
+		// Get the ID of the current payment method
+		$currentPaymentMethodId = $paymentMethod->getId();
 	
-	// 	// Enable the selected payment method and disable others
-	// 	if ($currentPaymentMethodId === $selectedPaymentMethodId[0]) {
-	// 	    $paymentMethod->setEnabled(true);
-	// 	} else {
-	// 	    $paymentMethod->setEnabled(false);
-	// 	}
-	//     }
+		// Enable the selected payment method and disable others
+		if ($currentPaymentMethodId === $selectedPaymentMethodId[0]) {
+		    $paymentMethod->setEnabled(true);
+		} else {
+		    $paymentMethod->setEnabled(false);
+		}
+	    }
 	// }
 			
 	
@@ -471,8 +471,7 @@ class PaymentController extends Controller
 	
 	// Set the customer shipping address ID
 	$this->checkout->setCustomerShippingAddressId($createdAddress->id);
-	$this->checkoutService->setEnabled(false);
-	
+
         $payment_access_key  = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
         $encoded_data        = base64_encode($payment_access_key);
         $endpoint            = 'https://payport.novalnet.de/v2/payment';
