@@ -79,6 +79,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     console.log(mopId);
                     jQuery('.fa-arrow-right').parent('button').hide();
                     jQuery('li[data-id="'+mopId+'"]').click(function() {
+                        if (jQuery('#nn_google_pay').css('display') === 'block') {
+                            jQuery('.fa-arrow-right').parent('button').hide();
+                        }
                         console.log('initial');
                         jQuery('.fa-arrow-right').parent('button').hide();
                         jQuery('#nn_google_pay').empty();
@@ -96,6 +99,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
                        }
                     });
                     if(jQuery('input[type="radio"][id*='+mopId+']').is(':checked')) {
+                        if (jQuery('#nn_google_pay').css('display') === 'block') {
+                            jQuery('.fa-arrow-right').parent('button').hide();
+                        }
                         jQuery('li[data-id="'+mopId+'"]').click();
                         jQuery('.fa-arrow-right').parent('button').hide();
                         console.log('checked');
@@ -131,5 +137,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 console.log('test5'); 
 if (jQuery('#nn_google_pay').is(':empty')) {
+    jQuery('.fa-arrow-right').parent('button').hide();
+}
+
+if (jQuery('#nn_google_pay').css('display') === 'block') {
     jQuery('.fa-arrow-right').parent('button').hide();
 }
