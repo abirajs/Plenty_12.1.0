@@ -1,7 +1,7 @@
 jQuery(document).ready(function() {
     var walletPayments = JSON.parse(jQuery("#nn_wallet_payments").val());
     var configurationData = JSON.parse(jQuery("#nn_configuration_data").val());
-    $('<input type="hidden" id="nn_google_pay_wallet_token">').appendTo('#nn_googlepay_button');
+    $('<input type="hidden" id="nn_google_pay_wallet_token">').appendTo('#nn_google_pay_button');
 	for (let walletPayment in walletPayments) {
 		var paymentTypeValue = ( walletPayments[walletPayment] == 'novalnet_googlepay' ) ? 'GOOGLEPAY' : 'APPLEPAY';
 		// Load the Wallet Pay button
