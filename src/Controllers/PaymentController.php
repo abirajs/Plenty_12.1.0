@@ -32,7 +32,7 @@ use Plenty\Modules\Frontend\Services\AccountService;
 use Plenty\Modules\Account\Address\Models\AddressRelationType;
 use Plenty\Modules\Frontend\Services\CheckoutService;
 use Plenty\Plugin\Events\Dispatcher;
-use Plenty\Modules\Frontend\Contracts\CheckoutRepositoryContract;
+
 
 /**
  * Class PaymentController
@@ -97,10 +97,6 @@ class PaymentController extends Controller
      */
     private $checkoutService;
 
-    /**
-     * @var Checkout
-     */
-    private $checkoutRepository;
     
     /**
      * Constructor.
@@ -125,8 +121,6 @@ class PaymentController extends Controller
                                 Checkout $checkout,
                                 Twig $twig,
 				CheckoutService $checkoutService,
-				CheckoutRepositoryContract $checkoutRepository
-				
                                )
     {
         $this->request          = $request;
@@ -138,10 +132,9 @@ class PaymentController extends Controller
         $this->basketRepository = $basketRepository;
         $this->twig             = $twig;
 	$this->checkoutService  = $checkoutService;    
-        
         $this->addressContract = $addressRepositoryContract;
         $this->checkout = $checkout;
-	$this->checkoutRepository = $checkoutRepository;
+
     }
 
     /**
