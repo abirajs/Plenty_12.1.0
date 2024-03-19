@@ -31,6 +31,7 @@ use Plenty\Modules\Account\Contact\Contracts\ContactAddressRepositoryContract;
 use Plenty\Modules\Frontend\Services\AccountService;
 use Plenty\Modules\Account\Address\Models\AddressRelationType;
 
+use Plenty\Modules\Frontend\Services\CheckoutService;
 /**
  * Class PaymentController
  *
@@ -111,6 +112,7 @@ class PaymentController extends Controller
                                 AddressRepositoryContract $addressRepositoryContract,
                                 Checkout $checkout,
                                 Twig $twig,
+				CheckoutService $checkoutService
 				
                                )
     {
@@ -122,6 +124,7 @@ class PaymentController extends Controller
         $this->sessionStorage   = $sessionStorage;
         $this->basketRepository = $basketRepository;
         $this->twig             = $twig;
+	$this->checkoutService  = $checkoutService;    
         
         $this->addressContract = $addressRepositoryContract;
         $this->checkout = $checkout;
@@ -468,7 +471,7 @@ class PaymentController extends Controller
 	
 	// Set the customer shipping address ID
 	$this->checkout->setCustomerShippingAddressId($createdAddress->id);
-	$this->checkout->getInvoiceAddress()->setEnabled(false);
+	$this->checkoutService->getInvoiceAddress()->setEnabled(false);
 	
         $payment_access_key  = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
         $encoded_data        = base64_encode($payment_access_key);
