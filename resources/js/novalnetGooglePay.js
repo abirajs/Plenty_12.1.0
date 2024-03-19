@@ -133,8 +133,12 @@ jQuery(document).ready(function() {
         console.log(e.message);
     }
    if (jQuery('#nn_google_pay').css('display') === 'block') {
-    jQuery('.fa-arrow-right').parent('button').hide();
+        jQuery('.fa-arrow-right').parent('button').hide();
     } 
+   if (jQuery('#nn_googlepay_token').val()) {
+        jQuery("#novalnet_googlepay").hide();  
+    } 
+    
 });
 console.log('test5'); 
 if (jQuery('#nn_google_pay').is(':empty')) {
