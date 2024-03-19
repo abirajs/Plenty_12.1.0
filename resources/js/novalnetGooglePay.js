@@ -75,10 +75,12 @@
                 } else {
                     jQuery('li[data-id="'+mopId+'"]').show();
                     console.log(mopId);
-                    jQuery('.fa-arrow-right').parent('button').hide();
+                    // jQuery('.fa-arrow-right').parent('button').hide();
+                    jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
                     jQuery('li[data-id="'+mopId+'"]').click(function() {
                         console.log('initial');
-                        jQuery('.fa-arrow-right').parent('button').hide();
+                        // jQuery('.fa-arrow-right').parent('button').hide();
+                        jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
                         jQuery('#nn_google_pay').empty();
                         // Initiating the payment request for the wallet payment
                         NovalnetWalletPaymentObj.addPaymentButton("#nn_google_pay");
@@ -90,12 +92,14 @@
                        } else {
                             jQuery("#nn_google_pay").show();  
                             console.log('test7');                  
-                            jQuery('.fa-arrow-right').parent('button').hide();
+                            // jQuery('.fa-arrow-right').parent('button').hide();
+                            jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
                        }
                     });
                     if(jQuery('input[type="radio"][id*='+mopId+']').is(':checked')) {
                         jQuery('li[data-id="'+mopId+'"]').click();
-                        jQuery('.fa-arrow-right').parent('button').hide();
+                        // jQuery('.fa-arrow-right').parent('button').hide();
+                        jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
                         console.log('checked');
                     } else {
                         jQuery('.fa-arrow-right').parent('button').show();
@@ -117,11 +121,11 @@
                } else {
                     jQuery("#nn_google_pay").show();  
                     console.log('test3');                  
-                    jQuery('.fa-arrow-right').parent('button').hide();
+                    // jQuery('.fa-arrow-right').parent('button').hide();
+                    jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
                }
             });
             console.log('test4'); 
-             jQuery('.fa-arrow-right').parent('button').hide();
         });
     } catch (e) {
         // Handling the errors from the payment intent setup
