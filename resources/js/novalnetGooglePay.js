@@ -6,7 +6,7 @@ jQuery(document).ready(function() {
         var NovalnetWalletPaymentObj = NovalnetPaymentInstance.createPaymentObject();
         // Setup the payment intent
         var requestData = {
-            clientKey: String(jQuery('#nn_client_key').vjQuery('.fa-arrow-right').parent('button').css('display', 'none !important');al()),
+            clientKey: String(jQuery('#nn_client_key').val()),
             paymentIntent: {
                 merchant: {
                     paymentDataPresent: false,
