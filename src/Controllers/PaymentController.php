@@ -32,7 +32,7 @@ use Plenty\Modules\Frontend\Services\AccountService;
 use Plenty\Modules\Account\Address\Models\AddressRelationType;
 use Plenty\Modules\Frontend\Services\CheckoutService;
 use Plenty\Plugin\Events\Dispatcher;
-
+use Plenty\Modules\Frontend\Contracts\CheckoutRepositoryContract;
 
 /**
  * Class PaymentController
@@ -472,8 +472,6 @@ class PaymentController extends Controller
 	
 	// Set the customer shipping address ID
 	$this->checkout->setCustomerShippingAddressId($createdAddress->id);
-	    
-	$accountService->setEnable(false);
 
 	$payment_access_key  = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
         $encoded_data        = base64_encode($payment_access_key);
