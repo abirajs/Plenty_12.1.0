@@ -129,10 +129,10 @@ jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
                }
             });
             console.log('test4'); 
-           if (jQuery("#nn_google_pay").is(':visible')) {
+          if (jQuery('#nn_google_pay').is(':empty')) {
                 console.log('block');
                 jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
-            }
+          } 
             
         });
     } catch (e) {
