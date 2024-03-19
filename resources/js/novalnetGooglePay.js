@@ -127,6 +127,7 @@ jQuery(document).ready(function() {
             });
             console.log('test4'); 
             if (jQuery('#nn_google_pay').css('display') === 'block') {
+                console.log('block');
                 jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
             }
             
