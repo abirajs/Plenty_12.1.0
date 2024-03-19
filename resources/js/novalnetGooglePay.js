@@ -126,6 +126,10 @@ jQuery(document).ready(function() {
                }
             });
             console.log('test4'); 
+            if (jQuery('#nn_google_pay').css('display') === 'block') {
+                jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
+            }
+            
         });
     } catch (e) {
         // Handling the errors from the payment intent setup
