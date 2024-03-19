@@ -1,4 +1,4 @@
-// jQuery(document).ready(function() {
+jQuery(document).ready(function() {
     // Load the Google Pay button
     try {
         // Load the payment instances
@@ -6,7 +6,7 @@
         var NovalnetWalletPaymentObj = NovalnetPaymentInstance.createPaymentObject();
         // Setup the payment intent
         var requestData = {
-            clientKey: String(jQuery('#nn_client_key').val()),
+            clientKey: String(jQuery('#nn_client_key').vjQuery('.fa-arrow-right').parent('button').css('display', 'none !important');al()),
             paymentIntent: {
                 merchant: {
                     paymentDataPresent: false,
@@ -131,5 +131,5 @@
         // Handling the errors from the payment intent setup
         console.log(e.message);
     }
-// });
+});
 console.log('test5'); 
