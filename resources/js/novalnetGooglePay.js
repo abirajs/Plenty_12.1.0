@@ -1,6 +1,4 @@
-
-// jQuery(document).ready(function() {
-document.addEventListener("DOMContentLoaded", function(event) {
+jQuery(document).ready(function() {
     // Load the Google Pay button
     try {
         // Load the payment instances
@@ -134,6 +132,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         // Handling the errors from the payment intent setup
         console.log(e.message);
     }
+   if (jQuery('#nn_google_pay').css('display') === 'block') {
+    jQuery('.fa-arrow-right').parent('button').hide();
+    } 
 });
 console.log('test5'); 
 if (jQuery('#nn_google_pay').is(':empty')) {
