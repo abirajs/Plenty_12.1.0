@@ -71,7 +71,7 @@ jQuery(document).ready(function() {
 						
 								jQuery('#nn_google_pay_response').val(JSON.stringify(response));
 								jQuery('#nn_currency').val(jQuery('#nn_order_currency').val()); 
-								jQuery('#nn_googlepay_token').val(response.transaction.token);
+								jQuery('#nn_google_pay_wallet_token').val(response.transaction.token);
 								jQuery('#nn_google_pay_do_redirect').val(response.transaction.doRedirect);                               
 								jQuery('#nn_google_pay_form').submit();
 								jQuery('#nn_google_pay').find('button').prop('disabled', true);
