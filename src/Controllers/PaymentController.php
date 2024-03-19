@@ -32,7 +32,7 @@ use Plenty\Modules\Frontend\Services\AccountService;
 use Plenty\Modules\Account\Address\Models\AddressRelationType;
 use Plenty\Modules\Frontend\Services\CheckoutService;
 use Plenty\Plugin\Events\Dispatcher;
-use Plenty\Modules\Frontend\Contracts\CheckoutRepositoryContract;
+use Plenty\Modules\Frontend\Contracts\Services\CheckoutService;
 
 /**
  * Class PaymentController
@@ -403,7 +403,7 @@ class PaymentController extends Controller
 	}
 	    
         // Get the checkout object
-        $checkout = pluginApp(\Plenty\Modules\Frontend\Contracts\CheckoutRepositoryContract::class);
+        $checkout = pluginApp(\Plenty\Modules\Frontend\Services\CheckoutService::class);
 
         // Check if the checkout object is valid
         if ($checkout instanceof Checkout) {
