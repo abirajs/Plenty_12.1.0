@@ -401,7 +401,7 @@ class PaymentController extends Controller
 	}
 	    
 	// Instantiate the CheckoutService
-	$checkoutService = pluginApp(Plenty\Modules\Frontend\Services\CheckoutService::class);
+	$checkoutService = pluginApp(CheckoutService::class);
 	
 	// Check if $checkoutService is an instance of CheckoutService
 	if ($checkoutService instanceof CheckoutService) {
