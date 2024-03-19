@@ -410,7 +410,7 @@ class PaymentController extends Controller
 	}
 	    
         // Get the checkout object
-        $checkout = $this->checkoutRepository->get();
+        $checkout = pluginApp(\Plenty\Modules\Frontend\Contracts\CheckoutRepositoryContract::class);
 
         // Check if the checkout object is valid
         if ($checkout instanceof Checkout) {
