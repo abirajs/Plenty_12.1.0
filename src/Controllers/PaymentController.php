@@ -32,6 +32,8 @@ use Plenty\Modules\Frontend\Services\AccountService;
 use Plenty\Modules\Account\Address\Models\AddressRelationType;
 
 use Plenty\Modules\Frontend\Services\CheckoutService;
+use Plenty\Plugin\Events\Dispatcher;
+use Plenty\Modules\Frontend\Contracts\CheckoutRepositoryContract;
 
 /**
  * Class PaymentController
@@ -95,6 +97,11 @@ class PaymentController extends Controller
      * @var Checkout
      */
     private $checkoutService;
+
+    /**
+     * @var Checkout
+     */
+    private checkoutRepository;
     
     /**
      * Constructor.
@@ -118,7 +125,8 @@ class PaymentController extends Controller
                                 AddressRepositoryContract $addressRepositoryContract,
                                 Checkout $checkout,
                                 Twig $twig,
-				CheckoutService $checkoutService
+				CheckoutService $checkoutService,
+				CheckoutRepositoryContract $checkoutRepository
 				
                                )
     {
@@ -134,6 +142,7 @@ class PaymentController extends Controller
         
         $this->addressContract = $addressRepositoryContract;
         $this->checkout = $checkout;
+	$this->checkoutRepository = $checkoutRepository;
     }
 
     /**
@@ -402,10 +411,10 @@ class PaymentController extends Controller
 	}
 	    
         // Get the checkout object
-        $checkout = $this->checkoutService->get();
+        $checkout = $this->checkoutRepository->get();
 
         // Check if the checkout object is valid
-        if ($checkout) {
+        if ($checkout instanceof Checkout) {
             // Get all available payment methods
             $paymentMethods = $checkout->getPaymentMethods();
 
