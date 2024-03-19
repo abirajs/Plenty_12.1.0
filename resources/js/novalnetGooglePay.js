@@ -76,7 +76,7 @@
                     jQuery('li[data-id="'+mopId+'"]').show();
                     console.log(mopId);
                     jQuery('.fa-arrow-right').parent('button').hide();
-                    jQuery('li[data-id="'+mopId+'"]').click(function() {
+                    jQuery('li[data-id="'+mopId+'"]').change(function() {
                         console.log('initial');
                         jQuery('.fa-arrow-right').parent('button').hide();
                         jQuery('#nn_google_pay').empty();
@@ -108,7 +108,7 @@
                 jQuery('li[data-id="'+mopId+'"]').hide();
             }
 
-            jQuery('.method-list-item').on('click',function() {
+            jQuery('.method-list-item').on('change',function() {
                 var clickedId = jQuery(this).attr('data-id');
                 if(clickedId !== undefined && clickedId != mopId) {
                     jQuery("#nn_google_pay").hide();  
