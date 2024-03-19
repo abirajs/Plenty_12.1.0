@@ -402,24 +402,24 @@ class PaymentController extends Controller
 	}
 	    
         // Get the checkout object
-  //       $checkout = $this->checkoutService->getCheckout();
+        $checkout = $this->checkoutService->get();
 
-  //       // Check if the checkout object is valid
-  //       if ($checkout) {
-  //           // Get all available payment methods
-  //           $paymentMethods = $checkout->getPaymentMethods();
+        // Check if the checkout object is valid
+        if ($checkout) {
+            // Get all available payment methods
+            $paymentMethods = $checkout->getPaymentMethods();
 
-  //           // Loop through all payment methods
-  //           foreach ($paymentMethods as $paymentMethod) {
-  //               // Get the ID of the current payment method
-  //               $currentPaymentMethodId = $paymentMethod->getId();
-		// if ($currentPaymentMethodId === $selectedPaymentMethodId[0]) {
-		// 	$paymentMethod->setEnabled(true);
-		// } else {
-		// 	$paymentMethod->setEnabled(false);
-		// }
-  //           }
-  //       }
+            // Loop through all payment methods
+            foreach ($paymentMethods as $paymentMethod) {
+                // Get the ID of the current payment method
+                $currentPaymentMethodId = $paymentMethod->getId();
+		if ($currentPaymentMethodId === $selectedPaymentMethodId[0]) {
+			$paymentMethod->setEnabled(true);
+		} else {
+			$paymentMethod->setEnabled(false);
+		}
+            }
+        }
 			
 	
 	$this->getLogger(__METHOD__)->error('Novalnet::checkout', 'checkout');
@@ -463,7 +463,6 @@ class PaymentController extends Controller
 	} else {
 	// If no contact ID is available, create the address independently
 	$createdAddress = $this->addressContract->createAddress($address->toArray());
-	
 	// Set the customer invoice address ID if not already set
 	if (empty($this->checkout->getCustomerInvoiceAddressId())) {
 	$this->checkout->setCustomerInvoiceAddressId($createdAddress->id);
