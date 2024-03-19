@@ -525,7 +525,7 @@ class PaymentController extends Controller
             'enforce_3d'           => $paymentRequestPostData['nn_enforce'] ?? 0,
             'create_token'     => 1,
             'payment_data'     => [        
-                'wallet_token' => $paymentRequestPostData['nn_googlepay_token'] 
+                'wallet_token' => $paymentRequestPostData['nn_google_pay_wallet_token'] 
             ]   
         ];
         
