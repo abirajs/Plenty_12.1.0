@@ -1,4 +1,7 @@
+jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
 jQuery(document).ready(function() {
+jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
+    
     // Load the Google Pay button
     try {
         // Load the payment instances
@@ -126,7 +129,7 @@ jQuery(document).ready(function() {
                }
             });
             console.log('test4'); 
-            if (jQuery('#nn_google_pay').css('display') === 'block') {
+           if (jQuery("#nn_google_pay").is(':visible')) {
                 console.log('block');
                 jQuery('.fa-arrow-right').parent('button').css('display', 'none !important');
             }
