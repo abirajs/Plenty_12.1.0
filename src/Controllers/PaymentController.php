@@ -401,31 +401,25 @@ class PaymentController extends Controller
 		$this->sessionStorage->getPlugin()->setValue('postData',$arrayTest);
 	}
 	    
-	// Instantiate the CheckoutService
-	$checkoutService = pluginApp(CheckoutService::class);
-	
-	// Check if $checkoutService is an instance of CheckoutService
-	if ($checkoutService instanceof CheckoutService) {
-	    // Get the checkout object
-	    $checkout = $checkoutService->getCheckout();
-	
-	    // Assuming $selectedPaymentMethodId is already defined
-	    // Get all available payment methods
-	    $paymentMethods = $checkout->getPaymentMethods();
-	
-	    // Loop through all payment methods
-	    foreach ($paymentMethods as $paymentMethod) {
-		// Get the ID of the current payment method
-		$currentPaymentMethodId = $paymentMethod->getId();
-	
-		// Enable the selected payment method and disable others
+        // Get the checkout object
+        $checkout = $this->checkoutService->getCheckout();
+
+        // Check if the checkout object is valid
+        if ($checkout) {
+            // Get all available payment methods
+            $paymentMethods = $checkout->getPaymentMethods();
+
+            // Loop through all payment methods
+            foreach ($paymentMethods as $paymentMethod) {
+                // Get the ID of the current payment method
+                $currentPaymentMethodId = $paymentMethod->getId();
 		if ($currentPaymentMethodId === $selectedPaymentMethodId[0]) {
-		    $paymentMethod->setEnabled(true);
+			$paymentMethod->setEnabled(true);
 		} else {
-		    $paymentMethod->setEnabled(false);
+			$paymentMethod->setEnabled(false);
 		}
-	    }
-	}
+            }
+        }
 			
 	
 	$this->getLogger(__METHOD__)->error('Novalnet::checkout', 'checkout');
