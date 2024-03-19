@@ -1,5 +1,6 @@
 
-jQuery(document).ready(function() {
+// jQuery(document).ready(function() {
+document.addEventListener("DOMContentLoaded", function(event) {
     // Load the Google Pay button
     try {
         // Load the payment instances
