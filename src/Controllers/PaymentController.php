@@ -89,6 +89,11 @@ class PaymentController extends Controller
      * @var Checkout
      */
     private $checkout;
+
+    /**
+     * @var Checkout
+     */
+    private $checkoutService;
     
     /**
      * Constructor.
