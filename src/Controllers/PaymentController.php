@@ -402,24 +402,24 @@ class PaymentController extends Controller
 	}
 	    
         // Get the checkout object
-        $checkout = $this->checkoutService->getCheckout();
+  //       $checkout = $this->checkoutService->getCheckout();
 
-        // Check if the checkout object is valid
-        if ($checkout) {
-            // Get all available payment methods
-            $paymentMethods = $checkout->getPaymentMethods();
+  //       // Check if the checkout object is valid
+  //       if ($checkout) {
+  //           // Get all available payment methods
+  //           $paymentMethods = $checkout->getPaymentMethods();
 
-            // Loop through all payment methods
-            foreach ($paymentMethods as $paymentMethod) {
-                // Get the ID of the current payment method
-                $currentPaymentMethodId = $paymentMethod->getId();
-		if ($currentPaymentMethodId === $selectedPaymentMethodId[0]) {
-			$paymentMethod->setEnabled(true);
-		} else {
-			$paymentMethod->setEnabled(false);
-		}
-            }
-        }
+  //           // Loop through all payment methods
+  //           foreach ($paymentMethods as $paymentMethod) {
+  //               // Get the ID of the current payment method
+  //               $currentPaymentMethodId = $paymentMethod->getId();
+		// if ($currentPaymentMethodId === $selectedPaymentMethodId[0]) {
+		// 	$paymentMethod->setEnabled(true);
+		// } else {
+		// 	$paymentMethod->setEnabled(false);
+		// }
+  //           }
+  //       }
 			
 	
 	$this->getLogger(__METHOD__)->error('Novalnet::checkout', 'checkout');
