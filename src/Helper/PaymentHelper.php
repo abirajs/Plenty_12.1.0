@@ -50,6 +50,15 @@ use Plenty\Modules\Order\Contracts\OrderRepositoryContract;
 use Plenty\Modules\Payment\Contracts\PaymentOrderRelationRepositoryContract;
 use Plenty\Plugin\Log\Loggable;
 
+
+use IO\Services\WebstoreConfigurationService;
+use Plenty\Modules\Basket\Contracts\BasketRepositoryContract;
+use Plenty\Modules\Frontend\Contracts\Checkout;
+use Plenty\Modules\Order\Shipping\Contracts\ParcelServicePresetRepositoryContract;
+use Plenty\Plugin\Application;
+use IO\Services\SessionStorageService;
+use Plenty\Modules\Frontend\Session\Storage\Contracts\FrontendSessionStorageFactoryContract;
+
 /**
  * Class PaymentHelper
  *
@@ -92,6 +101,31 @@ class PaymentHelper
      * @var PaymentOrderRelationRepositoryContract
      */
     private $paymentOrderRelationRepository;
+    
+    /**
+     *
+     * @var customerService
+     */
+    private $customerService;
+    
+    /**
+     *
+     * @var $basketRepository
+     */
+    private $basketRepository;
+    
+    /**
+     *
+     * @var checkout
+     */
+    private $checkout;
+    
+    /**
+     *
+     * @var session
+     */
+    private $session;
+    
 
     /**
      * Constructor.
@@ -108,7 +142,10 @@ class PaymentHelper
                                 CountryRepositoryContract $countryRepository,
                                 PaymentRepositoryContract $paymentRepository,
                                 OrderRepositoryContract $orderRepository,
-                                PaymentOrderRelationRepositoryContract $paymentOrderRelationRepository
+                                PaymentOrderRelationRepositoryContract $paymentOrderRelationRepository,
+                                BasketRepositoryContract $basketRepository,
+                                Checkout $checkout,
+								FrontendSessionStorageFactoryContract $session,
                                 )
     {
         $this->paymentMethodRepository          = $paymentMethodRepository;
@@ -117,6 +154,9 @@ class PaymentHelper
         $this->paymentRepository                = $paymentRepository;
         $this->orderRepository                  = $orderRepository;
         $this->paymentOrderRelationRepository   = $paymentOrderRelationRepository;
+        $this->basketRepository 				= $basketRepository;
+        $this->checkout         				= $checkout;
+        $this->session          				= $session;
     }
 
     /**
@@ -602,4 +642,36 @@ class PaymentHelper
         $paymentObj = $this->paymentRepository->createPayment($payment);
         $this->assignPlentyPaymentToPlentyOrder($paymentObj, (int)$paymentResponseData['childOrderId']);
     }
+    
+    
+    public function getCheckout(): array
+    {
+        return [
+            "shippingProfileList" => $this->getShippingProfileList()
+        ];
+    }
+
+    public function getShippingProfileList()
+    {
+        $params                = [
+            'countryId'  => $this->getShippingCountryId(),
+            'webstoreId' => pluginApp(Application::class)->getWebstoreId(),
+        ];
+        $accountContactClassId = $this->session->getCustomer()->accountContactClassId;
+        /** @var ParcelServicePresetRepositoryContract $repo */
+        $repo = pluginApp(ParcelServicePresetRepositoryContract::class);
+
+        return $repo->getLastWeightedPresetCombinations($this->basketRepository->load(), $accountContactClassId, $params);
+    }
+
+    public function getShippingCountryId()
+    {
+        $currentShippingCountryId = (int)$this->checkout->getShippingCountryId();
+        if ($currentShippingCountryId <= 0) {
+            return pluginApp(WebstoreConfigurationService::class)->getDefaultShippingCountryId();
+        }
+
+        return $currentShippingCountryId;
+    }
+    
 }
