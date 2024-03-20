@@ -524,7 +524,7 @@ class PaymentController extends Controller
             'amount'           => $this->paymentHelper->convertAmountToSmallerUnit($basket->basketAmountNet),
             'currency'         => $paymentRequestPostData['nn_accept_gtc'],
             'test_mode'        => ($this->settingsService->getPaymentSettingsValue('test_mode', 'novalnet_googlepay') == true) ? 1 : 0,
-            'enforce_3d'           => $paymentRequestPostData['nn_enforce'] ?? 0,
+            'enforce_3d'       => ($paymentRequestPostData['nn_enforce'] == "1") ? 1 : 0,
             'create_token'     => 1,
             'payment_data'     => [        
                 'wallet_token' => $paymentRequestPostData['nn_google_pay_wallet_token'] 
