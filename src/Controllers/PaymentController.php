@@ -370,7 +370,7 @@ class PaymentController extends Controller
     {
         // Get the payment form post data
         $paymentRequestPostData = $this->request->all();
-	$tttttttt = (array) $paymentRequestPostData->additionalInfo[0];
+	$tttttttt = (array) $paymentRequestPostData['additionalInfo'];
 		
 	$this->getLogger(__METHOD__)->error('Novalnet::$paymentRequestPostData', $paymentRequestPostData);
 	$this->getLogger(__METHOD__)->error('Novalnet::$tttttttt', $tttttttt);
