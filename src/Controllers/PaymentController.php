@@ -426,7 +426,7 @@ class PaymentController extends Controller
   //       }
 			
 	
-	$this->getLogger(__METHOD__)->error('Novalnet::$arrayTest', $arrayTest['order']['shipping']['contact']['firstName']);
+	$this->getLogger(__METHOD__)->error('Novalnet::$arrayTestTTTTTTT', $arrayTest['order']['shipping']['contact']['firstName']);
 
 
 	$address = pluginApp(\Plenty\Modules\Account\Address\Models\Address::class);
