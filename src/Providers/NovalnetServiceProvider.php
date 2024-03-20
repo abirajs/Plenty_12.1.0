@@ -281,48 +281,6 @@ class NovalnetServiceProvider extends ServiceProvider
             {
                 $paymentKey = $paymentHelper->getPaymentKeyByMop($event->getMop());
                 $this->getLogger(__METHOD__)->error('Novalnet::$paymentKey failed', $paymentKey);
-                
-                if($sessionStorage->getPlugin()->getValue('test') == 'test') {
-                    $expressCheckout = 1;
-                    $this->getLogger(__METHOD__)->error('Novalnet::null', 'null');
-                    // return $response->redirectTo('/payment/novalnet/processPayment/');
-                    // $paymentService->getProcessPaymentUrl();
-                    // $paymentController->processPayment();
-                    $nnPaymentData['paymentRequestData'] = $sessionStorage->getPlugin()->getValue('nnExpressPaymentData');
-                    $nnPaymentData['paymentUrl'] = $paymentService->getPaymentData($sessionStorage->getPlugin()->getValue('nnExpressPaymentData'), 'NOVALNET_GOOGLEPAY');
-                    $sessionStorage->getPlugin()->setValue('nnPaymentData', $nnPaymentData);
-                    $this->getLogger(__METHOD__)->error('Novalnet::null null',  $nnPaymentData);
-
-                    if($settingsService->getPaymentSettingsValue('novalnet_order_creation') != true) { 
-                     $this->getLogger(__METHOD__)->error('Novalnet::updateApiVersion 3', $paymentRequestData);
-                     $this->getLogger(__METHOD__)->error('Novalnet::updateApiVersion 7', $nnPaymentData);
-                        if( $expressCheckout == 1 ) {
-                            $privateKey = $settingsService->getPaymentSettingsValue('novalnet_private_key');
-                            $paymentResponseData = $paymentService->performServerCall();
-                            if(!empty($paymentResponseData) && ($paymentResponseData['result']['status'] == 'FAILURE' || $paymentResponseData['status'] == 'FAILURE')) {
-                                $errorMsg = !empty($paymentResponseData['result']['status_text']) ? $paymentResponseData['result']['status_text'] : $paymentResponseData['status_text'];
-                                $content = $errorMsg;
-                                $contentType = 'errorCode';
-                                $this->getLogger(__METHOD__)->error('Novalnet::$contentType failed', $contentType);
-                            } elseif($paymentService->isRedirectPayment($paymentKey)) {
-                                if(!empty($paymentResponseData) && !empty($paymentResponseData['result']['redirect_url']) && !empty($paymentResponseData['transaction']['txn_secret'])) {
-                                    // Transaction secret used for the later checksum verification
-                                    $sessionStorage->getPlugin()->setValue('nnTxnSecret', $paymentResponseData['transaction']['txn_secret']);
-                                    $content = $twig->render('Novalnet::NovalnetPaymentRedirectForm', 
-                                    [
-                                        'nnPaymentUrl' => $paymentResponseData['result']['redirect_url']
-                                    ]);
-                                    $contentType = 'htmlContent';
-                                     $this->getLogger(__METHOD__)->error('Novalnet::htmlContent failed', 'htmlContent');
-                                } else {
-                                    $content = $paymentResponseData['result']['status_text'];
-                                    $contentType = 'errorCode';
-                                }
-                            }
-                        }
-                    }
-                }
-                
                 if($paymentKey) {
                      $this->getLogger(__METHOD__)->error('Novalnet::$paymentKey failed2', $paymentKey);
                     $sessionStorage->getPlugin()->setValue('nnOrderNo',$event->getOrderId());
