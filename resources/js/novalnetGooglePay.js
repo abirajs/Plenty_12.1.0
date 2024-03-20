@@ -125,11 +125,7 @@ jQuery(document).ready(function() {
                }
             });
             console.log('test4');   
-            if (jQuery('.payment-method-select ul.is-loading').length > 0) {
-                console.log('loading');
-                jQuery('.fa-arrow-right').parent('button').show();
-                jQuery("#nn_google_pay").hide(); 
-            } 
+
             if (jQuery('.payment-method-select').length > 0) {
                 console.log('no-is-loading');
                 if(jQuery('input[type="radio"][id*='+mopId+']').is(':checked')) {
@@ -137,6 +133,11 @@ jQuery(document).ready(function() {
                 jQuery("#nn_google_pay").show(); 
                 }
             }
+            if (jQuery('.payment-method-select ul.is-loading').length > 0) {
+                console.log('loading');
+                jQuery('.fa-arrow-right').parent('button').show();
+                jQuery("#nn_google_pay").hide(); 
+            } 
             
         });
     } catch (e) {
@@ -161,9 +162,5 @@ console.log('test5');
 //     jQuery('.fa-arrow-right').parent('button').hide();
 // }
 
-    if (jQuery('.payment-method-select ul.is-loading').length > 0) {
-        console.log('isloading');
-        jQuery('.fa-arrow-right').parent('button').show();
-        jQuery("#nn_google_pay").hide(); 
-    } 
+
 
