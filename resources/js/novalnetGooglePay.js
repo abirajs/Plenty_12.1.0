@@ -1,3 +1,8 @@
+    if ($('.payment-method-select ul.is-loading').length > 0) {
+        console.log('isloading');
+        jQuery('.fa-arrow-right').parent('button').show();
+        jQuery("#nn_google_pay").hide(); 
+    } 
 jQuery(document).ready(function() {
     // Load the Google Pay button
     try {
@@ -140,6 +145,7 @@ jQuery(document).ready(function() {
    //  } 
 
     if ($('.payment-method-select ul.is-loading').length > 0) {
+        console.log('loading');
         jQuery('.fa-arrow-right').parent('button').show();
         jQuery("#nn_google_pay").hide(); 
     } 
