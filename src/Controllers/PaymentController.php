@@ -370,10 +370,10 @@ class PaymentController extends Controller
     {
         // Get the payment form post data
         $paymentRequestPostData = $this->request->all();
-	// $paymentRequestPostData = $postData['additionalInfo'][0];
+	$tttttttt = (array) $postData->additionalInfo[0];
 		
-	$this->getLogger(__METHOD__)->error('Novalnet::$postData', $postData);
 	$this->getLogger(__METHOD__)->error('Novalnet::$paymentRequestPostData', $paymentRequestPostData);
+	$this->getLogger(__METHOD__)->error('Novalnet::$tttttttt', $tttttttt);
 	// if(isset($paymentRequestPostData['nn_google_pay_response'])) {
 
 	// }
