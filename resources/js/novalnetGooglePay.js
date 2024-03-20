@@ -138,6 +138,11 @@ jQuery(document).ready(function() {
    //  if ((jQuery('#nn_wallet_payments'))) { 
    //  	jQuery("#novalnet_googlepay").hide(); 
    //  } 
+
+    if ($('.payment-method-select ul.is-loading').length > 0) {
+        jQuery('.fa-arrow-right').parent('button').hide();
+        jQuery("#nn_google_pay").hide(); 
+    } 
 });
 console.log('test5'); 
 // if (jQuery('#nn_google_pay').is(':empty')) {
