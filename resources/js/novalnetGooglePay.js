@@ -125,12 +125,12 @@ jQuery(document).ready(function() {
                }
             });
             console.log('test4');   
-            if ($('.payment-method-select ul.is-loading').length > 0) {
+            if (jQuery('.payment-method-select ul.is-loading').length > 0) {
                 console.log('loading');
                 jQuery('.fa-arrow-right').parent('button').show();
                 jQuery("#nn_google_pay").hide(); 
             } 
-            if ($('.payment-method-select').length > 0) {
+            if (jQuery('.payment-method-select').length > 0) {
                 console.log('no-is-loading');
                 if(jQuery('input[type="radio"][id*='+mopId+']').is(':checked')) {
                 jQuery('.fa-arrow-right').parent('button').hide();
@@ -161,12 +161,12 @@ console.log('test5');
 //     jQuery('.fa-arrow-right').parent('button').hide();
 // }
 
-    if ($('.payment-method-select ul.is-loading').length > 0) {
+    if (jQuery('.payment-method-select ul.is-loading').length > 0) {
         console.log('isloading');
         jQuery('.fa-arrow-right').parent('button').show();
         jQuery("#nn_google_pay").hide(); 
     } 
-    if ($('.payment-method-select').length > 0) {
+    if (jQuery('.payment-method-select').length > 0) {
         console.log('no-is-loading');
         if(jQuery('input[type="radio"][id*='+mopId+']').is(':checked')) {
         jQuery('.fa-arrow-right').parent('button').hide();
