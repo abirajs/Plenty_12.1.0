@@ -210,9 +210,9 @@ jQuery(document).ready(function() {
 		}
 	}
 
-     if ((jQuery('#nn_wallet_payments').val() != '')) { 
-        jQuery("#nn_google_pay").hide(); 
-        jQuery('.fa-arrow-right').parent('button').show(); 
-    }
+    //  if ((jQuery('#nn_wallet_payments').val() != '')) { 
+    //     jQuery("#nn_google_pay").hide(); 
+    //     jQuery('.fa-arrow-right').parent('button').show(); 
+    // }
 });
 console.log('test5'); 
