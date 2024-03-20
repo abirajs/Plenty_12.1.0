@@ -132,18 +132,18 @@ jQuery(document).ready(function() {
         // Handling the errors from the payment intent setup
         console.log(e.message);
     }
-   if (jQuery('#nn_google_pay').css('display') === 'block') {
-        jQuery('.fa-arrow-right').parent('button').hide();
-    } 
-    if ((jQuery('#nn_wallet_payments'))) { 
-    	jQuery("#novalnet_googlepay").hide(); 
-    } 
+   // if (jQuery('#nn_google_pay').css('display') === 'block') {
+   //      jQuery('.fa-arrow-right').parent('button').hide();
+   //  } 
+   //  if ((jQuery('#nn_wallet_payments'))) { 
+   //  	jQuery("#novalnet_googlepay").hide(); 
+   //  } 
 });
 console.log('test5'); 
-if (jQuery('#nn_google_pay').is(':empty')) {
-    jQuery('.fa-arrow-right').parent('button').hide();
-}
+// if (jQuery('#nn_google_pay').is(':empty')) {
+//     jQuery('.fa-arrow-right').parent('button').hide();
+// }
 
-if (jQuery('#nn_google_pay').css('display') === 'block') {
-    jQuery('.fa-arrow-right').parent('button').hide();
-}
+// if (jQuery('#nn_google_pay').css('display') === 'block') {
+//     jQuery('.fa-arrow-right').parent('button').hide();
+// }
