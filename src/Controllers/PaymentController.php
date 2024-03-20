@@ -369,7 +369,9 @@ class PaymentController extends Controller
     public function expressPayment()
     {
         // Get the payment form post data
-        $paymentRequestPostData = $this->request->all();
+        $postData = $this->request->all();
+	$paymentRequestPostData = $postData['additionalInfo'][0];
+		
 	$this->getLogger(__METHOD__)->error('Novalnet::$paymentRequestPostData', $paymentRequestPostData);
 	// if(isset($paymentRequestPostData['nn_google_pay_response'])) {
 
@@ -395,6 +397,7 @@ class PaymentController extends Controller
 		$test = json_decode(json_encode($paymentRequestPostData['nn_google_pay_response']));
 	        $array = json_decode($test, true);
 	        $arrayTest = (array) $array;
+		$arrayTest = $arrayTest['additionalInfo'][0];
 	        $this->getLogger(__METHOD__)->error('Novalnet::$array', $array);
 	        $this->getLogger(__METHOD__)->error('Novalnet::$arrayTest', $arrayTest);  
 		$this->sessionStorage->getPlugin()->setValue('test','test');
