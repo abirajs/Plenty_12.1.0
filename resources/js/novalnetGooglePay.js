@@ -130,7 +130,7 @@ jQuery(document).ready(function() {
                 jQuery('.fa-arrow-right').parent('button').show();
                 jQuery("#nn_google_pay").hide(); 
             } 
-            if ($('.payment-method-select method-list').length > 0) {
+            if ($('.payment-method-select').length > 0) {
                 console.log('no-is-loading');
                 if(jQuery('input[type="radio"][id*='+mopId+']').is(':checked')) {
                 jQuery('.fa-arrow-right').parent('button').hide();
@@ -166,7 +166,7 @@ console.log('test5');
         jQuery('.fa-arrow-right').parent('button').show();
         jQuery("#nn_google_pay").hide(); 
     } 
-    if ($('.payment-method-select method-list').length > 0) {
+    if ($('.payment-method-select').length > 0) {
         console.log('no-is-loading');
         if(jQuery('input[type="radio"][id*='+mopId+']').is(':checked')) {
         jQuery('.fa-arrow-right').parent('button').hide();
