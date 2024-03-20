@@ -138,32 +138,18 @@ jQuery(document).ready(function() {
 							} else if (typeof window.ceresStore.state.items.mainItemId !== 'undefined' && window.ceresStore.state.items[window.ceresStore.state.items.mainItemId]) {
 							id = window.ceresStore.state.items[window.ceresStore.state.items.mainItemId].variation.documents[0].data.variation.id;
 							}
-							// if (id) {
-							// var postData = {
-							//     variationId: id,
-							//     quantity: jQuery('.add-to-basket-container').find('input[type="text"], input[type="number"]').first().val()
-							// };
-							// jQuery.post(
-							//     '/rest/io/basket/items/',
-							//     postData,
-							//     function () {
-							//        jQuery('.basket-container').load('/rest/io/basket');
-							//     }
-							// );
-							// } else {
-							// location.reload();
-							// }
 							if(walletPayments[walletPayment] == 'novalnet_applepay')  {
-							alert('applepayClick');
-							 jQuery('.fa-shopping-cart').parent('button').click();
-							 clickResult({status: "SUCCESS"});
+							     if (jQuery('.widget-basket-totals').length <= 0) {
+							 	jQuery('.fa-shopping-cart').parent('button').click();
+							     } 
+							     clickResult({status: "SUCCESS"});
 							 window.location.href = jQuery('#nn_payment_process_url').val();
 							}
 						 	if(walletPayments[walletPayment] == 'novalnet_googlepay') {
-							alert('googlepayClick');
-							// window.location.href = jQuery('#nn_payment_process_url').val();
-							 jQuery('.fa-shopping-cart').parent('button').click();
-							 clickResult({status: "SUCCESS"});
+							    if (jQuery('.widget-basket-totals').length <= 0) {
+							 	jQuery('.fa-shopping-cart').parent('button').click();
+							     } 
+							     clickResult({status: "SUCCESS"});
 							} 
 							
 						},
