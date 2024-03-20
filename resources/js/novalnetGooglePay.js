@@ -166,10 +166,4 @@ console.log('test5');
         jQuery('.fa-arrow-right').parent('button').show();
         jQuery("#nn_google_pay").hide(); 
     } 
-    if (jQuery('.payment-method-select').length > 0) {
-        console.log('no-is-loading');
-        if(jQuery('input[type="radio"][id*='+mopId+']').is(':checked')) {
-        jQuery('.fa-arrow-right').parent('button').hide();
-        jQuery("#nn_google_pay").show(); 
-        }
-    }
+
