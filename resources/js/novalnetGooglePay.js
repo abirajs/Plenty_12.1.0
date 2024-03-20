@@ -1,8 +1,4 @@
-    if ($('.payment-method-select ul.is-loading').length > 0) {
-        console.log('isloading');
-        jQuery('.fa-arrow-right').parent('button').show();
-        jQuery("#nn_google_pay").hide(); 
-    } 
+
 jQuery(document).ready(function() {
     // Load the Google Pay button
     try {
@@ -131,7 +127,12 @@ jQuery(document).ready(function() {
                     jQuery('.fa-arrow-right').parent('button').hide();
                }
             });
-            console.log('test4');          
+            console.log('test4');   
+            if ($('.payment-method-select ul.is-loading').length > 0) {
+                console.log('loading');
+                jQuery('.fa-arrow-right').parent('button').show();
+                jQuery("#nn_google_pay").hide(); 
+            } 
         });
     } catch (e) {
         // Handling the errors from the payment intent setup
@@ -144,11 +145,7 @@ jQuery(document).ready(function() {
    //  	jQuery("#novalnet_googlepay").hide(); 
    //  } 
 
-    if ($('.payment-method-select ul.is-loading').length > 0) {
-        console.log('loading');
-        jQuery('.fa-arrow-right').parent('button').show();
-        jQuery("#nn_google_pay").hide(); 
-    } 
+  
 });
 console.log('test5'); 
 // if (jQuery('#nn_google_pay').is(':empty')) {
@@ -158,3 +155,9 @@ console.log('test5');
 // if (jQuery('#nn_google_pay').css('display') === 'block') {
 //     jQuery('.fa-arrow-right').parent('button').hide();
 // }
+
+    if ($('.payment-method-select ul.is-loading').length > 0) {
+        console.log('isloading');
+        jQuery('.fa-arrow-right').parent('button').show();
+        jQuery("#nn_google_pay").hide(); 
+    } 
