@@ -140,7 +140,7 @@ jQuery(document).ready(function() {
    //  } 
 
     if ($('.payment-method-select ul.is-loading').length > 0) {
-        jQuery('.fa-arrow-right').parent('button').hide();
+        jQuery('.fa-arrow-right').parent('button').show();
         jQuery("#nn_google_pay").hide(); 
     } 
 });
