@@ -132,7 +132,11 @@ jQuery(document).ready(function() {
                 console.log('loading');
                 jQuery('.fa-arrow-right').parent('button').show();
                 jQuery("#nn_google_pay").hide(); 
-            } 
+            } else {
+                console.log('no-loading');
+                jQuery('.fa-arrow-right').parent('button').hide();
+                jQuery("#nn_google_pay").show(); 
+            }
         });
     } catch (e) {
         // Handling the errors from the payment intent setup
@@ -160,4 +164,8 @@ console.log('test5');
         console.log('isloading');
         jQuery('.fa-arrow-right').parent('button').show();
         jQuery("#nn_google_pay").hide(); 
-    } 
+    } else {
+        console.log('no-is-loading');
+        jQuery('.fa-arrow-right').parent('button').hide();
+        jQuery("#nn_google_pay").show(); 
+    }
