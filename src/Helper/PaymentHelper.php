@@ -59,6 +59,9 @@ use Plenty\Plugin\Application;
 use IO\Services\SessionStorageService;
 use Plenty\Modules\Frontend\Session\Storage\Contracts\FrontendSessionStorageFactoryContract;
 
+use Plenty\Modules\Account\Contact\Contracts\ContactRepositoryContract;
+use Plenty\Modules\Frontend\Services\AccountService;
+
 /**
  * Class PaymentHelper
  *
@@ -126,7 +129,9 @@ class PaymentHelper
      */
     private $session;
     
-
+    private $contactRepository;
+    private $accountService;
+	
     /**
      * Constructor.
      *
@@ -145,7 +150,9 @@ class PaymentHelper
                                 PaymentOrderRelationRepositoryContract $paymentOrderRelationRepository,
                                 BasketRepositoryContract $basketRepository,
                                 Checkout $checkout,
-								FrontendSessionStorageFactoryContract $session,
+				FrontendSessionStorageFactoryContract $session,
+				ContactRepositoryContract $contactRepository,
+				AccountService $accountService
                                 )
     {
         $this->paymentMethodRepository          = $paymentMethodRepository;
@@ -157,6 +164,8 @@ class PaymentHelper
         $this->basketRepository 				= $basketRepository;
         $this->checkout         				= $checkout;
         $this->session          				= $session;
+	$this->contactRepository 				= $contactRepository;
+        $this->accountService    				= $accountService;
     }
 
     /**
