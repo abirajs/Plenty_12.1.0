@@ -673,6 +673,8 @@ class PaymentHelper
         // return $repo->getLastWeightedPresetCombinations($this->basketRepository->load(), $accountContactClassId, $params);
 		
 	$contact = $this->getContact();
+	$this->getLogger(__METHOD__)->error('$contact', $contact);
+	$this->getLogger(__METHOD__)->error('$this->basketRepository->load()', $this->basketRepository->load());
         return pluginApp(ParcelServicePresetRepositoryContract::class)->getLastWeightedPresetCombinations($this->basketRepository->load(), $contact->classId);
   
     }
@@ -690,9 +692,10 @@ class PaymentHelper
     public function getContact()
     {
         if ($this->getContactId() > 0) {
+	   $this->getLogger(__METHOD__)->error('$this->contactRepository->findContactById($this->getContactId())', $this->contactRepository->findContactById($this->getContactId()));
             return $this->contactRepository->findContactById($this->getContactId());
         }
-
+	$this->getLogger(__METHOD__)->error('$this->contactRepository->findContactById($this->getContactId())NULLLLL', $this->contactRepository->findContactById($this->getContactId()));
         return null;
     }
 
@@ -702,6 +705,7 @@ class PaymentHelper
      */
     public function getContactId(): int
     {
+	$this->getLogger(__METHOD__)->error('$this->accountService->getAccountContactId()', $this->accountService->getAccountContactId());
         return $this->accountService->getAccountContactId();
     }
 }
