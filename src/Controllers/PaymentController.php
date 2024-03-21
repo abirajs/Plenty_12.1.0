@@ -381,7 +381,7 @@ class PaymentController extends Controller
 	// if(isset($paymentRequestPostData['nn_google_pay_response'])) {
 
 	// }
-   
+   	$this->sessionStorage->getPlugin()->setValue('paymentHide','paymentHide');
 	$basket = $this->basketRepository->load();
 	$checkout = pluginApp(\Plenty\Modules\Frontend\Contracts\Checkout::class);
 	$this->getLogger(__METHOD__)->error('Novalnet::$basketExpress', $basket);
