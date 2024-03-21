@@ -674,7 +674,7 @@ class PaymentHelper
 
         $shippingCountryId = $this->getShippingCountryId();
         $basket = $this->basketRepository->load();
-        $accountContactClassId = $this->checkout->getCustomer()->accountContactClassId;
+        $accountContactClassId =  $this->session->getCustomer()->accountContactClassId;
 
         /** @var ParcelServicePresetRepositoryContract $parcelServicePresetRepo */
         $parcelServicePresetRepo = pluginApp(ParcelServicePresetRepositoryContract::class);
