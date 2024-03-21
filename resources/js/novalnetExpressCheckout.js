@@ -32,25 +32,25 @@ jQuery(document).ready(function() {
 						billing: {
 							requiredFields: ["postalAddress", "phone", "email"]
 						},
-						// shipping: {
-						// 	requiredFields: ["postalAddress", "phone"],
-						// 	methods: [
-						// 	  {
-						// 		identifier: "freeshipping",
-						// 		amount: 0,
-						// 		detail: "Free shipping within Deutschland",				
-						// 		label: "Free Shipping"
-						// 	  },
-						// 	  {
-						// 		identifier: "dhlshipping",
-						// 		amount: 500,
-						// 		detail: "The product will be delivered depends on the executive",
-						// 		label: "DHL Shipping"
-						// 	  }
-						// 	],
-						// 	defaultIdentifier: "dhlshipping",	
-						// 	methodsUpdatedLater: true
-						//  }
+						shipping: {
+							requiredFields: ["postalAddress", "phone"],
+							// methods: [
+							//   {
+							// 	identifier: "freeshipping",
+							// 	amount: 0,
+							// 	detail: "Free shipping within Deutschland",				
+							// 	label: "Free Shipping"
+							//   },
+							//   {
+							// 	identifier: "dhlshipping",
+							// 	amount: 500,
+							// 	detail: "The product will be delivered depends on the executive",
+							// 	label: "DHL Shipping"
+							//   }
+							// ],
+							// defaultIdentifier: "dhlshipping",	
+							// methodsUpdatedLater: true
+						 }
 					},
 					button: {
 						type: configurationData[paymentTypeValue].button_type,
