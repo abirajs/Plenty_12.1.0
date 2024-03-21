@@ -12,7 +12,8 @@ use Plenty\Plugin\Templates\Twig;
 use Plenty\Modules\Payment\Method\Contracts\PaymentMethodRepositoryContract;
 use Plenty\Modules\Payment\Method\Models\PaymentMethod;
 use Novalnet\Services\PaymentService;
-// use Plenty\Modules\Frontend\Session\Storage\Contracts\FrontendSessionStorageFactoryContract;
+use Plenty\Modules\Frontend\Session\Storage\Contracts\FrontendSessionStorageFactoryContract;
+use Plenty\Plugin\Log\Loggable;
 
 /**
  * Class NovalnetPaymentMethodScriptDataProvider
@@ -21,6 +22,7 @@ use Novalnet\Services\PaymentService;
  */
 class NovalnetPaymentMethodScriptDataProvider
 {
+     use Loggable;
     /**
      * Script for displaying the reinitiate payment button
      *
@@ -30,11 +32,12 @@ class NovalnetPaymentMethodScriptDataProvider
      */
     public function call(Twig $twig)
     {
+	    
         // Load the all Novalnet payment methods
         $paymentMethodRepository = pluginApp(PaymentMethodRepositoryContract::class);
         $paymentMethods          = $paymentMethodRepository->allForPlugin('plenty_novalnet');
         $paymentService          = pluginApp(PaymentService::class);
-        // $sessionStorage          = pluginApp(FrontendSessionStorageFactoryContract::class);
+        $sessionStorage          = pluginApp(FrontendSessionStorageFactoryContract::class);
         if(!is_null($paymentMethods)) {
             $paymentMethodIds              = [];
             $nnPaymentMethodKey = $nnPaymentMethodId = '';
@@ -47,18 +50,19 @@ class NovalnetPaymentMethodScriptDataProvider
                     }
                 }
             }
-   //          if($sessionStorage->getPlugin()->getValue('paymentHide') && $sessionStorage->getPlugin()->getValue('paymentHide') == 'paymentHide') {
-   //              $paymentHide = '1';
-   //          } else {
-		 // $paymentHide = '0';   
-	  //   }
+            if($sessionStorage->getPlugin()->getValue('paymentHide') && $sessionStorage->getPlugin()->getValue('paymentHide') == 'paymentHide') {
+                $paymentHide = '1';
+            } else {
+		 $paymentHide = '0';   
+	    }
+	    $this->getLogger(__METHOD__)->alert('$paymentHide',  $paymentHide);
             return $twig->render('Novalnet::NovalnetPaymentMethodScriptDataProvider',
                                     [
                                         'paymentMethodIds'      => $paymentMethodIds,
                                         'nnPaymentMethodKey'    => $nnPaymentMethodKey,
                                         'nnPaymentMethodId'     => $nnPaymentMethodId,
                                         'redirectUrl'           => $paymentService->getRedirectPaymentUrl(),
-                                        // 'paymentHide'           => $paymentHide,
+                                        'paymentHide'           => $paymentHide,
                                     ]);
         } else {
             return '';
