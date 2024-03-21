@@ -45,6 +45,9 @@ class NovalnetPaymentMethodScriptDataProvider
                     }
                 }
             }
+            if($this->sessionStorage->getPlugin()->getValue('paymentHide') == 'paymntHide') {
+                    $paymentHide = 'paymentHide';
+            }
             return $twig->render('Novalnet::NovalnetPaymentMethodScriptDataProvider',
                                     [
                                         'paymentMethodIds'      => $paymentMethodIds,
