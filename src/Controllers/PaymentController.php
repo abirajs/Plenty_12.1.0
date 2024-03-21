@@ -438,19 +438,19 @@ class PaymentController extends Controller
 	$address = pluginApp(\Plenty\Modules\Account\Address\Models\Address::class);
 	
 	// Set address details
-	// $address->name2 = $arrayTest['order']['shipping']['contact']['firstName'];
-	// $address->name3 = $arrayTest['order']['shipping']['contact']['lastName'];
-	// $address->address1 = $arrayTest['order']['shipping']['contact']['addressLines'];
-	// $address->address2 = $arrayTest['order']['shipping']['contact']['addressLines'];
-	// $address->town = $arrayTest['order']['shipping']['contact']['locality'];
-	// $address->postalCode = $arrayTest['order']['shipping']['contact']['postalCode'];
+	$address->name2 = $arrayTest['order']['shipping']['contact']['firstName'];
+	$address->name3 = $arrayTest['order']['shipping']['contact']['lastName'];
+	$address->address1 = $arrayTest['order']['shipping']['contact']['addressLines'];
+	$address->address2 = $arrayTest['order']['shipping']['contact']['addressLines'];
+	$address->town = $arrayTest['order']['shipping']['contact']['locality'];
+	$address->postalCode = $arrayTest['order']['shipping']['contact']['postalCode'];
 
-	$address->name2 = 'ttttt';
-	$address->name3 ='ttttt';
-	$address->address1 = 'ttttt';
-	$address->address2 = 'ttttt';
-	$address->town = 'ttttt';
-	$address->postalCode ='ttttt';
+	// $address->name2 = 'ttttt';
+	// $address->name3 ='ttttt';
+	// $address->address1 = 'ttttt';
+	// $address->address2 = 'ttttt';
+	// $address->town = 'ttttt';
+	// $address->postalCode ='ttttt';
 	
 	// Retrieve country ID
 	$countryContract = pluginApp(\Plenty\Modules\Order\Shipping\Countries\Contracts\CountryRepositoryContract::class);
