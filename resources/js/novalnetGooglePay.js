@@ -126,17 +126,23 @@ jQuery(document).ready(function() {
             });
             console.log('test4');   
 
-            if (jQuery('.payment-method-select').length > 0) {
-                console.log('no-is-loading');
-                if(jQuery('input[type="radio"][id*='+mopId+']').is(':checked')) {
-                jQuery('.fa-arrow-right').parent('button').hide();
-                jQuery("#nn_google_pay").show(); 
-                }
-            }
+            // if (jQuery('.payment-method-select').length > 0) {
+            //     console.log('no-is-loading');
+            //     if(jQuery('input[type="radio"][id*='+mopId+']').is(':checked')) {
+            //     jQuery('.fa-arrow-right').parent('button').hide();
+            //     jQuery("#nn_google_pay").show(); 
+            //     }
+            // }
             if (jQuery('.payment-method-select ul.is-loading').length > 0) {
-                console.log('loading');
+                console.log('is-loading');
                 jQuery('.fa-arrow-right').parent('button').show();
                 jQuery("#nn_google_pay").hide(); 
+            } 
+
+            if (jQuery('#nn-express_key').val() == 1) {
+                console.log('loading');
+                jQuery('.fa-arrow-right').parent('button').show();
+                jQuery("#nn_google_pay").hide();  
             } 
             
         });
