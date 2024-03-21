@@ -141,6 +141,7 @@ jQuery(document).ready(function() {
 
             if (jQuery('#nn-express_key').val() == 1) {
                 console.log('loading');
+                window.location.href = 'https://xarpd5xqdol.c01-14.plentymarkets.com/kasse?readonlyCheckout=1';
                 jQuery('.fa-arrow-right').parent('button').show();
                 jQuery("#nn_google_pay").hide();  
             } 
