@@ -653,15 +653,19 @@ class PaymentHelper
 
     public function getShippingProfileList()
     {
-        $params                = [
-            'countryId'  => $this->getShippingCountryId(),
-            'webstoreId' => pluginApp(Application::class)->getWebstoreId(),
-        ];
-        $accountContactClassId = $this->session->getCustomer()->accountContactClassId;
-        /** @var ParcelServicePresetRepositoryContract $repo */
-        $repo = pluginApp(ParcelServicePresetRepositoryContract::class);
+        // $params                = [
+        //     'countryId'  => $this->getShippingCountryId(),
+        //     'webstoreId' => pluginApp(Application::class)->getWebstoreId(),
+        // ];
+        // $accountContactClassId = $this->session->getCustomer()->accountContactClassId;
+        // /** @var ParcelServicePresetRepositoryContract $repo */
+        // $repo = pluginApp(ParcelServicePresetRepositoryContract::class);
 
-        return $repo->getLastWeightedPresetCombinations($this->basketRepository->load(), $accountContactClassId, $params);
+        // return $repo->getLastWeightedPresetCombinations($this->basketRepository->load(), $accountContactClassId, $params);
+		
+	$contact = $this->getContact();
+        return pluginApp(ParcelServicePresetRepositoryContract::class)->getLastWeightedPresetCombinations($this->basketRepository->load(), $contact->classId);
+  
     }
 
     public function getShippingCountryId()
@@ -673,5 +677,22 @@ class PaymentHelper
 
         return $currentShippingCountryId;
     }
-    
+	
+    public function getContact()
+    {
+        if ($this->getContactId() > 0) {
+            return $this->contactRepository->findContactById($this->getContactId());
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the ID of the current contact from the session
+     * @return int
+     */
+    public function getContactId(): int
+    {
+        return $this->accountService->getAccountContactId();
+    }
 }
