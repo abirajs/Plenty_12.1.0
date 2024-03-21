@@ -669,25 +669,17 @@ class PaymentHelper
     public function getShippingProfileList()
     {
 
-	$currentShippingCountryId = (int)$this->checkout->getShippingCountryId();
-        $defaultShippingCountryId = pluginApp(WebstoreConfigurationService::class)->getDefaultShippingCountryId();
+        $shippingCountryId = $this->getShippingCountryId();
+        $basket = $this->basketRepository->load();
+        $accountContactClassId = $this->checkout->getCustomer()->accountContactClassId;
 
-        $countryId = $currentShippingCountryId > 0 ? $currentShippingCountryId : $defaultShippingCountryId;
-        $webstoreId = pluginApp(Application::class)->getWebstoreId();
+        /** @var ParcelServicePresetRepositoryContract $parcelServicePresetRepo */
+        $parcelServicePresetRepo = pluginApp(ParcelServicePresetRepositoryContract::class);
 
-        $params = [
-            'countryId'  => $countryId,
-            'webstoreId' => $webstoreId,
-        ];
-
-        $basketRepository = pluginApp(BasketRepositoryContract::class);
-        $basket = $basketRepository->load();
-
-       $accountService = pluginApp(\Plenty\Modules\Frontend\Services\AccountService::class);
-	$contactId = $accountService->getAccountContactId();
-
-        return $this->parcelServicePresetRepository
-            ->getLastWeightedPresetCombinations($basket, $contactId, $params);
+        return $parcelServicePresetRepo->getLastWeightedPresetCombinations($basket, $accountContactClassId, [
+            'countryId' => $shippingCountryId,
+            'webstoreId' => $this->application->getWebstoreId()
+        ]);
 	    
 	// $shippingCountryId = $this->getShippingCountryId();
  //        $basket = $this->basketRepository->load();
@@ -721,7 +713,7 @@ class PaymentHelper
 
     public function getShippingCountryId()
     {
-	$currentShippingCountryId = (int) $this->checkout->getShippingCountryId();
+        $currentShippingCountryId = (int) $this->checkout->getShippingCountryId();
         if ($currentShippingCountryId <= 0) {
             return $this->application->getDefaultShippingCountryId();
         }
