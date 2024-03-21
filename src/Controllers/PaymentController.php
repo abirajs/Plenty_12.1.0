@@ -390,7 +390,8 @@ class PaymentController extends Controller
                 $checkout->setPaymentMethodId((int)$selectedPaymentMethodId[0]);
 		$this->getLogger(__METHOD__)->error('Novalnet::setPaymentMethodId', 'setPaymentMethodId');
 		if(!isset($paymentRequestPostData['nn_google_pay_response'])) {
-			return $this->response->redirectTo('checkout?readonlyCheckout=1');
+			$this->getLogger(__METHOD__)->error('Novalnet::applepaycheckout', 'applepaycheckout');
+			return $this->response->redirectTo('checkout');
 		}
             }
 	}
@@ -540,7 +541,7 @@ class PaymentController extends Controller
         ];
         $this->getLogger(__METHOD__)->error('Novalnet::$data', $data);
 	$this->sessionStorage->getPlugin()->setValue('nnExpressPaymentData',$data);
-  	return $this->response->redirectTo('checkout?readonlyCheckout=1');
+  	return $this->response->redirectTo('checkout');
     }
 
 
