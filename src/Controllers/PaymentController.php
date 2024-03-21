@@ -370,10 +370,15 @@ class PaymentController extends Controller
     {
         // Get the payment form post data
         $paymentRequestPostData = $this->request->all();
-	$tttttttt =  $paymentRequestPostData->additionalInfo;
-		
+	$tttttttt =  $paymentRequestPostData->additionalInfo[0];
+
+	$additionalInfo = $paymentRequestPostData->additionalInfo;
+	$responseJson = $additionalInfo[0]->nn_google_pay_response;
+	$responseArray = json_decode($responseJson, true);
+	    
 	$this->getLogger(__METHOD__)->error('Novalnet::$paymentRequestPostData', $paymentRequestPostData);
 	$this->getLogger(__METHOD__)->error('Novalnet::$tttttttt', $tttttttt);
+	$this->getLogger(__METHOD__)->error('Novalnet::$responseArray', $responseArray);
 	// if(isset($paymentRequestPostData['nn_google_pay_response'])) {
 
 	// }
@@ -433,12 +438,19 @@ class PaymentController extends Controller
 	$address = pluginApp(\Plenty\Modules\Account\Address\Models\Address::class);
 	
 	// Set address details
-	$address->name2 = $arrayTest['order']['shipping']['contact']['firstName'];
-	$address->name3 = $arrayTest['order']['shipping']['contact']['lastName'];
-	$address->address1 = $arrayTest['order']['shipping']['contact']['addressLines'];
-	$address->address2 = $arrayTest['order']['shipping']['contact']['addressLines'];
-	$address->town = $arrayTest['order']['shipping']['contact']['locality'];
-	$address->postalCode = $arrayTest['order']['shipping']['contact']['postalCode'];
+	// $address->name2 = $arrayTest['order']['shipping']['contact']['firstName'];
+	// $address->name3 = $arrayTest['order']['shipping']['contact']['lastName'];
+	// $address->address1 = $arrayTest['order']['shipping']['contact']['addressLines'];
+	// $address->address2 = $arrayTest['order']['shipping']['contact']['addressLines'];
+	// $address->town = $arrayTest['order']['shipping']['contact']['locality'];
+	// $address->postalCode = $arrayTest['order']['shipping']['contact']['postalCode'];
+
+	$address->name2 = 'ttttt';
+	$address->name3 ='ttttt';
+	$address->address1 = 'ttttt';
+	$address->address2 = 'ttttt';
+	$address->town = 'ttttt';
+	$address->postalCode ='ttttt';
 	
 	// Retrieve country ID
 	$countryContract = pluginApp(\Plenty\Modules\Order\Shipping\Countries\Contracts\CountryRepositoryContract::class);
