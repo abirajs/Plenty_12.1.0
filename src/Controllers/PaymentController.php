@@ -31,7 +31,7 @@ use Plenty\Modules\Account\Contact\Contracts\ContactAddressRepositoryContract;
 use Plenty\Modules\Frontend\Services\AccountService;
 use Plenty\Modules\Account\Address\Models\AddressRelationType;
 use Plenty\Plugin\Events\Dispatcher;
-
+use Plenty\Modules\Frontend\Services\CheckoutService
 /**
  * Class PaymentController
  *
