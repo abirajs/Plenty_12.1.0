@@ -118,6 +118,9 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
                         $instalmentCyclesAmount[$cycle] = str_replace('.', ',',sprintf('%0.2f', (($paymentHelper->convertAmountToSmallerUnit($invoiceAmount) / $cycle ) / 100 ) / 100));
                     }
                 }
+                if($this->sessionStorage->getPlugin()->getValue('paymentHide') == 'paymntHide') {
+                    $paymentHide = 'paymentHide';
+                }
                 // If the Novalnet payments are rejected do the reinitialize payment
                 if((!empty($transactionDetails['tx_status']) && !in_array($transactionDetails['tx_status'], ['PENDING', 'ON_HOLD', 'CONFIRMED', 'DEACTIVATED'])) || empty($transactionDetails['tx_status'])) {
                     return $twig->render('Novalnet::NovalnetPaymentMethodReinitializePaymentDataProvider',
@@ -142,7 +145,8 @@ class NovalnetPaymentMethodReinitializePaymentDataProvider
                                     'googlePayData' => !empty($googlePayData) ? $googlePayData : '',
                                     'currency'  => $sessionStorage->getPlugin()->getValue('orderCurrency'),
                                     'AccountHolderName'  => $paymentRequestData['paymentRequestData']['customer']['first_name'] . ' ' . $paymentRequestData['paymentRequestData']['customer']['last_name'],
-                                ]);
+                                    '$paymentHide' => $paymentHide,
+                                 ]);
                }
             }
         } else {
