@@ -632,6 +632,7 @@ class PaymentService
         $this->sessionStorage->getPlugin()->setValue('nnPaymentData', null);
         $this->sessionStorage->getPlugin()->setValue('nnDoRedirect', null);
         $this->sessionStorage->getPlugin()->setValue('nnGooglePayDoRedirect', null);
+        $this->sessionStorage->getPlugin()->setValue('paymentHide', null);
         $nnPaymentData['mop']            = $this->sessionStorage->getPlugin()->getValue('mop');
         if(isset($nnPaymentData['mop'])) {
         $nnPaymentData['payment_method'] = strtolower($this->paymentHelper->getPaymentKeyByMop($nnPaymentData['mop']));
