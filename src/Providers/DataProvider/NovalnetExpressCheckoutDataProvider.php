@@ -89,7 +89,7 @@ class NovalnetExpressCheckoutDataProvider
 	     $configurationData = json_encode($configurationArr);
 	     $merchantId = $settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay');
 	     $isEnforceEnabled = $settingsService->getPaymentSettingsValue('enforce', 'novalnet_googlepay');
-             // $shippingMethod = $paymentHelper->getShippingProfileList();
+             $shippingMethod = $paymentHelper->getShippingProfileList();
 	     $this->getLogger(__METHOD__)->error('Novalnet::$shippingMethod', $shippingMethod);
              $this->getLogger(__METHOD__)->error('Novalnet::$configurationData', $configurationData);
              $this->getLogger(__METHOD__)->error('Novalnet::$paymentMethodDetails[0]', $paymentMethodDetails[0]);
