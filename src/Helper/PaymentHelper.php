@@ -669,8 +669,8 @@ class PaymentHelper
     public function getShippingProfileList()
     {
 
-	      $currentShippingCountryId = (int)$this->checkout->getShippingCountryId();
-        $defaultShippingCountryId = $this->webstoreConfigurationService->getDefaultShippingCountryId();
+	$currentShippingCountryId = (int)$this->checkout->getShippingCountryId();
+        $defaultShippingCountryId = pluginApp(WebstoreConfigurationService::class)->getDefaultShippingCountryId();
 
         $countryId = $currentShippingCountryId > 0 ? $currentShippingCountryId : $defaultShippingCountryId;
         $webstoreId = pluginApp(Application::class)->getWebstoreId();
