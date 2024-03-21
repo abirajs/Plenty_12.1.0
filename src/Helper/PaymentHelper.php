@@ -51,7 +51,7 @@ use Plenty\Modules\Payment\Contracts\PaymentOrderRelationRepositoryContract;
 use Plenty\Plugin\Log\Loggable;
 
 
-use IO\Services\WebstoreConfigurationService;
+
 use Plenty\Modules\Basket\Contracts\BasketRepositoryContract;
 use Plenty\Modules\Frontend\Contracts\Checkout;
 use Plenty\Modules\Order\Shipping\Contracts\ParcelServicePresetRepositoryContract;
@@ -133,7 +133,7 @@ class PaymentHelper
     private $accountService;
     private $application;
     private $parcelServicePresetRepository;
-    private $webstoreConfigurationService;
+
 	
     /**
      * Constructor.
@@ -158,7 +158,7 @@ class PaymentHelper
 				AccountService $accountService,
 				Application $application,
 				ParcelServicePresetRepositoryContract $parcelServicePresetRepository,
-        			WebstoreConfigurationService $webstoreConfigurationService
+        		
                                 )
     {
         $this->paymentMethodRepository          = $paymentMethodRepository;
@@ -174,7 +174,7 @@ class PaymentHelper
         $this->accountService    				= $accountService;
 	$this->application 					= $application;
 	$this->parcelServicePresetRepository 			= $parcelServicePresetRepository;
-        $this->webstoreConfigurationService = $webstoreConfigurationService;
+
     }
 
     /**
