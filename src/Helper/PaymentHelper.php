@@ -694,10 +694,10 @@ class PaymentHelper
     public function getContact()
     {
         if ($this->getContactId() > 0) {
-	   $this->getLogger(__METHOD__)->error('$this->contactRepository->findContactById($this->getContactId())', $this->contactRepository->findContactById($this->getContactId()));
+	   // $this->getLogger(__METHOD__)->error('$this->contactRepository->findContactById($this->getContactId())', $this->contactRepository->findContactById($this->getContactId()));
             return $this->contactRepository->findContactById($this->getContactId());
         }
-	$this->getLogger(__METHOD__)->error('$this->contactRepository->findContactById($this->getContactId())NULLLLL', $this->contactRepository->findContactById($this->getContactId()));
+	// $this->getLogger(__METHOD__)->error('$this->contactRepository->findContactById($this->getContactId())NULLLLL', $this->contactRepository->findContactById($this->getContactId()));
         return null;
     }
 
