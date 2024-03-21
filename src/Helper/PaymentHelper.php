@@ -662,22 +662,21 @@ class PaymentHelper
 
     public function getShippingProfileList()
     {
-        // $params                = [
-        //     'countryId'  => $this->getShippingCountryId(),
-        //     'webstoreId' => pluginApp(Application::class)->getWebstoreId(),
-        // ];
-        // $accountContactClassId = $this->session->getCustomer()->accountContactClassId;
-        // /** @var ParcelServicePresetRepositoryContract $repo */
-        // $repo = pluginApp(ParcelServicePresetRepositoryContract::class);
-
-        // return $repo->getLastWeightedPresetCombinations($this->basketRepository->load(), $accountContactClassId, $params);
+        $params                = [
+            'countryId'  => $this->getShippingCountryId(),
+            'webstoreId' => pluginApp(Application::class)->getWebstoreId(),
+        ];
+        $accountContactClassId = $this->session->getCustomer()->accountContactClassId;
+        /** @var ParcelServicePresetRepositoryContract $repo */
+        $repo = pluginApp(ParcelServicePresetRepositoryContract::class);
+	    
+ 	$this->getLogger(__METHOD__)->error('$params', $params);
+	$this->getLogger(__METHOD__)->error('$accountContactClassId', $accountContactClassId);
+        return $repo->getLastWeightedPresetCombinations($this->basketRepository->load(), $accountContactClassId, $params);
 		
-	$contact = $this->getContact();
-	$this->getLogger(__METHOD__)->error('$contact', $contact);
-	$this->getLogger(__METHOD__)->error('$this->basketRepository->load()', $this->basketRepository->load());
-	// $this->getLogger(__METHOD__)->error('$contact->classId', $contact->classId);
-	// $this->getLogger(__METHOD__)->error('pluginAPPA', $this->getCheckout());
-        return pluginApp(ParcelServicePresetRepositoryContract::class)->getLastWeightedPresetCombinations($this->basketRepository->load(), $contact->classId);
+	// $contact = $this->getContact();
+	// $this->getLogger(__METHOD__)->error('$contact', $contact);
+ //        return pluginApp(ParcelServicePresetRepositoryContract::class)->getLastWeightedPresetCombinations($this->basketRepository->load(), $contact->classId);
   
     }
 
@@ -691,23 +690,23 @@ class PaymentHelper
         return $currentShippingCountryId;
     }
 	
-    public function getContact()
-    {
-        if ($this->getContactId() > 0) {
-	   // $this->getLogger(__METHOD__)->error('$this->contactRepository->findContactById($this->getContactId())', $this->contactRepository->findContactById($this->getContactId()));
-            return $this->contactRepository->findContactById($this->getContactId());
-        }
-	// $this->getLogger(__METHOD__)->error('$this->contactRepository->findContactById($this->getContactId())NULLLLL', $this->contactRepository->findContactById($this->getContactId()));
-        return null;
-    }
+ //    public function getContact()
+ //    {
+ //        if ($this->getContactId() > 0) {
+	//    // $this->getLogger(__METHOD__)->error('$this->contactRepository->findContactById($this->getContactId())', $this->contactRepository->findContactById($this->getContactId()));
+ //            return $this->contactRepository->findContactById($this->getContactId());
+ //        }
+	// // $this->getLogger(__METHOD__)->error('$this->contactRepository->findContactById($this->getContactId())NULLLLL', $this->contactRepository->findContactById($this->getContactId()));
+ //        return null;
+ //    }
 
-    /**
-     * Get the ID of the current contact from the session
-     * @return int
-     */
-    public function getContactId(): int
-    {
-	$this->getLogger(__METHOD__)->error('$this->accountService->getAccountContactId()', $this->accountService->getAccountContactId());
-        return $this->accountService->getAccountContactId();
-    }
+ //    /**
+ //     * Get the ID of the current contact from the session
+ //     * @return int
+ //     */
+ //    public function getContactId(): int
+ //    {
+	// $this->getLogger(__METHOD__)->error('$this->accountService->getAccountContactId()', $this->accountService->getAccountContactId());
+ //        return $this->accountService->getAccountContactId();
+ //    }
 }
