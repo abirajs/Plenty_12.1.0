@@ -153,7 +153,9 @@ class PaymentHelper
 				FrontendSessionStorageFactoryContract $session,
 				ContactRepositoryContract $contactRepository,
 				AccountService $accountService,
-				Application $application
+				Application $application,
+				ParcelServicePresetRepositoryContract $parcelServicePresetRepository,
+        			WebstoreConfigurationService $webstoreConfigurationService
                                 )
     {
         $this->paymentMethodRepository          = $paymentMethodRepository;
@@ -167,7 +169,9 @@ class PaymentHelper
         $this->session          				= $session;
 	$this->contactRepository 				= $contactRepository;
         $this->accountService    				= $accountService;
-	    $this->application = $application;
+	$this->application 					= $application;
+	$this->parcelServicePresetRepository 			= $parcelServicePresetRepository;
+        $this->webstoreConfigurationService 			= $webstoreConfigurationService;
     }
 
     /**
@@ -665,17 +669,37 @@ class PaymentHelper
     public function getShippingProfileList()
     {
 
-	$shippingCountryId = $this->getShippingCountryId();
-        $basket = $this->basketRepository->load();
-        $accountContactClassId = $this->application->getPlentyId('account/contact-class-id');
+	      $currentShippingCountryId = (int)$this->checkout->getShippingCountryId();
+        $defaultShippingCountryId = $this->webstoreConfigurationService->getDefaultShippingCountryId();
 
-        /** @var ParcelServicePresetRepositoryContract $parcelServicePresetRepo */
-        $parcelServicePresetRepo = pluginApp(ParcelServicePresetRepositoryContract::class);
+        $countryId = $currentShippingCountryId > 0 ? $currentShippingCountryId : $defaultShippingCountryId;
+        $webstoreId = pluginApp(Application::class)->getWebstoreId();
 
-        return $parcelServicePresetRepo->getLastWeightedPresetCombinations($basket, $accountContactClassId, [
-            'countryId' => $shippingCountryId,
-            'webstoreId' => $this->application->getWebstoreId()
-        ]);
+        $params = [
+            'countryId'  => $countryId,
+            'webstoreId' => $webstoreId,
+        ];
+
+        $basketRepository = pluginApp(BasketRepositoryContract::class);
+        $basket = $basketRepository->load();
+
+       $accountService = pluginApp(\Plenty\Modules\Frontend\Services\AccountService::class);
+	$contactId = $accountService->getAccountContactId();
+
+        return $this->parcelServicePresetRepository
+            ->getLastWeightedPresetCombinations($basket, $contactId, $params);
+	    
+	// $shippingCountryId = $this->getShippingCountryId();
+ //        $basket = $this->basketRepository->load();
+ //        $accountContactClassId = $this->application->getPlentyId('account/contact-class-id');
+
+ //        /** @var ParcelServicePresetRepositoryContract $parcelServicePresetRepo */
+ //        $parcelServicePresetRepo = pluginApp(ParcelServicePresetRepositoryContract::class);
+
+ //        return $parcelServicePresetRepo->getLastWeightedPresetCombinations($basket, $accountContactClassId, [
+ //            'countryId' => $shippingCountryId,
+ //            'webstoreId' => $this->application->getWebstoreId()
+ //        ]);
 	    
  //        $params                = [
  //            'countryId'  => $this->getShippingCountryId(),
