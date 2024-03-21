@@ -29,28 +29,28 @@ jQuery(document).ready(function() {
 					order: {
 						paymentDataPresent: false,
 						merchantName: configurationData[paymentTypeValue].seller_name,
-						// billing: {
-						// 	requiredFields: ["postalAddress", "phone", "email"]
-						// },
-						// shipping: {
-						// 	requiredFields: ["postalAddress", "phone"],
-						// 	methods: [
-						// 	  {
-						// 		identifier: "freeshipping",
-						// 		amount: 0,
-						// 		detail: "Free shipping within Deutschland",				
-						// 		label: "Free Shipping"
-						// 	  },
-						// 	  {
-						// 		identifier: "dhlshipping",
-						// 		amount: 500,
-						// 		detail: "The product will be delivered depends on the executive",
-						// 		label: "DHL Shipping"
-						// 	  }
-						// 	],
-						// 	defaultIdentifier: "dhlshipping",	
-						// 	methodsUpdatedLater: true
-						//  }
+						billing: {
+							requiredFields: ["postalAddress", "phone", "email"]
+						},
+						shipping: {
+							requiredFields: ["postalAddress", "phone"],
+							methods: [
+							  {
+								identifier: "freeshipping",
+								amount: 0,
+								detail: "Free shipping within Deutschland",				
+								label: "Free Shipping"
+							  },
+							  {
+								identifier: "dhlshipping",
+								amount: 500,
+								detail: "The product will be delivered depends on the executive",
+								label: "DHL Shipping"
+							  }
+							],
+							defaultIdentifier: "dhlshipping",	
+							methodsUpdatedLater: true
+						 }
 					},
 					button: {
 						type: configurationData[paymentTypeValue].button_type,
@@ -83,41 +83,41 @@ jQuery(document).ready(function() {
 							}
 						},
 						
-						// onShippingContactChange : function(shippingContact, newShippingContactResult) {
-						// let transactionInfoToUpdate = {};
-						// // There could be a situation where the shipping methods differ based on region
-						// if (shippingContact.countryCode == "DE" || shippingContact.countryCode == "US") {		
-						// 	transactionInfoToUpdate.methods = [{
-						// 		identifier: "dhlshipping",
-						// 		amount: 500,
-						// 		detail: "The product will be delivered depends on the executive",
-						// 		label: "DHL Shipping"
-						// 	}, {
-						// 		identifier: "freeshipping",
-						// 		amount: 0,
-						// 		detail: "Free shipping within Deutschland",
-						// 		label: "Free Shipping"
-						// 	}];
-						// } else {
-						// 	transactionInfoToUpdate.methods = [{
-						// 		identifier: "expressshipping",
-						// 		amount: 750,
-						// 		detail: "The product will be dispatched in the same day",				
-						// 		label: "Express Shipping"
-						// 	}];
-						// }
+						onShippingContactChange : function(shippingContact, newShippingContactResult) {
+						let transactionInfoToUpdate = {};
+						// There could be a situation where the shipping methods differ based on region
+						if (shippingContact.countryCode == "DE" || shippingContact.countryCode == "US") {		
+							transactionInfoToUpdate.methods = [{
+								identifier: "dhlshipping",
+								amount: 500,
+								detail: "The product will be delivered depends on the executive",
+								label: "DHL Shipping"
+							}, {
+								identifier: "freeshipping",
+								amount: 0,
+								detail: "Free shipping within Deutschland",
+								label: "Free Shipping"
+							}];
+						} else {
+							transactionInfoToUpdate.methods = [{
+								identifier: "expressshipping",
+								amount: 750,
+								detail: "The product will be dispatched in the same day",				
+								label: "Express Shipping"
+							}];
+						}
 
-						// // Recalculating the total gross based on the chosen shipping method
-						// transactionInfoToUpdate.amount = transactionInfoToUpdate.methods[0].amount + requestData.paymentIntent.transaction.amount;	
-						// newShippingContactResult(transactionInfoToUpdate);
-					 // },
-					 // onShippingMethodChange : function(shippingMethod, newShippingMethodResult) {
-						//  // There could be a situation where the shipping method can alter total  
-						// let transactionInfoToUpdate = {};
-						// // Recalculating the total gross based on the chosen shipping method
-						// transactionInfoToUpdate.amount = (parseInt(shippingMethod.amount) * 100) + requestData.paymentIntent.transaction.amount;
-						// newShippingMethodResult(transactionInfoToUpdate);
-					 // },
+						// Recalculating the total gross based on the chosen shipping method
+						transactionInfoToUpdate.amount = transactionInfoToUpdate.methods[0].amount + requestData.paymentIntent.transaction.amount;	
+						newShippingContactResult(transactionInfoToUpdate);
+					 },
+					 onShippingMethodChange : function(shippingMethod, newShippingMethodResult) {
+						 // There could be a situation where the shipping method can alter total  
+						let transactionInfoToUpdate = {};
+						// Recalculating the total gross based on the chosen shipping method
+						transactionInfoToUpdate.amount = (parseInt(shippingMethod.amount) * 100) + requestData.paymentIntent.transaction.amount;
+						newShippingMethodResult(transactionInfoToUpdate);
+					 },
 						
 					 onPaymentButtonClicked: function(clickResult) {
 							console.log('click');
