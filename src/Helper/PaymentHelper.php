@@ -675,6 +675,8 @@ class PaymentHelper
 	$contact = $this->getContact();
 	$this->getLogger(__METHOD__)->error('$contact', $contact);
 	$this->getLogger(__METHOD__)->error('$this->basketRepository->load()', $this->basketRepository->load());
+	$this->getLogger(__METHOD__)->error('$contact->classId', $contact->classId);
+	$this->getLogger(__METHOD__)->error('pluginAPPA', pluginApp(ParcelServicePresetRepositoryContract::class)->getLastWeightedPresetCombinations($this->basketRepository->load(), $contact->classId));
         return pluginApp(ParcelServicePresetRepositoryContract::class)->getLastWeightedPresetCombinations($this->basketRepository->load(), $contact->classId);
   
     }
