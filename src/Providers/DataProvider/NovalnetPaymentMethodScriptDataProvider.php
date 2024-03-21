@@ -52,18 +52,18 @@ class NovalnetPaymentMethodScriptDataProvider
                     }
                 }
             }
-            if($sessionStorage->getPlugin()->getValue('paymentHide') && $sessionStorage->getPlugin()->getValue('paymentHide') == 'paymentHide') {
-                $paymentHide = '1';
-            } else {
-		 $paymentHide = '0';   
-	    }
+   //          if($sessionStorage->getPlugin()->getValue('paymentHide') && $sessionStorage->getPlugin()->getValue('paymentHide') == 'paymentHide') {
+   //              $paymentHide = '1';
+   //          } else {
+		 // $paymentHide = '0';   
+	  //   }
             return $twig->render('Novalnet::NovalnetPaymentMethodScriptDataProvider',
                                     [
                                         'paymentMethodIds'      => $paymentMethodIds,
                                         'nnPaymentMethodKey'    => $nnPaymentMethodKey,
                                         'nnPaymentMethodId'     => $nnPaymentMethodId,
                                         'redirectUrl'           => $paymentService->getRedirectPaymentUrl(),
-                                        'paymentHide'           => $paymentHide,
+                                        // 'paymentHide'           => $paymentHide,
                                     ]);
         } else {
             return '';
