@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
 
-                if (jQuery('#nn_express_key').val() != '' && jQuery('input[type="radio"][id*='+mopId+']').is(':checked')) {
+                if ( jQuery('input[type="radio"][id*='+mopId+']').is(':checked')) {
                     console.log('nn_express_key');
                     jQuery('.fa-arrow-right').parent('button').hide();
                     jQuery("#nn_google_pay").show(); 
