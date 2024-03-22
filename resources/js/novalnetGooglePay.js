@@ -113,7 +113,6 @@ jQuery(document).ready(function() {
                 jQuery('li[data-id="'+mopId+'"]').hide();
             }
             
-            window.renderPaymentButton = function renderPaymentButton(){
             jQuery('.method-list-item').on('click',function() {
                 var clickedId = jQuery(this).attr('data-id');
                 if(clickedId !== undefined && clickedId != mopId) {
@@ -126,7 +125,7 @@ jQuery(document).ready(function() {
                     jQuery('.fa-arrow-right').parent('button').hide();
                }
             });
-            };
+
             console.log('test4');   
             
             if (jQuery('.payment-method-select ul.is-loading').length > 0) {
