@@ -1,5 +1,14 @@
 // document.addEventListener('FrontendPaymentMethodChanged', function() {
 // window.onload = function() {
+
+document.addEventListener('DOMContentLoaded', function(event) {
+    alert('Document loaded!');
+});
+
+window.addEventListener('load', function(event) {
+    alert('All resources loaded!');
+});
+
 jQuery(document).ready(function() {
     // Load the Google Pay button
     try {
