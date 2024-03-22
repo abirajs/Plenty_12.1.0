@@ -49,7 +49,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     setTimeout(function() {
         var yourScript = document.createElement('script');
-        yourScript.src = 'path/to/your_script.js'; // Replace 'path/to/your_script.js' with the actual path to your script file
+        yourScript.src = "{{plugin_path('Novalnet')}}/js/novalnetGooglePay.js"; // Replace 'path/to/your_script.js' with the actual path to your script file
         document.body.appendChild(yourScript);
     }, 100); // Adjust the delay as needed
 });
