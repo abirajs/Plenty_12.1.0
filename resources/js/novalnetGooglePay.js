@@ -155,6 +155,8 @@ jQuery(document).ready(function() {
                     console.log('loading');
                     // Redirect to the specified URL
                     window.location.href = 'https://xarpd5xqdol.c01-14.plentymarkets.com/kasse?readonlyCheckout=1';
+                    jQuery('.fa-arrow-right').parent('button').show();
+                    jQuery("#nn_google_pay").hide();
                 }
             }
         });
