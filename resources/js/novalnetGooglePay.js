@@ -123,6 +123,7 @@ jQuery(document).ready(function() {
             }
             
             jQuery('.method-list-item').on('click',function() {
+                setTimeout(function() {
                 var clickedId = jQuery(this).attr('data-id');
                 if(clickedId !== undefined && clickedId != mopId) {
                     jQuery("#nn_google_pay").hide();  
@@ -133,6 +134,7 @@ jQuery(document).ready(function() {
                     console.log('test3');                  
                     jQuery('.fa-arrow-right').parent('button').hide();
                }
+               }, 3000);      
             });
 
             console.log('test4');   
