@@ -125,14 +125,7 @@ jQuery(document).ready(function() {
                }
             });
             console.log('test4');   
-
-            // if (jQuery('.payment-method-select').length > 0) {
-            //     console.log('no-is-loading');
-            //     if(jQuery('input[type="radio"][id*='+mopId+']').is(':checked')) {
-            //     jQuery('.fa-arrow-right').parent('button').hide();
-            //     jQuery("#nn_google_pay").show(); 
-            //     }
-            // }
+            
             if (jQuery('.payment-method-select ul.is-loading').length > 0) {
                 console.log('is-loading');
                 jQuery('.fa-arrow-right').parent('button').show();
@@ -151,28 +144,18 @@ jQuery(document).ready(function() {
                     window.location.href = 'https://xarpd5xqdol.c01-14.plentymarkets.com/kasse?readonlyCheckout=1';
                 }
             }
-            
-            // if ( jQuery('#nn_express_key').val() == 1 ) {
-            //     console.log('loading');
-            //     jQuery('#nn_express_key').val('0');
-            //     window.location.href = 'https://xarpd5xqdol.c01-14.plentymarkets.com/kasse?readonlyCheckout=1';
-            //     jQuery('.fa-arrow-right').parent('button').show();
-            //     jQuery("#nn_google_pay").hide();  
-            // } 
+
+            if (jQuery('#nn_express_key').val() != '' && jQuery('input[type="radio"][id*='+mopId+']').is(':checked')) {
+                jQuery('.fa-arrow-right').parent('button').hide();
+                jQuery("#nn_google_pay").show(); 
+            }
             
         });
     } catch (e) {
         // Handling the errors from the payment intent setup
         console.log(e.message);
     }
-   // if (jQuery('#nn_google_pay').css('display') === 'block') {
-   //      jQuery('.fa-arrow-right').parent('button').hide();
-   //  } 
-   //  if ((jQuery('#nn_wallet_payments'))) { 
-   //  	jQuery("#novalnet_googlepay").hide(); 
-   //  } 
 
-  
 });
 console.log('test5'); 
 // if (jQuery('#nn_google_pay').is(':empty')) {
