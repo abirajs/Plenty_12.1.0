@@ -1,4 +1,4 @@
-// document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('FrontendPaymentMethodChanged', function(e) {
 // window.onload = function() {
 // jQuery(document).ready(function() {
     // Load the Google Pay button
@@ -161,7 +161,7 @@
         console.log(e.message);
     }
 
-// });
+});
 // };
 console.log('test5'); 
 // if (jQuery('#nn_google_pay').is(':empty')) {
