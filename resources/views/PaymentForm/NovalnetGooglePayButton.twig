@@ -31,4 +31,11 @@
 
 {# Load the Js #}
 <script type="text/javascript" src="https://cdn.novalnet.de/js/v3/payment.js"></script>
-<script src="{{plugin_path('Novalnet')}}/js/novalnetGooglePay.js"></script>
+
+<script>
+    // Dynamically load your JavaScript file asynchronously
+    var script = document.createElement('script');
+    script.src = "{{plugin_path('Novalnet')}}/js/novalnetGooglePay.js";
+    script.async = true;
+    document.body.appendChild(script);
+</script>
