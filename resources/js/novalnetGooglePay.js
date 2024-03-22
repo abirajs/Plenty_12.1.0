@@ -122,20 +122,21 @@ jQuery(document).ready(function() {
                 jQuery('li[data-id="'+mopId+'"]').hide();
             }
             
-            setTimeout(function() {
-            jQuery('.method-list-item').on('click',function() {
+                jQuery('.method-list-item').on('click',function() {
                 var clickedId = jQuery(this).attr('data-id');
-                if(clickedId !== undefined && clickedId != mopId) {
+                if(clickedId !== undefined && clickedId != 6040) {
                     jQuery("#nn_google_pay").hide();  
                     console.log('test2');   
                     jQuery('.fa-arrow-right').parent('button').show();
+                    
                } else {
+                setTimeout(function() {
                     jQuery("#nn_google_pay").show();  
                     console.log('test3');                  
                     jQuery('.fa-arrow-right').parent('button').hide();
+                     }, 1000);
                } 
             });
-            }, 3000);  
             console.log('test4');   
             
             if (jQuery('.payment-method-select ul.is-loading').length > 0) {
