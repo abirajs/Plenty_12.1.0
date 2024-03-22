@@ -139,14 +139,26 @@ jQuery(document).ready(function() {
                 jQuery("#nn_google_pay").hide(); 
             } 
             
-           
-            if ( jQuery('#nn_express_key').val() == 1 ) {
-                console.log('loading');
-                jQuery('#nn_express_key').val('0');
-                window.location.href = 'https://xarpd5xqdol.c01-14.plentymarkets.com/kasse?readonlyCheckout=1';
-                jQuery('.fa-arrow-right').parent('button').show();
-                jQuery("#nn_google_pay").hide();  
-            } 
+            // Check if the redirection has already occurred
+            if (!localStorage.getItem('redirectionOccured')) {
+                // Set the flag to indicate that redirection has occurred
+                localStorage.setItem('redirectionOccured', 'true');
+            
+                // Check if the condition is met for redirection
+                if (jQuery('#nn_express_key').val() == 1) {
+                    console.log('loading');
+                    // Redirect to the specified URL
+                    window.location.href = 'https://xarpd5xqdol.c01-14.plentymarkets.com/kasse?readonlyCheckout=1';
+                }
+            }
+            
+            // if ( jQuery('#nn_express_key').val() == 1 ) {
+            //     console.log('loading');
+            //     jQuery('#nn_express_key').val('0');
+            //     window.location.href = 'https://xarpd5xqdol.c01-14.plentymarkets.com/kasse?readonlyCheckout=1';
+            //     jQuery('.fa-arrow-right').parent('button').show();
+            //     jQuery("#nn_google_pay").hide();  
+            // } 
             
         });
     } catch (e) {
