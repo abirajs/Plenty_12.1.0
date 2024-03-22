@@ -1,6 +1,6 @@
 // document.addEventListener('DOMContentLoaded', function() {
-window.onload = function() {
-// jQuery(document).ready(function() {
+// window.onload = function() {
+jQuery(document).ready(function() {
     // Load the Google Pay button
     try {
         // Load the payment instances
@@ -112,7 +112,8 @@ window.onload = function() {
                 // Hide the Google Pay payment if it is not possible
                 jQuery('li[data-id="'+mopId+'"]').hide();
             }
-
+            
+            window.renderPaymentButton = function renderPaymentButton(){
             jQuery('.method-list-item').on('click',function() {
                 var clickedId = jQuery(this).attr('data-id');
                 if(clickedId !== undefined && clickedId != mopId) {
@@ -125,6 +126,7 @@ window.onload = function() {
                     jQuery('.fa-arrow-right').parent('button').hide();
                }
             });
+            };
             console.log('test4');   
             
             if (jQuery('.payment-method-select ul.is-loading').length > 0) {
@@ -160,8 +162,8 @@ window.onload = function() {
         console.log(e.message);
     }
 
-// });
-};
+});
+// };
 console.log('test5'); 
 // if (jQuery('#nn_google_pay').is(':empty')) {
 //     jQuery('.fa-arrow-right').parent('button').hide();
