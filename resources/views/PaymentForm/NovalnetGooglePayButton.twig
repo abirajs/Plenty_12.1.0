@@ -36,7 +36,10 @@
     // document.addEventListener('FrontendPaymentMethodChanged', function(event) {
      var script = document.createElement('script');
      script.src = "{{plugin_path('Novalnet')}}/js/novalnetGooglePay.js";
-     document.body.appendChild(script);
+     setTimeout(function() {
+        document.body.appendChild(script);
+     }, 3000); 
+     
    // });
 
   // function loadAfterOtherScripts(url) {
