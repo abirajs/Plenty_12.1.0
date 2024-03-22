@@ -33,18 +33,16 @@
 <script type="text/javascript" src="https://cdn.novalnet.de/js/v3/payment.js"></script>
 
 <script>
-    // Dynamically load your JavaScript file asynchronously
-    // var script = document.createElement('script');
-    // script.src = "{{plugin_path('Novalnet')}}/js/novalnetGooglePay.js";
-    // document.body.appendChild(script);
+    document.addEventListener('FrontendPaymentMethodChanged', function(event) {
+     var script = document.createElement('script');
+     script.src = "{{plugin_path('Novalnet')}}/js/novalnetGooglePay.js";
+     document.body.appendChild(script);
+    });
 
- function loadAfterOtherScripts(url) {
-         var script = document.createElement('script');
-         script.src = url;
-        document.body.appendChild(script);
-     }
- loadAfterOtherScripts("{{plugin_path('Novalnet')}}/js/novalnetGooglePay.js");
-
-
-    
+  // function loadAfterOtherScripts(url) {
+   // var script = document.createElement('script');
+   // script.src = url;
+   // document.body.appendChild(script);
+ // }
+ // loadAfterOtherScripts("{{plugin_path('Novalnet')}}/js/novalnetGooglePay.js");
 </script>
