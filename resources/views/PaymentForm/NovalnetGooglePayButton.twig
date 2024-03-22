@@ -44,9 +44,6 @@
         // Append the script to the document
         document.body.appendChild(script);
     }
-
-    window.onload = function() {
-        loadAfterOtherScripts("{{plugin_path('Novalnet')}}/js/novalnetGooglePay.js");
-    };
+     window.addEventListener('load', loadAfterOtherScripts);
     
 </script>
