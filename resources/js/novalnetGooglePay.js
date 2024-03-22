@@ -122,8 +122,8 @@ jQuery(document).ready(function() {
                 jQuery('li[data-id="'+mopId+'"]').hide();
             }
             
+            setTimeout(function() {
             jQuery('.method-list-item').on('click',function() {
-                setTimeout(function() {
                 var clickedId = jQuery(this).attr('data-id');
                 if(clickedId !== undefined && clickedId != mopId) {
                     jQuery("#nn_google_pay").hide();  
@@ -133,10 +133,9 @@ jQuery(document).ready(function() {
                     jQuery("#nn_google_pay").show();  
                     console.log('test3');                  
                     jQuery('.fa-arrow-right').parent('button').hide();
-               }
-               }, 3000);      
+               } 
             });
-
+            }, 1500);  
             console.log('test4');   
             
             if (jQuery('.payment-method-select ul.is-loading').length > 0) {
