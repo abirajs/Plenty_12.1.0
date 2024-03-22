@@ -38,12 +38,20 @@
     // script.src = "{{plugin_path('Novalnet')}}/js/novalnetGooglePay.js";
     // document.body.appendChild(script);
 
-    function loadAfterOtherScripts(url) {
-        var script = document.createElement('script');
-        script.src = url;
+    // function loadAfterOtherScripts(url) {
+        // var script = document.createElement('script');
+        // script.src = url;
         // Append the script to the document
-        document.body.appendChild(script);
-    }
-loadAfterOtherScripts("{{plugin_path('Novalnet')}}/js/novalnetGooglePay.js");
+      //  document.body.appendChild(script);
+   //  }
+// loadAfterOtherScripts("{{plugin_path('Novalnet')}}/js/novalnetGooglePay.js");
+
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        var yourScript = document.createElement('script');
+        yourScript.src = 'path/to/your_script.js'; // Replace 'path/to/your_script.js' with the actual path to your script file
+        document.body.appendChild(yourScript);
+    }, 100); // Adjust the delay as needed
+});
     
 </script>
