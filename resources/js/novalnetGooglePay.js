@@ -149,6 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.log('nn_express_key');
                     jQuery('.fa-arrow-right').parent('button').hide();
                     jQuery("#nn_google_pay").show(); 
+                    $('script:not([data-loaded])').remove();
                 }
          
             
