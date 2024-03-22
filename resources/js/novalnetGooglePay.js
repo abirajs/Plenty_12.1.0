@@ -1,6 +1,6 @@
 // document.addEventListener('DOMContentLoaded', function() {
 // window.onload = function() {
-jQuery(document).ready(function() {
+// jQuery(document).ready(function() {
     // Load the Google Pay button
     try {
         // Load the payment instances
@@ -161,7 +161,7 @@ jQuery(document).ready(function() {
         console.log(e.message);
     }
 
-});
+// });
 // };
 console.log('test5'); 
 // if (jQuery('#nn_google_pay').is(':empty')) {
