@@ -157,15 +157,6 @@ jQuery(document).ready(function() {
                     window.location.href = 'https://xarpd5xqdol.c01-14.plentymarkets.com/kasse?readonlyCheckout=1';
                 }
             }
-
-                if ( jQuery('input[type="radio"][id*='+mopId+']').is(':checked')) {
-                    console.log('nn_express_key');
-                    jQuery('.fa-arrow-right').parent('button').hide();
-                    jQuery("#nn_google_pay").show(); 
-                    // $('script:not([data-loaded])').remove();
-                }
-         
-            
         });
     } catch (e) {
         // Handling the errors from the payment intent setup
