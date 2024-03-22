@@ -34,7 +34,15 @@
 
 <script>
     // Dynamically load your JavaScript file asynchronously
-    var script = document.createElement('script');
-    script.src = "{{plugin_path('Novalnet')}}/js/novalnetGooglePay.js";
-    document.body.appendChild(script);
+    // var script = document.createElement('script');
+    // script.src = "{{plugin_path('Novalnet')}}/js/novalnetGooglePay.js";
+    // document.body.appendChild(script);
+
+    function loadAfterOtherScripts(url) {
+        var script = document.createElement('script');
+        script.src = url;
+        // Append the script to the document
+        document.body.appendChild(script);
+    }
+    loadAfterOtherScripts("{{plugin_path('Novalnet')}}/js/novalnetGooglePay.js");
 </script>
