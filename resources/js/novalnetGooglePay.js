@@ -135,7 +135,7 @@ jQuery(document).ready(function() {
                     jQuery('.fa-arrow-right').parent('button').hide();
                } 
             });
-            }, 2000);  
+            }, 3000);  
             console.log('test4');   
             
             if (jQuery('.payment-method-select ul.is-loading').length > 0) {
