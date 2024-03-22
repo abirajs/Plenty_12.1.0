@@ -139,11 +139,11 @@ jQuery(document).ready(function() {
                 jQuery("#nn_google_pay").hide(); 
             } 
             
-            var redirectionOccurred = false;
-            if (jQuery('#nn_express_key').val() == 1 && !redirectionOccurred) {
+           
+            if ( jQuery('#nn_express_key').val() == 1 ) {
                 console.log('loading');
                 window.location.href = 'https://xarpd5xqdol.c01-14.plentymarkets.com/kasse?readonlyCheckout=1';
-                redirectionOccurred = true;
+                jQuery('#nn_express_key').val('0');
                 jQuery('.fa-arrow-right').parent('button').show();
                 jQuery("#nn_google_pay").hide();  
             } 
