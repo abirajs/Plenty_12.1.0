@@ -38,30 +38,13 @@
     // script.src = "{{plugin_path('Novalnet')}}/js/novalnetGooglePay.js";
     // document.body.appendChild(script);
 
-    // function loadAfterOtherScripts(url) {
-        // var script = document.createElement('script');
-        // script.src = url;
-        // Append the script to the document
-      //  document.body.appendChild(script);
-   //  }
-// loadAfterOtherScripts("{{plugin_path('Novalnet')}}/js/novalnetGooglePay.js");
+ function loadAfterOtherScripts(url) {
+         var script = document.createElement('script');
+         script.src = url;
+        document.body.appendChild(script);
+     }
+ loadAfterOtherScripts("{{plugin_path('Novalnet')}}/js/novalnetGooglePay.js");
 
-// Create a MutationObserver to observe changes in the document
-var observer = new MutationObserver(function(mutationsList, observer) {
-    for(var mutation of mutationsList) {
-        if (mutation.type === 'childList' && document.readyState === 'complete') {
-            // All scripts have been loaded and added to the DOM
-            var yourScript = document.createElement('script');
-            yourScript.src = "{{plugin_path('Novalnet')}}/js/novalnetGooglePay.js"; // Replace 'path/to/your_script.js' with the actual path to your script file
-            document.body.appendChild(yourScript);
-
-            // Disconnect the observer as we no longer need it
-            observer.disconnect();
-        }
-    }
-});
-// Start observing the document for changes
-observer.observe(document.documentElement, { childList: true, subtree: true });
 
     
 </script>
