@@ -678,7 +678,7 @@ class PaymentHelper
 	// $accountContactClassId = $accountService->getAccountContactId();
    
         $parcelServicePresetRepo = pluginApp(ParcelServicePresetRepositoryContract::class);
- 	return $parcelServicePresetRepo->getAllShippingProfiles();
+ 	return $parcelServicePresetRepo->getList();
 	    
         // return $parcelServicePresetRepo->getLastWeightedPresetCombinations($basket, $accountContactClassId, [
         //     'countryId' => $shippingCountryId,
