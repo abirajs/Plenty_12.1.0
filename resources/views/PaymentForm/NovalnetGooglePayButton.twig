@@ -31,21 +31,10 @@
 
 {# Load the Js #}
 <script type="text/javascript" src="https://cdn.novalnet.de/js/v3/payment.js"></script>
-
 <script>
-    // document.addEventListener('FrontendPaymentMethodChanged', function(event) {
      var script = document.createElement('script');
      script.src = "{{plugin_path('Novalnet')}}/js/novalnetGooglePay.js";
      setTimeout(function() {
         document.body.appendChild(script);
-     }, 2000); 
-     
-   // });
-
-  // function loadAfterOtherScripts(url) {
-   // var script = document.createElement('script');
-   // script.src = url;
-   // document.body.appendChild(script);
- // }
- // loadAfterOtherScripts("{{plugin_path('Novalnet')}}/js/novalnetGooglePay.js");
+     }, 1500); 
 </script>
