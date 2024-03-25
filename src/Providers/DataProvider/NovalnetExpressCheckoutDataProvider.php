@@ -96,6 +96,7 @@ class NovalnetExpressCheckoutDataProvider
 		    $this->getLogger(__METHOD__)->error('Novalnet::$shippingMethodDetails', $shippingMethodDetails);
 				$shippingMethodAmount = $shippingMethodDetails->shippingAmount;
 				$convertedShippingAmount = $paymentHelper->convertAmountToSmallerUnit($shippingMethodAmount);
+		    $this->getLogger(__METHOD__)->error('Novalnet::$shippingMethodAmount', $shippingMethodAmount);
 				$shippingDetails[] = array (
                         'identifier' => $shippingMethodDetails->parcelServicePresetName,
                         'label'      => $shippingMethodDetails->parcelServicePresetName, 
