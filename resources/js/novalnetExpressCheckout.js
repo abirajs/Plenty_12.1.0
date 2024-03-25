@@ -107,7 +107,7 @@ jQuery(document).ready(function() {
 						// 	}];
 						// }
 						if (shippingContact.countryCode) {
-						transactionInfoToUpdate.methods = jQuery.parseJSON(jQuery("#nn_shipping_details").val()),
+						transactionInfoToUpdate.methods = jQuery.parseJSON(jQuery("#nn_shipping_details").val());
 						} else {
 						transactionInfoToUpdate.methodsNotFound = "There are no shipping options available. Please ensure that your address has been entered correctly, or contact us if you need any help.";	
 						}
