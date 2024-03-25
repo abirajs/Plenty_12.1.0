@@ -673,7 +673,7 @@ class PaymentHelper
     {
         // $shippingCountryId = $this->getShippingCountryId();
         $basket = $this->basketRepository->load();
-	$shippingCountryId = $basket->shippingCountryId ?? 1;
+	$shippingCountryId = $basket->shippingCountryId;
 	    
 	$accountService = pluginApp(\Plenty\Modules\Frontend\Services\AccountService::class);
 	$accountContactClassId = $accountService->getAccountContactId();
