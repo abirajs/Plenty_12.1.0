@@ -119,11 +119,11 @@ jQuery(document).ready(function() {
 					 },
 					 onShippingMethodChange : function(shippingMethod, newShippingMethodResult) {
 						 console.log(shippingMethod.amount);
-						 console.log(requestData.paymentIntent.transaction.amount);
+						 console.log(requestData.paymentIntent.transaction.amount / 100);
 						 // There could be a situation where the shipping method can alter total  
 						let transactionInfoToUpdate = {};
 						// Recalculating the total gross based on the chosen shipping method
-						transactionInfoToUpdate.amount = (((shippingMethod.amount)*100)) + ((requestData.paymentIntent.transaction.amount / 100));
+						transactionInfoToUpdate.amount = (((shippingMethod.amount))) + ((requestData.paymentIntent.transaction.amount / 100));
 						newShippingMethodResult(transactionInfoToUpdate);
 					 },
 						
