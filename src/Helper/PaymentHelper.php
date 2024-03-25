@@ -61,7 +61,6 @@ use IO\Services\SessionStorageService;
 use Plenty\Modules\Frontend\Session\Storage\Contracts\FrontendSessionStorageFactoryContract;
 
 use Plenty\Modules\Account\Contact\Contracts\ContactRepositoryContract;
-use Plenty\Modules\Frontend\Services\AccountService;
 
 /**
  * Class PaymentHelper
