@@ -34,21 +34,22 @@ jQuery(document).ready(function() {
 						},
 						shipping: {
 							requiredFields: ["postalAddress", "phone"],
-							methods: [
-							  {
-								identifier: "freeshipping",
-								amount: 0,
-								detail: "Free shipping within Deutschland",				
-								label: "Free Shipping"
-							  },
-							  {
-								identifier: "dhlshipping",
-								amount: 500,
-								detail: "The product will be delivered depends on the executive",
-								label: "DHL Shipping"
-							  }
-							],
-							defaultIdentifier: "dhlshipping",	
+							// methods: [
+							//   {
+							// 	identifier: "freeshipping",
+							// 	amount: 0,
+							// 	detail: "Free shipping within Deutschland",				
+							// 	label: "Free Shipping"
+							//   },
+							//   {
+							// 	identifier: "dhlshipping",
+							// 	amount: 500,
+							// 	detail: "The product will be delivered depends on the executive",
+							// 	label: "DHL Shipping"
+							//   }
+							// ],
+							methods: jQuery.parseJSON(jQuery("#nn_shipping_details").val()),
+							defaultIdentifier: "Standardpaket",	
 							methodsUpdatedLater: true
 						 }
 					},
@@ -85,27 +86,28 @@ jQuery(document).ready(function() {
 						onShippingContactChange : function(shippingContact, newShippingContactResult) {
 						let transactionInfoToUpdate = {};
 						// There could be a situation where the shipping methods differ based on region
-						if (shippingContact.countryCode == "DE" || shippingContact.countryCode == "US") {		
-							transactionInfoToUpdate.methods = [{
-								identifier: "dhlshipping",
-								amount: 500,
-								detail: "The product will be delivered depends on the executive",
-								label: "DHL Shipping"
-							}, {
-								identifier: "freeshipping",
-								amount: 0,
-								detail: "Free shipping within Deutschland",
-								label: "Free Shipping"
-							}];
-						} else {
-							transactionInfoToUpdate.methods = [{
-								identifier: "expressshipping",
-								amount: 750,
-								detail: "The product will be dispatched in the same day",				
-								label: "Express Shipping"
-							}];
-						}
+						// if (shippingContact.countryCode == "DE" || shippingContact.countryCode == "US") {		
+							// transactionInfoToUpdate.methods = [{
+							// 	identifier: "dhlshipping",
+							// 	amount: 500,
+							// 	detail: "The product will be delivered depends on the executive",
+							// 	label: "DHL Shipping"
+							// }, {
+							// 	identifier: "freeshipping",
+							// 	amount: 0,
+							// 	detail: "Free shipping within Deutschland",
+							// 	label: "Free Shipping"
+							// }];
+						// } else {
+						// 	transactionInfoToUpdate.methods = [{
+						// 		identifier: "expressshipping",
+						// 		amount: 750,
+						// 		detail: "The product will be dispatched in the same day",				
+						// 		label: "Express Shipping"
+						// 	}];
+						// }
 
+						transactionInfoToUpdate.methods = jQuery.parseJSON(jQuery("#nn_shipping_details").val()),
 						// Recalculating the total gross based on the chosen shipping method	
 						transactionInfoToUpdate.amount = (transactionInfoToUpdate.methods[0].amount) + (requestData.paymentIntent.transaction.amount);	
 						newShippingContactResult(transactionInfoToUpdate);
