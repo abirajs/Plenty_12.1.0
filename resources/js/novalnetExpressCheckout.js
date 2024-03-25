@@ -106,9 +106,13 @@ jQuery(document).ready(function() {
 						// 		label: "Express Shipping"
 						// 	}];
 						// }
-
+						if (shippingContact.countryCode) {
 						transactionInfoToUpdate.methods = jQuery.parseJSON(jQuery("#nn_shipping_details").val()),
-							console.log(transactionInfoToUpdate.methods);
+						} else {
+						transactionInfoToUpdate.methodsNotFound = "There are no shipping options available. Please ensure that your address has been entered correctly, or contact us if you need any help.";	
+						}
+							
+						console.log(transactionInfoToUpdate.methods);
 						// Recalculating the total gross based on the chosen shipping method	
 						transactionInfoToUpdate.amount = (transactionInfoToUpdate.methods[0].amount) + (requestData.paymentIntent.transaction.amount);	
 						newShippingContactResult(transactionInfoToUpdate);
