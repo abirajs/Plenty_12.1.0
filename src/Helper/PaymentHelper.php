@@ -683,7 +683,7 @@ class PaymentHelper
 
 	    $this->getLogger(__METHOD__)->error('$basket failed ' , $basket);
 	    $this->getLogger(__METHOD__)->error('$accountContactClassId', $accountContactClassId);
-	    $this->getLogger(__METHOD__)->error('$shippingCountryId', $shippingCountryId);
+	    $this->getLogger(__METHOD__)->error('$shippingCountryId', window.ceresStore.state.basket.data.shippingCountryId);
 	    
         return $parcelServicePresetRepo->getLastWeightedPresetCombinations($basket, $accountContactClassId, [
             'countryId' => $shippingCountryId,
