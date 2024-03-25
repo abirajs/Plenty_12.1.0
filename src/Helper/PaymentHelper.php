@@ -680,6 +680,10 @@ class PaymentHelper
    
         $parcelServicePresetRepo = pluginApp(ParcelServicePresetRepositoryContract::class);
  	// return $parcelServicePresetRepo->getShippingProfiles();
+
+	    $this->getLogger(__METHOD__)->error('$basket failed ' , $basket);
+	    $this->getLogger(__METHOD__)->error('$accountContactClassId', $accountContactClassId);
+	    $this->getLogger(__METHOD__)->error('$shippingCountryId', $shippingCountryId);
 	    
         return $parcelServicePresetRepo->getLastWeightedPresetCombinations($basket, $accountContactClassId, [
             'countryId' => $shippingCountryId,
