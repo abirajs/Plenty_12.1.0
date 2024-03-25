@@ -102,14 +102,15 @@ class NovalnetExpressCheckoutDataProvider
                         'detail'     => ''
                     );   
             }
-            
+		
+         $shippingDetails = json_encode($shippingDetails);
          $this->getLogger(__METHOD__)->error('Novalnet::$shippingDetails', $shippingDetails);
 	 $this->getLogger(__METHOD__)->error('Novalnet::$shippingMethod', $shippingMethod);
          $this->getLogger(__METHOD__)->error('Novalnet::$configurationData', $configurationArr);
          $this->getLogger(__METHOD__)->error('Novalnet::$paymentMethodDetails[0]', $paymentMethodDetails[0]);
          $this->getLogger(__METHOD__)->error('Novalnet::$paymentService->getProcessPaymentUrl()', $paymentService->getExpressPaymentUrl());
             // Render the Google Pay button
-            return $twig->render('Novalnet::PaymentForm.NovalnetExpressCheckoutButton',
+        return $twig->render('Novalnet::PaymentForm.NovalnetExpressCheckoutButton',
                                         [
                                             'paymentMethodId'       => $paymentMethodDetails[0],
                                             'countryCode'           => !empty($countryRepository->findIsoCode($billingAddress->countryId, 'iso_code_2')) ? $countryRepository->findIsoCode($billingAddress->countryId, 'iso_code_2') : 'DE',
@@ -121,7 +122,8 @@ class NovalnetExpressCheckoutDataProvider
                                             'enabledWalletPayment'  => $enabledWalletPayment,
                                             'configurationData'     => $configurationData,
                                             'isEnforceEnabled'      => $isEnforceEnabled,
-                                            'merchantId'   	    => $merchantId
+                                            'merchantId'   	    => $merchantId,
+			     		    'shippingDetails'       => $shippingDetails
                                         ]);
         } else {
             return '';
