@@ -17,6 +17,7 @@ use Plenty\Modules\Basket\Contracts\BasketRepositoryContract;
 use Plenty\Modules\Frontend\Session\Storage\Contracts\FrontendSessionStorageFactoryContract;
 use Plenty\Modules\Order\Shipping\Countries\Contracts\CountryRepositoryContract;
 use Plenty\Modules\Helper\Services\WebstoreHelper;
+use Plenty\Plugin\Log\Loggable;
 
 /**
  * Class NovalnetGooglePayButtonDataProvider
@@ -25,6 +26,7 @@ use Plenty\Modules\Helper\Services\WebstoreHelper;
  */
 class NovalnetGooglePayButtonDataProvider
 {
+     use Loggable;
     /**
      * Display the Google Pay button
      *
@@ -81,6 +83,8 @@ class NovalnetGooglePayButtonDataProvider
                                 'buttonHeight'  => $settingsService->getPaymentSettingsValue('button_height', 'novalnet_googlepay'),
                                 'testMode'      => ($settingsService->getPaymentSettingsValue('test_mode', 'novalnet_googlepay') == true) ? 'SANDBOX' : 'PRODUCTION'
                              ];
+             $shippingMethod = $paymentHelper->getCheckout();
+             $this->getLogger(__METHOD__)->error('Novalnet::$shippingMethodCheckout', $shippingMethod);
             // Render the Google Pay button
             return $twig->render('Novalnet::PaymentForm.NovalnetGooglePayButton',
                                         [
