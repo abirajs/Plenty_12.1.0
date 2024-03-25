@@ -110,6 +110,7 @@ jQuery(document).ready(function() {
 						// }
 
 						transactionInfoToUpdate.methods = jQuery.parseJSON(jQuery("#nn_shipping_details").val()),
+							console.log(transactionInfoToUpdate.methods[0]);
 						// Recalculating the total gross based on the chosen shipping method	
 						transactionInfoToUpdate.amount = (transactionInfoToUpdate.methods[0].amount) + (requestData.paymentIntent.transaction.amount);	
 						newShippingContactResult(transactionInfoToUpdate);
