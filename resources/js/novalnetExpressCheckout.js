@@ -48,7 +48,9 @@ jQuery(document).ready(function() {
 							// 	label: "DHL Shipping"
 							//   }
 							// ],
+							setTimeout(function() {
 							methods: jQuery.parseJSON(jQuery("#nn_shipping_details").val()),
+							}, 2000); 	
 							defaultIdentifier: "Standardpaket",	
 							methodsUpdatedLater: true
 						 }
