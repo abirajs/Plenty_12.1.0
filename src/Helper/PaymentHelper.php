@@ -669,83 +669,27 @@ class PaymentHelper
         ];
     }
 
-    public function getShippingProfileList()
+    private function getShippingProfileList(): array
     {
-
         $shippingCountryId = $this->getShippingCountryId();
         $basket = $this->basketRepository->load();
-        $accountContactClassId =  $this->session->getCustomer()->accountContactClassId;
+        $accountContactClassId = $this->checkout->getCustomer()->accountContactClassId;
 
-        /** @var ParcelServicePresetRepositoryContract $parcelServicePresetRepo */
         $parcelServicePresetRepo = pluginApp(ParcelServicePresetRepositoryContract::class);
 
         return $parcelServicePresetRepo->getLastWeightedPresetCombinations($basket, $accountContactClassId, [
             'countryId' => $shippingCountryId,
             'webstoreId' => $this->application->getWebstoreId()
         ]);
-	    
-	// $shippingCountryId = $this->getShippingCountryId();
- //        $basket = $this->basketRepository->load();
- //        $accountContactClassId = $this->application->getPlentyId('account/contact-class-id');
-
- //        /** @var ParcelServicePresetRepositoryContract $parcelServicePresetRepo */
- //        $parcelServicePresetRepo = pluginApp(ParcelServicePresetRepositoryContract::class);
-
- //        return $parcelServicePresetRepo->getLastWeightedPresetCombinations($basket, $accountContactClassId, [
- //            'countryId' => $shippingCountryId,
- //            'webstoreId' => $this->application->getWebstoreId()
- //        ]);
-	    
- //        $params                = [
- //            'countryId'  => $this->getShippingCountryId(),
- //            'webstoreId' => pluginApp(Application::class)->getWebstoreId(),
- //        ];
- //        $accountContactClassId = $this->session->getCustomer()->accountContactClassId;
- //        /** @var ParcelServicePresetRepositoryContract $repo */
- //        $repo = pluginApp(ParcelServicePresetRepositoryContract::class);
-	    
- // 	$this->getLogger(__METHOD__)->error('$params', $params);
-	// $this->getLogger(__METHOD__)->error('$accountContactClassId', $accountContactClassId);
- //        return $repo->getLastWeightedPresetCombinations($this->basketRepository->load(), $accountContactClassId, $params);
-		
-	// $contact = $this->getContact();
-	// $this->getLogger(__METHOD__)->error('$contact', $contact);
- //        return pluginApp(ParcelServicePresetRepositoryContract::class)->getLastWeightedPresetCombinations($this->basketRepository->load(), $contact->classId);
-  
     }
 
-    public function getShippingCountryId()
+    private function getShippingCountryId(): int
     {
         $currentShippingCountryId = (int) $this->checkout->getShippingCountryId();
         if ($currentShippingCountryId <= 0) {
             return $this->application->getDefaultShippingCountryId();
         }
-        return $currentShippingCountryId;
-	    
-        // $currentShippingCountryId = (int)$this->checkout->getShippingCountryId();
-        // if ($currentShippingCountryId <= 0) {
-        //     return pluginApp(WebstoreConfigurationService::class)->getDefaultShippingCountryId();
-        // }
-        // return $currentShippingCountryId;
-    }
-	
- //    public function getContact()
- //    {
- //        if ($this->getContactId() > 0) {
-	//    // $this->getLogger(__METHOD__)->error('$this->contactRepository->findContactById($this->getContactId())', $this->contactRepository->findContactById($this->getContactId()));
- //            return $this->contactRepository->findContactById($this->getContactId());
- //        }
-	// // $this->getLogger(__METHOD__)->error('$this->contactRepository->findContactById($this->getContactId())NULLLLL', $this->contactRepository->findContactById($this->getContactId()));
- //        return null;
- //    }
 
- //    /**
- //     * Get the ID of the current contact from the session
- //     * @return int
- //     */
- //    public function getContactId(): int
- //    {
-	// $this->getLogger(__METHOD__)->error('$this->accountService->getAccountContactId()', $this->accountService->getAccountContactId());
- //        return $this->accountService->getAccountContactId();
- //    }
+        return $currentShippingCountryId;
+    }
 }
