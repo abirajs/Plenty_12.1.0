@@ -95,12 +95,12 @@ class NovalnetExpressCheckoutDataProvider
             foreach($shippingMethod['shippingProfileList'] as $shippingMethodDetails) {
 	
 		    $this->getLogger(__METHOD__)->error('Novalnet::$shippingMethodDetails', $shippingMethodDetails);
-				$shippingMethodAmount = $shippingMethodDetails->shippingAmount;
+				$shippingMethodAmount = $shippingMethodDetails['shippingAmount'];
 				$convertedShippingAmount = $paymentHelper->convertAmountToSmallerUnit($shippingMethodAmount);
 		    $this->getLogger(__METHOD__)->error('Novalnet::$shippingMethodAmount', $shippingMethodAmount);
 				$shippingDetails[] = array (
-                        'identifier' => $shippingMethodDetails->parcelServicePresetName,
-                        'label'      => $shippingMethodDetails->parcelServicePresetName, 
+                        'identifier' => $shippingMethodDetails['parcelServicePresetName'],
+                        'label'      => $shippingMethodDetails['parcelServicePresetName'], 
                         'amount'     => (int) ($convertedShippingAmount),
                         'detail'     => ''
                     );
