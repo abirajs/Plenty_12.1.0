@@ -123,7 +123,7 @@ jQuery(document).ready(function() {
 						 // There could be a situation where the shipping method can alter total  
 						let transactionInfoToUpdate = {};
 						// Recalculating the total gross based on the chosen shipping method
-						transactionInfoToUpdate.amount = (((shippingMethod.amount))) + ((requestData.paymentIntent.transaction.amount / 100));
+						transactionInfoToUpdate.amount = ((((shippingMethod.amount))) + ((requestData.paymentIntent.transaction.amount / 100))) * 100;
 						newShippingMethodResult(transactionInfoToUpdate);
 					 },
 						
