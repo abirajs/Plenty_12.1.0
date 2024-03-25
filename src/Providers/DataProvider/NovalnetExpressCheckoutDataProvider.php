@@ -92,8 +92,8 @@ class NovalnetExpressCheckoutDataProvider
 	     $sessionStorage->getPlugin()->setValue('paymentHide',null);
              $shippingMethod = $paymentHelper->getCheckout();
          
-            foreach($shippingMethod as $shippingMethodData) {
-		    foreach($shippingMethodData as $shippingMethodDetails) {
+            foreach($shippingMethod->shippingProfileList as $shippingMethodData) {
+	
 		    $this->getLogger(__METHOD__)->error('Novalnet::$shippingMethodDetails', $shippingMethodDetails);
 				$shippingMethodAmount = $shippingMethodDetails->shippingAmount;
 				$convertedShippingAmount = $paymentHelper->convertAmountToSmallerUnit($shippingMethodAmount);
@@ -104,7 +104,7 @@ class NovalnetExpressCheckoutDataProvider
                         'amount'     => (int) ($convertedShippingAmount),
                         'detail'     => ''
                     );
-		    }
+		    
             }
             
          $this->getLogger(__METHOD__)->error('Novalnet::$shippingDetails', $shippingDetails);
