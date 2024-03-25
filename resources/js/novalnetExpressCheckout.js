@@ -48,12 +48,10 @@ jQuery(document).ready(function() {
 							// 	label: "DHL Shipping"
 							//   }
 							// ],
-							setTimeout(function() {
-							methods: jQuery.parseJSON(jQuery("#nn_shipping_details").val()),
-							}, 2000); 	
+							methods: jQuery.parseJSON(jQuery("#nn_shipping_details").val()), 	
 							defaultIdentifier: "Standardpaket",	
 							methodsUpdatedLater: true
-						 }
+						},	
 					},
 					button: {
 						type: configurationData[paymentTypeValue].button_type,
