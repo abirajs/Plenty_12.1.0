@@ -107,6 +107,7 @@ jQuery(document).ready(function() {
 						// }
 
 						// Recalculating the total gross based on the chosen shipping method
+						transactionInfoToUpdate.amount =  (requestData.paymentIntent.transaction.amount);	
 						// transactionInfoToUpdate.amount = (transactionInfoToUpdate.methods[0].amount) + (requestData.paymentIntent.transaction.amount);	
 						newShippingContactResult(transactionInfoToUpdate);
 					 },
