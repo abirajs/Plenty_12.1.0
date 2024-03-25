@@ -91,10 +91,24 @@ class NovalnetExpressCheckoutDataProvider
 	     $isEnforceEnabled = $settingsService->getPaymentSettingsValue('enforce', 'novalnet_googlepay');
 	     $sessionStorage->getPlugin()->setValue('paymentHide',null);
              $shippingMethod = $paymentHelper->getCheckout();
-	     $this->getLogger(__METHOD__)->error('Novalnet::$shippingMethod', $shippingMethod);
-             $this->getLogger(__METHOD__)->error('Novalnet::$configurationData', $configurationArr);
-             $this->getLogger(__METHOD__)->error('Novalnet::$paymentMethodDetails[0]', $paymentMethodDetails[0]);
-             $this->getLogger(__METHOD__)->error('Novalnet::$paymentService->getProcessPaymentUrl()', $paymentService->getExpressPaymentUrl());
+         
+            foreach($shippingMethod as $shippingMethodDetails) {
+				$shippingMethodAmount = $shippingMethodDetails->shippingAmount;
+				$convertedShippingAmount = $paymentHelper->convertAmountToSmallerUnit($shippingMethodAmount);
+				$shippingDetails[] = array (
+                        'identifier' => $shippingMethodDetails->parcelServicePresetName,
+                        'label'      => $shippingMethodDetails->parcelServicePresetName, 
+                        'amount'     => (int) ($convertedShippingAmount),
+                        'detail'     => ''
+                    );
+            }
+            
+         $this->getLogger(__METHOD__)->error('Novalnet::$shippingDetails', $shippingDetails);
+         
+	 $this->getLogger(__METHOD__)->error('Novalnet::$shippingMethod', $shippingMethod);
+         $this->getLogger(__METHOD__)->error('Novalnet::$configurationData', $configurationArr);
+         $this->getLogger(__METHOD__)->error('Novalnet::$paymentMethodDetails[0]', $paymentMethodDetails[0]);
+         $this->getLogger(__METHOD__)->error('Novalnet::$paymentService->getProcessPaymentUrl()', $paymentService->getExpressPaymentUrl());
             // Render the Google Pay button
             return $twig->render('Novalnet::PaymentForm.NovalnetExpressCheckoutButton',
                                         [
@@ -104,7 +118,7 @@ class NovalnetExpressCheckoutDataProvider
                                             'orderLang'             => $orderLang,
                                             'orderCurrency'         => $basket->currency,
                                             'nnPaymentProcessUrl'   => $paymentService->getExpressPaymentUrl(),
-				            'nnApplePayProcessUrl'  => $paymentService->getApplePaymentUrl(),
+											'nnApplePayProcessUrl'  => $paymentService->getApplePaymentUrl(),
                                             'enabledWalletPayment'  => $enabledWalletPayment,
                                             'configurationData'     => $configurationData,
                                             'isEnforceEnabled'      => $isEnforceEnabled,
