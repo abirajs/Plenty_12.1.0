@@ -671,19 +671,19 @@ class PaymentHelper
 
     private function getShippingProfileList(): array
     {
-        $shippingCountryId = $this->getShippingCountryId();
-        $basket = $this->basketRepository->load();
-        // $accountContactClassId = $this->checkout->getCustomer()->accountContactClassId;
+        // $shippingCountryId = $this->getShippingCountryId();
+        // $basket = $this->basketRepository->load();
 
-	$accountService = pluginApp(\Plenty\Modules\Frontend\Services\AccountService::class);
-	$accountContactClassId = $accountService->getAccountContactId();
+	// $accountService = pluginApp(\Plenty\Modules\Frontend\Services\AccountService::class);
+	// $accountContactClassId = $accountService->getAccountContactId();
    
         $parcelServicePresetRepo = pluginApp(ParcelServicePresetRepositoryContract::class);
-
-        return $parcelServicePresetRepo->getLastWeightedPresetCombinations($basket, $accountContactClassId, [
-            'countryId' => $shippingCountryId,
-            'webstoreId' => $this->application->getWebstoreId()
-        ]);
+ 	return $parcelServicePresetRepo->getAllShippingProfiles();
+	    
+        // return $parcelServicePresetRepo->getLastWeightedPresetCombinations($basket, $accountContactClassId, [
+        //     'countryId' => $shippingCountryId,
+        //     'webstoreId' => $this->application->getWebstoreId()
+        // ]);
     }
 
     private function getShippingCountryId(): int
