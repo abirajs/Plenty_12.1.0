@@ -134,7 +134,7 @@ jQuery(document).ready(function() {
                     jQuery("#nn_google_pay").show();  
                     console.log('test3');                  
                     jQuery('.fa-arrow-right').parent('button').hide();
-                     }, 1000);
+                     }, 800);
                } 
             });
             console.log('test4');   
