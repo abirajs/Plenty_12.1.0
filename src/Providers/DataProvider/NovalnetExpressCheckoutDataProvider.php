@@ -92,7 +92,7 @@ class NovalnetExpressCheckoutDataProvider
 	     $sessionStorage->getPlugin()->setValue('paymentHide',null);
              $shippingMethod = $paymentHelper->getCheckout();
          
-            foreach($shippingMethod['shippingProfileList'] as $shippingMethodData) {
+            foreach($shippingMethod['shippingProfileList'] as $shippingMethodDetails) {
 	
 		    $this->getLogger(__METHOD__)->error('Novalnet::$shippingMethodDetails', $shippingMethodDetails);
 				$shippingMethodAmount = $shippingMethodDetails->shippingAmount;
