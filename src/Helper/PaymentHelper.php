@@ -674,10 +674,10 @@ class PaymentHelper
     {
         $shippingCountryId = $this->getShippingCountryId();
         $basket = $this->basketRepository->load();
-        $accountContactClassId = $this->checkout->getCustomer()->accountContactClassId;
+        // $accountContactClassId = $this->checkout->getCustomer()->accountContactClassId;
 
 	$accountService = pluginApp(\Plenty\Modules\Frontend\Services\AccountService::class);
-	$contactId = $accountService->getAccountContactId();
+	$accountContactClassId = $accountService->getAccountContactId();
    
         $parcelServicePresetRepo = pluginApp(ParcelServicePresetRepositoryContract::class);
 
