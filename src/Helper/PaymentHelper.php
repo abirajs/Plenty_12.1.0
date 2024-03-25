@@ -48,6 +48,7 @@ use Plenty\Modules\Payment\Models\PaymentProperty;
 use Plenty\Modules\Payment\Contracts\PaymentRepositoryContract;
 use Plenty\Modules\Order\Contracts\OrderRepositoryContract;
 use Plenty\Modules\Payment\Contracts\PaymentOrderRelationRepositoryContract;
+use Plenty\Modules\Frontend\Services\AccountService;
 use Plenty\Plugin\Log\Loggable;
 
 
@@ -675,6 +676,9 @@ class PaymentHelper
         $basket = $this->basketRepository->load();
         $accountContactClassId = $this->checkout->getCustomer()->accountContactClassId;
 
+	$accountService = pluginApp(\Plenty\Modules\Frontend\Services\AccountService::class);
+	$contactId = $accountService->getAccountContactId();
+   
         $parcelServicePresetRepo = pluginApp(ParcelServicePresetRepositoryContract::class);
 
         return $parcelServicePresetRepo->getLastWeightedPresetCombinations($basket, $accountContactClassId, [
