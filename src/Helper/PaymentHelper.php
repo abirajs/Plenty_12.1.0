@@ -673,17 +673,17 @@ class PaymentHelper
     {
         // $shippingCountryId = $this->getShippingCountryId();
         $basket = $this->basketRepository->load();
-	$shippingCountryId = $basket->shippingCountryId;
+	$shippingCountryId = $basket->shippingCountryId ?? 1;
 	    
 	$accountService = pluginApp(\Plenty\Modules\Frontend\Services\AccountService::class);
 	$accountContactClassId = $accountService->getAccountContactId();
    
         $parcelServicePresetRepo = pluginApp(ParcelServicePresetRepositoryContract::class);
- 	// return $parcelServicePresetRepo->getShippingProfiles();
-
+	// $shippingCountryIds = window.ceresStore.state.basket.data.shippingCountryId;
+	    
 	    $this->getLogger(__METHOD__)->error('$basket failed ' , $basket);
 	    $this->getLogger(__METHOD__)->error('$accountContactClassId', $accountContactClassId);
-	    $this->getLogger(__METHOD__)->error('$shippingCountryId', window.ceresStore.state.basket.data.shippingCountryId);
+	    $this->getLogger(__METHOD__)->error('$shippingCountryId', $shippingCountryId);
 	    
         return $parcelServicePresetRepo->getLastWeightedPresetCombinations($basket, $accountContactClassId, [
             'countryId' => $shippingCountryId,
