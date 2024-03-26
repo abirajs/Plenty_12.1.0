@@ -111,14 +111,6 @@ jQuery(document).ready(function() {
 						
 					 onPaymentButtonClicked: function(clickResult) {
 							console.log('click');
-							console.log(window.ceresStore.state);
-							console.log(window.ceresStore.state.basket.item);
-							var id = null;
-							if (typeof window.ceresStore.state.item !== 'undefined' && window.ceresStore.state.item.variation.documents[0]) {
-							id = window.ceresStore.state.item.variation.documents[0].data.variation.id;
-							} else if (typeof window.ceresStore.state.items.mainItemId !== 'undefined' && window.ceresStore.state.items[window.ceresStore.state.items.mainItemId]) {
-							id = window.ceresStore.state.items[window.ceresStore.state.items.mainItemId].variation.documents[0].data.variation.id;
-							}
 							if(walletPayments[walletPayment] == 'novalnet_applepay')  {
 							     if (jQuery('.widget-basket-totals').length <= 0) {
 							 	jQuery('.fa-shopping-cart').parent('button').click();
