@@ -96,7 +96,7 @@ class NovalnetExpressCheckoutDataProvider
 			$shippingMethodAmount = $shippingMethodDetails['shippingAmount'];
 			$convertedShippingAmount = $paymentHelper->convertAmountToSmallerUnit($shippingMethodAmount);
 			$shippingDetails[] = array (
-                        'identifier' => $shippingMethodDetails['parcelServiceName'] . ' - ' . $shippingMethodDetails['parcelServicePresetName'],
+                        'identifier' => (string) $shippingMethodDetails['parcelServicePresetId'],
                         'label'      => $shippingMethodDetails['parcelServiceName'] . ' - ' . $shippingMethodDetails['parcelServicePresetName'], 
                         'amount'     => (int) ($convertedShippingAmount),
                         'id'         => (string) $shippingMethodDetails['parcelServicePresetId'],
