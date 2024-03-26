@@ -101,15 +101,17 @@ class NovalnetExpressCheckoutDataProvider
                         'amount'     => (int) ($convertedShippingAmount),
                         'detail'     => ''
                     );   
+		    	$shippingProfileId = $shippingMethodDetails['parcelServicePresetId'];
             }
 		
-         $shippingDetails = json_encode($shippingDetails);
+         $shippingDetails   = json_encode($shippingDetails);
+	 $shippingProfileId = json_encode($shippingProfileId);
          $this->getLogger(__METHOD__)->error('Novalnet::$shippingDetails', $shippingDetails);
 	 $this->getLogger(__METHOD__)->error('Novalnet::$shippingMethod', $shippingMethod);
          $this->getLogger(__METHOD__)->error('Novalnet::$configurationData', $configurationArr);
          $this->getLogger(__METHOD__)->error('Novalnet::$paymentMethodDetails[0]', $paymentMethodDetails[0]);
          $this->getLogger(__METHOD__)->error('Novalnet::$paymentService->getProcessPaymentUrl()', $paymentService->getExpressPaymentUrl());
-            // Render the Google Pay button
+         // Render the Google Pay button
         return $twig->render('Novalnet::PaymentForm.NovalnetExpressCheckoutButton',
                                         [
                                             'paymentMethodId'       => $paymentMethodDetails[0],
@@ -123,7 +125,8 @@ class NovalnetExpressCheckoutDataProvider
                                             'configurationData'     => $configurationData,
                                             'isEnforceEnabled'      => $isEnforceEnabled,
                                             'merchantId'   	    => $merchantId,
-			     		    'shippingDetails'       => $shippingDetails
+			     		    'shippingDetails'       => $shippingDetails,
+			     		    'shippingProfileId'     => $shippingProfileId
                                         ]);
         } else {
             return '';
