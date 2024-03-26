@@ -107,6 +107,7 @@ class NovalnetExpressCheckoutDataProvider
          $shippingDetails   = json_encode($shippingDetails);
 	 $shippingProfileId = json_encode($shippingProfileId);
 		
+	 $this->getLogger(__METHOD__)->error('Novalnet::$countryRepository', $countryRepository->load());
          $this->getLogger(__METHOD__)->error('Novalnet::$shippingDetails', $shippingDetails);
 	 $this->getLogger(__METHOD__)->error('Novalnet::$shippingMethod', $shippingMethod);
          $this->getLogger(__METHOD__)->error('Novalnet::$configurationData', $configurationArr);
