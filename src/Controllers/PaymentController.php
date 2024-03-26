@@ -488,7 +488,7 @@ class PaymentController extends Controller
 	// Set the customer shipping address ID
 	$this->checkout->setCustomerShippingAddressId($createdAddress->id);
 
-	$this->checkout->setShippingProfileId(7);
+	$this->checkout->setShippingProfileId($arrayTest['method']['identifier']);
 	    
 	$payment_access_key  = $this->settingsService->getPaymentSettingsValue('novalnet_private_key');
         $encoded_data        = base64_encode($payment_access_key);
