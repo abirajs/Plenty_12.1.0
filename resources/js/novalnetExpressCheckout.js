@@ -49,7 +49,7 @@ jQuery(document).ready(function() {
 							//   }
 							// ],
 							methods: jQuery.parseJSON(jQuery("#nn_shipping_details").val()), 	
-							defaultIdentifier: "Standardpaket",	
+							defaultIdentifier: '6',	
 							methodsUpdatedLater: true
 						},	
 					},
