@@ -114,7 +114,7 @@ jQuery(document).ready(function() {
 							
 						console.log(transactionInfoToUpdate.methods);
 						// Recalculating the total gross based on the chosen shipping method	
-						transactionInfoToUpdate.amount = (transactionInfoToUpdate.methods[0].amount) + (requestData.paymentIntent.transaction.amount);	
+						transactionInfoToUpdate.amount =parseFloat(transactionInfoToUpdate.methods[0].amount) + parseFloat(requestData.paymentIntent.transaction.amount);	
 						newShippingContactResult(transactionInfoToUpdate);
 					 },
 					 onShippingMethodChange : function(shippingMethod, newShippingMethodResult) {
@@ -124,9 +124,9 @@ jQuery(document).ready(function() {
 						 // There could be a situation where the shipping method can alter total  
 						let transactionInfoToUpdate = {};
 						// Recalculating the total gross based on the chosen shipping method
-						 console.log(parseFloat( shippingMethod.amount * 100 ) + parseFloat(requestData.paymentIntent.transaction.amount));
-						transactionInfoToUpdate.amount = parseFloat( shippingMethod.amount * 100 ) + parseFloat(requestData.paymentIntent.transaction.amount);
-						 // transactionInfoToUpdate.amount = 6000;
+						console.log(parseFloat( shippingMethod.amount * 100 ) + parseFloat(requestData.paymentIntent.transaction.amount));
+						transactionInfoToUpdate.amount = parseFloat(shippingMethod.amount * 100) + parseFloat(requestData.paymentIntent.transaction.amount);
+						// transactionInfoToUpdate.amount = 6000;
 						newShippingMethodResult(transactionInfoToUpdate);
 					 },
 						
