@@ -99,9 +99,9 @@ class NovalnetExpressCheckoutDataProvider
                         'identifier' => $shippingMethodDetails['parcelServiceName'] . ' - ' . $shippingMethodDetails['parcelServicePresetName'],
                         'label'      => $shippingMethodDetails['parcelServiceName'] . ' - ' . $shippingMethodDetails['parcelServicePresetName'], 
                         'amount'     => (int) ($convertedShippingAmount),
-                        'detail'     => (string) $shippingMethodDetails['parcelServicePresetId'],
+                        'id'         => (string) $shippingMethodDetails['parcelServicePresetId'],
                     );   
-		    	$shippingProfileId = (string) $shippingMethodDetails['parcelServicePresetId'];
+		    	// $shippingProfileId = (string) $shippingMethodDetails['parcelServicePresetId'];
             }
 		
          $shippingDetails   = json_encode($shippingDetails);
