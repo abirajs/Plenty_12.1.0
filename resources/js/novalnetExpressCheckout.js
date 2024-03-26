@@ -120,7 +120,7 @@ jQuery(document).ready(function() {
 							label: "DHL - Standardpaket",
 							amount: 499,
 							detail: "",				
-						}], ;
+						}];
 						} else {
 						transactionInfoToUpdate.methodsNotFound = "There are no shipping options available. Please ensure that your address has been entered correctly, or contact us if you need any help.";	
 						}
