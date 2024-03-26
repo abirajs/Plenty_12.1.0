@@ -212,7 +212,7 @@ class NovalnetServiceProvider extends ServiceProvider
                     $expressCheckout = 1;
                     $this->getLogger(__METHOD__)->error('Novalnet::null', 'null');
                     $nnPaymentData['paymentRequestData'] = $sessionStorage->getPlugin()->getValue('nnExpressPaymentData');
-                    $nnPaymentData['paymentRequestData']['transaction']['amount'] => $paymentHelper->convertAmountToSmallerUnit($basket->basketAmount),
+                    $nnPaymentData['paymentRequestData']['transaction']['amount'] = $paymentHelper->convertAmountToSmallerUnit($basket->basketAmount);
                     $nnPaymentData['paymentUrl'] = $paymentService->getPaymentData($sessionStorage->getPlugin()->getValue('nnExpressPaymentData'), 'NOVALNET_GOOGLEPAY');
                     $sessionStorage->getPlugin()->setValue('nnPaymentData', $nnPaymentData);
                     $this->getLogger(__METHOD__)->error('Novalnet::null null',  $nnPaymentData);
