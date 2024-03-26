@@ -108,10 +108,9 @@ class NovalnetExpressCheckoutDataProvider
 	 $shippingProfileId = json_encode($shippingProfileId);
 
 	 $availableShippingCountry = $countryRepository->getActiveCountriesList();
-	 $availableShippingCountry = json_encode($availableShippingCountry);
-	 $availableShippingCountry = json_decode($availableShippingCountry, true);
-	$availableShippingCountry  = stripslashes($availableShippingCountry);
-		
+	 $availableShippingCountry = json_decode(json_encode($availableShippingCountry));
+	 // $availableShippingCountry = json_decode($availableShippingCountry, true);
+	
 	 // $availableShippingCountry = (array) $availableShippingCountry;
 
 	 $this->getLogger(__METHOD__)->error('Novalnet::$countryRepository', $availableShippingCountry);
