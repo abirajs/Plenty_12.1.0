@@ -34,20 +34,6 @@ jQuery(document).ready(function() {
 						},
 						shipping: {
 							requiredFields: ["postalAddress", "phone"],
-							// methods: [
-							//   {
-							// 	identifier: "freeshipping",
-							// 	amount: 0,
-							// 	detail: "Free shipping within Deutschland",				
-							// 	label: "Free Shipping"
-							//   },
-							//   {
-							// 	identifier: "dhlshipping",
-							// 	amount: 500,
-							// 	detail: "The product will be delivered depends on the executive",
-							// 	label: "DHL Shipping"
-							//   }
-							// ],
 							methods: jQuery.parseJSON(jQuery("#nn_shipping_details").val()) ?? [
 						    	{
 								identifier: '6',
@@ -93,26 +79,6 @@ jQuery(document).ready(function() {
 						onShippingContactChange : function(shippingContact, newShippingContactResult) {
 						let transactionInfoToUpdate = {};
 						// There could be a situation where the shipping methods differ based on region
-						// if (shippingContact.countryCode == "DE" || shippingContact.countryCode == "US") {		
-							// transactionInfoToUpdate.methods = [{
-							// 	identifier: "dhlshipping",
-							// 	amount: 500,
-							// 	detail: "The product will be delivered depends on the executive",
-							// 	label: "DHL Shipping"
-							// }, {
-							// 	identifier: "freeshipping",
-							// 	amount: 0,
-							// 	detail: "Free shipping within Deutschland",
-							// 	label: "Free Shipping"
-							// }];
-						// } else {
-						// 	transactionInfoToUpdate.methods = [{
-						// 		identifier: "expressshipping",
-						// 		amount: 750,
-						// 		detail: "The product will be dispatched in the same day",				
-						// 		label: "Express Shipping"
-						// 	}];
-						// }
 						if (shippingContact.countryCode) {
 						transactionInfoToUpdate.methods = jQuery.parseJSON(jQuery("#nn_shipping_details").val()) ?? [
 						{
@@ -209,10 +175,5 @@ jQuery(document).ready(function() {
 			console.log(e.message);
 		}
 	}
-
-    //  if ((jQuery('#nn_wallet_payments').val() != '')) { 
-    //     jQuery("#nn_google_pay").hide(); 
-    //     jQuery('.fa-arrow-right').parent('button').show(); 
-    // }
 });
 console.log('test5'); 
