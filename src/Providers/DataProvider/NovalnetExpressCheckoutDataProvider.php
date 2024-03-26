@@ -116,7 +116,7 @@ class NovalnetExpressCheckoutDataProvider
 	 // $availableShippingCountry = json_decode(json_encode($availableShippingCountry));
 	 // $availableShippingCountry = json_decode($availableShippingCountry, true);
 
-	 // $availableShippingCountry = (array) $availableShippingCountry;
+	 $availableShippingCountry = (array) $availableShippingCountry;
 		
 	 $this->getLogger(__METHOD__)->error('Novalnet::$countryRepository4', $availableShippingCountry);
          $this->getLogger(__METHOD__)->error('Novalnet::$shippingDetails', $shippingDetails);
