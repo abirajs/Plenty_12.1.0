@@ -53,7 +53,7 @@ class NovalnetExpressCheckoutDataProvider
         if($settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay') == true || $settingsService->getPaymentSettingsValue('payment_active', 'novalnet_applepay') == true) {
             if(!empty($basket->basketAmount)) {
                 // Get the order total basket amount
-                $orderAmount = $paymentHelper->convertAmountToSmallerUnit($basket->itemSum);
+                $orderAmount = $paymentHelper->convertAmountToSmallerUnit($basket->itemSumNet);
             }
             // Get the Payment MOP Id
             $paymentMethodDetails = $paymentHelper->getPaymentMethodByKey('NOVALNET_GOOGLEPAY');
