@@ -118,7 +118,7 @@ class NovalnetExpressCheckoutDataProvider
 
 	 // $availableShippingCountry = (array) $availableShippingCountry;
 		
-	 $this->getLogger(__METHOD__)->error('Novalnet::$countryRepository3', $availableShippingCountry);
+	 $this->getLogger(__METHOD__)->error('Novalnet::$countryRepository4', $availableShippingCountry);
          $this->getLogger(__METHOD__)->error('Novalnet::$shippingDetails', $shippingDetails);
 	 $this->getLogger(__METHOD__)->error('Novalnet::$shippingMethod', $shippingMethod);
          $this->getLogger(__METHOD__)->error('Novalnet::$configurationData', $configurationArr);
