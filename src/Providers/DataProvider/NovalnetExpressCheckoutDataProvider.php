@@ -116,8 +116,8 @@ class NovalnetExpressCheckoutDataProvider
          $shippingDetails   = json_encode($shippingDetails);
 	 $shippingProfileId = json_encode($shippingProfileId);
 
-	 $wizardProList = $wizardPro->getCountriesListForm();
-	 $this->getLogger(__METHOD__)->error('Novalnet::$wizardProList', $wizardProList);
+	 // $wizardProList = $wizardPro->getCountriesListForm();
+	 // $this->getLogger(__METHOD__)->error('Novalnet::$wizardProList', $wizardProList);
 	
          $this->getLogger(__METHOD__)->error('Novalnet::$shippingDetails', $shippingDetails);
 	 $this->getLogger(__METHOD__)->error('Novalnet::$shippingMethod', $shippingMethod);
