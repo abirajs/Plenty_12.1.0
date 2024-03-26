@@ -19,6 +19,9 @@ use Plenty\Modules\Order\Shipping\Countries\Contracts\CountryRepositoryContract;
 use Plenty\Modules\Helper\Services\WebstoreHelper;
 use Plenty\Plugin\Log\Loggable;
 
+use Plenty\Modules\System\Contracts\WebstoreRepositoryContract;
+use Plenty\Modules\Wizard\Services\WizardProvider;
+
 /**
  * Class NovalnetExpressCheckoutDataProvider
  *
@@ -42,6 +45,8 @@ class NovalnetExpressCheckoutDataProvider
                          BasketRepositoryContract $basketRepository,
                          CountryRepositoryContract $countryRepository,
                          WebstoreHelper $webstoreHelper,
+			 WebstoreRepositoryContract $webstoreRepository,
+			 WizardProvider $wizardProvider,
                          $arg)
     {
         $basket             = $basketRepository->load();
@@ -49,6 +54,10 @@ class NovalnetExpressCheckoutDataProvider
         $sessionStorage     = pluginApp(FrontendSessionStorageFactoryContract::class);
         $paymentService     = pluginApp(PaymentService::class);
         $settingsService    = pluginApp(SettingsService::class);
+
+	$webRepo	    = pluginApp(WebstoreRepositoryContract::class);
+	$wizardPro	    = pluginApp(WizardProvider::class);
+	    
         $this->getLogger(__METHOD__)->error('Novalnet::ExpressBasket failed', $basket);
         if($settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay') == true || $settingsService->getPaymentSettingsValue('payment_active', 'novalnet_applepay') == true) {
             if(!empty($basket->basketAmount)) {
@@ -106,6 +115,10 @@ class NovalnetExpressCheckoutDataProvider
 		
          $shippingDetails   = json_encode($shippingDetails);
 	 $shippingProfileId = json_encode($shippingProfileId);
+
+	 $wizardProList = $wizardPro->getCountriesListForm();
+	 $this->getLogger(__METHOD__)->error('Novalnet::$wizardProList', $wizardProList);
+	
          $this->getLogger(__METHOD__)->error('Novalnet::$shippingDetails', $shippingDetails);
 	 $this->getLogger(__METHOD__)->error('Novalnet::$shippingMethod', $shippingMethod);
          $this->getLogger(__METHOD__)->error('Novalnet::$configurationData', $configurationArr);
