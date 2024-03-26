@@ -48,7 +48,14 @@ jQuery(document).ready(function() {
 							// 	label: "DHL Shipping"
 							//   }
 							// ],
-							methods: jQuery.parseJSON(jQuery("#nn_shipping_details").val()), 	
+							methods: jQuery.parseJSON(jQuery("#nn_shipping_details").val()) ?? [
+						    	{
+								identifier: '6',
+								label: "DHL - Standardpaket",
+								amount: 499,
+								detail: "",				
+								
+						        }], 	
 							defaultIdentifier: '6',	
 							methodsUpdatedLater: true
 						},	
@@ -107,7 +114,13 @@ jQuery(document).ready(function() {
 						// 	}];
 						// }
 						if (shippingContact.countryCode) {
-						transactionInfoToUpdate.methods = jQuery.parseJSON(jQuery("#nn_shipping_details").val());
+						transactionInfoToUpdate.methods = jQuery.parseJSON(jQuery("#nn_shipping_details").val()) ?? [
+						{
+							identifier: '6',
+							label: "DHL - Standardpaket",
+							amount: 499,
+							detail: "",				
+						}], ;
 						} else {
 						transactionInfoToUpdate.methodsNotFound = "There are no shipping options available. Please ensure that your address has been entered correctly, or contact us if you need any help.";	
 						}
