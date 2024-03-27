@@ -81,7 +81,6 @@ jQuery(document).ready(function() {
 						// There could be a situation where the shipping methods differ based on region
 						var availableCountryCode = JSON.parse(jQuery('#nn_available_country_code').val());
 						if (jQuery.inArray(shippingContact.countryCode, availableCountryCode) !== -1) {
-						// if (shippingContact.countryCode) {
 						transactionInfoToUpdate.methods = jQuery.parseJSON(jQuery("#nn_shipping_details").val()) ?? [
 						{
 							identifier: '6',
@@ -91,9 +90,7 @@ jQuery(document).ready(function() {
 						}];
 						transactionInfoToUpdate.amount =parseFloat(transactionInfoToUpdate.methods[0].amount) + parseFloat(requestData.paymentIntent.transaction.amount);	
 						} else {
-						transactionInfoToUpdate.methodsNotFound = "There are no shipping options available. Please ensure that your address has been entered correctly, or contact us if you need any help.";	
-						// alert('ok');
-						// location.reload();
+						transactionInfoToUpdate.methodsNotFound = "There are no shipping options available. Please ensure that your address has been entered correctly, or contact us if you need any help.";
 						}
 							
 						console.log(transactionInfoToUpdate.methods);
