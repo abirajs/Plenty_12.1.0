@@ -141,15 +141,14 @@ class NovalnetExpressCheckoutDataProvider
 	$availableShippingCountry = preg_replace('/"([^"]+)"\s*:\s*/', '$1:', $availableShippingCountry);
 	$availableShippingCountry = substr($availableShippingCountry, 1, -1);
 	$availableShippingCountry = explode('},{', $availableShippingCountry);
-	$isoCode2_values = [];
+	$availableCountryCode = [];
 	foreach ($availableShippingCountry as $element) {
 	    preg_match('/isoCode2:"(.*?)"/', $element, $matches);
 	    if (isset($matches[1])) {
-	        $isoCode2_values[] = $matches[1];
+	        $availableCountryCode[] = $matches[1];
 	    }
 	}
-		
-		
+	
 	 $this->getLogger(__METHOD__)->error('Novalnet::$isoCode2Values8', $isoCode2_values);	
 	 $this->getLogger(__METHOD__)->error('Novalnet::$countryRepository7', $availableShippingCountry);
          $this->getLogger(__METHOD__)->error('Novalnet::$shippingDetails', $shippingDetails);
@@ -172,7 +171,8 @@ class NovalnetExpressCheckoutDataProvider
                                             'isEnforceEnabled'      => $isEnforceEnabled,
                                             'merchantId'   	    => $merchantId,
 			     		    'shippingDetails'       => $shippingDetails,
-			     		    'shippingProfileId'     => $shippingProfileId
+			     		    'shippingProfileId'     => $shippingProfileId,
+			     		    'availableCountryCode'  => $availableCountryCode
                                         ]);
         } else {
             return '';
