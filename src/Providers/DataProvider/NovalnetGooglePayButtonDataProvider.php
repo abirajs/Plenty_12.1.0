@@ -78,6 +78,7 @@ class NovalnetGooglePayButtonDataProvider
             $sellerName = $settingsService->getPaymentSettingsValue('business_name', 'novalnet_googlepay');
             // Get the checkout page URL
             $checkoutPageURL = $response->redirectTo('checkout?readonlyCheckout=1');
+            $this->getLogger(__METHOD__)->error('Novalnet::$checkoutPageURL', $checkoutPageURL);
             // Required details for the Google Pay button
             $googlePayData = [
                                 'clientKey'     => trim($settingsService->getPaymentSettingsValue('novalnet_client_key')),
@@ -98,7 +99,7 @@ class NovalnetGooglePayButtonDataProvider
                                             'orderLang'             => $orderLang,
                                             'orderCurrency'         => $basket->currency,
                                             'nnPaymentProcessUrl'   => $paymentService->getProcessPaymentUrl(),
-                                            'nnCheckoutPageURL'     => $checkoutPageURL
+                                            // 'nnCheckoutPageURL'     => $checkoutPageURL
                                         ]);
         } else {
             return '';
