@@ -110,19 +110,29 @@ class NovalnetExpressCheckoutDataProvider
 	 $availableShippingCountry = $countryRepository->getActiveCountriesList();
 
 	 // $availableShippingCountry = json_decode($availableShippingCountry, true);
-	 $availableShippingCountry = str_replace('\\', '', $availableShippingCountry);
-	 $availableShippingCountry = json_decode($availableShippingCountry, true);
-		
+	 // $availableShippingCountry = str_replace('\\', '', $availableShippingCountry);
+	 // $availableShippingCountry = json_decode($availableShippingCountry, true);
 	 // $availableShippingCountry = json_decode($availableShippingCountry);
-		
 	 // $availableShippingCountry = json_decode(json_encode($availableShippingCountry));
-		
 	 // $availableShippingCountry = json_decode($availableShippingCountry);
 	 // $availableShippingCountry = json_decode($availableShippingCountry, true);
-
 	 // $availableShippingCountry = (array) $availableShippingCountry;
+
+	 // Decode the JSON string
+	$decodedJson = json_decode($isoCode2Values, true);
+	if ($decodedJson !== null) {
+	    $isoCode2Values = [];
+	    foreach ($decodedJson as $entry) {
+	        foreach ($entry as $data) {
+	            if (isset($data['isoCode2'])) {
+	                $isoCode2Values[] = $data['isoCode2'];
+	            }
+	        }
+	    }
+	}
 		
-	 $this->getLogger(__METHOD__)->error('Novalnet::$countryRepository3', $availableShippingCountry);
+	 $this->getLogger(__METHOD__)->error('Novalnet::$isoCode2Values', $isoCode2Values);	
+	 $this->getLogger(__METHOD__)->error('Novalnet::$countryRepository2', $availableShippingCountry);
          $this->getLogger(__METHOD__)->error('Novalnet::$shippingDetails', $shippingDetails);
 	 $this->getLogger(__METHOD__)->error('Novalnet::$shippingMethod', $shippingMethod);
          $this->getLogger(__METHOD__)->error('Novalnet::$configurationData', $configurationArr);
