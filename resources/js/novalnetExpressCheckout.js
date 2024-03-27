@@ -90,7 +90,9 @@ jQuery(document).ready(function() {
 							detail: "",				
 						}];
 						} else {
-						transactionInfoToUpdate.methodsNotFound = "There are no shipping options available. Please ensure that your address has been entered correctly, or contact us if you need any help.";	
+						// transactionInfoToUpdate.methodsNotFound = "There are no shipping options available. Please ensure that your address has been entered correctly, or contact us if you need any help.";	
+						alert('ok');
+						location.reload();
 						}
 							
 						console.log(transactionInfoToUpdate.methods);
@@ -107,7 +109,6 @@ jQuery(document).ready(function() {
 						// Recalculating the total gross based on the chosen shipping method
 						console.log(parseFloat( shippingMethod.amount * 100 ) + parseFloat(requestData.paymentIntent.transaction.amount));
 						transactionInfoToUpdate.amount = parseFloat(shippingMethod.amount * 100) + parseFloat(requestData.paymentIntent.transaction.amount);
-						// transactionInfoToUpdate.amount = 6000;
 						newShippingMethodResult(transactionInfoToUpdate);
 					 },
 						
@@ -117,7 +118,6 @@ jQuery(document).ready(function() {
 							     if (jQuery('.widget-basket-totals').length <= 0) {
 							 	jQuery('.fa-shopping-cart').parent('button').click();
 							     } 
-
 							 window.location.href = jQuery('#nn_payment_process_url').val();
 							}
 						 	if(walletPayments[walletPayment] == 'novalnet_googlepay') {
@@ -126,7 +126,6 @@ jQuery(document).ready(function() {
 							     } 
 							     clickResult({status: "SUCCESS"});
 							} 
-							
 						},
 					}
 				}
