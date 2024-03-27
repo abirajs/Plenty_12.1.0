@@ -79,7 +79,9 @@ jQuery(document).ready(function() {
 						onShippingContactChange : function(shippingContact, newShippingContactResult) {
 						let transactionInfoToUpdate = {};
 						// There could be a situation where the shipping methods differ based on region
-						if (shippingContact.countryCode) {
+						var availableCountryCode = JSON.parse(jQuery('#nn_available_country_code').val());
+						if (jQuery.inArray(shippingContact.countryCode', availableCountryCode) !== -1) {
+						// if (shippingContact.countryCode) {
 						transactionInfoToUpdate.methods = jQuery.parseJSON(jQuery("#nn_shipping_details").val()) ?? [
 						{
 							identifier: '6',
