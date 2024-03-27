@@ -148,9 +148,10 @@ class NovalnetExpressCheckoutDataProvider
 	        $availableCountryCode[] = $matches[1];
 	    }
 	}
-	
+	 $availableCountryCode = json_encode($availableCountryCode);
+		
 	 $this->getLogger(__METHOD__)->error('Novalnet::$isoCode2Values8', $isoCode2_values);	
-	 $this->getLogger(__METHOD__)->error('Novalnet::$countryRepository7', $availableShippingCountry);
+	 $this->getLogger(__METHOD__)->error('Novalnet::$countryRepository8', $availableShippingCountry);
          $this->getLogger(__METHOD__)->error('Novalnet::$shippingDetails', $shippingDetails);
 	 $this->getLogger(__METHOD__)->error('Novalnet::$shippingMethod', $shippingMethod);
          $this->getLogger(__METHOD__)->error('Novalnet::$configurationData', $configurationArr);
