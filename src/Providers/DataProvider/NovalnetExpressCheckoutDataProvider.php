@@ -130,8 +130,9 @@ class NovalnetExpressCheckoutDataProvider
 	//         }
 	//     }
 	// }
-	 $availableShippingCountry = preg_replace('/"([^"]+)"\s*:\s*/', '$1:', $availableShippingCountry);
-		
+	 // $availableShippingCountry = preg_replace('/"([^"]+)"\s*:\s*/', '$1:', $availableShippingCountry);
+	 $availableShippingCountry = stripslashes($availableShippingCountry);
+			
 	 $this->getLogger(__METHOD__)->error('Novalnet::$isoCode2Values3', $isoCode2Values);	
 	 $this->getLogger(__METHOD__)->error('Novalnet::$countryRepository4', $availableShippingCountry);
          $this->getLogger(__METHOD__)->error('Novalnet::$shippingDetails', $shippingDetails);
