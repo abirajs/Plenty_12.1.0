@@ -89,15 +89,14 @@ jQuery(document).ready(function() {
 							amount: 499,
 							detail: "",				
 						}];
+						transactionInfoToUpdate.amount =parseFloat(transactionInfoToUpdate.methods[0].amount) + parseFloat(requestData.paymentIntent.transaction.amount);	
 						} else {
-						// transactionInfoToUpdate.methodsNotFound = "There are no shipping options available. Please ensure that your address has been entered correctly, or contact us if you need any help.";	
-						alert('ok');
-						location.reload();
+						transactionInfoToUpdate.methodsNotFound = "There are no shipping options available. Please ensure that your address has been entered correctly, or contact us if you need any help.";	
+						// alert('ok');
+						// location.reload();
 						}
 							
 						console.log(transactionInfoToUpdate.methods);
-						// Recalculating the total gross based on the chosen shipping method	
-						transactionInfoToUpdate.amount =parseFloat(transactionInfoToUpdate.methods[0].amount) + parseFloat(requestData.paymentIntent.transaction.amount);	
 						newShippingContactResult(transactionInfoToUpdate);
 					 },
 					 onShippingMethodChange : function(shippingMethod, newShippingMethodResult) {
