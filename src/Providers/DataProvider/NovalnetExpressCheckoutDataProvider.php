@@ -107,37 +107,7 @@ class NovalnetExpressCheckoutDataProvider
          $shippingDetails   = json_encode($shippingDetails);
 	 $shippingProfileId = json_encode($shippingProfileId);
 
-	 $availableShippingCountry = $countryRepository->getActiveCountriesList();
-
-	 // $availableShippingCountry = json_decode($availableShippingCountry, true);
-	 // $availableShippingCountry = str_replace('\\', '', $availableShippingCountry);
-	 // $availableShippingCountry = json_decode($availableShippingCountry, true);
-	 // $availableShippingCountry = json_decode($availableShippingCountry);
-	 // $availableShippingCountry = json_decode(json_encode($availableShippingCountry));
-	 // $availableShippingCountry = json_decode($availableShippingCountry);
-	 // $availableShippingCountry = json_decode($availableShippingCountry, true);
-	 // $availableShippingCountry = (array) $availableShippingCountry;
-	 // Decode the JSON string
-	// $decodedJson = json_decode($availableShippingCountry, true);
-	// if ($decodedJson !== null) {
-	//     $isoCode2Values = [];
-	//     foreach ($decodedJson as $entry) {
-	//         foreach ($entry as $data) {
-	//             if (isset($data['isoCode2'])) {
-	//                 $isoCode2Values[] = $data['isoCode2'];
-	//             }
-	//         }
-	//     }
-	// }
-	 // $availableShippingCountry = preg_replace('/"([^"]+)"\s*:\s*/', '$1:', $availableShippingCountry);
-	 // $availableShippingCountry = preg_replace('/\\\\/', '', $availableShippingCountry);
-	// $cleaned_string = '';
-	// for ($i = 0; $i < strlen($availableShippingCountry); $i++) {
-	//     if ($availableShippingCountry[$i] != '\\') {
-	//         $cleaned_string .= $availableShippingCountry[$i];
-	//     }
-	// }	
-
+	$availableShippingCountry = $countryRepository->getActiveCountriesList();
 	$availableShippingCountry = preg_replace('/"([^"]+)"\s*:\s*/', '$1:', $availableShippingCountry);
 	$availableShippingCountry = substr($availableShippingCountry, 1, -1);
 	$availableShippingCountry = explode('},{', $availableShippingCountry);
