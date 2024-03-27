@@ -117,7 +117,6 @@ class NovalnetExpressCheckoutDataProvider
 	 // $availableShippingCountry = json_decode($availableShippingCountry);
 	 // $availableShippingCountry = json_decode($availableShippingCountry, true);
 	 // $availableShippingCountry = (array) $availableShippingCountry;
-
 	 // Decode the JSON string
 	// $decodedJson = json_decode($availableShippingCountry, true);
 	// if ($decodedJson !== null) {
@@ -131,17 +130,27 @@ class NovalnetExpressCheckoutDataProvider
 	//     }
 	// }
 	 // $availableShippingCountry = preg_replace('/"([^"]+)"\s*:\s*/', '$1:', $availableShippingCountry);
-	 $availableShippingCountry = preg_replace('/\\\\/', '', $availableShippingCountry);
+	 // $availableShippingCountry = preg_replace('/\\\\/', '', $availableShippingCountry);
+	// $cleaned_string = '';
+	// for ($i = 0; $i < strlen($availableShippingCountry); $i++) {
+	//     if ($availableShippingCountry[$i] != '\\') {
+	//         $cleaned_string .= $availableShippingCountry[$i];
+	//     }
+	// }	
 
-	$cleaned_string = '';
-	for ($i = 0; $i < strlen($availableShippingCountry); $i++) {
-	    if ($availableShippingCountry[$i] != '\\') {
-	        $cleaned_string .= $availableShippingCountry[$i];
+	$availableShippingCountry = preg_replace('/"([^"]+)"\s*:\s*/', '$1:', $availableShippingCountry);
+	$availableShippingCountry = substr($availableShippingCountry, 1, -1);
+	$availableShippingCountry = explode('},{', $availableShippingCountry);
+	$isoCode2_values = [];
+	foreach ($availableShippingCountry as $element) {
+	    preg_match('/isoCode2:"(.*?)"/', $element, $matches);
+	    if (isset($matches[1])) {
+	        $isoCode2_values[] = $matches[1];
 	    }
-	}	
-
+	}
 		
-	 $this->getLogger(__METHOD__)->error('Novalnet::$isoCode2Values7', $cleaned_string);	
+		
+	 $this->getLogger(__METHOD__)->error('Novalnet::$isoCode2Values8', $isoCode2_values);	
 	 $this->getLogger(__METHOD__)->error('Novalnet::$countryRepository7', $availableShippingCountry);
          $this->getLogger(__METHOD__)->error('Novalnet::$shippingDetails', $shippingDetails);
 	 $this->getLogger(__METHOD__)->error('Novalnet::$shippingMethod', $shippingMethod);
