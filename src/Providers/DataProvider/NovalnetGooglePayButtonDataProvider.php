@@ -17,6 +17,7 @@ use Plenty\Modules\Basket\Contracts\BasketRepositoryContract;
 use Plenty\Modules\Frontend\Session\Storage\Contracts\FrontendSessionStorageFactoryContract;
 use Plenty\Modules\Order\Shipping\Countries\Contracts\CountryRepositoryContract;
 use Plenty\Modules\Helper\Services\WebstoreHelper;
+use Plenty\Plugin\Http\Response;
 use Plenty\Plugin\Log\Loggable;
 
 /**
@@ -42,6 +43,7 @@ class NovalnetGooglePayButtonDataProvider
                          BasketRepositoryContract $basketRepository,
                          CountryRepositoryContract $countryRepository,
                          WebstoreHelper $webstoreHelper,
+                         Response $response,
                          $arg)
     {
         $basket             = $basketRepository->load();
@@ -49,6 +51,7 @@ class NovalnetGooglePayButtonDataProvider
         $sessionStorage     = pluginApp(FrontendSessionStorageFactoryContract::class);
         $paymentService     = pluginApp(PaymentService::class);
         $settingsService    = pluginApp(SettingsService::class);
+        $response           = pluginApp(Response::class);
 
         if($settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay') == true) {
             if(!empty($basket->basketAmount)) {
@@ -73,6 +76,8 @@ class NovalnetGooglePayButtonDataProvider
             $billingAddress = $paymentHelper->getCustomerAddress((int) $basket->customerInvoiceAddressId);
             // Get the seller name from the shop configuaration
             $sellerName = $settingsService->getPaymentSettingsValue('business_name', 'novalnet_googlepay');
+            // Get the checkout page URL
+            $checkoutPageURL = $response->redirectTo('checkout?readonlyCheckout=1');
             // Required details for the Google Pay button
             $googlePayData = [
                                 'clientKey'     => trim($settingsService->getPaymentSettingsValue('novalnet_client_key')),
@@ -92,7 +97,8 @@ class NovalnetGooglePayButtonDataProvider
                                             'orderAmount'           => $orderAmount,
                                             'orderLang'             => $orderLang,
                                             'orderCurrency'         => $basket->currency,
-                                            'nnPaymentProcessUrl'   => $paymentService->getProcessPaymentUrl()
+                                            'nnPaymentProcessUrl'   => $paymentService->getProcessPaymentUrl(),
+                                            'nnCheckoutPageURL'     => $checkoutPageURL
                                         ]);
         } else {
             return '';
