@@ -51,7 +51,7 @@ class NovalnetExpressCheckoutDataProvider
         $settingsService    = pluginApp(SettingsService::class);    
         $this->getLogger(__METHOD__)->error('Novalnet::ExpressBasket failed', $basket);
         if($settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay') == true || $settingsService->getPaymentSettingsValue('payment_active', 'novalnet_applepay') == true) {
-            $orderAmount = $paymentHelper->convertAmountToSmallerUnit($basket->itemSumNet)
+            $orderAmount = $paymentHelper->convertAmountToSmallerUnit($basket->itemSumNet);
 	    if(!empty($basket->couponDiscount)) {
                 // Get the order total basket amount
                 $orderAmount = $paymentHelper->convertAmountToSmallerUnit($basket->itemSumNet) - $paymentHelper->convertAmountToSmallerUnit($basket->couponDiscount);
