@@ -147,8 +147,8 @@ jQuery(document).ready(function() {
                     console.log('loading');
                     // Redirect to the specified URL
                     if(jQuery('input[type="radio"][id*='+mopId+']').is(':checked')) {
-                    window.location.href = 'https://xarpd5xqdol.c01-14.plentymarkets.com/kasse?readonlyCheckout=1';
-                    // window.location.href = jQuery('#nn_checkout_page_url').val();
+                    // window.location.href = 'https://xarpd5xqdol.c01-14.plentymarkets.com/kasse?readonlyCheckout=1';
+                    window.location.href = jQuery('#nn_checkout_page_url').val();
                     jQuery('.fa-arrow-right').parent('button').show();
                     jQuery("#nn_google_pay").hide();
                     }
