@@ -75,7 +75,7 @@ class NovalnetGooglePayButtonDataProvider
             // Get the seller name from the shop configuaration
             $sellerName = $settingsService->getPaymentSettingsValue('business_name', 'novalnet_googlepay');
             // Get the checkout page URL
-            $checkoutPageURL = $webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl . '/' . $sessionStorage->getLocaleSettings()->language . 'checkout?readonlyCheckout=1';
+            $checkoutPageURL = $webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl . '/' . $sessionStorage->getLocaleSettings()->language . '/checkout?readonlyCheckout=1';
             // Required details for the Google Pay button
             $googlePayData = [
                                 'clientKey'     => trim($settingsService->getPaymentSettingsValue('novalnet_client_key')),
