@@ -132,7 +132,6 @@ class NovalnetExpressCheckoutDataProvider
 											'orderLang'             => $orderLang,
 											'orderCurrency'         => $basket->currency,
 											'nnPaymentProcessUrl'   => $paymentService->getExpressPaymentUrl(),
-						'nnApplePayProcessUrl'  => $paymentService->getApplePaymentUrl(),
 											'enabledWalletPayment'  => $enabledWalletPayment,
 											'configurationData'     => $configurationData,
 											'isEnforceEnabled'      => $isEnforceEnabled,
