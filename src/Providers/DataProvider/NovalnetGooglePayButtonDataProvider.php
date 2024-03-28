@@ -42,7 +42,6 @@ class NovalnetGooglePayButtonDataProvider
                          BasketRepositoryContract $basketRepository,
                          CountryRepositoryContract $countryRepository,
                          WebstoreHelper $webstoreHelper,
-                         Response $response,
                          $arg)
     {
         $basket             = $basketRepository->load();
