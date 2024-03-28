@@ -143,12 +143,15 @@ jQuery(document).ready(function() {
             
                 // Check if the condition is met for redirection
                 if (jQuery('#nn_express_key').val() == 1) {
+                    var mopId = jQuery('#nn_google_pay_mop').val();
                     console.log('loading');
                     // Redirect to the specified URL
+                    if(jQuery('input[type="radio"][id*='+mopId+']').is(':checked')) {
                     window.location.href = 'https://xarpd5xqdol.c01-14.plentymarkets.com/kasse?readonlyCheckout=1';
                     // window.location.href = jQuery('#nn_checkout_page_url').val();
                     jQuery('.fa-arrow-right').parent('button').show();
                     jQuery("#nn_google_pay").hide();
+                    }
                 }
             }
         });
@@ -160,13 +163,6 @@ jQuery(document).ready(function() {
 });
 // };
 console.log('test5'); 
-// if (jQuery('#nn_google_pay').is(':empty')) {
-//     jQuery('.fa-arrow-right').parent('button').hide();
-// }
-
-// if (jQuery('#nn_google_pay').css('display') === 'block') {
-//     jQuery('.fa-arrow-right').parent('button').hide();
-// }
 
 
 
