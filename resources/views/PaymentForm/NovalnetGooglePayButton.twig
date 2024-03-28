@@ -17,7 +17,7 @@
     <input type="hidden" name="nn_button_height" id="nn_button_height" value="{{googlePayData.buttonHeight}}">
     <input type="hidden" name="nn_environment" id="nn_environment" value="{{googlePayData.testMode}}">
     <input type="hidden" name="nn_accept_gtc" id="nn_accept_gtc" value="{{trans("Novalnet::Customize.template_checkout_accept_gtc")}}">
-
+    <input type="hidden" name="nn_checkout_page_url" id="nn_checkout_page_url" value="{{nnCheckoutPageURL}}">
 
     {# Set the reinitialization is used #}
         {% if reinitializePayment is not empty %}
