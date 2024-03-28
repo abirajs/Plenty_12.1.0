@@ -17,7 +17,6 @@ use Plenty\Modules\Basket\Contracts\BasketRepositoryContract;
 use Plenty\Modules\Frontend\Session\Storage\Contracts\FrontendSessionStorageFactoryContract;
 use Plenty\Modules\Order\Shipping\Countries\Contracts\CountryRepositoryContract;
 use Plenty\Modules\Helper\Services\WebstoreHelper;
-use Plenty\Plugin\Http\Response;
 use Plenty\Plugin\Log\Loggable;
 
 /**
@@ -51,7 +50,7 @@ class NovalnetGooglePayButtonDataProvider
         $sessionStorage     = pluginApp(FrontendSessionStorageFactoryContract::class);
         $paymentService     = pluginApp(PaymentService::class);
         $settingsService    = pluginApp(SettingsService::class);
-        $response           = pluginApp(Response::class);
+        $webstoreHelper     = pluginApp(WebstoreHelper::class);
 
         if($settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay') == true) {
             if(!empty($basket->basketAmount)) {
@@ -77,7 +76,7 @@ class NovalnetGooglePayButtonDataProvider
             // Get the seller name from the shop configuaration
             $sellerName = $settingsService->getPaymentSettingsValue('business_name', 'novalnet_googlepay');
             // Get the checkout page URL
-            $checkoutPageURL = $response->redirectTo('checkout?readonlyCheckout=1');
+            $checkoutPageURL = $webstoreHelper->getCurrentWebstoreConfiguration()->domainSsl . '/' . $sessionStorage->getLocaleSettings()->language . 'checkout?readonlyCheckout=1';
             $this->getLogger(__METHOD__)->error('Novalnet::$checkoutPageURL', $checkoutPageURL);
             // Required details for the Google Pay button
             $googlePayData = [
