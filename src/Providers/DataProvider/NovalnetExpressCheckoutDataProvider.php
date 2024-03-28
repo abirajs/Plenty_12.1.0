@@ -52,10 +52,14 @@ class NovalnetExpressCheckoutDataProvider
         $this->getLogger(__METHOD__)->error('Novalnet::ExpressBasket failed', $basket);
         if($settingsService->getPaymentSettingsValue('payment_active', 'novalnet_googlepay') == true || $settingsService->getPaymentSettingsValue('payment_active', 'novalnet_applepay') == true) {
             $orderAmount = $paymentHelper->convertAmountToSmallerUnit($basket->itemSumNet);
+	    $this->getLogger(__METHOD__)->error('Novalnet::$orderAmountwithOUTCoupon', $orderAmount);
 	    if(!empty($basket->couponDiscount)) {
                 // Get the order total basket amount
                 $orderAmount = $paymentHelper->convertAmountToSmallerUnit($basket->itemSumNet) - $paymentHelper->convertAmountToSmallerUnit($basket->couponDiscount);
+		$this->getLogger(__METHOD__)->error('Novalnet::$orderAmountwithCoupon', $orderAmount);
             }
+		$this->getLogger(__METHOD__)->error('Novalnet::$isoCode2Values8', $basket->couponDiscount);
+
             // Get the Payment MOP Id
             $paymentMethodDetails = $paymentHelper->getPaymentMethodByKey('NOVALNET_GOOGLEPAY');
             // Get the order language
