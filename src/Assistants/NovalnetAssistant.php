@@ -344,7 +344,7 @@ class NovalnetAssistant extends WizardProvider
                 'options'   =>  [
                                     'name'    => 'NovalnetAssistant.novalnetSepaDueDateLabel',
                                     'tooltip' => 'NovalnetAssistant.novalnetSepaDueDateTooltip',
-                                    'pattern' => '^[1-9]\d*$'
+                                    'pattern' => '^(?:[3-9]|1[0-4])$',
                                 ]
             ]
         ];
