@@ -689,6 +689,10 @@ class NovalnetAssistant extends WizardProvider
                                    'caption' => '24 Cycles',
                                    'value' => 24
                                 ],
+                                [
+                                   'caption' => '36 Cycles',
+                                   'value' => 36
+                                ],
                            ],
                        ]
                 ]
