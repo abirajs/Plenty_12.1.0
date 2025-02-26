@@ -686,6 +686,7 @@ class PaymentService
             'test_mode'         => !empty($paymentResponseData['transaction']['test_mode']) ? $this->paymentHelper->getTranslatedText('test_order',$lang) : 0,
             'plugin_version'    => !empty($paymentResponseData['transaction']['system_version']) ? $paymentResponseData['transaction']['system_version'] : NovalnetConstants::PLUGIN_VERSION,
         ];
+        $additionalInfo['lang'] = $lang;
         if($paymentResponseData['result']['status'] == 'SUCCESS') {
             $dueDate = !empty($paymentResponseData['transaction']['due_date']) ? $paymentResponseData['transaction']['due_date'] : '';
             // Add the Bank details for the invoice payments
