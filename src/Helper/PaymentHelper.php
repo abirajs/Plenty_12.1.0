@@ -558,7 +558,7 @@ class PaymentHelper
             'PAYCONIQ'                      => 'NOVALNET_PAYCONIQ',
             'MBWAY'                         => 'NOVALNET_MBWAY',
             'DIRECT_DEBIT_ACH'              => 'NOVALNET_ACH',
-            'Twint'                         => 'NOVALNET_TWINT',
+            'TWINT'                         => 'NOVALNET_TWINT',
         ];
         return $paymentMethodKey[$paymentType];
     }
