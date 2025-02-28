@@ -155,8 +155,8 @@ class PaymentHelper
             NovalnetTrustlyPaymentMethod::PAYMENT_KEY               => NovalnetTrustlyPaymentMethod::class,
             NovalnetBlikPaymentMethod::PAYMENT_KEY                  => NovalnetBlikPaymentMethod::class,
             NovalnetPayconiqPaymentMethod::PAYMENT_KEY              => NovalnetPayconiqPaymentMethod::class,
-            NovalnetMbwayPaymentMethod::PAYMENT_KEY                 => NovalnetMbwayPaymentMethod::class,
             NovalnetACHPaymentMethod::PAYMENT_KEY                   => NovalnetACHPaymentMethod::class,
+            NovalnetMbwayPaymentMethod::PAYMENT_KEY                 => NovalnetMbwayPaymentMethod::class,
             NovalnetTwintPaymentMethod::PAYMENT_KEY                 => NovalnetTwintPaymentMethod::class
         ];
     }
@@ -238,8 +238,8 @@ class PaymentHelper
                     NovalnetTrustlyPaymentMethod::PAYMENT_KEY,
                     NovalnetBlikPaymentMethod::PAYMENT_KEY,
                     NovalnetPayconiqPaymentMethod::PAYMENT_KEY,
-                    NovalnetMbwayPaymentMethod::PAYMENT_KEY,
                     NovalnetACHPaymentMethod::PAYMENT_KEY,
+                    NovalnetMbwayPaymentMethod::PAYMENT_KEY,
                     NovalnetTwintPaymentMethod::PAYMENT_KEY,
                 ];
     }
