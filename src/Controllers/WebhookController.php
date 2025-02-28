@@ -24,6 +24,7 @@ use Plenty\Modules\Payment\Models\PaymentProperty;
 use Plenty\Plugin\Mail\Contracts\MailerContract;
 use \stdClass;
 use Plenty\Plugin\Log\Loggable;
+use Plenty\Modules\Webshop\Contracts\WebstoreConfigurationRepositoryContract;
 
 /**
  * Class WebhookController
@@ -685,10 +686,13 @@ class WebhookController extends Controller
      * @return string
      */
       public function formCriticalMailBody($data) {
+	    $webstoreConfigRepo = pluginApp(WebstoreConfigurationRepositoryContract::class);
+	    $webstoreConfig = $webstoreConfigRepo->getWebstoreConfiguration();
+            $storeOwnerName = $webstoreConfig->name;
+	      
 	    $webhookMessage  = $this->paymentHelper->getTranslatedText('webhook_critical_mail', $this->orderLanguage) . '<br><br>';
 	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_title', $this->orderLanguage) . '<br><br>';
-	
-	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_project_id', $this->orderLanguage), $data['merchant']['project']) . '<br>';
+	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_project_id', $this->orderLanguage), $storeOwnerName) . '<br>';
 	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_tid', $this->orderLanguage), $data['transaction']['tid']) . '<br>';
 	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_tid_status', $this->orderLanguage), $data['transaction']['status']) . '<br>';
 	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_payment_type', $this->orderLanguage), $data['transaction']['payment_type']) . '<br>';
