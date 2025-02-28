@@ -684,26 +684,24 @@ class WebhookController extends Controller
      * @param array $data
      * @return string
      */
-    public function formCriticalMailBody($data)	{
-		
-        $webhookMessage  = $this->paymentHelper->getTranslatedText('webhook_critical_mail_title', $this->orderLanguage);
+      public function formCriticalMailBody($data) {
+	    $webhookMessage  = $this->paymentHelper->getTranslatedText('webhook_critical_mail_title', $this->orderLanguage) . '<br>';
+	
+	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_project_id', $this->orderLanguage), $data['merchant']['project']) . '<br>';
+	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_tid', $this->orderLanguage), $data['transaction']['tid']) . '<br>';
+	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_tid_status', $this->orderLanguage), $data['transaction']['status']) . '<br>';
+	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_payment_type', $this->orderLanguage), $data['transaction']['payment_type']) . '<br>';
+	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_amount', $this->orderLanguage), $data['transaction']['amount'] / 100 . ' ' . $data['transaction']['currency']) . '<br>';
+	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_customer_email', $this->orderLanguage), $data['customer']['email']) . '<br>';
+	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_webhook_communication', $this->orderLanguage) . '<br>';
+	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_discrepancies', $this->orderLanguage) . '<br>';
+	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_manual_order_creation', $this->orderLanguage) . '<br>';
+	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_refund_initiation', $this->orderLanguage) . '<br>';
+	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_promt_review', $this->orderLanguage) . '<br>';
+	
+	    return $webhookMessage;
+      }
 
-        $webhookMessage .= PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_project_id', $this->orderLanguage), $data['merchant']['project']);
-        
-        $webhookMessage .= PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_tid', $this->orderLanguage), $data['transaction']['tid']);
-        $webhookMessage .= PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_tid_status', $this->orderLanguage), $data['transaction']['status']);
-        $webhookMessage .= PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_payment_type', $this->orderLanguage), $data['transaction']['payment_type']);
-        $webhookMessage .= PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_amount', $this->orderLanguage), $data['transaction']['amount'] / 100 . ' ' . $data['transaction']['currency']);
-        $webhookMessage .= PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_customer_email', $this->orderLanguage), $data['customer']['email']);
-        $webhookMessage .= PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_webhook_communication', $this->orderLanguage));
-        $webhookMessage .= PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_discrepancies', $this->orderLanguage));
-        $webhookMessage .= PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_manual_order_creation', $this->orderLanguage));
-        $webhookMessage .= PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_refund_initiation', $this->orderLanguage));
-        $webhookMessage .= PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_promt_review', $this->orderLanguage));
-
-        return $webhookMessage;
-
-    }
     
     /**
      * Send the webhook script email for the execution
