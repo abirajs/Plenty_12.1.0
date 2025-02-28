@@ -685,7 +685,8 @@ class WebhookController extends Controller
      * @return string
      */
       public function formCriticalMailBody($data) {
-	    $webhookMessage  = $this->paymentHelper->getTranslatedText('webhook_critical_mail_title', $this->orderLanguage) . '<br><br>';
+	    $webhookMessage  = $this->paymentHelper->getTranslatedText('webhook_critical_mail', $this->orderLanguage) . '<br><br>';
+	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_title', $this->orderLanguage) . '<br><br>';
 	
 	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_project_id', $this->orderLanguage), $data['merchant']['project']) . '<br>';
 	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_tid', $this->orderLanguage), $data['transaction']['tid']) . '<br>';
@@ -698,6 +699,8 @@ class WebhookController extends Controller
 	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_manual_order_creation', $this->orderLanguage) . '<br><br>';
 	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_refund_initiation', $this->orderLanguage) . '<br><br>';
 	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_promt_review', $this->orderLanguage) . '<br><br>';
+	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_regards_title', $this->orderLanguage) . '<br><br>';
+	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_regards_subject', $this->orderLanguage) . '<br><br>';
 	
 	    return $webhookMessage;
       }
