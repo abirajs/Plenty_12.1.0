@@ -1,5 +1,5 @@
 {
-    "name": "Novalnet",
+    "name": "Novalnet-dev",
     "namespace": "Novalnet",
     "marketplaceName": {"de": "Novalnet", "en": "Novalnet"},
     "type": "payment",
