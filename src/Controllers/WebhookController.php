@@ -182,10 +182,10 @@ class WebhookController extends Controller
                     return $this->handleTransactionUpdate();
                 case 'TRANSACTION_REFUND':
                     return $this->handleTransactionRefund();
-                case '':
-                    return $this->handle();
-                case '_CANCEL':
-                    return $this->handleCancel();
+                case 'INSTALMENT':
+                    return $this->handleInstalment();
+                case 'INSTALMENT_CANCEL':
+                    return $this->handleInstalmentCancel();
                 case 'CREDIT':
                     return $this->handleTransactionCredit();
                 case 'CHARGEBACK':
