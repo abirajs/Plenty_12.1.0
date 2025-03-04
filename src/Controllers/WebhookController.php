@@ -565,6 +565,7 @@ class WebhookController extends Controller
         $this->paymentService->insertPaymentResponse($this->eventData, $this->parentTid, 0, 0);
         // Create the payment to the plenty order
         $this->paymentHelper->createPlentyPayment($this->eventData);
+	$this->transactionService->updateTransactionData('orderNo', $this->eventData['transaction']['order_no'], $this->eventData);
         $this->sendWebhookMail($webhookComments);
         return $this->renderTemplate($webhookComments);
 
