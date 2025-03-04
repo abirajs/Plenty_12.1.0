@@ -182,10 +182,10 @@ class WebhookController extends Controller
                     return $this->handleTransactionUpdate();
                 case 'TRANSACTION_REFUND':
                     return $this->handleTransactionRefund();
-                case 'INSTALMENT':
-                    return $this->handleInstalment();
-                case 'INSTALMENT_CANCEL':
-                    return $this->handleInstalmentCancel();
+                case '':
+                    return $this->handle();
+                case '_CANCEL':
+                    return $this->handleCancel();
                 case 'CREDIT':
                     return $this->handleTransactionCredit();
                 case 'CHARGEBACK':
@@ -562,7 +562,7 @@ class WebhookController extends Controller
         // Booking Message
         $this->eventData['bookingText'] = $webhookComments;
         // Insert the updated instalment details into Novalnet DB
-        $this->paymentService->insertPaymentResponse($this->eventData, $this->parentTid, 0, 0);
+        $this->paymentService->insertPaymentResponse($this->eventData);
         // Create the payment to the plenty order
         $this->paymentHelper->createPlentyPayment($this->eventData);
 	$this->transactionService->updateTransactionData('orderNo', $this->eventData['transaction']['order_no'], $this->eventData);
