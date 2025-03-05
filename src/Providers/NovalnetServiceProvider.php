@@ -434,7 +434,8 @@ class NovalnetServiceProvider extends ServiceProvider
                     $transactionComments .= $paymentService->displayTransactionComments($order->id, $payments);
                     $orderPdfGenerationModel = pluginApp(OrderPdfGeneration::class);
                     $this->getLogger(__METHOD__)->error('$nnDbTxDetails', $nnDbTxDetails);                                                                                                   
-                    $orderPdfGenerationModel->language = $nnDbTxDetails['lang'] ?? 'de';
+                    $orderPdfGenerationModel->language = $nnDbTxDetails['lang'] ? $nnDbTxDetails['lang'] : 'de';
+                   $this->getLogger(__METHOD__)->error('$orderPdfGenerationModel', $orderPdfGenerationModel->language);  
                     $orderPdfGenerationModel->advice = $paymentHelper->getTranslatedText('novalnet_details'). PHP_EOL . $transactionComments;
                     if ($event->getDocType() == Document::INVOICE) { // Add the comments into Invoice PDF document
                         $event->addOrderPdfGeneration($orderPdfGenerationModel);
