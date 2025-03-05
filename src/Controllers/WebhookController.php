@@ -723,6 +723,7 @@ class WebhookController extends Controller
         try
         {
             $toAddress  = $this->settingsService->getPaymentSettingsValue('novalnet_webhook_email_to');
+		$this->getLogger(__METHOD__)->error('$toAddresscmail', $toAddress);
             if($toAddress)
             {
                 $subject = $this->paymentHelper->getTranslatedText('webhook_critical_mail_subject', $this->orderLanguage);
@@ -746,6 +747,7 @@ class WebhookController extends Controller
         try
         {
             $toAddress  = $this->settingsService->getPaymentSettingsValue('novalnet_webhook_email_to');
+		$this->getLogger(__METHOD__)->error('$toAddressmail', $toAddress);
             if($toAddress)
             {
                 $subject = 'Novalnet Callback Script Access Report';
