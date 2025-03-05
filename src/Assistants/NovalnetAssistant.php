@@ -626,12 +626,12 @@ class NovalnetAssistant extends WizardProvider
                        'type' => 'checkboxGroup',
                        'options' => [
                             'required'  => true,
-                            'defaultValue'  => [2],
                            'name' => 'NovalnetAssistant.novalnetinstamentCyclesLabel',
                            'checkboxValues' =>
                            [
                                 [
                                    'caption' => '2 Cycles',
+                                    'defaultValue'  => true,
                                    'value' => 2,
                                 ],
                                 [
