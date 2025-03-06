@@ -646,13 +646,13 @@ class PaymentService
      *
      * @return none
      */
-    public function insertPaymentResponse($paymentResponseData, $parentTid = 0, $refundOrderTotalAmount = 0, $creditOrderTotalAmount = 0)
+    public function insertPaymentResponse($paymentResponseData, $parentTid = 0, $refundOrderTotalAmount = 0, $creditOrderTotalAmount = 0, $webhookComments = ' ')
     {
          // Assign the payment method
         if(empty($paymentResponseData['payment_method'])) {
             $paymentResponseData['payment_method'] = strtolower($this->paymentHelper->getPaymentKey($paymentResponseData['transaction']['payment_type']));
         }
-        $additionalInfo = $this->getAdditionalPaymentInfo($paymentResponseData);
+        $additionalInfo = $this->getAdditionalPaymentInfo($paymentResponseData, $webhookComments);
         $orderTotalAmount = 0;
         // Set the order total amount for Refund and Credit followups
         if(!empty($refundOrderTotalAmount) || !empty($creditOrderTotalAmount)) {
@@ -680,7 +680,7 @@ class PaymentService
      *
      * @return string
      */
-    public function getAdditionalPaymentInfo($paymentResponseData)
+    public function getAdditionalPaymentInfo($paymentResponseData, $webhookComments)
     {
         $lang = !empty($paymentResponseData['custom']['lang']) ? strtolower((string)$paymentResponseData['custom']['lang']) : $paymentResponseData['lang'];
         // Add the extra information for the further processing
@@ -690,6 +690,8 @@ class PaymentService
             'plugin_version'    => !empty($paymentResponseData['transaction']['system_version']) ? $paymentResponseData['transaction']['system_version'] : NovalnetConstants::PLUGIN_VERSION,
         ];
         $additionalInfo['lang'] = $lang;
+	$additionalInfo['webhookComments'] = $webhookComments;
+	$this->getLogger(__METHOD__)->error('Novalnet::webhookComments', $webhookComments);  
         if($paymentResponseData['result']['status'] == 'SUCCESS') {
             $dueDate = !empty($paymentResponseData['transaction']['due_date']) ? $paymentResponseData['transaction']['due_date'] : '';
             // Add the Bank details for the invoice payments
