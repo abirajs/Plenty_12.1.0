@@ -533,7 +533,7 @@ class WebhookController extends Controller
             // Set the payment name
             $this->eventData['payment_method'] = $this->orderDetails->paymentName;
             // Insert the refund transaction details into Novalnet DB
-            $this->paymentService->insertPaymentResponse($this->eventData);
+            $this->paymentService->insertPaymentResponse($this->eventData, 0, 0, 0, $webhookComments);
             // Booking Message
             $this->eventData['bookingText'] = $webhookComments;
             // Create the payment to the plenty order
