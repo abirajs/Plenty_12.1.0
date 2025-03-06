@@ -690,7 +690,8 @@ class PaymentService
             'plugin_version'    => !empty($paymentResponseData['transaction']['system_version']) ? $paymentResponseData['transaction']['system_version'] : NovalnetConstants::PLUGIN_VERSION,
         ];
         $additionalInfo['lang'] = $lang;
-	$additionalInfo['webhookComments'] = $webhookComments;
+	$transactionData = $this->getDatabaseValues($paymentResponseData['transaction']['order_no']);
+	$additionalInfo['webhookComments'] = !empty($transactionData['webhookComments']) ? $transactionData['webhookComments'] . $webhookComments : $webhookComments;
 	$this->getLogger(__METHOD__)->error('Novalnet::webhookComments', $webhookComments);  
         if($paymentResponseData['result']['status'] == 'SUCCESS') {
             $dueDate = !empty($paymentResponseData['transaction']['due_date']) ? $paymentResponseData['transaction']['due_date'] : '';
