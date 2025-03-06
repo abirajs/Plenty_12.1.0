@@ -1128,7 +1128,10 @@ class PaymentService
         $invoiceComments .= PHP_EOL . $this->paymentHelper->getTranslatedText('bank') . $transactionData['invoice_bankname']. ' ' . $transactionData['invoice_bankplace'];
         // Adding the payment reference details
         $invoiceComments .= PHP_EOL . $this->paymentHelper->getTranslatedText('any_one_reference_text');
-        $invoiceComments .= PHP_EOL . $this->paymentHelper->getTranslatedText('payment_reference1'). 'TID '. $transactionData['tid'] . PHP_EOL . $this->paymentHelper->getTranslatedText('payment_reference2') . $transactionData['invoice_ref'] . PHP_EOL;
+        $invoiceComments .= PHP_EOL . $this->paymentHelper->getTranslatedText('payment_reference1'). 'TID '. $transactionData['tid'];
+        if(isset($transactionData['invoice_ref'])) {
+			$invoiceComments .= PHP_EOL . $this->paymentHelper->getTranslatedText('payment_reference2') . $transactionData['invoice_ref'] . PHP_EOL;
+		}
         return $invoiceComments;
     }
 
