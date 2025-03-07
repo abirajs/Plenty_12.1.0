@@ -1070,7 +1070,10 @@ class PaymentService
         if($transactionData['paymentName'] == 'novalnet_multibanco' && !in_array($transactionData['tx_status'], ['DEACTIVATED', 'FAILURE'])) {
             $transactionComments .= PHP_EOL . $this->getMultibancoReferenceInformation($transactionData);
         }
-	    
+
+	if(!empty($transactionData['webhookComments'])) {
+            $transactionComments .= $transactionData['webhookComments'];
+        }
         return $transactionComments;
     }
 
