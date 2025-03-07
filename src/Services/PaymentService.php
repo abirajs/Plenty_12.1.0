@@ -691,7 +691,7 @@ class PaymentService
         ];
         $additionalInfo['lang'] = $lang;
 	$transactionData = $this->getDatabaseValues($paymentResponseData['transaction']['order_no']);
-	$additionalInfo['webhookComments'] = !empty($transactionData['webhookComments']) ? $transactionData['webhookComments'] . PHP_EOL . $webhookComments : $webhookComments . PHP_EOL;
+	$additionalInfo['webhookComments'] = !empty($transactionData['webhookComments']) ? $transactionData['webhookComments'] . PHP_EOL . $webhookComments : PHP_EOL . $webhookComments . PHP_EOL;
 	$this->getLogger(__METHOD__)->error('Novalnet::webhookComments', $webhookComments);  
         if($paymentResponseData['result']['status'] == 'SUCCESS') {
             $dueDate = !empty($paymentResponseData['transaction']['due_date']) ? $paymentResponseData['transaction']['due_date'] : '';
