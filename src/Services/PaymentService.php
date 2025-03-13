@@ -1111,16 +1111,18 @@ class PaymentService
     {
 	$this->getLogger(__METHOD__)->error('Novalnet::getBankDetailsInformation', $transactionData);
         if(in_array($transactionData['paymentName'], ['novalnet_instalment_invoice', 'novalnet_instalment_sepa'])) {
-            $invoiceComments = PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('transfer_amount_duedate_text'), str_replace('.', ',', sprintf('%0.2f', $transactionData['cycle_amount']/100)), $transactionData['currency'], date('Y/m/d', (int)strtotime($transactionData['due_date'])));
+	    $cycleAmount = $this->paymentHelper->convertAmountToMinorUnit($transactionData['cycle_amount']);
+            $invoiceComments = PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('transfer_amount_duedate_text'), $cycleAmount, $transactionData['currency'], date('Y/m/d', (int)strtotime($transactionData['due_date'])));
             // If the transaction is in On-Hold not displaying the due date
             if($transactionData['tx_status'] == 'ON_HOLD') {
-                $invoiceComments = PHP_EOL . PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('transfer_amount_text'), str_replace('.', ',', sprintf('%0.2f', $transactionData['cycle_amount']/100)), $transactionData['currency']);
+                $invoiceComments = PHP_EOL . PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('transfer_amount_text'), $cycleAmount, $transactionData['currency']);
             }
         } else {
-            $invoiceComments = PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('transfer_amount_duedate_text'), str_replace('.', ',', sprintf('%0.2f', $transactionData['amount'])), $transactionData['currency'], date('Y/m/d', (int)strtotime($transactionData['due_date'])));
+	    $amount = $this->paymentHelper->convertAmountToMinorUnit($transactionData['amount']);
+            $invoiceComments = PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('transfer_amount_duedate_text'), $amount, $transactionData['currency'], date('Y/m/d', (int)strtotime($transactionData['due_date'])));
             // If the transaction is in On-Hold not displaying the due date
             if($transactionData['tx_status'] == 'ON_HOLD') {
-                $invoiceComments = PHP_EOL . PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('transfer_amount_text'), str_replace('.', ',', sprintf('%0.2f', $transactionData['amount'])), $transactionData['currency']);
+                $invoiceComments = PHP_EOL . PHP_EOL . sprintf($this->paymentHelper->getTranslatedText('transfer_amount_text'), $amount, $transactionData['currency']);
             }
         }
         $invoiceComments .= PHP_EOL . $this->paymentHelper->getTranslatedText('account_holder_novalnet') . $transactionData['invoice_account_holder'];
