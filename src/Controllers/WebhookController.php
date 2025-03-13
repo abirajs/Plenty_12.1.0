@@ -726,7 +726,7 @@ class WebhookController extends Controller
 		$this->getLogger(__METHOD__)->error('$toAddresscmail', $toAddress);
             if($toAddress)
             {
-                $subject .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_subject', $this->orderLanguage), $shopName, $tid);
+                $subject .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_subject', $this->orderLanguage), $tid, $shopName);
                 $mailer  = pluginApp(MailerContract::class);
                 $mailer->sendHtml($mailContent, $toAddress, $subject);
             }
