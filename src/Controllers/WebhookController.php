@@ -690,7 +690,7 @@ class WebhookController extends Controller
      * @return string
      */
       public function formCriticalMailBody($data, $shopName) {
-	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail', $this->orderLanguage), $storeOwnerName) . '<br><br>';
+	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail', $this->orderLanguage), $shopName) . '<br><br>';
 	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_title', $this->orderLanguage) . '<br><br>';
 	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_project_id', $this->orderLanguage), $data['merchant']['project']) . '<br>';
 	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_tid', $this->orderLanguage), $data['transaction']['tid']) . '<br>';
