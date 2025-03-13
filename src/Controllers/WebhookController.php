@@ -718,7 +718,7 @@ class WebhookController extends Controller
      *
      * @return none
      */
-    public function sendCriticalMailNotification($mailContent, $storeOwnerName, $tid)
+    public function sendCriticalMailNotification($mailContent, $shopName, $tid)
     {
         try
         {
