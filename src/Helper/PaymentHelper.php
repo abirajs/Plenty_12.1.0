@@ -603,4 +603,22 @@ class PaymentHelper
         $paymentObj = $this->paymentRepository->createPayment($payment);
         $this->assignPlentyPaymentToPlentyOrder($paymentObj, (int)$paymentResponseData['childOrderId']);
     }
+    
+    /**
+     * Convert the orderamount to cents
+     *
+     * @param float $amount
+     *
+     * @return string
+     */
+    function convertAmountToMinorUnit($amount) {
+		// Remove any thousand separators (both dot and comma)
+		$amount = str_replace(['.', ','], '', $amount);
+
+		// Ensure the decimal separator is always a dot
+		$amount = str_replace(',', '.', $amount);
+
+		// Convert to minor unit (cents) and round properly
+		return (int) round((float) $amount);
+	}
 }
