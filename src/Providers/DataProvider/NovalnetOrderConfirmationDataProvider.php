@@ -71,7 +71,7 @@ class NovalnetOrderConfirmationDataProvider
                         $nnDbTxDetails['cashpayment_comments'] = !empty($cashpaymentComments) ? $cashpaymentComments : '';
                         // Form the Novalnet transaction comments
                         $transactionComments = $paymentService->formTransactionComments($nnDbTxDetails);
-                        $transactionComments .= qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq;
+                        $transactionComments .= "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq";
                     } else {
                         return '';
                     }
