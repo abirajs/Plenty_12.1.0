@@ -210,7 +210,7 @@ class PaymentController extends Controller
                 'unique_id'  => $paymentRequestPostData['nn_unique_id']
             ];
             if(($this->settingsService->getPaymentSettingsValue('enforce', strtolower($paymentRequestPostData['nn_payment_key'])) == true)) {
-				$paymentRequestData['paymentRequestData']['transaction']['payment_data']['enforce_3d'] = 1;
+				$paymentRequestData['paymentRequestData']['transaction']['enforce_3d'] = 1;
 			}
             // Set the Do redirect value into session for the redirection
             $this->sessionStorage->getPlugin()->setValue('nnDoRedirect', $paymentRequestPostData['nn_cc3d_redirect']);
