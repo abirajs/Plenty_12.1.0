@@ -3,7 +3,7 @@
 <div class="row">
     <strong class="col-6 col-sm-5">{{trans("Novalnet::PaymentMethod.novalnet_details")}}</strong>
     <span class="col-6 col-sm-7">{{transactionComments|raw}}</span>
-
+</div>
     {# Display the cashpayment button #}
     {% if cashpaymentToken is not empty and services.template.isCurrentTemplate('tpl.confirmation') %}
     <style type="text/css">
@@ -15,8 +15,9 @@
             data-token="{{cashpaymentToken}}"
             data-auto-display="true">
     </script>
+<div>
     <button id="barzahlen_button" class="bz-checkout-btn" onclick="javascript:bzCheckout.display();">{{trans("Novalnet::PaymentMethod.barzahlen_token")}}</button>
-
-    {% endif %}
 </div>
+    {% endif %}
+
 {% endif %}
