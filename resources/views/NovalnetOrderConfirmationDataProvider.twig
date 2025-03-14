@@ -6,7 +6,6 @@
 
     {# Display the cashpayment button #}
     {% if cashpaymentToken is not empty and services.template.isCurrentTemplate('tpl.confirmation') %}
-    <button id="barzahlen_button" class="bz-checkout-btn" onclick="javascript:bzCheckout.display();">{{trans("Novalnet::PaymentMethod.barzahlen_token")}}</button>
     <style type="text/css">
         #bz-checkout-modal {position: fixed !important;}
         #barzahlen_button {width: max-content; margin-top: -30px !important; margin-bottom: 5% !important; margin-left: 20px !important;}
@@ -16,6 +15,8 @@
             data-token="{{cashpaymentToken}}"
             data-auto-display="true">
     </script>
+    <button id="barzahlen_button" class="bz-checkout-btn" onclick="javascript:bzCheckout.display();">{{trans("Novalnet::PaymentMethod.barzahlen_token")}}</button>
+
     {% endif %}
 </div>
 {% endif %}
