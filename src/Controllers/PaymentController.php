@@ -218,11 +218,11 @@ class PaymentController extends Controller
         // Setting up the wallet token for the Google pay payment
         if($paymentRequestPostData['nn_payment_key'] == 'NOVALNET_GOOGLEPAY') {
             $paymentRequestData['paymentRequestData']['transaction']['payment_data'] = ['wallet_token'  => $paymentRequestPostData['nn_google_pay_token']];
-            // Set the Do redirect value into session for the Google Pay redirection
-             $this->sessionStorage->getPlugin()->setValue('nnGooglePayDoRedirect', $paymentRequestPostData['nn_google_pay_do_redirect']);
 	    if(($this->settingsService->getPaymentSettingsValue('enforce', strtolower($paymentRequestPostData['nn_payment_key'])) == true)) {
 		$paymentRequestData['paymentRequestData']['transaction']['enforce_3d'] = 1;
 	    }
+	     // Set the Do redirect value into session for the Google Pay redirection
+             $this->sessionStorage->getPlugin()->setValue('nnGooglePayDoRedirect', $paymentRequestPostData['nn_google_pay_do_redirect']);
         }
         // Call the order creation function for the redirection
         if(!empty($paymentRequestPostData['nn_cc3d_redirect']) || $paymentRequestPostData['nn_payment_key'] == 'NOVALNET_MBWAY' || (!empty($paymentRequestPostData['nn_google_pay_do_redirect']) && (string) $paymentRequestPostData['nn_google_pay_do_redirect'] === 'true')) {
