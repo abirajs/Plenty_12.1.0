@@ -382,7 +382,7 @@ class PaymentService
 		$this->getLogger(__METHOD__)->alert('enforce_3d2', strtolower((string) $paymentKey));
 	}
 	    
-        if($paymentKey == 'NOVALNET_CC' && $this->settingsService->getPaymentSettingsValue('enforce', strtolower($paymentKey))) {
+        if($paymentKey == 'NOVALNET_CC') {
             $paymentRequestData['transaction']['payment_data']['enforce_3d'] = 1;
         }
         // Send return URL if redirect payments
