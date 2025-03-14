@@ -376,14 +376,7 @@ class PaymentService
         // Send the payment type to Novalnet server
         $paymentRequestData['transaction']['payment_type'] = $this->getPaymentType($paymentKey);
         // Send enforce cc value to Novalnet server
-	    $paymentKeyLower = strtolower((string) $paymentKey);
-	if($paymentKey == 'NOVALNET_CC') {
-	$this->getLogger(__METHOD__)->alert('enforce_3d', $this->settingsService->getPaymentSettingsValue('enforce', $paymentKeyLower));	
-		$this->getLogger(__METHOD__)->alert('enforce_3d1', $paymentKey);
-		$this->getLogger(__METHOD__)->alert('enforce_3d2', strtolower((string) $paymentKey));
-	}
-	    
-        if($paymentKey == 'NOVALNET_CC') {
+        if($paymentKey == 'NOVALNET_CC' && $this->settingsService->getPaymentSettingsValue('enforce', $paymentKey) == true) {
             $paymentRequestData['transaction']['payment_data']['enforce_3d'] = 1;
         }
         // Send return URL if redirect payments
