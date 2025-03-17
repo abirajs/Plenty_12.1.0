@@ -706,7 +706,7 @@ class WebhookController extends Controller
 	    $mailContent .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_manual_order_creation', $this->orderLanguage) . '<br><br>';
 	    $mailContent .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_refund_initiation', $this->orderLanguage) . '<br><br>';
 	    $mailContent .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_promt_review', $this->orderLanguage) . '<br><br>';
-	    $mailContent .= '--';
+	    $mailContent .= '--' . '<br>';
 	    $mailContent .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_regards_title', $this->orderLanguage) . '<br>';
 	    $mailContent .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_regards_subject', $this->orderLanguage) . '<br><br>';
 	     		
