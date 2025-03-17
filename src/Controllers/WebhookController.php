@@ -295,11 +295,7 @@ class WebhookController extends Controller
         // If both the order number from Novalnet and in shop is missing, then something is wrong
         if(empty($novalnetOrderDetail->orderNo) && empty($this->eventData['transaction']['order_no'])) {
 			if($this->eventData['result']['status'] == 'SUCCESS') {
-				$webstoreConfigRepo = pluginApp(WebstoreConfigurationRepositoryContract::class);
-				$webstoreConfig = $webstoreConfigRepo->getWebstoreConfiguration();
-				$shopName = $webstoreConfig->name;
-				$webhookMessage = $this->formCriticalMailBody($this->eventData, $shopName);
-				$this->sendCriticalMailNotification($webhookMessage, $shopName, $this->eventData['transaction']['tid']);	
+				$this->sendCriticalMail($this->eventData);	
 			}
             return $this->renderTemplate('Order reference not found for the TID ' . $this->parentTid);
         }
@@ -685,13 +681,19 @@ class WebhookController extends Controller
     }
 
     /**
-     * Form the critical mail notification messages
+     * Send the critical email for the order not found
      *
-     * @param array $data
-     * @return string
+     * @param string $data
+     *
+     * @return none
      */
-      public function formCriticalMailBody($data, $shopName) {
-	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail', $this->orderLanguage), $shopName) . '<br><br>';
+    public function sendCriticalMail($data)
+    {
+	    $webstoreConfigRepo = pluginApp(WebstoreConfigurationRepositoryContract::class);
+	    $webstoreConfig = $webstoreConfigRepo->getWebstoreConfiguration();
+	    $shopName = $webstoreConfig->name;
+		
+	    $webhookMessage  = sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail', $this->orderLanguage), $shopName) . '<br><br>';
 	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_title', $this->orderLanguage) . '<br><br>';
 	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_project_id', $this->orderLanguage), $data['merchant']['project']) . '<br>';
 	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_tid', $this->orderLanguage), $data['transaction']['tid']) . '<br>';
@@ -704,38 +706,25 @@ class WebhookController extends Controller
 	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_manual_order_creation', $this->orderLanguage) . '<br><br>';
 	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_refund_initiation', $this->orderLanguage) . '<br><br>';
 	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_promt_review', $this->orderLanguage) . '<br><br>';
-	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_regards', $this->orderLanguage) . '<br>';
+	    $webhookMessage .= '--';
 	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_regards_title', $this->orderLanguage) . '<br>';
 	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_regards_subject', $this->orderLanguage) . '<br><br>';
-	
-	    return $webhookMessage;
-      }
-
-    
-    /**
-     * Send the webhook script email for the execution
-     *
-     * @param string $mailContent
-     *
-     * @return none
-     */
-    public function sendCriticalMailNotification($mailContent, $shopName, $tid)
-    {
+	     		
         try
         {
             $toAddress  = $this->settingsService->getPaymentSettingsValue('novalnet_webhook_email_to');
-		$this->getLogger(__METHOD__)->error('$toAddresscmail', $toAddress);
             if($toAddress)
             {
-                $subject .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_subject', $this->orderLanguage), $tid, $shopName);
+                $subject .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_subject', $this->orderLanguage), $data['transaction']['tid'], $shopName);
                 $mailer  = pluginApp(MailerContract::class);
-                $mailer->sendHtml($mailContent, $toAddress, $subject);
+                $mailer->sendHtml($webhookMessage, $toAddress, $subject);
             }
         } catch (\Exception $e) {
-            $this->getLogger(__METHOD__)->error('Novalnet::sendWebhookMail', $e);
+            $this->getLogger(__METHOD__)->error('Novalnet::sendCriticalMail', $e);
         }
     }
-    
+
+	
     /**
      * Send the webhook script email for the execution
      *
