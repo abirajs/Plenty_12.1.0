@@ -693,22 +693,22 @@ class WebhookController extends Controller
 	    $webstoreConfig = $webstoreConfigRepo->getWebstoreConfiguration();
 	    $shopName = $webstoreConfig->name;
 		
-	    $webhookMessage  = sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail', $this->orderLanguage), $shopName) . '<br><br>';
-	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_title', $this->orderLanguage) . '<br><br>';
-	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_project_id', $this->orderLanguage), $data['merchant']['project']) . '<br>';
-	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_tid', $this->orderLanguage), $data['transaction']['tid']) . '<br>';
-	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_tid_status', $this->orderLanguage), $data['transaction']['status']) . '<br>';
-	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_payment_type', $this->orderLanguage), $data['transaction']['payment_type']) . '<br>';
-	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_amount', $this->orderLanguage), $data['transaction']['amount'] / 100 . ' ' . $data['transaction']['currency']) . '<br>';
-	    $webhookMessage .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_customer_email', $this->orderLanguage), $data['customer']['email']) . '<br><br>';
-	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_webhook_communication', $this->orderLanguage) . '<br><br>';
-	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_discrepancies', $this->orderLanguage) . '<br><br>';
-	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_manual_order_creation', $this->orderLanguage) . '<br><br>';
-	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_refund_initiation', $this->orderLanguage) . '<br><br>';
-	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_promt_review', $this->orderLanguage) . '<br><br>';
-	    $webhookMessage .= '--';
-	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_regards_title', $this->orderLanguage) . '<br>';
-	    $webhookMessage .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_regards_subject', $this->orderLanguage) . '<br><br>';
+	    $mailContent  = sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail', $this->orderLanguage), $shopName) . '<br><br>';
+	    $mailContent .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_title', $this->orderLanguage) . '<br><br>';
+	    $mailContent .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_project_id', $this->orderLanguage), $data['merchant']['project']) . '<br>';
+	    $mailContent .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_tid', $this->orderLanguage), $data['transaction']['tid']) . '<br>';
+	    $mailContent .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_tid_status', $this->orderLanguage), $data['transaction']['status']) . '<br>';
+	    $mailContent .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_payment_type', $this->orderLanguage), $data['transaction']['payment_type']) . '<br>';
+	    $mailContent .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_amount', $this->orderLanguage), $data['transaction']['amount'] / 100 . ' ' . $data['transaction']['currency']) . '<br>';
+	    $mailContent .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_customer_email', $this->orderLanguage), $data['customer']['email']) . '<br><br>';
+	    $mailContent .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_webhook_communication', $this->orderLanguage) . '<br><br>';
+	    $mailContent .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_discrepancies', $this->orderLanguage) . '<br><br>';
+	    $mailContent .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_manual_order_creation', $this->orderLanguage) . '<br><br>';
+	    $mailContent .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_refund_initiation', $this->orderLanguage) . '<br><br>';
+	    $mailContent .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_promt_review', $this->orderLanguage) . '<br><br>';
+	    $mailContent .= '--';
+	    $mailContent .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_regards_title', $this->orderLanguage) . '<br>';
+	    $mailContent .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_regards_subject', $this->orderLanguage) . '<br><br>';
 	     		
         try
         {
@@ -717,7 +717,7 @@ class WebhookController extends Controller
             {
                 $subject .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_subject', $this->orderLanguage), $data['transaction']['tid'], $shopName);
                 $mailer  = pluginApp(MailerContract::class);
-                $mailer->sendHtml($webhookMessage, $toAddress, $subject);
+                $mailer->sendHtml($mailContent, $toAddress, $subject);
             }
         } catch (\Exception $e) {
             $this->getLogger(__METHOD__)->error('Novalnet::sendCriticalMail', $e);
