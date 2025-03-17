@@ -244,7 +244,6 @@ class PaymentController extends Controller
             if($this->settingsService->getPaymentSettingsValue('novalnet_order_creation') != true) {
                 $paymentResponseData = $this->paymentService->performServerCall();
 		$this->getLogger(__METHOD__)->error('Novalnet::QA-$paymentResponseData', $paymentResponseData);
-		$this->getLogger(__METHOD__)->error('Novalnet::QA-$paymentResponseData-var-dump' . print_r($paymentResponseData, true));
                 if(is_array($paymentResponseData) && !empty($paymentResponseData) && $paymentResponseData['result']['status'] != 'SUCCESS') {
                     $this->sessionStorage->getPlugin()->setValue('nnDoRedirect', null);
             $this->sessionStorage->getPlugin()->setValue('nnGooglePayDoRedirect', null);
