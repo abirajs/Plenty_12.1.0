@@ -18,7 +18,7 @@ use Novalnet\Services\SettingsService;
 use Plenty\Modules\Frontend\Session\Storage\Contracts\FrontendSessionStorageFactoryContract;
 use Plenty\Modules\Basket\Contracts\BasketRepositoryContract;
 use Plenty\Plugin\Templates\Twig;
-
+use Plenty\Plugin\Log\Loggable;
 /**
  * Class PaymentController
  *
@@ -26,6 +26,7 @@ use Plenty\Plugin\Templates\Twig;
  */
 class PaymentController extends Controller
 {
+    use Loggable;
     /**
      * @var Request
      */
@@ -242,6 +243,8 @@ class PaymentController extends Controller
         } else {
             if($this->settingsService->getPaymentSettingsValue('novalnet_order_creation') != true) {
                 $paymentResponseData = $this->paymentService->performServerCall();
+		$this->getLogger(__METHOD__)->error('Novalnet::QA-$paymentResponseData', $paymentResponseData);
+		$this->getLogger(__METHOD__)->error('Novalnet::QA-$paymentResponseData-vardump', var_dump($paymentResponseData)); 
                 if(is_array($paymentResponseData) && !empty($paymentResponseData) && $paymentResponseData['result']['status'] != 'SUCCESS') {
                     $this->sessionStorage->getPlugin()->setValue('nnDoRedirect', null);
             $this->sessionStorage->getPlugin()->setValue('nnGooglePayDoRedirect', null);
