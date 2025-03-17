@@ -42,7 +42,7 @@ The Novalnet payment plugin integrates your business with the BaFin (German Fede
 - Trustly
 - Blik
 - Payconiq
-- Twint
+- TWINT
 
 ## Opening a Novalnet merchant account
 
