@@ -43,7 +43,7 @@ Das Novalnet-Zahlungsplugin bindet Ihre Verkaufsplattform an die von der BaFin (
 - Trustly
 - Blik
 - Payconiq
-- Twint
+- TWINT
 
 ## Abschluss eines Novalnet Händlerkontos/Dienstleistungsvertrags:
 
