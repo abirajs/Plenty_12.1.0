@@ -78,7 +78,7 @@ class CreateNovalnetPaymentMethods1220
             'NOVALNET_PAYCONIQ'                 => 'Novalnet Payconiq',
             'NOVALNET_MBWAY'                    => 'Novalnet MBway',
             'NOVALNET_ACH'                      => 'Novalnet Direct Debit ACH',
-            'NOVALNET_TWINT'                    => 'Novalnet Twint',
+            'NOVALNET_TWINT'                    => 'Novalnet TWINT',
 
         ];
 
