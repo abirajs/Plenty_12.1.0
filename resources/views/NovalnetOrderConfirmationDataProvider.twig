@@ -4,7 +4,8 @@
     <span class="col-6 col-sm-7">{{transactionComments|raw}}</span>
 
     {# Display the cashpayment button #}
-    {% if cashpaymentToken is not empty and services.template.isCurrentTemplate('tpl.confirmation') %}
+    {% set successStatus = ['CONFIRMED', 'PENDING'] %}
+    {% if cashpaymentToken is not empty and (txStatus in successStatus) and services.template.isCurrentTemplate('tpl.confirmation') %}
     <button id="barzahlen_button" class="bz-checkout-btn" onclick="javascript:bzCheckout.display();">{{trans("Novalnet::PaymentMethod.barzahlen_token")}}</button>
     <style type="text/css">
         #bz-checkout-modal {position: fixed !important;}
