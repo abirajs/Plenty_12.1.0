@@ -550,6 +550,7 @@ class WebhookController extends Controller
      */
     public function handleInstalment()
     {
+	$this->getLogger(__METHOD__)->error('Novalnet::instalment-initialed', 'instlament-initialted');
         // If the instalemnt is proceeded, we update necessary alterations in DB
         $webhookComments = sprintf($this->paymentHelper->getTranslatedText('instalment', $this->orderLanguage), $this->eventData['event']['parent_tid'],    $this->eventData['event']['tid'], str_replace('.', ',', sprintf('%0.2f', ($this->eventData['instalment']['cycle_amount'] / 100 ))), $this->eventData['transaction']['currency'], date('d-m-Y'), date('H:i:s'));
         if(isset($this->eventData['instalment']['pending_cycles'])) {
