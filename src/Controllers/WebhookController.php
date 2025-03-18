@@ -568,7 +568,6 @@ class WebhookController extends Controller
         $this->getLogger(__METHOD__)->error('Novalnet::orderdetails', $novalnetOrderDetails);
         // Create the payment to the plenty order
         $this->paymentHelper->createPlentyPayment($this->eventData);
-	$this->transactionService->updateTransactionData('orderNo', $this->eventData['transaction']['order_no'], $this->eventData);
         $this->sendWebhookMail($webhookComments);
         return $this->renderTemplate($webhookComments);
 
@@ -594,7 +593,6 @@ class WebhookController extends Controller
         $this->eventData['bookingText'] = $webhookComments;
         // Create the payment to the plenty order
         $this->paymentHelper->createPlentyPayment($this->eventData);
-	$this->transactionService->updateTransactionData('orderNo', $this->eventData['transaction']['order_no'], $this->eventData);
         $this->sendWebhookMail($webhookComments);
         return $this->renderTemplate($webhookComments);
 
