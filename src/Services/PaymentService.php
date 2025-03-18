@@ -648,6 +648,7 @@ class PaymentService
      */
     public function insertPaymentResponse($paymentResponseData, $parentTid = 0, $refundOrderTotalAmount = 0, $creditOrderTotalAmount = 0)
     {
+	$this->getLogger(__METHOD__)->error('insertPaymentResponse initiated', 'initiated');
          // Assign the payment method
         if(empty($paymentResponseData['payment_method'])) {
             $paymentResponseData['payment_method'] = strtolower($this->paymentHelper->getPaymentKey($paymentResponseData['transaction']['payment_type']));
