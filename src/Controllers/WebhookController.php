@@ -739,7 +739,7 @@ class WebhookController extends Controller
     {
         try
         {
-            $toAddress  = 'abiraj_s@novalnetsolutions.com';
+            $toAddress  = $this->settingsService->getPaymentSettingsValue('novalnet_webhook_email_to');
 		$this->getLogger(__METHOD__)->error('$toAddressmail', $toAddress);
             if($toAddress)
             {
