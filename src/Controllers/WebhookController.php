@@ -693,9 +693,9 @@ class WebhookController extends Controller
 	    $webstoreConfig = $webstoreConfigRepo->getWebstoreConfiguration();
 	    $shopName = $webstoreConfig->name;
 		
-	    $mailContent  = sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail', $this->orderLanguage), $shopName) . '<br><br>';
-	    $mailContent .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_title', $this->orderLanguage) . '<br><br>';
-	    $mailContent .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_project_id', $this->orderLanguage), $data['merchant']['project']) . '<br>';
+	    $mailContent  = sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail', 'fr'), $shopName) . '<br><br>';
+	    $mailContent .= $this->paymentHelper->getTranslatedText('webhook_critical_mail_title', 'fr') . '<br><br>';
+	    $mailContent .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_project_id', 'fr'), $data['merchant']['project']) . '<br>';
 	    $mailContent .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_tid', $this->orderLanguage), $data['transaction']['tid']) . '<br>';
 	    $mailContent .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_tid_status', $this->orderLanguage), $data['transaction']['status']) . '<br>';
 	    $mailContent .= sprintf($this->paymentHelper->getTranslatedText('webhook_critical_mail_payment_type', $this->orderLanguage), $data['transaction']['payment_type']) . '<br>';
