@@ -561,7 +561,7 @@ class WebhookController extends Controller
         // Booking Message
         $this->eventData['bookingText'] = $webhookComments;
         // Insert the updated instalment details into Novalnet DB
-        $this->paymentService->insertPaymentResponse($this->eventData, $this->parentTid);
+        $this->paymentService->insertPaymentResponse($this->eventData);
         // Create the payment to the plenty order
         $this->paymentHelper->createPlentyPayment($this->eventData);
 	$this->transactionService->updateTransactionData('orderNo', $this->eventData['transaction']['order_no'], $this->eventData);
@@ -590,6 +590,7 @@ class WebhookController extends Controller
         $this->eventData['bookingText'] = $webhookComments;
         // Create the payment to the plenty order
         $this->paymentHelper->createPlentyPayment($this->eventData);
+	$this->transactionService->updateTransactionData('orderNo', $this->eventData['transaction']['order_no'], $this->eventData);
         $this->sendWebhookMail($webhookComments);
         return $this->renderTemplate($webhookComments);
 
