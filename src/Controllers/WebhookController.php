@@ -25,6 +25,7 @@ use Plenty\Plugin\Mail\Contracts\MailerContract;
 use \stdClass;
 use Plenty\Plugin\Log\Loggable;
 use Plenty\Modules\Webshop\Contracts\WebstoreConfigurationRepositoryContract;
+use Plenty\Plugin\Mail\Services\MailerService;
 
 /**
  * Class WebhookController
