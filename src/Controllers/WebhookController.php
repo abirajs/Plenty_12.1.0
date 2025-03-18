@@ -289,6 +289,7 @@ class WebhookController extends Controller
     {
         // Get the order details if the Novalnet transaction is alreay in the Novalnet database
         $novalnetOrderDetails = $this->transactionService->getTransactionData('tid', $this->parentTid);
+	$this->getLogger(__METHOD__)->error('novalnetOrderDetailsnovalnetOrderDetails', $novalnetOrderDetails);
         // Use the initial transaction details
         $novalnetOrderDetail = $novalnetOrderDetails[0];
         $additionalInfo = json_decode($novalnetOrderDetail->additionalInfo, true);
