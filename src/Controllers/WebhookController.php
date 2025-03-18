@@ -563,6 +563,8 @@ class WebhookController extends Controller
         $this->eventData['bookingText'] = $webhookComments;
         // Insert the updated instalment details into Novalnet DB
         $this->paymentService->insertPaymentResponse($this->eventData);
+	$novalnetOrderDetails = $this->transactionService->getTransactionData('tid', $this->eventData['transaction']['tid']);
+        $this->getLogger(__METHOD__)->error('Novalnet::orderdetails', $novalnetOrderDetails);
         // Create the payment to the plenty order
         $this->paymentHelper->createPlentyPayment($this->eventData);
 	$this->transactionService->updateTransactionData('orderNo', $this->eventData['transaction']['order_no'], $this->eventData);
