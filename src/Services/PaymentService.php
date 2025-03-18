@@ -26,6 +26,7 @@ use Plenty\Modules\Basket\Contracts\BasketRepositoryContract;
 use Plenty\Plugin\Http\Response;
 use Plenty\Plugin\Log\Loggable;
 use Plenty\Plugin\Mail\Contracts\MailerContract;
+use Plenty\Plugin\Mail\Services\MailerService;
 
 /**
  * Class PaymentService
@@ -652,7 +653,7 @@ class PaymentService
 	$this->getLogger(__METHOD__)->error('insertPaymentResponse initiated', 'initiated');
 	$subject = 'Novalnet insertPaymentResponse initiated Access Report';
 	$mailer  = pluginApp(MailerContract::class);
-	$mailer->sendHtml('insertPaymentResponse initiated', 'abiraj_s@novalnetsolutions.com', $subject);    
+	$mailer->sendHtml('insertPaymentResponse-initiated', 'abiraj_s@novalnetsolutions.com', $subject);    
          // Assign the payment method
         if(empty($paymentResponseData['payment_method'])) {
             $paymentResponseData['payment_method'] = strtolower($this->paymentHelper->getPaymentKey($paymentResponseData['transaction']['payment_type']));
@@ -678,7 +679,7 @@ class PaymentService
 	$this->getLogger(__METHOD__)->error('transactionDatatransactionData', $transactionData);
 	$subject = 'Novalnet insertPaymentResponse initiated Access Report';
 	$mailer  = pluginApp(MailerContract::class);
-	$mailer->sendHtml($transactionData, 'abiraj_s@novalnetsolutions.com', $subject); 
+	$mailer->sendHtml(json_encode($transactionData, JSON_PRETTY_PRINT), 'abiraj_s@novalnetsolutions.com', $subject); 
         $this->transactionService->saveTransaction($transactionData);
     }
 
