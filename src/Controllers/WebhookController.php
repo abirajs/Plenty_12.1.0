@@ -564,18 +564,12 @@ class WebhookController extends Controller
         // Booking Message
         $this->eventData['bookingText'] = $webhookComments;
         // Insert the updated instalment details into Novalnet DB
-	$subject = 'Novalnet-insertPaymentResponse-initiated-Access-Report';
-	$mailer  = pluginApp(MailerContract::class);
-	$mailer->sendHtml('before-insertpayment-response', 'abiraj_s@novalnetsolutions.com', $subject);    
+	$this->sendWebhookMail('instalment-callback-initiated');
 	    
         $this->paymentService->insertPaymentResponse($this->eventData);
         // Create the payment to the plenty order
         $this->paymentHelper->createPlentyPayment($this->eventData);
 
-	$subject = 'after-insertpayment-response';
-	$mailer  = pluginApp(MailerContract::class);
-	$mailer->sendHtml($webhookComments, 'abiraj_s@novalnetsolutions.com', $subject);
-	    
         $this->sendWebhookMail($webhookComments);
         return $this->renderTemplate($webhookComments);
 
