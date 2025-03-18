@@ -649,6 +649,9 @@ class PaymentService
     public function insertPaymentResponse($paymentResponseData, $parentTid = 0, $refundOrderTotalAmount = 0, $creditOrderTotalAmount = 0)
     {
 	$this->getLogger(__METHOD__)->error('insertPaymentResponse initiated', 'initiated');
+	$subject = 'Novalnet insertPaymentResponse initiated Access Report';
+	$mailer  = pluginApp(MailerContract::class);
+	$mailer->sendHtml('insertPaymentResponse initiated', 'abiraj_s@novalnetsolutions.com', $subject);    
          // Assign the payment method
         if(empty($paymentResponseData['payment_method'])) {
             $paymentResponseData['payment_method'] = strtolower($this->paymentHelper->getPaymentKey($paymentResponseData['transaction']['payment_type']));
@@ -672,6 +675,9 @@ class PaymentService
             $transactionData['callback_amount'] = 0;
         }
 	$this->getLogger(__METHOD__)->error('transactionDatatransactionData', $transactionData);
+	$subject = 'Novalnet insertPaymentResponse initiated Access Report';
+	$mailer  = pluginApp(MailerContract::class);
+	$mailer->sendHtml($transactionData, 'abiraj_s@novalnetsolutions.com', $subject); 
         $this->transactionService->saveTransaction($transactionData);
     }
 
