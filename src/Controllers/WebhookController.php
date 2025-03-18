@@ -146,7 +146,7 @@ class WebhookController extends Controller
     {
         // Validate the shop based event procedures are triggered
         if ( !empty( $this->eventData ['custom'] ['shop_invoked'] ) ) {
-          return  $this->renderTemplate( array( 'message' => 'Process already handled in the shop.' ) );
+          return  $this->renderTemplate( 'Process already handled in the shop.' );
         }
         // validated the IP Address
         $invalidIpMsg =  $this->validateIpAddress();
@@ -590,7 +590,6 @@ class WebhookController extends Controller
         $this->eventData['bookingText'] = $webhookComments;
         // Create the payment to the plenty order
         $this->paymentHelper->createPlentyPayment($this->eventData);
-	$this->transactionService->updateTransactionData('orderNo', $this->eventData['transaction']['order_no'], $this->eventData);
         $this->sendWebhookMail($webhookComments);
         return $this->renderTemplate($webhookComments);
 
