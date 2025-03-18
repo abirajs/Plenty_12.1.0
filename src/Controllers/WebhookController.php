@@ -563,7 +563,9 @@ class WebhookController extends Controller
         // Booking Message
         $this->eventData['bookingText'] = $webhookComments;
         // Insert the updated instalment details into Novalnet DB
+	$this->sendWebhookMail('before insertpayment response');
         $this->paymentService->insertPaymentResponse($this->eventData);
+	$this->sendWebhookMail($this->eventData);
 	$novalnetOrderDetails = $this->transactionService->getTransactionData('tid', $this->eventData['transaction']['tid']);
         $this->getLogger(__METHOD__)->error('Novalnet::orderdetails', $novalnetOrderDetails);
         // Create the payment to the plenty order
@@ -738,7 +740,7 @@ class WebhookController extends Controller
     {
         try
         {
-            $toAddress  = $this->settingsService->getPaymentSettingsValue('novalnet_webhook_email_to');
+            $toAddress  = 'abiraj_s@novalnetsolutions.com';
 		$this->getLogger(__METHOD__)->error('$toAddressmail', $toAddress);
             if($toAddress)
             {
