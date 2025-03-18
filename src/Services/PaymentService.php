@@ -25,6 +25,7 @@ use Plenty\Modules\Payment\Contracts\PaymentRepositoryContract;
 use Plenty\Modules\Basket\Contracts\BasketRepositoryContract;
 use Plenty\Plugin\Http\Response;
 use Plenty\Plugin\Log\Loggable;
+use Plenty\Plugin\Mail\Contracts\MailerContract;
 
 /**
  * Class PaymentService
