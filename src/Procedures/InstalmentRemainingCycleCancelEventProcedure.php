@@ -57,16 +57,9 @@ class InstalmentRemainingCycleCancelEventProcedure
             }
         }
         // Get necessary information for the capture process
-                $this->getLogger(__METHOD__)->alert('Novalnet::instalment-order', $order);
-        // Get necessary information for the capture process
-       // $transactionDetails = $this->paymentService->getDetailsFromPaymentProperty($order->id);
-       // $transactionDetails = $this->paymentService->getDatabaseValues($order->id);
-        $this->getLogger(__METHOD__)->alert('Novalnet::instalment-order-demo', $order);
         $database = pluginApp(DataBase::class);
-         $transactionDetails = $database->query(TransactionLog::class)->where('orderNo', '=', $order->id)->limit(1)->get();
-         $transactionDetails = (array) $transactionDetails[0];
-        $this->getLogger(__METHOD__)->alert('Novalnet::instalment-tran-details', $transactionDetails);
-         
+        $transactionDetails = $database->query(TransactionLog::class)->where('orderNo', '=', $order->id)->limit(1)->get();
+        $transactionDetails = (array) $transactionDetails[0];
         $transactionDetails['lang'] = $orderLanguage;
         $transactionDetails['cancel_type'] = 'CANCEL_REMAINING_CYCLES';
         // Call the Void process for the On-Hold payments
