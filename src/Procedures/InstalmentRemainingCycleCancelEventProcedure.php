@@ -12,6 +12,9 @@ use Plenty\Modules\EventProcedures\Events\EventProceduresTriggered;
 use Plenty\Modules\Order\Models\Order;
 use Novalnet\Services\PaymentService;
 use Novalnet\Constants\NovalnetConstants;
+use Plenty\Modules\Plugin\DataBase\Contracts\DataBase;
+use Plenty\Modules\Plugin\DataBase\Contracts\Query;
+use Novalnet\Models\TransactionLog;
 use Plenty\Plugin\Log\Loggable;
 
 /**
