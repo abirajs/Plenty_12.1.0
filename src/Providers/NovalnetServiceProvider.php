@@ -430,8 +430,7 @@ class NovalnetServiceProvider extends ServiceProvider
                 // Get Novalnet transaction details from the Novalnet database table
                 $nnDbTxDetails = $paymentService->getDatabaseValues($order->id);
                 if(!empty($nnDbTxDetails['plugin_version']) && strpos($nnDbTxDetails['paymentName'], 'novalnet') !== false) { // If Novalnet Payments do the invoice PDF process
-                    $transactionComments = '';
-                    $transactionComments .= $paymentService->displayTransactionComments($order->id, $payments);
+                    $transactionComments = $paymentService->displayTransactionComments($order->id, $payments);
                     $orderPdfGenerationModel = pluginApp(OrderPdfGeneration::class);
                     $this->getLogger(__METHOD__)->error('$nnDbTxDetails', $nnDbTxDetails);                                                                                                   
                     $orderPdfGenerationModel->language = !empty($nnDbTxDetails['lang'])  ? $nnDbTxDetails['lang'] : 'de';
