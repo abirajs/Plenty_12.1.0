@@ -56,7 +56,7 @@ class InstalmentAllCycleEventProcedure
         $this->getLogger(__METHOD__)->alert('Novalnet::instalment-order', $order);
         // Get necessary information for the capture process
        // $transactionDetails = $this->paymentService->getDetailsFromPaymentProperty($order->id);
-        $transactionDetails = $this->getDatabaseValues($order->id)
+        $transactionDetails = $this->paymentService->getDatabaseValues($order->id)
                   ->orderBy('created_at', 'ASC') // Order by the oldest entry
                   ->limit(1) // Get only the first record
                   ->fetch();
