@@ -551,8 +551,6 @@ class WebhookController extends Controller
      */
     public function handleInstalment()
     {
-	$this->getLogger(__METHOD__)->error('Novalnet::instalment-initialed', 'instlament-initialted');
-	$this->sendWebhookMail('before-instalment-callback-initiated');
         // If the instalemnt is proceeded, we update necessary alterations in DB
         $webhookComments =  sprintf($this->paymentHelper->getTranslatedText('instalment', $this->orderLanguage), $this->eventData['event']['parent_tid'],    $this->eventData['event']['tid'], str_replace('.', ',', sprintf('%0.2f', ($this->eventData['instalment']['cycle_amount'] / 100 ))), $this->eventData['transaction']['currency'], date('d-m-Y'), date('H:i:s'));
         if(isset($this->eventData['instalment']['pending_cycles'])) {
@@ -584,7 +582,7 @@ class WebhookController extends Controller
     public function handleInstalmentCancel()
     {
         // If the instalment cancel is captured, we update necessary alterations in DB
-        $webhookComments = sprintf($this->paymentHelper->getTranslatedText('instalment_all_cycle_cancel', $this->orderLanguage), $this->eventData['event']['parent_tid'] , date('d-m-Y'), $this->eventData['event']['parent_tid'], str_replace('.', ',', sprintf('%0.2f', ($this->eventData['transaction']['refund']['amount'] / 100))) , $this->eventData['transaction']['currency'],  $this->eventData['event']['tid']);
+        $webhookComments = sprintf($this->paymentHelper->getTranslatedText('instalment_all_cycle_cancel', $this->orderLanguage), $this->eventData['event']['parent_tid'], date('d-m-Y'));
         if($this->eventData['instalment']['cancel_type'] == 'REMAINING_CYCLES') {
             $webhookComments = sprintf($this->paymentHelper->getTranslatedText('instalment_remaining_cycle_cancel', $this->orderLanguage), $this->eventData['event']['parent_tid'], date('d-m-Y'));
         }
