@@ -13,6 +13,9 @@ use Plenty\Modules\Order\Models\Order;
 use Novalnet\Services\PaymentService;
 use Novalnet\Constants\NovalnetConstants;
 use Plenty\Plugin\Log\Loggable;
+use Plenty\Modules\Plugin\DataBase\Contracts\DataBase;
+use Plenty\Modules\Plugin\DataBase\Contracts\Query;
+use Novalnet\Models\TransactionLog;
 
 /**
  * Class VoidEventProcedure
@@ -56,11 +59,10 @@ class InstalmentAllCycleEventProcedure
         $this->getLogger(__METHOD__)->alert('Novalnet::instalment-order', $order);
         // Get necessary information for the capture process
        // $transactionDetails = $this->paymentService->getDetailsFromPaymentProperty($order->id);
-        $transactionDetails = $this->paymentService->getDatabaseValues($order->id)
-                  ->orderBy('created_at', 'ASC') // Order by the oldest entry
-                  ->limit(1) // Get only the first record
-                  ->fetch();
-
+       // $transactionDetails = $this->paymentService->getDatabaseValues($order->id);
+        $database = pluginApp(DataBase::class);
+        $transactionDetails = $database->query(TransactionLog::class)->where('orderNo', '=', $order->id)->limit(1)->get()->first();
+        
         $transactionDetails['lang'] = $orderLanguage;
         $transactionDetails['cancel_type'] = 'CANCEL_ALL_CYCLES';
         $this->getLogger(__METHOD__)->alert('Novalnet::instalment-tran-details', $transactionDetails);
