@@ -66,7 +66,6 @@ class InstalmentAllCycleEventProcedure
         $transactionDetails['lang'] = $orderLanguage;
         $transactionDetails['cancel_type'] = 'CANCEL_ALL_CYCLES';
         $this->getLogger(__METHOD__)->alert('Novalnet::instalment-tran-details', $transactionDetails);
-        $this->getLogger(__METHOD__)->alert('Novalnet::instalment-tran-details[0]', $transactionDetails[0]->tid);
         // Call the Recurring details process for the Instalment payments
         $this->paymentService->doInstalmentVoid($transactionDetails, NovalnetConstants::INSTALMENT_VOID_URL);
     }
