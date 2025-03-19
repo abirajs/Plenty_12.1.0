@@ -63,7 +63,7 @@ class InstalmentAllCycleEventProcedure
         $this->getLogger(__METHOD__)->alert('Novalnet::instalment-order-demo', $order);
         $database = pluginApp(DataBase::class);
          $transactionDetails = $database->query(TransactionLog::class)->where('orderNo', '=', $order->id)->limit(1)->get();
-         $transactionDetails = $transactionDetails[0];
+         $transactionDetails = (array) $transactionDetails[0];
         $this->getLogger(__METHOD__)->alert('Novalnet::instalment-tran-details', $transactionDetails);
         $transactionDetails['lang'] = $orderLanguage;
         $transactionDetails['cancel_type'] = 'CANCEL_ALL_CYCLES';
