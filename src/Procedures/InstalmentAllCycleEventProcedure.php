@@ -55,10 +55,15 @@ class InstalmentAllCycleEventProcedure
         }
         $this->getLogger(__METHOD__)->alert('Novalnet::instalment-order', $order);
         // Get necessary information for the capture process
-        $transactionDetails = $this->paymentService->getDetailsFromPaymentProperty($order->id);
+       // $transactionDetails = $this->paymentService->getDetailsFromPaymentProperty($order->id);
+        $transactionDetails = $this->getDatabaseValues($order->id)
+                  ->orderBy('created_at', 'ASC') // Order by the oldest entry
+                  ->limit(1) // Get only the first record
+                  ->fetch();
+
         $transactionDetails['lang'] = $orderLanguage;
         $transactionDetails['cancel_type'] = 'CANCEL_ALL_CYCLES';
-        $this->getLogger(__METHOD__)->alert('Novalnet::instalment', $transactionDetails);
+        $this->getLogger(__METHOD__)->alert('Novalnet::instalment-tran-details', $transactionDetails);
         // Call the Recurring details process for the Instalment payments
         $this->paymentService->doInstalmentVoid($transactionDetails, NovalnetConstants::INSTALMENT_VOID_URL);
     }
