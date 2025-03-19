@@ -1447,7 +1447,7 @@ class PaymentService
             }
             $paymentResponseData['transaction']['amount'] = 0;
 		 $this->getLogger(__METHOD__)->error('Novalnet::$additionalInfo', json_encode($transactionData['additionalInfo'], true));
-	    $additionalInfo['currency'] = json_encode($transactionData['additionalInfo'], true);
+	    $additionalInfo = json_encode($transactionData['additionalInfo'], true);
 		 $this->getLogger(__METHOD__)->error('Novalnet::doInstalmentVoid failed', $additionalInfo['currency']);
             $paymentResponseData['transaction']['currency'] = $additionalInfo['currency'];
             // Insert the updated transaction details into Novalnet DB
