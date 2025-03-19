@@ -1446,7 +1446,10 @@ class PaymentService
                 $paymentResponseData['bookingText'] = sprintf($this->paymentHelper->getTranslatedText('instalment_remaining_cycle_cancel', $transactionData['lang']),$paymentResponseData['transaction']['tid'], date('d-m-Y'));
             }
             $paymentResponseData['transaction']['amount'] = 0;
-            $paymentResponseData['transaction']['currency'] = $transactionData['currency'];
+		 $this->getLogger(__METHOD__)->error('Novalnet::$additionalInfo', json_encode($transactionData['additionalInfo'], true));
+	    $additionalInfo['currency'] = json_encode($transactionData['additionalInfo'], true);
+		 $this->getLogger(__METHOD__)->error('Novalnet::doInstalmentVoid failed', $additionalInfo);
+            $paymentResponseData['transaction']['currency'] = $additionalInfo['currency'];
             // Insert the updated transaction details into Novalnet DB
             $this->insertPaymentResponse($paymentResponseData);
             // Create the payment to the plenty order
