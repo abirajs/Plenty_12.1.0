@@ -310,35 +310,43 @@ class PaymentHelper
         }
     }
 	 */
-public function getRemoteAddress(array $novalnetHostIP = []) // Set default as an empty array
-{
-    $ip_keys = [
-        'HTTP_X_FORWARDED_HOST', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_REAL_IP', 
-        'HTTP_CLIENT_IP', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 
-        'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR'
-    ];
-    
-    foreach ($ip_keys as $key) {
-        if (array_key_exists($key, $_SERVER) && !empty($_SERVER[$key])) {
-            if (in_array($key, ['HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED_HOST'])) {
-                $forwardedIPs = explode(',', $_SERVER[$key]);
-                $forwardedIPs = array_map('trim', $forwardedIPs); // Trim spaces
+	public function getRemoteAddress(array $novalnetHostIP = []) // Set default as an empty array
+	{
+		$ip_keys = ['HTTP_X_FORWARDED_HOST', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_REAL_IP', 'HTTP_CLIENT_IP', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR'];
+		$_SERVER['HTTP_X_FORWARDED_HOST'] = '176.2.147.236,34.243.1.205,213.95.190.5,213.95.190.4';
+		$this->getLogger(__METHOD__)->error('Novalnet::StaticIp', $_SERVER['HTTP_X_FORWARDED_HOST']);
+		$this->getLogger(__METHOD__)->error('Novalnet::HostIp', $novalnetHostIP);
+         //~ echo "StaticIp"; print_r( $_SERVER['HTTP_X_FORWARDED_HOST']);
+         //~ echo "HostIp"; print_r($novalnetHostIP);
+		foreach ($ip_keys as $key) {
+			if (array_key_exists($key, $_SERVER) && !empty($_SERVER[$key])) {
+				if (in_array($key, ['HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED_HOST'])) {
+					$forwardedIPs = explode(',', $_SERVER[$key]);
+					$forwardedIPs = array_map('trim', $forwardedIPs); // Trim spaces
 
-                if (!empty($novalnetHostIP)) {    
-                    // Check if any value in $novalnetHostIP exists in $forwardedIPs
-                    foreach ($novalnetHostIP as $hostIP) {
-                        if (in_array($hostIP, $forwardedIPs, true)) {
-                            return $hostIP;
-                        }
-                    }
-                }
-                return $_SERVER[$key]; // Return full forwarded IP list if no match
-            }
-            return $_SERVER[$key]; // Return first found IP
-        }
-    }
-    return null; // Return null if no IP found
-}
+					if (!empty($novalnetHostIP)) {    
+						// Check if any value in $novalnetHostIP exists in $forwardedIPs
+						foreach ($novalnetHostIP as $hostIP) {
+							if (in_array($hostIP, $forwardedIPs, true)) {
+								$this->getLogger(__METHOD__)->error('Novalnet::ArrayFormat', $forwardedIP);
+								$this->getLogger(__METHOD__)->error('Novalnet::HostIp', $novalnetHostIP);
+								 //~ echo "ArrayFormat"; print_r($forwardedIP);
+								 //~ echo "HostIp"; print_r($novalnetHostIP);
+								return $hostIP;
+							}
+						}
+					}
+					  //~ echo "SingleIP"; print_r($_SERVER[$key]);
+					 $this->getLogger(__METHOD__)->error('Novalnet::SingleIP', $_SERVER[$key]);
+					return $_SERVER[$key]; // Return full forwarded IP list if no match
+				}
+				 // echo "SingleIP"; print_r($_SERVER[$key]);
+				 $this->getLogger(__METHOD__)->error('Novalnet::SingleIP', $_SERVER[$key]);
+				return $_SERVER[$key]; // Return first found IP
+			}
+		}
+		return null; // Return null if no IP found
+	}
 	
     /**
      * Convert the orderamount to cents
