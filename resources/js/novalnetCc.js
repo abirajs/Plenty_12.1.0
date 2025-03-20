@@ -1,4 +1,5 @@
 jQuery(document).ready(function () {
+    console.log('KGF-vicky');
     var script = document.createElement('script');
     script.setAttribute('type', 'text/javascript');
     script.setAttribute('src', 'https://cdn.novalnet.de/js/v2/NovalnetUtility.js'); 
