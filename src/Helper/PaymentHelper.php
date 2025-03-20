@@ -310,23 +310,28 @@ class PaymentHelper
         }
     }
 	 */
-public function getRemoteAddress(array $novalnetHostIP = '')
+public function getRemoteAddress(array $novalnetHostIP = []) // Set default as an empty array
 {
-    $ip_keys = [ 'HTTP_X_FORWARDED_HOST', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_REAL_IP', 'HTTP_CLIENT_IP', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR'];
+    $ip_keys = [
+        'HTTP_X_FORWARDED_HOST', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_REAL_IP', 
+        'HTTP_CLIENT_IP', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 
+        'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR'
+    ];
     
     foreach ($ip_keys as $key) {
         if (array_key_exists($key, $_SERVER) && !empty($_SERVER[$key])) {
             if (in_array($key, ['HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED_HOST'])) {
                 $forwardedIPs = explode(',', $_SERVER[$key]);
                 $forwardedIPs = array_map('trim', $forwardedIPs); // Trim spaces
-		if(!empty($novalnetHostIP)){	
-	                // Check if any value in $novalnetHostIP exists in $forwardedIPs
-	                foreach ($novalnetHostIP as $hostIP) {
-	                    if (in_array($hostIP, $forwardedIPs, true)) {
-	                        return $hostIP;
-	                    }
-	                }
-		}
+
+                if (!empty($novalnetHostIP)) {    
+                    // Check if any value in $novalnetHostIP exists in $forwardedIPs
+                    foreach ($novalnetHostIP as $hostIP) {
+                        if (in_array($hostIP, $forwardedIPs, true)) {
+                            return $hostIP;
+                        }
+                    }
+                }
                 return $_SERVER[$key]; // Return full forwarded IP list if no match
             }
             return $_SERVER[$key]; // Return first found IP
