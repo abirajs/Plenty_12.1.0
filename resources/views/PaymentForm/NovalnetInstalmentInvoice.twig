@@ -1,6 +1,6 @@
 {# Load the css and Js #}
 <link rel="stylesheet" href="{{plugin_path('Novalnet')}}/css/novalnetUi.css">
-<script defer src="{{plugin_path('Novalnet')}}/js/novalnetInstalmentPayment.min.js" integrity="sha384-Cb08uODd0XP/d3jtdE6schdoKPwUyggPn7NqbFEoDTLSvCYag6ZGgKooEF3h8RvX"></script>
+<script defer src="{{plugin_path('Novalnet')}}/js/novalnetInstalmentPayment.min.js" integrity="sha384-Cb08uODd0XP/d3jtdE6schdoKPwUyggPn7NqbFEoDTLSvCYag6ZGgKooEF3h8RvX" crossorigin="anonymous"></script>
 {% if paymentMopKey == 'NOVALNET_INSTALMENT_INVOICE' and showBirthday != true %}
 <input type="hidden" id="nn_validation" name="nn_validation" value="1">
 {% endif %}
