@@ -1,7 +1,7 @@
 {# Load the css and Js #}
 <link rel="stylesheet" href="{{plugin_path('Novalnet')}}/css/novalnetUi.css">
 <script type="text/javascript" src="https://cdn.novalnet.de/js/v2/NovalnetUtility.js"></script>
-<script src="{{ plugin_path('Novalnet') }}/js/novalnetSepa.min.js" integrity="sha384-QkYHMI8aQiNPVf1vl7ltWjKceVWcNuZEW6eOINpbfqtgFxXXjuBrJ+rYoH5UQMIE"></script>
+<script src="{{ plugin_path('Novalnet') }}/js/novalnetSepa.min.js" integrity="sha384-QkYHMI8aQiNPVf1vl7ltWjKceVWcNuZEW6eOINpbfqtgFxXXjuBrJ+rYoH5UQMIE" crossorigin="anonymous"></script>
 {% if paymentMopKey == 'NOVALNET_GUARANTEED_SEPA' and showBirthday == true %}
    <script src="{{plugin_path('Novalnet')}}/js/novalnetGuaranteedPayment.min.js" integrity="sha384-eByiTfbKVGn7pOCGcVoEUulIq6NiLk1hs6N6DHwDxcIeJBUaVwb06il5SRncXLkZ"></script>
 {% endif %}
