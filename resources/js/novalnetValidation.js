@@ -2,7 +2,7 @@ jQuery(document).ready(function() {
     jQuery('.nn_number').on('input', function() {
         // Get the current input value
         var inputValue = jQuery(this).val();
-
+        console.log('mbway');
         // Use a regular expression to allow only numbers (0-9)
         var numericValue = inputValue.replace(/[^0-9]/g, '');
 
