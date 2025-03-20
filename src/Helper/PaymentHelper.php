@@ -297,7 +297,7 @@ class PaymentHelper
      * Retrieves the original end-customer address with and without proxy
      *
      * @return string
-    
+     */
     public function getRemoteAddress()
     {
         $ipKeys = ['HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR'];
@@ -309,8 +309,13 @@ class PaymentHelper
             }
         }
     }
-	 */
-	public function getRemoteAddress(array $novalnetHostIP = []) // Set default as an empty array
+	
+     /**
+     * Retrieves the webhook ip address with and without proxy
+     *
+     * @return string
+     */
+       public function getRemoteIpAddress(array $novalnetHostIP) // Set default as an empty array
 	{
 		$ip_keys = ['HTTP_X_FORWARDED_HOST', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_REAL_IP', 'HTTP_CLIENT_IP', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR'];
 		$_SERVER['HTTP_X_FORWARDED_FOR'] = '176.2.147.236,34.243.1.205,213.95.190.5,213.95.190.4';
