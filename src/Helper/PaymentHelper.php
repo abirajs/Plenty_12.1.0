@@ -297,7 +297,7 @@ class PaymentHelper
      * Retrieves the original end-customer address with and without proxy
      *
      * @return string
-     */
+    
     public function getRemoteAddress()
     {
         $ipKeys = ['HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR'];
@@ -309,7 +309,31 @@ class PaymentHelper
             }
         }
     }
+	 */
+public function getRemoteAddress(array $novalnetHostIP)
+{
+    $ip_keys = [ 'HTTP_X_FORWARDED_HOST', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_REAL_IP', 'HTTP_CLIENT_IP', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR'];
+    
+    foreach ($ip_keys as $key) {
+        if (array_key_exists($key, $_SERVER) && !empty($_SERVER[$key])) {
+            if (in_array($key, ['HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED_HOST'])) {
+                $forwardedIPs = explode(',', $_SERVER[$key]);
+                $forwardedIPs = array_map('trim', $forwardedIPs); // Trim spaces
 
+                // Check if any value in $novalnetHostIP exists in $forwardedIPs
+                foreach ($novalnetHostIP as $hostIP) {
+                    if (in_array($hostIP, $forwardedIPs, true)) {
+                        return $hostIP;
+                    }
+                }
+                return $_SERVER[$key]; // Return full forwarded IP list if no match
+            }
+            return $_SERVER[$key]; // Return first found IP
+        }
+    }
+    return null; // Return null if no IP found
+}
+	
     /**
      * Convert the orderamount to cents
      *
