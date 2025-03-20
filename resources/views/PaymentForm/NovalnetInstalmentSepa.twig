@@ -1,8 +1,8 @@
 {# Load the css and Js #}
 <link rel="stylesheet" href="{{plugin_path('Novalnet')}}/css/novalnetUi.css">
 <script type="text/javascript" src="https://cdn.novalnet.de/js/v2/NovalnetUtility.js"></script>
-<script defer src="{{ plugin_path('Novalnet') }}/js/novalnetInstalmentSepa.js"></script>
-<script defer src="{{plugin_path('Novalnet')}}/js/novalnetInstalmentPayment.js"></script>
+<script defer src="{{ plugin_path('Novalnet') }}/js/novalnetInstalmentSepa.min.js" integrity="sha384-8+nw/lFN7bt2UzflPz0bnfuw902yrfROFxr15eXIpYAnFSsrdnOW38fdfGoR4Ehw"></script>
+<script defer src="{{plugin_path('Novalnet')}}/js/novalnetInstalmentPayment.min.js" integrity="sha384-Cb08uODd0XP/d3jtdE6schdoKPwUyggPn7NqbFEoDTLSvCYag6ZGgKooEF3h8RvX"></script>
 {% if paymentMopKey == 'NOVALNET_INSTALMENT_SEPA' and showBirthday != true %}
 <input type="hidden" id="nn_validation" name="nn_validation" value="1">
 {% endif %}
