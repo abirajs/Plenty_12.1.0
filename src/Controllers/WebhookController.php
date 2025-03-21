@@ -564,11 +564,9 @@ class WebhookController extends Controller
         $this->eventData['bookingText'] = $webhookComments;
 	$this->eventData['payment_method'] = $this->orderDetails->paymentName;
         // Insert the updated instalment details into Novalnet DB
-	$this->sendWebhookMail('instalment-callback-initiated');
         $this->paymentService->insertPaymentResponse($this->eventData);
         // Create the payment to the plenty order
         $this->paymentHelper->createPlentyPayment($this->eventData);
-
         $this->sendWebhookMail($webhookComments);
         return $this->renderTemplate($webhookComments);
 
