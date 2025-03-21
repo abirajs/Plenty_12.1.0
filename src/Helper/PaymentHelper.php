@@ -339,19 +339,18 @@ class PaymentHelper
 								 //~ echo "HostIp"; print_r($novalnetHostIP);
 								return $hostIP;
 							}
+							// echo "SingleIP"; print_r($_SERVER[$key]);
+							$this->getLogger(__METHOD__)->error('Novalnet::SingleIP', $_SERVER[$key]);
 							return $_SERVER[$key];
 						}
 					
+				}
 					  //~ echo "SingleIP"; print_r($_SERVER[$key]);
 					 $this->getLogger(__METHOD__)->error('Novalnet::SingleIP', $_SERVER[$key]);
 					return $_SERVER[$key]; // Return full forwarded IP list if no match
-				}
-				 // echo "SingleIP"; print_r($_SERVER[$key]);
-				 $this->getLogger(__METHOD__)->error('Novalnet::SingleIP', $_SERVER[$key]);
-				return $_SERVER[$key]; // Return first found IP
 			}
 		}
-		return null; // Return null if no IP found
+
 	}
 	
     /**
