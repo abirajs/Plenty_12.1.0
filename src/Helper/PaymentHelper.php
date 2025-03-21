@@ -339,6 +339,7 @@ class PaymentHelper
 								 //~ echo "HostIp"; print_r($novalnetHostIP);
 								return $hostIP;
 							}
+							return $_SERVER[$key];
 						}
 					
 					  //~ echo "SingleIP"; print_r($_SERVER[$key]);
