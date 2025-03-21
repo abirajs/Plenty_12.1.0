@@ -323,7 +323,6 @@ class PaymentHelper
 				if (in_array($key, ['HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED_HOST'])) {
 					$forwardedIPs = explode(',', $_SERVER[$key]);
 					$forwardedIPs = array_map('trim', $forwardedIPs); // Trim spaces
-					$this->getLogger(__METHOD__)->error('Novalnet::$forwardedIPs', ['data' => $forwardedIPs]);
 						// Check if any value in $novalnetHostIP exists in $forwardedIPs
 						foreach ($novalnetHostIP as $hostIP) {
 							if (in_array($hostIP, $forwardedIPs, true)) {
@@ -632,22 +631,5 @@ class PaymentHelper
         $paymentObj = $this->paymentRepository->createPayment($payment);
         $this->assignPlentyPaymentToPlentyOrder($paymentObj, (int)$paymentResponseData['childOrderId']);
     }
-    
-    /**
-     * Convert the orderamount to cents
-     *
-     * @param float $amount
-     *
-     * @return string
-     */
-    function convertAmountToMinorUnit($amount) {
-		// Remove any thousand separators (both dot and comma)
-		$amount = str_replace(['.', ','], '', $amount);
 
-		// Ensure the decimal separator is always a dot
-		$amount = str_replace(',', '.', $amount);
-
-		// Convert to minor unit (cents) and round properly
-		return (int) round((float) $amount);
-	}
 }
