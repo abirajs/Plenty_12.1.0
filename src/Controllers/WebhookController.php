@@ -223,6 +223,10 @@ class WebhookController extends Controller
     public function validateIpAddress()
     {
         $clientIp = $this->paymentHelper->getRemoteIpAddress($this->ipAllowed);
+	    $this->getLogger(__METHOD__)->error('Novalnet::$clientIp',  ['data' => json_encode($clientIp)]);
+	    $this->getLogger(__METHOD__)->error('Novalnet::ipAllowed',  ['data' => json_encode($this->ipAllowed)]);
+	    
+	$this->getLogger(__METHOD__)->error('Novalnet::ipAllowed',  ['data' => $this->settingsService->getPaymentSettingsValue('novalnet_webhook_testmode')]);
         // Condition to check whether the webhook is called from authorized IP
         if(!in_array($clientIp, $this->ipAllowed) && $this->settingsService->getPaymentSettingsValue('novalnet_webhook_testmode') != true) {
             return $this->renderTemplate('Unauthorised access from the IP ' . $clientIp);
