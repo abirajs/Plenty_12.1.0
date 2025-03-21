@@ -318,9 +318,6 @@ class PaymentHelper
        public function getRemoteIpAddress(array $novalnetHostIP) // Set default as an empty array
 	{
 		$ip_keys = ['HTTP_X_FORWARDED_HOST', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_REAL_IP', 'HTTP_CLIENT_IP', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR'];
-		$_SERVER['HTTP_X_FORWARDED_FOR'] = '176.2.147.236,34.243.1.205,213.95.190.4';
-		$this->getLogger(__METHOD__)->error('Novalnet::StaticIpgggg', ['data' => $_SERVER['HTTP_X_FORWARDED_FOR']]);
-		$this->getLogger(__METHOD__)->error('Novalnet::HostIpggg'. $novalnetHostIP, ['data' => json_encode($novalnetHostIP)]);
 		foreach ($ip_keys as $key) {
 			if (array_key_exists($key, $_SERVER) === true) {
 				if (in_array($key, ['HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED_HOST'])) {
@@ -330,18 +327,13 @@ class PaymentHelper
 						// Check if any value in $novalnetHostIP exists in $forwardedIPs
 						foreach ($novalnetHostIP as $hostIP) {
 							if (in_array($hostIP, $forwardedIPs, true)) {
-								$this->getLogger(__METHOD__)->error('Novalnet::forwardedIPs',  ['data' => json_encode($forwardedIPs)]);
-								$this->getLogger(__METHOD__)->error('Novalnet::HostIp',  ['data' => json_encode($hostIP)]);
 								return $hostIP;
 							}
 
 						}
-						$this->getLogger(__METHOD__)->error('Novalnet::SingleIP', ['data' => json_encode($_SERVER[$key])]);
 						return $_SERVER[$key];
 				}
-					  //~ echo "SingleIP"; print_r($_SERVER[$key]);
-					 $this->getLogger(__METHOD__)->error('Novalnet::SingleIP', $_SERVER[$key]);
-					return $_SERVER[$key]; // Return full forwarded IP list if no match
+				return $_SERVER[$key]; // Return full forwarded IP list if no match
 			}
 		}
 
