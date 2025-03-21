@@ -318,9 +318,9 @@ class PaymentHelper
        public function getRemoteIpAddress(array $novalnetHostIP) // Set default as an empty array
 	{
 		$ip_keys = ['HTTP_X_FORWARDED_HOST', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_REAL_IP', 'HTTP_CLIENT_IP', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR'];
-		$_SERVER['HTTP_X_FORWARDED_FOR'] = '176.2.147.236,34.243.1.205,213.95.190.5,213.95.190.4';
-		$this->getLogger(__METHOD__)->error('Novalnet::StaticIp', ['data' => $_SERVER['HTTP_X_FORWARDED_FOR']]);
-		$this->getLogger(__METHOD__)->error('Novalnet::HostIp'. $novalnetHostIP, ['data' => json_encode($novalnetHostIP)]);
+		$_SERVER['HTTP_X_FORWARDED_FOR'] = '176.2.147.236,34.243.1.205,213.95.190.7,213.95.190.4';
+		$this->getLogger(__METHOD__)->error('Novalnet::StaticIps', ['data' => $_SERVER['HTTP_X_FORWARDED_FOR']]);
+		$this->getLogger(__METHOD__)->error('Novalnet::HostIps'. $novalnetHostIP, ['data' => json_encode($novalnetHostIP)]);
 		foreach ($ip_keys as $key) {
 			if (array_key_exists($key, $_SERVER) === true) {
 				if (in_array($key, ['HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED_HOST'])) {
