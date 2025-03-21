@@ -333,8 +333,8 @@ class PaymentHelper
 						// Check if any value in $novalnetHostIP exists in $forwardedIPs
 						foreach ($novalnetHostIP as $hostIP) {
 							if (in_array($hostIP, $forwardedIPs, true)) {
-								$this->getLogger(__METHOD__)->error('Novalnet::ArrayFormat', $forwardedIP);
-								$this->getLogger(__METHOD__)->error('Novalnet::HostIp'.$novalnetHostIP, $novalnetHostIP);
+								$this->getLogger(__METHOD__)->error('Novalnet::forwardedIPs',  ['data' => json_encode($forwardedIPs)]);
+								$this->getLogger(__METHOD__)->error('Novalnet::HostIp',  ['data' => json_encode($hostIP)]);
 								 //~ echo "ArrayFormat"; print_r($forwardedIP);
 								 //~ echo "HostIp"; print_r($novalnetHostIP);
 								return $hostIP;
