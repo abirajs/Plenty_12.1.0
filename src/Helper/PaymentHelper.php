@@ -334,9 +334,10 @@ class PaymentHelper
 								$this->getLogger(__METHOD__)->error('Novalnet::HostIp',  ['data' => json_encode($hostIP)]);
 								return $hostIP;
 							}
-							$this->getLogger(__METHOD__)->error('Novalnet::SingleIP', ['data' => json_encode($_SERVER[$key])]);
-							return $_SERVER[$key];
+
 						}
+						$this->getLogger(__METHOD__)->error('Novalnet::SingleIP', ['data' => json_encode($_SERVER[$key])]);
+						return $_SERVER[$key];
 				}
 					  //~ echo "SingleIP"; print_r($_SERVER[$key]);
 					 $this->getLogger(__METHOD__)->error('Novalnet::SingleIP', $_SERVER[$key]);
